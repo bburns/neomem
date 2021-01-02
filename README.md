@@ -108,5 +108,5 @@ Some use cases to test the app and database structure -
 
 To add a new package, 
 
-    lerna 
+    npx lerna 
 

@@ -1,0 +1,25 @@
+{
+  "name": "neomem-server",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "start-test": "NODE_ENV=test yarn start",
+    "test": "chokidar \"src/**/*.js\" --initial --command \"riteway src/**/*.test.js | tap-nirvana\""
+  },
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.19.0",
+    "config": "^3.3.3",
+    "dotenv": "^8.2.0",
+    "glob": "^7.1.6",
+    "graphql": "^15.4.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6",
+    "riteway": "^6.2.1"
+  }
+}
