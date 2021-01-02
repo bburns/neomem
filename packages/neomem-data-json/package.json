@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.19.0",
+    "conf": "^7.1.2",
     "config": "^3.3.3",
     "dotenv": "^8.2.0",
     "graphql": "^15.4.0",

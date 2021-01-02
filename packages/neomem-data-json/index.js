@@ -1,6 +1,12 @@
 const { ApolloServer, gql } = require('apollo-server')
+const Conf = require('conf')
 
 const mocks = process.env.NODE_ENV === 'test'
+
+const config = new Conf()
+config.set('unicorn', '🦄')
+console.log(config.get('unicorn'))
+console.log(config.path)
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
