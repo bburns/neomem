@@ -1,0 +1,22 @@
+{
+  "name": "neomem-data-json",
+  "version": "0.1.0",
+  "description": "simple json file datasource",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "start-test": "NODE_ENV=test yarn start"
+  },
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.19.0",
+    "config": "^3.3.3",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.4.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
