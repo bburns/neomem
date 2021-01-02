@@ -1,12 +1,12 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "independent",
-  "stream":true,
-    "command":{
-        "bootstrap":{
-            "hoist":true
-        }
+  "stream": true,
+  "command": {
+    "bootstrap": {
+      "hoist": true
     }
+  },
+  "npmClient": "yarn",
+  "useWorkspaces": true
 }

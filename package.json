@@ -1,6 +1,8 @@
 {
-  "name": "root",
-  "private": true,
+  "name": "neomem",
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "lerna": "^3.22.1"
   }
