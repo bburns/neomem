@@ -1,12 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server')
-const Conf = require('conf')
 
+//. if mocks is true, want to read/write to mock db - store in json?
+// initialize it to some value, eg mocks/data.json?
 const mocks = process.env.NODE_ENV === 'test'
-
-const config = new Conf()
-config.set('unicorn', '🦄')
-console.log(config.get('unicorn'))
-console.log(config.path)
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -83,5 +79,5 @@ const server = new ApolloServer({ typeDefs, resolvers, mocks })
 
 // The `listen` method launches a web server.
 server.listen({ port: 4001 }).then(({ url }) => {
-  console.log(`GraphQL json server ready at ${url}`)
+  console.log(`GraphQL neo4j server ready at ${url}`)
 })
