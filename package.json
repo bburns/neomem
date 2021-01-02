@@ -1,8 +1,7 @@
 {
   "name": "neomem",
-  "workspaces": [
-    "packages/*"
-  ],
+  "description": "an open source information manager",
+  "version": "0.1.0",
   "devDependencies": {
     "lerna": "^3.22.1"
   }

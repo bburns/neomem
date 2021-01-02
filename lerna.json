@@ -7,6 +7,5 @@
       "hoist": true
     }
   },
-  "npmClient": "yarn",
-  "useWorkspaces": true
+  "npmClient": "yarn"
 }
