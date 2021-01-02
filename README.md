@@ -99,14 +99,18 @@ Some use cases to test the app and database structure -
 
 ## Installation
 
+Clone this repo
+
+    git clone https://github.com/bburns/neomem
+
+Install dependencies
+
+    yarn
 
 
 ## Running
 
-
+    yarn start
+    
 ## Development
-
-To add a new package, 
-
-    npx lerna 
 
