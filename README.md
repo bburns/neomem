@@ -22,6 +22,7 @@ An open-source information manager - with plugins for different views and dataso
   - [Inspiration](#inspiration)
   - [Implementation](#implementation)
   - [Features](#features)
+  - [Packages](#packages)
   - [Installation](#installation)
   - [Running](#running)
   - [Development](#development)
@@ -85,6 +86,15 @@ Some use cases to test the app and database structure -
 - create new items quickly with alt-n command, put in an inbox
 - go to item quickly with alt-g command, start typing to filter list
 - clipboard monitor - paste contents when it changes
+
+
+## Packages
+
+- neomem-data - datasource manager
+- neomem-data-neo4j - plugin for neo4j graph databases
+- neomem-data-filesys - plugin for file system access
+- neomem-console - console interface
+- neomem-view - web interface
 
 
 ## Installation
