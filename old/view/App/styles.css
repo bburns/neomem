@@ -1,0 +1,102 @@
+
+html {
+  font-size: 16px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* font-family: sans-serif; */
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-size: 18px; /* //. for now */
+  line-height: 1.3em;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  height: 100%;
+}
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 4px 2px;
+  background: black;
+  color: #ccc;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* padding-left: 4px; */
+  /* z-index: 1; */
+}
+.app-header-logo {
+  font-size: 26px;
+  font-family: 'Futura Std Light', futura, sans-serif;
+  margin: 4px;
+}
+.app-header-logo img {
+  height: 26px;
+  margin-right: 4px;
+}
+.app-controls {
+  padding: 4px;
+  background: #111;
+  display: flex;
+  align-items: center;
+}
+.app-controls span+span {
+  margin-left: 8px;
+}
+
+select, option {
+  font-size: 1em;
+  border-radius: 4px;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+/* .app-header-query {
+  padding: 4px 0;
+  font-size: 14px;
+  background: #333;
+  color: #999;
+} */
+
+.app-contents {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  background: gray;
+}
+
+.app-view {
+  width: 100%;
+}
+
+
+
+
+/* semantic-ui overrides */
+.ui.menu {
+  margin: 0;
+}
+.ui.menu .item {
+  padding: 2px 6px;
+}
+/* .ui.selection.dropdown {
+  min-width: 8em;
+  min-height: 2em;
+  margin-left: 8px;
+}
+.ui.selection.dropdown>.dropdown.icon {
+  top: 6px;
+} */

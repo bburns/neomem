@@ -1,0 +1,26 @@
+{
+  "name": "@neomem/data-neo4j",
+  "version": "0.1.0",
+  "description": "neo4j graph database plugin for neomem",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "./scripts/neo4j.sh",
+    "stop": "docker stop nmtest",
+    "status": "docker ps",
+    "test": "ava --watch --verbose",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary ava"
+  },
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "custom-env": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "neo4j-driver": "^4.1.1"
+  },
+  "devDependencies": {
+    "ava": "^3.12.1",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0"
+  }
+}

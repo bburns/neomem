@@ -1,0 +1,16 @@
+.table-view {
+  height: 100%;
+}
+.table-view.hidden {
+  display: none;
+}
+
+
+
+.icon.icon-edit {
+  background-image: url(../../assets/logo256.png);
+  height: 1em;
+  width: 1em;
+}
+
+

@@ -1,0 +1,25 @@
+graph "neomem" {
+  // rankdir=LR;
+  
+  node [ color=lightblue; style=filled ];
+  
+  user [ color=lightyellow; ]
+  browser [ color=greenyellow; ]
+  neo4j [ color=lavender; ]
+  filesys [ color=lavender; ]
+  neomemView [label="neomem-view"];
+  neomemNeo4j [label="neomem-driver-neo4j"];
+  neomemFilesys [label="neomem-driver-filesys"];
+  user -- browser -- neomemView -- { neomem };
+  // neomem -- { neomemNeo4j, neomemFilesys, other };
+  neomem -- "neomem-source(s)" -- { neomemNeo4j, neomemFilesys, other };
+  neomemNeo4j -- "neo4j-driver" -- neo4j;
+  neomemFilesys -- "node-fs" -- filesys;
+
+  console [ color=greenyellow; ]
+  // neomemConsole [label="neomem-console"];
+  user -- console -- "neomem-console" -- neomem;
+  // neomemConsole -- parser;
+  // neomemConsole -- parser;
+  // parser -- neomem;
+}
