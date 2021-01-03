@@ -7,6 +7,7 @@ config.set('unicorn', 'foooo')
 console.log(config.get('unicorn'))
 console.log(config.path)
 
+// mock data
 const nodes = [
   {
     id: '841723812838',
@@ -16,8 +17,10 @@ const nodes = [
   },
 ]
 
-module.exports = {
+const resolvers = {
   Query: {
+    info: () => `This is the API of a Hackernews Clone`,
+    test: (_, { id }) => id,
     nodes: () => nodes,
     // books: (obj, args, context, info) => {
     //   console.log(context)
@@ -28,3 +31,5 @@ module.exports = {
     // authors: (obj, args, context, info) => authors,
   },
 }
+
+module.exports = resolvers

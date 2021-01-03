@@ -15,7 +15,9 @@ const typeDefs = gql`
   # clients can execute, along with the return type for each. In this
   # case, the "nodes" query returns an array of zero or more Nodes (defined above).
   type Query {
-    nodes: [Node]
+    info: String!
+    test(id: Int): ID!
+    nodes: [Node!]!
   }
 `
 
