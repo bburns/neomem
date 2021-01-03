@@ -17,10 +17,14 @@ const nodes = [
   },
 ]
 
+const nodesDict = {}
+nodes.forEach(node => (nodesDict[node.id] = node))
+
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     test: (_, { id }) => id,
+    node: (_, { key }) => nodesDict[key],
     nodes: () => nodes,
     // books: (obj, args, context, info) => {
     //   console.log(context)
