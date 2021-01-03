@@ -21,6 +21,7 @@ An open-source information manager - with plugins for different views and dataso
   - [Use Cases](#use-cases)
   - [Inspiration](#inspiration)
   - [Implementation](#implementation)
+  - [Architecture](#architecture)
   - [Features](#features)
   - [Packages](#packages)
   - [Installation](#installation)
@@ -77,6 +78,11 @@ Some use cases to test the app and database structure -
 - react frontend ui with view plugins
 - native data stored to neo4j in google cloud - access data anywhere
 - graphql api with plugins for different data sources
+
+
+## Architecture
+
+[![arch](https://raw.githubusercontent.com/bburns/Neomem/main/docs/architecture2020-12.dot.svg)]
 
 
 ## Features
