@@ -1,10 +1,11 @@
 const { ApolloServer, gql } = require('apollo-server')
 const Conf = require('conf')
+const resolvers = require('./resolvers')
 
 const mocks = process.env.NODE_ENV === 'test'
 
 const config = new Conf()
-config.set('unicorn', '🦄')
+config.set('unicorn', 'foooo')
 console.log(config.get('unicorn'))
 console.log(config.path)
 
@@ -26,56 +27,6 @@ const typeDefs = gql`
     nodes: [Node]
   }
 `
-
-const nodes = [
-  {
-    id: '841723812838',
-    name: 'plecy',
-    type: 'fish',
-    description: 'plecostomus catfish',
-  },
-  {
-    id: '12395823747',
-    name: 'glassfish',
-    type: 'fish',
-    description: 'an invisible fish',
-  },
-  {
-    id: '537475293488234',
-    name: 'The Awakening',
-    type: 'book',
-  },
-  {
-    id: '128387a942834',
-    name: 'City of Glass',
-    type: 'book',
-  },
-  {
-    id: '1929388477732',
-    name: 'Kate Chopin',
-    type: 'person',
-  },
-  {
-    id: '912387234773745',
-    name: 'Paul Auster',
-    type: 'person',
-  },
-]
-
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
-const resolvers = {
-  Query: {
-    nodes: () => nodes,
-    // books: (obj, args, context, info) => {
-    //   console.log(context)
-    //   return new Promise((resolve, reject) => {
-    //     setTimeout(() => resolve(books), 500)
-    //   })
-    // },
-    // authors: (obj, args, context, info) => authors,
-  },
-}
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
