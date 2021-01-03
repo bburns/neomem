@@ -10,7 +10,7 @@ console.log(config.path)
 // mock data
 const nodes = [
   {
-    id: '841723812838',
+    id: '838',
     name: 'plecy',
     type: 'fish',
     description: 'plecostomus catfish',
