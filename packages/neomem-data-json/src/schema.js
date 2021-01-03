@@ -5,7 +5,7 @@ const { gql } = require('apollo-server')
 // your data.
 const typeDefs = gql`
   type Node {
-    id: String
+    id: ID!
     name: String
     type: String
     description: String
@@ -13,7 +13,7 @@ const typeDefs = gql`
 
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
+  # case, the "nodes" query returns an array of zero or more Nodes (defined above).
   type Query {
     nodes: [Node]
   }
