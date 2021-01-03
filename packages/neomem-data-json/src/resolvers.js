@@ -1,5 +1,11 @@
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
+const Conf = require('conf')
+
+const mocks = process.env.NODE_ENV === 'test'
+
+const config = new Conf()
+config.set('unicorn', 'foooo')
+console.log(config.get('unicorn'))
+console.log(config.path)
 
 const nodes = [
   {
