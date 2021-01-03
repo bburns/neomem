@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
 
-async function tester(url, query) {
+async function tester(query, uri = 'http://localhost:4001') {
   const options = {
     method: 'POST',
     headers: {
@@ -9,9 +9,10 @@ async function tester(url, query) {
     },
     body: JSON.stringify({ query }),
   }
-  const response = await fetch(url, options)
+  const response = await fetch(uri, options)
   const json = await response.json()
   return json
 }
 
-module.exports = tester
+global.tester = tester
+// module.exports = tester
