@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "start-test": "NODE_ENV=test yarn start",
-    "repl": "node --experimental-repl-await -r ./src/tester.js"
+    "//repl": "node --experimental-repl-await -r ./src/tester.js",
+    "repl": "NODE_OPTIONS=--experimental-repl-await node src/repl.js"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
