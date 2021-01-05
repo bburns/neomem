@@ -22,10 +22,24 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    set(id: ID, value: String): String
+    set(id: ID, value: String): NodeUpdateResponse!
     # bookTrips(launchIds: [ID]!): TripUpdateResponse!
     # cancelTrip(launchId: ID!): TripUpdateResponse!
     # login(email: String): User
+  }
+
+  type NodeUpdateResponse {
+    success: Boolean!
+    message: String
+    node: Node
+  }
+
+  type Launch {
+    id: ID!
+    site: String
+    mission: Mission
+    rocket: Rocket
+    isBooked: Boolean!
   }
 `
 
