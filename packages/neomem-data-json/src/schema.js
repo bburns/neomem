@@ -16,9 +16,16 @@ const typeDefs = gql`
   # case, the "nodes" query returns an array of zero or more Nodes.
   type Query {
     info: String!
-    test(id: Int): ID!
-    node(key: String): Node
+    # test(id: Int): ID!
+    get(id: ID): Node
     nodes: [Node!]!
+  }
+
+  type Mutation {
+    set(id: ID, value: String): String
+    # bookTrips(launchIds: [ID]!): TripUpdateResponse!
+    # cancelTrip(launchId: ID!): TripUpdateResponse!
+    # login(email: String): User
   }
 `
 
