@@ -17,7 +17,8 @@ async function fetchQuery(query, uri = 'http://localhost:4001') {
 
 async function evalQuery(cmd, context, filename, callback) {
   const json = await fetchQuery(cmd)
-  callback(null, json)
+  const s = JSON.stringify(json)
+  callback(null, s)
 }
 
 repl.start({ prompt: '> ', eval: evalQuery })
