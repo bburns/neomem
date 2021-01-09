@@ -10,7 +10,8 @@ class ConfigAPI extends DataSource {
     if (id) {
       return { id, name: 'jhbjhb' }
     }
-    return Object.values(this.config.store)
+    return [{ foo: 3 }]
+    // return Object.values(this.config.store)
   }
 
   async set({ id, name, description }) {

@@ -3,8 +3,8 @@
 const resolvers = {
   Query: {
     info: () => `This is a GraphQL endpoint for a JSON file`,
-    get: (_, { id }, { dataSources }) => dataSources.configAPI.get(id),
-    nodes: (_, __, { dataSources }) =>
+    findOne: (_, { id }, { dataSources }) => dataSources.configAPI.get(id),
+    findAll: (_, __, { dataSources }) =>
       Object.values(dataSources.configAPI.get()),
   },
 
