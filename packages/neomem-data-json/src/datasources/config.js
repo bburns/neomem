@@ -7,8 +7,9 @@ class ConfigAPI extends DataSource {
   }
 
   async findOne({ id }) {
-    return { id, name: 'jhbjhb' }
+    return this.config.get(id)
   }
+
   async findAll() {
     return Object.values(this.config.store)
   }

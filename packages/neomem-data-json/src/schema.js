@@ -16,7 +16,7 @@ const typeDefs = gql`
   # case, the "nodes" query returns an array of zero or more Nodes.
   type Query {
     info: String!
-    # findOne(id: ID!): Node
+    findOne(id: ID!): Node
     findAll: [Node!]!
   }
 
