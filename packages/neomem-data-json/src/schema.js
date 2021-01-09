@@ -16,19 +16,19 @@ const typeDefs = gql`
   # case, the "nodes" query returns an array of zero or more Nodes.
   type Query {
     info: String!
-    findOne(id: ID!): Node
-    findAll(): [Node!]!
+    # findOne(id: ID!): Node
+    findAll: [Node!]!
   }
 
-  type Mutation {
-    set(id: ID!, name: String, description: String): NodeUpdateResponse!
-  }
+  # type Mutation {
+  #   set(id: ID!, name: String, description: String): NodeUpdateResponse!
+  # }
 
-  type NodeUpdateResponse {
-    success: Boolean!
-    message: String!
-    node: Node
-  }
+  # type NodeUpdateResponse {
+  #   success: Boolean!
+  #   message: String!
+  #   node: Node
+  # }
 `
 
 module.exports = typeDefs

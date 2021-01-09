@@ -6,12 +6,11 @@ class ConfigAPI extends DataSource {
     this.config = config
   }
 
-  async get({ id }) {
-    if (id) {
-      return { id, name: 'jhbjhb' }
-    }
-    return [{ foo: 3 }]
-    // return Object.values(this.config.store)
+  async findOne({ id }) {
+    return { id, name: 'jhbjhb' }
+  }
+  async findAll() {
+    return Object.values(this.config.store)
   }
 
   async set({ id, name, description }) {
