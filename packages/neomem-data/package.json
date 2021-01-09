@@ -1,7 +1,7 @@
 {
-  "name": "neomem-data-json",
+  "name": "neomem-data",
   "version": "0.1.0",
-  "description": "simple json file datasource",
+  "description": "a federated graphql server for neomem",
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.js",
