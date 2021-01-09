@@ -29,12 +29,22 @@ const resolvers = {
     // },
   },
   Mutation: {
-    set: () => ({
-      code: 200,
-      success: true,
-      message: null,
-      node: { id: '1', name: 'lkmlkm' },
-    }),
+    set: (parent, args, context, info) => {
+      // console.log(parent, args, context, info)
+      const node = args
+      if (mocks) {
+        nodes[node.id] = node
+      } else {
+        config.set(node.id, node)
+      }
+      return {
+        code: 200,
+        success: true,
+        message: null,
+        // node: { id: '1', name: 'lkmlkm' },
+        node,
+      }
+    },
   },
 }
 
