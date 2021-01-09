@@ -1,0 +1,30 @@
+graph "neomem" {
+
+  // styles
+  // rankdir=LR; // left-to-right
+  node [ color=lightgray; fillcolor=lightblue; style=filled ]; // default
+  edge [ color=gray, fontcolor=gray ]; // default
+
+  // nodes
+  console [ fillcolor=lightyellow ];
+  browser [ fillcolor=lightyellow ];
+  neomemView [ label="neomem-view\n(react)"; fillcolor=greenyellow ];
+  neomemConsole [label="neomem-console\n(node)"; fillcolor=greenyellow ];
+  neomemCommands [label="neomem-commands\n(js lib)"; fillcolor=yellow ];
+  neomemData [label="neomem-data\n(federated\nGraphQL endpoint)"];
+  neomemDataNeo4j [label="neomem-data-neo4j\n(GraphQL endpoint)"];
+  neomemDataFilesys [label="neomem-data-filesys\n(GraphQL endpoint)"];
+  neo4j [ fillcolor=lavender ];
+  filesys [ fillcolor=lavender ];
+
+  // edges
+  browser -- neomemView;
+  console -- neomemConsole;
+  neomemView -- neomemCommands;
+  neomemConsole -- neomemCommands;
+  neomemCommands -- neomemData [ label=" http" ];
+  neomemData -- neomemDataNeo4j [ label="  http" ];
+  neomemData -- neomemDataFilesys [  label="  http" ];
+  neomemDataNeo4j -- neo4j;
+  neomemDataFilesys -- filesys;
+}
