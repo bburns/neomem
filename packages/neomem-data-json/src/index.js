@@ -1,13 +1,9 @@
 const { ApolloServer } = require('apollo-server')
 const typeDefs = require('./schema')
 const resolvers = require('./resolvers')
-// const LaunchAPI = require('./datasources/launch')
 
 const server = new ApolloServer({
   typeDefs,
-  // dataSources: () => ({
-  //   launchAPI: new LaunchAPI(),
-  // }),
   resolvers,
 })
 

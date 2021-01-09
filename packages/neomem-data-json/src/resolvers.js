@@ -30,6 +30,7 @@ const resolvers = {
   },
   Mutation: {
     set: () => ({
+      code: 200,
       success: true,
       message: null,
       node: { id: '1', name: 'lkmlkm' },
