@@ -5,7 +5,7 @@ const resolvers = {
     info: () => `This is a GraphQL endpoint for a JSON file`,
     get: (_, { id }, { dataSources }) => dataSources.configAPI.get(id),
     nodes: (_, __, { dataSources }) =>
-      Object.values(dataSources.configAPI.store),
+      Object.values(dataSources.configAPI.get()),
   },
 
   Mutation: {

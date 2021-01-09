@@ -7,12 +7,13 @@ class ConfigAPI extends DataSource {
   }
 
   async get({ id }) {
-    return { id, name: 'jhbjhb' }
+    if (id) {
+      return { id, name: 'jhbjhb' }
+    }
+    return Object.values(this.config.store)
   }
 
   async set({ id, name, description }) {
-    // const res = await this.config.set(id, { name, description })
-    // return res && res.length ? res[0].get() : false
     return { id, name, description }
   }
 }
