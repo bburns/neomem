@@ -28,6 +28,13 @@ const resolvers = {
     //   })
     // },
   },
+  Mutation: {
+    set: () => ({
+      success: true,
+      message: null,
+      node: { id: '1', name: 'lkmlkm' },
+    }),
+  },
 }
 
 module.exports = resolvers
