@@ -20,7 +20,7 @@ const resolvers = {
     info: () =>
       `This is the GraphQL endpoint for a simple JSON file (or js object if mocked)`,
     get: (_, { id }) => (mocks ? nodes[id] : config.get(id)),
-    nodes: () => (mocks ? Object.values(nodes) : config.get()),
+    nodes: () => (mocks ? Object.values(nodes) : Object.values(config.store)),
     // authors: (obj, args, context, info) => authors,
     // books: (obj, args, context, info) => {
     //   return new Promise((resolve, reject) => {
