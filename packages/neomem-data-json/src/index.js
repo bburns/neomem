@@ -7,7 +7,6 @@ const server = new ApolloServer({
   resolvers,
 })
 
-// launch web server
 server.listen({ port: 4001 }).then(({ url }) => {
   console.log(`GraphQL json server ready at ${url}`)
 })

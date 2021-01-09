@@ -21,7 +21,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    set(id: ID!, description: String): NodeUpdateResponse!
+    set(id: ID!, name: String, description: String): NodeUpdateResponse!
   }
 
   interface MutationResponse {
