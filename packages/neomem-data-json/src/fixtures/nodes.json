@@ -2,12 +2,14 @@
   "1": {
     "name": "plecy",
     "type": "fish",
-    "description": "plecostomus catfish"
+    "description": "plecostomus catfish",
+    "tags": ["catfish"]
   },
   "2": {
     "name": "lotr",
     "type": "book",
-    "author": "tolkien"
+    "author": "tolkien",
+    "tags": ["fantasy"]
   },
   "3": {
     "name": "tolkien",
