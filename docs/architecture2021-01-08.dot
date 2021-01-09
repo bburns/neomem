@@ -11,9 +11,9 @@ graph "neomem" {
   neomemView [ label="neomem-view\n(react)"; fillcolor=greenyellow ];
   neomemConsole [label="neomem-console\n(node)"; fillcolor=greenyellow ];
   neomemCommands [label="neomem-commands\n(js lib)"; fillcolor=yellow ];
-  neomemData [label="neomem-data\n(federated\nGraphQL endpoint)"];
-  neomemDataNeo4j [label="neomem-data-neo4j\n(GraphQL endpoint)"];
-  neomemDataFilesys [label="neomem-data-filesys\n(GraphQL endpoint)"];
+  neomemData [label="neomem-data\n(federated\ngraphql endpoint)"];
+  neomemDataNeo4j [label="neomem-data-neo4j\n(graphql endpoint)"];
+  neomemDataFilesys [label="neomem-data-filesys\n(graphql endpoint)"];
   neo4j [ fillcolor=lavender ];
   filesys [ fillcolor=lavender ];
 
