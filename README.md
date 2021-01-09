@@ -100,7 +100,7 @@ Some use cases to test the app and database structure -
 - neomem-data-neo4j - plugin for neo4j graph databases
 - neomem-data-filesys - plugin for file system access
 - neomem-console - console interface
-- neomem-view - web interface
+- neomem-web - web interface
 
 
 ## Installation

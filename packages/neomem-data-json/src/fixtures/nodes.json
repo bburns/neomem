@@ -1,8 +1,19 @@
 {
-  "1234": {
-    "id": "1234",
+  "1": {
+    "id": "1",
     "name": "plecy",
     "type": "fish",
     "description": "plecostomus catfish"
+  },
+  "2": {
+    "id": "2",
+    "name": "lotr",
+    "type": "book",
+    "author": "tolkien"
+  },
+  "3": {
+    "id": "3",
+    "name": "tolkien",
+    "type": "person"
   }
 }
