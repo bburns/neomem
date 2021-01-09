@@ -31,7 +31,10 @@ const resolvers = {
   Mutation: {
     set: (parent, args, context, info) => {
       // console.log(parent, args, context, info)
-      const node = args
+      const node = {
+        name: args.name,
+        description: args.description,
+      }
       if (mocks) {
         nodes[node.id] = node
       } else {
