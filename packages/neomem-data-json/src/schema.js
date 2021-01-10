@@ -20,15 +20,15 @@ const typeDefs = gql`
     findAll: [Node!]!
   }
 
-  # type Mutation {
-  #   set(id: ID!, name: String, description: String): NodeUpdateResponse!
-  # }
+  type Mutation {
+    create(name: String, description: String): NodeUpdateResponse!
+  }
 
-  # type NodeUpdateResponse {
-  #   success: Boolean!
-  #   message: String!
-  #   node: Node
-  # }
+  type NodeUpdateResponse {
+    success: Boolean!
+    message: String!
+    node: Node
+  }
 `
 
 module.exports = typeDefs

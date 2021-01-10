@@ -1,0 +1,14 @@
+{
+  "name": "neomem-data-hapi",
+  "version": "0.1.0",
+  "description": "experimental hapi rest data server",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Burns <bburns.km@gmail.com> (https://brianburns.org)",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/hapi": "^20.0.3"
+  }
+}

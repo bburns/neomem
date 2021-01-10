@@ -14,8 +14,11 @@ class ConfigAPI extends DataSource {
     return Object.values(this.config.store)
   }
 
-  async set({ id, name, description }) {
-    return { id, name, description }
+  async create(args) {
+    const id = String(Math.floor(Math.random() * 1000))
+    const node = { ...args, id }
+    this.config.set(id, node)
+    return node
   }
 }
 

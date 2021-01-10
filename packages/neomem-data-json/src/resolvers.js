@@ -8,20 +8,16 @@ const resolvers = {
     findAll: (_, __, { dataSources }) => dataSources.configAPI.findAll(),
   },
 
-  // Mutation: {
-  //   set: (_, args, { dataSources }) => {
-  //     const node = {
-  //       name: args.name,
-  //       description: args.description,
-  //     }
-  //     dataSources.configAPI.set(node.id, node)
-  //     return {
-  //       success: true,
-  //       message: null,
-  //       node,
-  //     }
-  //   },
-  // },
+  Mutation: {
+    create: (_, args, { dataSources }) => {
+      const node = dataSources.configAPI.create(args)
+      return {
+        success: true,
+        message: null,
+        node,
+      }
+    },
+  },
 }
 
 module.exports = resolvers
