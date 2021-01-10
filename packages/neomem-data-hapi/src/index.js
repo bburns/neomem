@@ -10,9 +10,9 @@ const init = async () => {
 
   server.route({
     method: 'GET',
-    path: '/',
+    path: '/{name}',
     handler: (request, h) => {
-      return 'Hello World!'
+      return `Hello ${request.params.name}!`
     },
   })
 
