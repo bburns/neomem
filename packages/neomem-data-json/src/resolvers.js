@@ -1,4 +1,6 @@
-// note: resolver functions take (parent, args, context, info) as params
+// apollo graphql resolvers.
+// provide data for each defined type and field.
+// note: resolver functions take (parent, args, context, info) as params.
 
 const resolvers = {
   Query: {
