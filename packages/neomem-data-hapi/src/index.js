@@ -10,9 +10,22 @@ const init = async () => {
 
   server.route({
     method: 'GET',
-    path: '/{name}',
+    path: '/hello/{name}',
     handler: (request, h) => {
       return `Hello ${request.params.name}!`
+    },
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/data',
+    handler: (request, h) => {
+      const data = {
+        name: 'pokpok',
+        type: 'book',
+        description: 'lakmsd wiuehriwuhe riuh',
+      }
+      return data
     },
   })
 

@@ -1,3 +1,6 @@
+// this is an example apollo REST datasource
+// ie supports graphql queries of a rest source
+
 const { RESTDataSource } = require('apollo-datasource-rest')
 
 class LaunchAPI extends RESTDataSource {
