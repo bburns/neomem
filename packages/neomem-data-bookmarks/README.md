@@ -1,4 +1,4 @@
-# neomem-data-json
+# neomem-data-bookmarks
 
-simple test of graphql endpoint with json file datastore
+read chrome bookmarks
 
