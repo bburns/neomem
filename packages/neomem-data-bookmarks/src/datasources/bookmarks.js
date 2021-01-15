@@ -25,8 +25,17 @@ class BookmarksAPI extends DataSource {
     // const flat = folders.flatMap(({ children, ...o }) => children.map(p => ({ ...o, ...p })));
     // return flat
     const bookmarks = this.bookmarks.roots.bookmark_bar.children
+    bookmarks.forEach(bm => (bm.date_added = getDate(bm.date_added)))
     return bookmarks
   }
+}
+
+// convert from 1601-based datestring to iso string
+// see https://stackoverflow.com/questions/51343828/how-to-parse-chrome-bookmarks-date-added-value-to-a-date
+const dateStart1601 = Date.UTC(1601, 0, 1)
+function getDate(dateString1601) {
+  const date = new Date(dateStart1601 + Number(dateString1601) / 1000)
+  return date.toISOString()
 }
 
 module.exports = BookmarksAPI
