@@ -11,7 +11,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    info: String!
     findOne(id: ID!): Bookmark
     findAll: [Bookmark!]!
   }

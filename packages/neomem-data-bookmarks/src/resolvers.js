@@ -4,15 +4,14 @@
 
 const resolvers = {
   Query: {
-    info: () => `This is a GraphQL endpoint for a JSON file`,
     findOne: (_, { id }, { dataSources }) =>
-      dataSources.configAPI.findOne({ id }),
-    findAll: (_, __, { dataSources }) => dataSources.configAPI.findAll(),
+      dataSources.bookmarksAPI.findOne({ id }),
+    findAll: (_, __, { dataSources }) => dataSources.bookmarksAPI.findAll(),
   },
 
   Mutation: {
     create: (_, args, { dataSources }) => {
-      const node = dataSources.configAPI.create(args)
+      const node = dataSources.bookmarksAPI.create(args)
       return {
         success: true,
         message: null,

@@ -1,0 +1,17 @@
+{
+  "checksum": "4bd310ed502c202161b9859acba69e53",
+  "roots": {
+    "bookmark_bar": {
+      "children": [
+        {
+          "date_added": "13234470961443451",
+          "guid": "05d4c9de-1235-44f6-8a01-9bb417790558",
+          "id": "33124",
+          "name": "drv",
+          "type": "url",
+          "url": "https://drive.google.com/drive/recent"
+        }
+      ]
+    }
+  }
+}

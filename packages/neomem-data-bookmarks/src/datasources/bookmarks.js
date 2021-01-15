@@ -5,18 +5,20 @@
 
 const { DataSource } = require('apollo-datasource')
 
+const path = '~/Library/Application Support/Google/Chrome/Default/Bookmarks'
+
 class BookmarksAPI extends DataSource {
-  constructor({ config }) {
+  constructor({ bookmarks }) {
     super()
-    this.config = config
+    this.bookmarks = bookmarks
   }
 
   // async findOne({ id }) {
-  //   return this.config.get(id)
+  //   return this.bookmarks.get(id)
   // }
 
   // async findAll() {
-  //   return Object.values(this.config.store)
+  //   return Object.values(this.bookmarks.store)
   // }
 }
 
