@@ -6,19 +6,17 @@ const resolvers = require('./resolvers')
 const BookmarksAPI = require('./datasources/bookmarks')
 // const fs = require('fs')
 // const JSONStream = require('JSONStream')
-const bookmarks = require('./foo.json')
 
-// const path = '~/Library/Application Support/Google/Chrome/Default/Bookmarks'
+// read and parse json file directly using require.
+// but only works for json files with .json extension -
+// otherwise thinks it's javascript.
+// see https://stackoverflow.com/a/36591002/243392
 // const path = './foo.json'
-// const stream = fs.createReadStream(filepath, { encoding: 'utf8' })
-// const parser = JSONStream.parse('roots.*')
-
-// stream.pipe(parser)
-// const objs = []
-// parser.on('data', function (obj) {
-// console.log(obj) // whatever you will do with each JSON object
-// objs.push(obj)
-// })
+// const bookmarks = require(path)
+const path =
+  '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
+const fs = require('fs')
+const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 const server = new ApolloServer({
   typeDefs,

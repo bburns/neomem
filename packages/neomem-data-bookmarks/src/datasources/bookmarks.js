@@ -5,8 +5,11 @@
 
 const { DataSource } = require('apollo-datasource')
 
+//. should we open the bookmarks file here? in constructor? or in indexjs?
+
 class BookmarksAPI extends DataSource {
   constructor({ bookmarks }) {
+    console.log('bookmarksAPI constructor')
     super()
     this.bookmarks = bookmarks
   }
