@@ -5,13 +5,15 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
   type Bookmark {
     id: ID!
+    guid: ID!
     name: String
     type: String
-    description: String
+    url: String
+    date_added: String
   }
 
   type Query {
-    findOne(id: ID!): Bookmark
+    # findOne(id: ID!): Bookmark
     findAll: [Bookmark!]!
   }
 `

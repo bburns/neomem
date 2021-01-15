@@ -9,7 +9,7 @@ const BookmarksAPI = require('./datasources/bookmarks')
 const bookmarks = require('./foo.json')
 
 // const path = '~/Library/Application Support/Google/Chrome/Default/Bookmarks'
-// const filepath = "./foo.json"
+// const path = './foo.json'
 // const stream = fs.createReadStream(filepath, { encoding: 'utf8' })
 // const parser = JSONStream.parse('roots.*')
 
@@ -28,6 +28,6 @@ const server = new ApolloServer({
   }),
 })
 
-server.listen({ port: 4001 }).then(({ url }) => {
+server.listen({ port: 4009 }).then(({ url }) => {
   console.log(`GraphQL json server ready at ${url}`)
 })
