@@ -13,8 +13,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    # findOne(id: ID!): Bookmark
-    findAll: [Bookmark!]!
+    bookmark(id: ID): [Bookmark]!
   }
 `
 

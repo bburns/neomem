@@ -6,7 +6,7 @@ const resolvers = {
   Query: {
     // findOne: (_, { id }, { dataSources }) =>
     //   dataSources.bookmarksAPI.findOne({ id }),
-    findAll: (_, __, { dataSources }) => dataSources.bookmarksAPI.findAll(),
+    bookmark: (_, __, { dataSources }) => dataSources.bookmarksAPI.findAll(),
   },
 }
 
