@@ -1,7 +1,10 @@
 // apollo bookmarks datasource.
 // apollo lets you define datasource and pass them to your resolvers.
 // it's not strictly necessary, as you can define the datasource in the resolver files.
-// but maybe it helps keep resolver file more concise?
+// but it helps keep resolver file more concise.
+
+// note: While the REST data source comes with its own built in cache,
+// the generic data source does not.
 
 const { DataSource } = require('apollo-datasource')
 
