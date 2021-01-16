@@ -9,6 +9,7 @@
 const { DataSource } = require('apollo-datasource')
 
 //. should we open the bookmarks file here? in constructor? or in indexjs?
+// maybe this way we can test this datasource, by passing in a dummy file?
 
 class BookmarksAPI extends DataSource {
   constructor({ bookmarks }) {
@@ -31,9 +32,8 @@ class BookmarksAPI extends DataSource {
   }
 }
 
-// note chrome bookmark times are relative to 1601-01-01
-// https://www.epochconverter.com/webkit
-// convert from 1601-based datestring to iso string
+// convert from 1601-based datestring to iso string.
+// chrome bookmark times are relative to 1601-01-01.
 // see https://stackoverflow.com/questions/51343828/how-to-parse-chrome-bookmarks-date-added-value-to-a-date
 const dateStart1601 = Date.UTC(1601, 0, 1)
 function getISODate(dateString1601) {
