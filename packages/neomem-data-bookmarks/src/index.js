@@ -11,6 +11,7 @@ const fs = require('fs')
 // otherwise thinks it's javascript.
 // see https://stackoverflow.com/a/36591002/243392
 // const bookmarks = require('./example.json')
+console.log('read and parse bookmarks file...')
 const path =
   '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
 const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))

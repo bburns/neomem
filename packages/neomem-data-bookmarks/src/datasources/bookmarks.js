@@ -8,23 +8,20 @@ const { DataSource } = require('apollo-datasource')
 //. should we open the bookmarks file here? in constructor? or in indexjs?
 
 class BookmarksAPI extends DataSource {
-  // this seems to get called many times, so not good to put fileread here
   constructor({ bookmarks }) {
+    // this seems to get called many times, so not good to put fileread here
     console.log('bookmarksAPI constructor')
     super()
     this.bookmarks = bookmarks
   }
 
-  // async findOne({ id }) {
-  //   return this.bookmarks.get(id)
-  // }
-
-  async findAll(options) {
+  async find(options) {
     // return Object.values(this.bookmarks.roots)
     // var data = [{ family: "Fam A", category: "Cat A", products: [{ name: "Name A1", style: "Style A1" }, { name: "Name A2", style: "Style A2" }] }, { family: "Fam B", category: "Cat B", products: [{ name: "Name B1", style: "Style B1" }, { name: "Name B2", style: "Style B2" }] }],
     // const folders = this.bookmarks.roots
     // const flat = folders.flatMap(({ children, ...o }) => children.map(p => ({ ...o, ...p })));
     // return flat
+    console.log('find', options)
     const bookmarks = this.bookmarks.roots.bookmark_bar.children
     bookmarks.forEach(bm => (bm.date_added = getISODate(bm.date_added)))
     return bookmarks
