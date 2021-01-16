@@ -1,15 +1,20 @@
 // apollo bookmarks datasource.
+
 // apollo lets you define datasource and pass them to your resolvers.
-// it's not strictly necessary, as you can define the datasource in the resolver files.
+// it's not necessary, as you can define the datasource in the resolver files.
 // but it helps keep resolver file more concise.
 
 const { DataSource } = require('apollo-datasource')
 
 //. should we open the bookmarks file here? in constructor? or in indexjs?
 // maybe this way we can test this datasource, by passing in a dummy file?
+// yes that's prob why they did it this way.
+
+console.log('run bookmarks.js')
 
 // note: While the REST data source comes with its own built in cache,
-// the generic data source does not.
+// this generic data source does not.
+
 class BookmarksAPI extends DataSource {
   constructor({ bookmarks }) {
     // this seems to get called many times, so not good to put fileread here
@@ -50,7 +55,6 @@ function collectNodes(rootNode) {
     nodes.push(node)
     if (node.children) {
       node.children.forEach(visitNode)
-      delete node.children // ditch the children
     }
   }
   visitNode(rootNode)
