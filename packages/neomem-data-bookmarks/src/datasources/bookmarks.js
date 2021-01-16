@@ -21,12 +21,17 @@ class BookmarksAPI extends DataSource {
 
   find(options) {
     console.log('find', options)
+    const roots = Object.values(this.bookmarks.roots)
+    const rootNode = { name: 'root', type: 'folder', guid: '', children: roots }
     if (options.flatten) {
-      const nodes = collectNodes(Object.values(this.bookmarks.roots)[0])
+      // const nodes = collectNodes(Object.values(this.bookmarks.roots)[0])
+      // const nodes = collectNodes(roots[0])
+      const nodes = collectNodes(rootNode)
       console.log(nodes)
       return nodes
     }
-    const nodes = this.bookmarks.roots.bookmark_bar.children
+    // const nodes = this.bookmarks.roots.bookmark_bar.children
+    const nodes = roots //[0].children
     nodes.forEach(node => (node.date_added = getISODate(node.date_added)))
     return nodes
   }
@@ -41,6 +46,7 @@ function getISODate(dateString1601) {
   return date.toISOString()
 }
 
+// flatten a tree of nodes
 // from https://stackoverflow.com/a/52326586/243392
 function collectNodes(rootNode) {
   const nodes = []
@@ -48,12 +54,11 @@ function collectNodes(rootNode) {
     nodes.push(node)
     if (node.children) {
       node.children.forEach(visitNode)
-      delete node.children
+      delete node.children // ditch the children
     }
   }
   visitNode(rootNode)
   return nodes
 }
-// const nodes = collectNodes(json.result.data.root)
 
 module.exports = BookmarksAPI
