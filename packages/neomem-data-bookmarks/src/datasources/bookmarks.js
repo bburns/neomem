@@ -24,14 +24,11 @@ class BookmarksAPI extends DataSource {
     const roots = Object.values(this.bookmarks.roots)
     const rootNode = { name: 'root', type: 'folder', guid: '', children: roots }
     if (options.flatten) {
-      // const nodes = collectNodes(Object.values(this.bookmarks.roots)[0])
-      // const nodes = collectNodes(roots[0])
       const nodes = collectNodes(rootNode)
       console.log(nodes)
       return nodes
     }
-    // const nodes = this.bookmarks.roots.bookmark_bar.children
-    const nodes = roots //[0].children
+    const nodes = roots
     nodes.forEach(node => (node.date_added = getISODate(node.date_added)))
     return nodes
   }
