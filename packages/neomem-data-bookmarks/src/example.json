@@ -66,48 +66,15 @@
           "name": "disaster dev Why Cutting Costs is Expensive: How $9/Hour Software Engineers Cost Boeing Billions",
           "type": "url",
           "url": "https://medium.com/javascript-scene/why-cutting-costs-is-expensive-how-9-hour-software-engineers-cost-boeing-billions-b76dbe571957"
-        },
-        {
-          "children": [
-            {
-              "children": [
-                {
-                  "date_added": "13202601914000000",
-                  "guid": "9008275a-8862-48d7-92eb-7eb19ea8a4dc",
-                  "id": "214",
-                  "name": "Home",
-                  "type": "url",
-                  "url": "file:///C:/Users/bburns/Dropbox/@Projects/start/start.htm"
-                },
-                {
-                  "date_added": "13203601607000000",
-                  "guid": "e8c693a0-c83f-446e-bfe0-7c3b6dd333eb",
-                  "id": "217",
-                  "name": "Home",
-                  "type": "url",
-                  "url": "file:///home/bburns/Dropbox/@Projects/start/start.htm"
-                },
-                {
-                  "date_added": "13215084337000000",
-                  "guid": "7972d791-c79a-457e-aaca-3aa7be507ddc",
-                  "id": "218",
-                  "name": "Apple",
-                  "type": "url",
-                  "url": "https://www.apple.com/"
-                },
-                {
-                  "date_added": "13215084337000000",
-                  "guid": "1f61786b-673a-43c5-82da-29c8c20a3fc1",
-                  "id": "212",
-                  "name": "Bing",
-                  "type": "url",
-                  "url": "https://www.bing.com/"
-                }
-              ]
-            }
-          ]
         }
-      ]
+      ],
+      "date_added": "13226339072527329",
+      "date_modified": "13058873946167950",
+      "guid": "00000000-0000-4000-a000-000000000004",
+      "id": "3",
+      "name": "Mobile Bookmarks",
+      "type": "folder"
     }
-  }
+  },
+  "version": 1
 }
