@@ -12,8 +12,9 @@ const fs = require('fs')
 // see https://stackoverflow.com/a/36591002/243392
 // const bookmarks = require('./example.json')
 console.log('read and parse bookmarks file...')
-const path =
-  '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
+// const path =
+//   '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
+const path = __dirname + '/example.json'
 const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 const server = new ApolloServer({

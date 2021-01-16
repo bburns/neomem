@@ -13,7 +13,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    bookmark(id: ID): [Bookmark]!
+    bookmark(id: ID, flatten: Boolean): [Bookmark]!
   }
 `
 

@@ -22,7 +22,8 @@ class BookmarksAPI extends DataSource {
   find(options) {
     console.log('find', options)
     if (options.flatten) {
-      const nodes = collectNodes(this.bookmarks.roots)
+      const nodes = collectNodes(Object.values(this.bookmarks.roots)[0])
+      console.log(nodes)
       return nodes
     }
     const nodes = this.bookmarks.roots.bookmark_bar.children
@@ -47,6 +48,7 @@ function collectNodes(rootNode) {
     nodes.push(node)
     if (node.children) {
       node.children.forEach(visitNode)
+      delete node.children
     }
   }
   visitNode(rootNode)
