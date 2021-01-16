@@ -3,14 +3,13 @@
 // it's not strictly necessary, as you can define the datasource in the resolver files.
 // but it helps keep resolver file more concise.
 
-// note: While the REST data source comes with its own built in cache,
-// the generic data source does not.
-
 const { DataSource } = require('apollo-datasource')
 
 //. should we open the bookmarks file here? in constructor? or in indexjs?
 // maybe this way we can test this datasource, by passing in a dummy file?
 
+// note: While the REST data source comes with its own built in cache,
+// the generic data source does not.
 class BookmarksAPI extends DataSource {
   constructor({ bookmarks }) {
     // this seems to get called many times, so not good to put fileread here
@@ -19,11 +18,11 @@ class BookmarksAPI extends DataSource {
     this.bookmarks = bookmarks
   }
 
-  find(options) {
-    console.log('find', options)
+  find(args) {
+    console.log('find', args)
     const roots = Object.values(this.bookmarks.roots)
     const rootNode = { name: 'root', type: 'folder', guid: '', children: roots }
-    if (options.flatten) {
+    if (args.flatten) {
       const nodes = collectNodes(rootNode)
       console.log(nodes)
       return nodes
