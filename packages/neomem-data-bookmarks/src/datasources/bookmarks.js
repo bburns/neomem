@@ -19,26 +19,39 @@ class BookmarksAPI extends DataSource {
     this.bookmarks = bookmarks
   }
 
-  async find(options) {
-    // return Object.values(this.bookmarks.roots)
-    // var data = [{ family: "Fam A", category: "Cat A", products: [{ name: "Name A1", style: "Style A1" }, { name: "Name A2", style: "Style A2" }] }, { family: "Fam B", category: "Cat B", products: [{ name: "Name B1", style: "Style B1" }, { name: "Name B2", style: "Style B2" }] }],
-    // const folders = this.bookmarks.roots
-    // const flat = folders.flatMap(({ children, ...o }) => children.map(p => ({ ...o, ...p })));
-    // return flat
+  find(options) {
     console.log('find', options)
-    const bookmarks = this.bookmarks.roots.bookmark_bar.children
-    bookmarks.forEach(bm => (bm.date_added = getISODate(bm.date_added)))
-    return bookmarks
+    if (options.flatten) {
+      const nodes = collectNodes(this.bookmarks.roots)
+      return nodes
+    }
+    const nodes = this.bookmarks.roots.bookmark_bar.children
+    nodes.forEach(node => (node.date_added = getISODate(node.date_added)))
+    return nodes
   }
 }
 
 // convert from 1601-based datestring to iso string.
 // chrome bookmark times are relative to 1601-01-01.
-// see https://stackoverflow.com/questions/51343828/how-to-parse-chrome-bookmarks-date-added-value-to-a-date
+// from https://stackoverflow.com/questions/51343828/how-to-parse-chrome-bookmarks-date-added-value-to-a-date
 const dateStart1601 = Date.UTC(1601, 0, 1)
 function getISODate(dateString1601) {
   const date = new Date(dateStart1601 + Number(dateString1601) / 1000)
   return date.toISOString()
 }
+
+// from https://stackoverflow.com/a/52326586/243392
+function collectNodes(rootNode) {
+  const nodes = []
+  function visitNode(node) {
+    nodes.push(node)
+    if (node.children) {
+      node.children.forEach(visitNode)
+    }
+  }
+  visitNode(rootNode)
+  return nodes
+}
+// const nodes = collectNodes(json.result.data.root)
 
 module.exports = BookmarksAPI
