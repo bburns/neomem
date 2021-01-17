@@ -26,7 +26,12 @@ class BookmarksAPI extends DataSource {
       return nodes
     }
     const nodes = roots
-    nodes.forEach(node => (node.date_added = getISODate(node.date_added)))
+    nodes.forEach(node => {
+      console.log(node.date_added)
+      if (node.date_added) {
+        node.date_added = getISODate(node.date_added)
+      }
+    })
     return nodes
   }
 
