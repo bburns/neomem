@@ -8,10 +8,12 @@ const fetch = require('node-fetch')
 
 const prompt = '|> '
 
-repl.start({ prompt, eval: evalQuery })
+repl.start({ prompt, eval: evalCommand })
 
-async function evalQuery(cmd, context, filename, callback) {
-  const json = await fetchQuery(cmd)
+async function evalCommand(cmd, context, filename, callback) {
+  // const query = cmd
+  const query = `query { node { type, name }}`
+  const json = await fetchQuery(query)
   const s = JSON.stringify(json)
   callback(null, s)
 }
