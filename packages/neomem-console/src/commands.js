@@ -1,21 +1,38 @@
-const Table = require('easy-table')
+// const Table = require('easy-table')
+const { table, getBorderCharacters } = require('table')
 const fetchQuery = require('./fetchQuery')
 
 async function list() {
   const query = `query { node { name, type, guid, url, date_added, date_modified }}`
   const json = await fetchQuery(query)
   const nodes = json.data.node
-  const t = new Table()
-  nodes.forEach(node => {
-    t.cell('Name', node.name)
-    t.cell('depth', node.depth)
-    t.cell('Type', node.type)
-    t.cell('Url', node.url)
-    t.cell('Date Added', node.date_added)
-    t.cell('Date Modified', node.date_modified)
-    t.newRow()
-  })
-  const s = t.toString()
+  // const t = new Table()
+  // nodes.forEach(node => {
+  //   t.cell('Name', node.name)
+  //   t.cell('depth', node.depth)
+  //   t.cell('Type', node.type)
+  //   t.cell('Url', node.url)
+  //   t.cell('Date Added', node.date_added)
+  //   t.cell('Date Modified', node.date_modified)
+  //   t.newRow()
+  // })
+  // const s = t.toString()
+  const arr = Object.values(nodes).map(node => [node.name, node.type, node.url])
+  const wrapWord = true
+  const options = {
+    columnDefault: {
+      width: 20,
+    },
+    columns: {
+      0: { width: 30, truncate: 30, wrapWord },
+      1: { width: 10, truncate: 10, wrapWord },
+      2: { width: 30, truncate: 30, wrapWord },
+    },
+    singleLine: true,
+    // drawHorizontalLine: (index, size) => index === 0 || index === size,
+    border: getBorderCharacters(`ramac`),
+  }
+  const s = table(arr, options)
   console.log(s)
 }
 

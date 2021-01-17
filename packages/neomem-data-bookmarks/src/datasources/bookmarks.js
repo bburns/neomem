@@ -39,7 +39,7 @@ function collectNodes(rootNode) {
     node.depth = depth
     nodes.push(node)
     if (node.children) {
-      node.children.forEach(visitNode, depth + 1)
+      node.children.forEach(node => visitNode(node, depth + 1))
     }
   }
   visitNode(rootNode)
