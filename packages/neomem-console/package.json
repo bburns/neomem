@@ -4,13 +4,11 @@
   "description": "console interface for neomem",
   "main": "src/index.js",
   "scripts": {
-    "start//": "this flag didn't work with nodemon",
     "start": "NODE_OPTIONS=--experimental-repl-await nodemon src/index.js"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "easy-table": "^1.1.1",
     "node-fetch": "^2.6.1",
     "table": "^6.0.7"
   },
