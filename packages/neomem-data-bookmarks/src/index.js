@@ -11,11 +11,11 @@ const fs = require('fs')
 // but only works for files with .json extension -
 // otherwise it thinks it's javascript.
 // see https://stackoverflow.com/a/36591002/243392
-const path =
-  options.use === 'example'
-    ? __dirname + '/../test/fixtures/example.json'
-    : '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
-console.log(`reading ${path}...`)
+const chromePath =
+  '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
+const examplePath = __dirname + '/../test/fixtures/example.json'
+const path = options.use === 'chrome' ? chromePath : examplePath
+console.log(`Reading ${path}...`)
 const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 const server = new ApolloServer({

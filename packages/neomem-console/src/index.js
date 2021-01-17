@@ -7,18 +7,18 @@ const repl = require('repl')
 const fetch = require('node-fetch')
 
 const prompt = '|> '
+const uri = 'http://localhost:4101'
 
 repl.start({ prompt, eval: evalCommand })
 
 async function evalCommand(cmd, context, filename, callback) {
-  // const query = cmd
   const query = `query { node { type, name }}`
   const json = await fetchQuery(query)
   const s = JSON.stringify(json)
   callback(null, s)
 }
 
-async function fetchQuery(query, uri = 'http://localhost:4101') {
+async function fetchQuery(query) {
   const options = {
     method: 'POST',
     headers: {
