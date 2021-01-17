@@ -18,7 +18,6 @@ async function evalCommand(cmd, context, filename, callback) {
   const query = `query { node { name, type, guid, url, date_added, date_modified }}`
   const json = await fetchQuery(query)
   const nodes = json.data.node
-  // const s = JSON.stringify(nodes)
   const t = new Table()
   nodes.forEach(node => {
     t.cell('Name', node.name)
@@ -30,9 +29,13 @@ async function evalCommand(cmd, context, filename, callback) {
     t.newRow()
   })
   const s = t.toString()
+  // const s = t.printTransposed()
   console.log(s)
-  // const error = null
-  // callback(error, s)
+  // call callback so knows to print prompt
+  // wraps output string in quotes, so don't use it here
+  const error = null
+  const output = null
+  callback(error, output)
 }
 
 async function fetchQuery(query) {
