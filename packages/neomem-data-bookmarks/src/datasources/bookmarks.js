@@ -26,7 +26,7 @@ class BookmarksAPI extends DataSource {
       children: roots,
     }
     // if (args.flatten) {
-    const nodes = collectNodes(rootNode)
+    const nodes = collectNodes(rootNode).slice(0, args.limit)
     return nodes
     // }
     // return roots

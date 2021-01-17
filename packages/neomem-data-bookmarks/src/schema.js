@@ -15,7 +15,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    node(path: String, flatten: Boolean): [Node]!
+    node(path: String, flatten: Boolean, limit: Int = 20): [Node]!
     node_by_id(guid: ID): Node
   }
 `
