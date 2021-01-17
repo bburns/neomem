@@ -36,6 +36,10 @@ class BookmarksAPI extends DataSource {
     nodes.forEach(node => (node.date_added = getISODate(node.date_added)))
     return nodes
   }
+
+  find_by_id(args) {
+    return null
+  }
 }
 
 // convert from 1601-based datestring to iso string.

@@ -10,6 +10,8 @@
 const resolvers = {
   Query: {
     bookmark: (_, args, { dataSources }) => dataSources.bookmarksAPI.find(args),
+    bookmark_by_pk: (_, args, { dataSources }) =>
+      dataSources.bookmarksAPI.find_by_id(args),
   },
 }
 
