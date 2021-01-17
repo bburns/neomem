@@ -16,7 +16,12 @@ async function list() {
   // })
   // const s = t.toString()
   const columns = [
-    { name: 'Name', accessor: 'name', width: 36 },
+    // { name: 'Name', accessor: 'name', width: 36 },
+    {
+      name: 'Name',
+      accessor: obj => ' '.repeat(obj.depth) + obj.name,
+      width: 36,
+    },
     { name: 'Type', accessor: 'type', width: 8 },
     { name: 'Url', accessor: 'url', width: 20 },
     { name: 'Date Added', accessor: 'date_added', width: 30 },
