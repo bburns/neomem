@@ -6,6 +6,7 @@ const typeDefs = gql`
   type Node {
     id: ID!
     guid: ID!
+    depth: Int
     name: String
     type: String
     url: String

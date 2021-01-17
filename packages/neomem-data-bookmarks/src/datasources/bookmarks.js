@@ -19,11 +19,11 @@ class BookmarksAPI extends DataSource {
   find(args) {
     const roots = Object.values(this.bookmarks.roots)
     const rootNode = { name: 'root', type: 'folder', guid: '', children: roots }
-    if (args.flatten) {
-      const nodes = collectNodes(rootNode)
-      return nodes
-    }
-    return roots
+    // if (args.flatten) {
+    const nodes = collectNodes(rootNode)
+    return nodes
+    // }
+    // return roots
   }
 
   find_by_id(args) {
@@ -35,10 +35,11 @@ class BookmarksAPI extends DataSource {
 // from https://stackoverflow.com/a/52326586/243392
 function collectNodes(rootNode) {
   const nodes = []
-  function visitNode(node) {
+  function visitNode(node, depth = 0) {
+    node.depth = depth
     nodes.push(node)
     if (node.children) {
-      node.children.forEach(visitNode)
+      node.children.forEach(visitNode, depth + 1)
     }
   }
   visitNode(rootNode)

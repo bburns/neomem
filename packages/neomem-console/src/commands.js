@@ -8,6 +8,7 @@ async function list() {
   const t = new Table()
   nodes.forEach(node => {
     t.cell('Name', node.name)
+    t.cell('depth', node.depth)
     t.cell('Type', node.type)
     t.cell('Url', node.url)
     t.cell('Date Added', node.date_added)
