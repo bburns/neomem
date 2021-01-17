@@ -14,10 +14,18 @@ repl.start({ prompt, eval: evalCommand })
 
 async function evalCommand(cmd, context, filename, callback) {
   const command = commands[cmd.trim()]
-  await command()
+  if (command) {
+    try {
+      await command()
+    } catch (error) {
+      return callback(error)
+    }
+  } else {
+    console.log('Unknown command')
+  }
   // need to call callback so it knows to print prompt again.
   // wraps output in quotes, so don't use that here.
-  const error = null
-  const output = null
-  callback(error, output)
+  // const error = undefined
+  // const output = undefined
+  callback()
 }
