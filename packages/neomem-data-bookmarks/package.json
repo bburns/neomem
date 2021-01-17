@@ -11,6 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.19.0",
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^6.1.1",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
