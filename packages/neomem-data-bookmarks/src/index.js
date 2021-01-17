@@ -3,9 +3,7 @@
 const { ApolloServer } = require('apollo-server')
 const typeDefs = require('./schema')
 const resolvers = require('./resolvers')
-
-const commandLineArgs = require('command-line-args')
-const commandLineUsage = require('command-line-usage')
+const options = require('./options')
 
 const BookmarksAPI = require('./datasources/bookmarks')
 const fs = require('fs')
@@ -27,6 +25,6 @@ const server = new ApolloServer({
   }),
 })
 
-server.listen({ port: 4009 }).then(({ url }) => {
+server.listen({ port: options.port }).then(({ url }) => {
   console.log(`GraphQL json server ready at ${url}`)
 })
