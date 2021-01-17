@@ -16,7 +16,7 @@ async function evalQuery(cmd, context, filename, callback) {
   callback(null, s)
 }
 
-async function fetchQuery(query, uri = 'http://localhost:4001') {
+async function fetchQuery(query, uri = 'http://localhost:4101') {
   const options = {
     method: 'POST',
     headers: {
