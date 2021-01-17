@@ -24,6 +24,8 @@ async function list() {
     node.url,
     node.date_added,
   ])
+  const headings = `Name,Type,Url,Date Added`.split(',')
+  const arr2 = [headings, ...arr]
   const wrapWord = true
   const options = {
     columnDefault: {
@@ -35,11 +37,12 @@ async function list() {
       1: { width: 10, truncate: 10, wrapWord },
       2: { width: 30, truncate: 30, wrapWord },
     },
-    singleLine: true,
-    // drawHorizontalLine: (index, size) => index === 0 || index === size,
-    border: getBorderCharacters(`ramac`),
+    // singleLine: true,
+    // border: getBorderCharacters(`ramac`),
+    drawHorizontalLine: (index, size) =>
+      index === 0 || index === 1 || index === size,
   }
-  const s = table(arr, options)
+  const s = table(arr2, options)
   console.log(s)
 }
 
@@ -61,4 +64,4 @@ async function list() {
 //   console.log(s)
 // }
 
-module.exports = { list, compare }
+module.exports = { list }
