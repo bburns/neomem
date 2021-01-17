@@ -10,6 +10,7 @@ const typeDefs = gql`
     type: String
     url: String
     date_added: String
+    date_modified: String
   }
 
   type Query {

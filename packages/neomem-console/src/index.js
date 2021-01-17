@@ -12,7 +12,7 @@ const uri = 'http://localhost:4101'
 repl.start({ prompt, eval: evalCommand })
 
 async function evalCommand(cmd, context, filename, callback) {
-  const query = `query { node { name, type, guid, url, date_added }}`
+  const query = `query { node { name, type, guid, url, date_added, date_modified }}`
   const json = await fetchQuery(query)
   const s = JSON.stringify(json)
   callback(null, s)
