@@ -18,7 +18,13 @@ class BookmarksAPI extends DataSource {
 
   find(args) {
     const roots = Object.values(this.bookmarks.roots)
-    const rootNode = { name: 'root', type: 'folder', guid: '', children: roots }
+    const rootNode = {
+      name: 'root',
+      depth: 0,
+      type: 'folder',
+      guid: '',
+      children: roots,
+    }
     // if (args.flatten) {
     const nodes = collectNodes(rootNode)
     return nodes
@@ -35,14 +41,15 @@ class BookmarksAPI extends DataSource {
 // from https://stackoverflow.com/a/52326586/243392
 function collectNodes(rootNode) {
   const nodes = []
-  function visitNode(node, depth = 0) {
+  function visitNode(node, depth) {
     node.depth = depth
     nodes.push(node)
     if (node.children) {
       node.children.forEach(node => visitNode(node, depth + 1))
     }
   }
-  visitNode(rootNode)
+  visitNode(rootNode, 0)
+  console.log(nodes)
   return nodes
 }
 
