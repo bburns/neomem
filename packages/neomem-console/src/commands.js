@@ -12,8 +12,8 @@ async function list() {
       width: 36,
     },
     { name: 'Type', accessor: 'type', width: 8 },
-    { name: 'Url', accessor: 'url', width: 20 },
-    { name: 'Date Added', accessor: 'date_added', width: 30 },
+    { name: 'Url', accessor: 'url', width: 30 },
+    { name: 'Date Added', accessor: 'date_added', width: 20 },
   ]
   const t = new Table(columns, nodes)
   const s = t.toString()

@@ -1,4 +1,4 @@
-const { table, getBorderCharacters } = require('table')
+const { table, getBorderCharacters } = require('table') // https://github.com/gajus/table
 
 class Table {
   constructor(columns, objs) {

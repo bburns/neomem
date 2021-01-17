@@ -49,7 +49,6 @@ function collectNodes(rootNode) {
     }
   }
   visitNode(rootNode, 0)
-  console.log(nodes)
   return nodes
 }
 
