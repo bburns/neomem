@@ -7,14 +7,15 @@ const options = require('./options')
 
 const BookmarksAPI = require('./datasources/bookmarks')
 const fs = require('fs')
-// can read and parse json file directly using require,
-// but only works for json files with .json extension -
+// note: can read and parse json file directly using require,
+// but only works for files with .json extension -
 // otherwise it thinks it's javascript.
 // see https://stackoverflow.com/a/36591002/243392
-// const bookmarks = require('./example.json')
-// const path =
-//   '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
-const path = __dirname + '/../test/fixtures/example.json'
+const path =
+  options.use === 'example'
+    ? __dirname + '/../test/fixtures/example.json'
+    : '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
+console.log(`reading ${path}...`)
 const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 const server = new ApolloServer({

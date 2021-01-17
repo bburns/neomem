@@ -12,16 +12,16 @@ const optionDefinitions = [
     name: 'port',
     alias: 'p',
     type: Number,
-    defaultOption: 3101,
-    description: 'The port to use, eg 3101',
+    defaultValue: 4101,
+    description: 'The port to use, eg 4101 (default)',
     typeLabel: '<port>',
   },
   {
     name: 'use',
     alias: 'u',
     type: String,
-    defaultOption: 'chrome',
-    description: `Source to use - 'example' or 'chrome'`,
+    defaultValue: 'example',
+    description: `Source to use: 'example' (default) or 'chrome'`,
   },
 ]
 
@@ -30,8 +30,12 @@ const options = commandLineArgs(optionDefinitions)
 if (options.help) {
   const usage = commandLineUsage([
     {
+      header: 'Synopsis',
+      content: 'Make Chrome bookmarks available to Neomem',
+    },
+    {
       header: 'Example',
-      content: 'A simple example demonstrating typical usage.',
+      content: 'node src/index.js --port=4111 --use=chrome',
     },
     {
       header: 'Options',
