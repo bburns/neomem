@@ -3,7 +3,7 @@
 const { gql } = require('apollo-server')
 
 const typeDefs = gql`
-  type Bookmark {
+  type Node {
     id: ID!
     guid: ID!
     name: String
@@ -13,8 +13,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    bookmark(path: String, flatten: Boolean): [Bookmark]!
-    bookmark_by_pk(guid: ID): Bookmark
+    node(path: String, flatten: Boolean): [Node]!
+    node_by_id(guid: ID): Node
   }
 `
 

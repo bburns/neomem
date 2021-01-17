@@ -3,15 +3,14 @@
 const { ApolloServer } = require('apollo-server')
 const typeDefs = require('./schema')
 const resolvers = require('./resolvers')
+
 const BookmarksAPI = require('./datasources/bookmarks')
 const fs = require('fs')
-
-// read and parse json file directly using require.
+// can read and parse json file directly using require,
 // but only works for json files with .json extension -
-// otherwise thinks it's javascript.
+// otherwise it thinks it's javascript.
 // see https://stackoverflow.com/a/36591002/243392
 // const bookmarks = require('./example.json')
-console.log('read and parse bookmarks file...')
 // const path =
 //   '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
 const path = __dirname + '/example.json'

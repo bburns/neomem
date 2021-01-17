@@ -1,4 +1,8 @@
+// this version has a neomem-commands intermediary, 
+// which might not happen. 
+
 graph "neomem" {
+
 
   // styles
   // rankdir=LR; // left-to-right

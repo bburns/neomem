@@ -6,8 +6,8 @@ graph "neomem" {
   edge [ color=gray, fontcolor=gray ]; // default
 
   // nodes
-  browser [ fillcolor=lightyellow; color=lightgray ];
   console [ fillcolor=lightyellow; color=lightgray ];
+  browser [ fillcolor=lightyellow; color=lightgray ];
   neomemView [ label="neomem-view\n(react)"; fillcolor=greenyellow ];
   neomemConsole [label="neomem-console\n(node)"; fillcolor=greenyellow ];
   neomemData [label="neomem-data\n(federated\nGraphQL endpoint)"];
