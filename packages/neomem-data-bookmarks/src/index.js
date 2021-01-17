@@ -4,6 +4,9 @@ const { ApolloServer } = require('apollo-server')
 const typeDefs = require('./schema')
 const resolvers = require('./resolvers')
 
+const commandLineArgs = require('command-line-args')
+const commandLineUsage = require('command-line-usage')
+
 const BookmarksAPI = require('./datasources/bookmarks')
 const fs = require('fs')
 // can read and parse json file directly using require,
@@ -13,7 +16,7 @@ const fs = require('fs')
 // const bookmarks = require('./example.json')
 // const path =
 //   '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks.bak'
-const path = __dirname + '/example.json'
+const path = __dirname + '/../test/fixtures/example.json'
 const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 const server = new ApolloServer({
