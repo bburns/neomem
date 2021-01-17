@@ -24,8 +24,5 @@ async function evalCommand(cmd, context, filename, callback) {
     console.log('Unknown command')
   }
   // need to call callback so it knows to print prompt again.
-  // wraps output in quotes, so don't use that here.
-  // const error = undefined
-  // const output = undefined
   callback()
 }

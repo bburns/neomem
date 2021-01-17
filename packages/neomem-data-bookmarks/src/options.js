@@ -3,12 +3,6 @@ const commandLineUsage = require('command-line-usage')
 
 const optionDefinitions = [
   {
-    name: 'help',
-    alias: 'h',
-    type: Boolean,
-    description: 'Display this usage guide.',
-  },
-  {
     name: 'port',
     alias: 'p',
     type: Number,
@@ -22,6 +16,12 @@ const optionDefinitions = [
     type: String,
     defaultValue: 'example',
     description: `Source to use: 'example' (default) or 'chrome'`,
+  },
+  {
+    name: 'help',
+    alias: 'h',
+    type: Boolean,
+    description: 'Display this usage guide.',
   },
 ]
 
