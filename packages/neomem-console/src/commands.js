@@ -38,7 +38,7 @@ async function list() {
       2: { width: 30, truncate: 30, wrapWord },
     },
     // singleLine: true,
-    // border: getBorderCharacters(`ramac`),
+    border: getBorderCharacters(`ramac`),
     drawHorizontalLine: (index, size) =>
       index === 0 || index === 1 || index === size,
   }
