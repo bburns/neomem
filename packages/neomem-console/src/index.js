@@ -30,8 +30,9 @@ async function evalCommand(cmd, context, filename, callback) {
     t.newRow()
   })
   const s = t.toString()
-  const error = null
-  callback(error, s)
+  console.log(s)
+  // const error = null
+  // callback(error, s)
 }
 
 async function fetchQuery(query) {
