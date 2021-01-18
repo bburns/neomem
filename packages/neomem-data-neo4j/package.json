@@ -15,7 +15,8 @@
     "command-line-usage": "^6.1.1",
     "dotenv": "^8.2.0",
     "graphql": "^15.4.0",
-    "neo4j-data-migrations": "^1.2.2"
+    "neo4j-data-migrations": "^1.2.2",
+    "neo4j-graphql-js": "^2.19.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
