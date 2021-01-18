@@ -1,0 +1,22 @@
+{
+  "name": "neomem-data-bookmarks",
+  "version": "0.1.0",
+  "description": "read chrome bookmarks",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "start-test": "NODE_ENV=test yarn start"
+  },
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.19.0",
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^6.1.1",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
