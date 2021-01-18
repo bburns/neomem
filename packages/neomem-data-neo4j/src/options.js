@@ -1,13 +1,14 @@
 const commandLineArgs = require('command-line-args')
 const commandLineUsage = require('command-line-usage')
+const package = require('../package.json')
 
 const optionDefinitions = [
   {
     name: 'port',
     alias: 'p',
     type: Number,
-    defaultValue: 4101,
-    description: 'The port to use, eg 4101 (default)',
+    defaultValue: 4102,
+    description: 'The port to use, eg 4102 (default)',
     typeLabel: '<port>',
   },
   // {
@@ -35,14 +36,15 @@ if (options.help) {
     },
     {
       header: 'Example',
-      content: 'node src/index.js --port=4111',
+      content: 'node src/index.js --port=4112',
     },
     {
       header: 'Options',
       optionList: optionDefinitions,
     },
     {
-      content: 'Project home: {underline https://github.com/bburns/neomem}',
+      header: 'More',
+      content: `Version ${package.version}\nProject home: {underline https://github.com/bburns/neomem}`,
     },
   ])
   console.log(usage)

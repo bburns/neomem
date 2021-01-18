@@ -27,5 +27,5 @@ const server = new ApolloServer({
 })
 
 server.listen({ port: options.port }).then(({ url }) => {
-  console.log(`GraphQL json server ready at ${url}`)
+  console.log(`GraphQL bookmark server ready at ${url}`)
 })

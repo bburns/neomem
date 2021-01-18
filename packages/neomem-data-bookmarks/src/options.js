@@ -1,5 +1,6 @@
 const commandLineArgs = require('command-line-args')
 const commandLineUsage = require('command-line-usage')
+const package = require('../package.json')
 
 const optionDefinitions = [
   {
@@ -42,7 +43,7 @@ if (options.help) {
       optionList: optionDefinitions,
     },
     {
-      content: 'Project home: {underline https://github.com/bburns/neomem}',
+      content: `Version ${package.version}\nProject home: {underline https://github.com/bburns/neomem}`,
     },
   ])
   console.log(usage)
