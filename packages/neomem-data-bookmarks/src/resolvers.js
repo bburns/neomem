@@ -10,8 +10,6 @@
 const resolvers = {
   Query: {
     node: (_, args, { dataSources }) => dataSources.bookmarksAPI.find(args),
-    node_by_id: (_, args, { dataSources }) =>
-      dataSources.bookmarksAPI.find_by_id(args),
   },
   Node: {
     date_added: parent => getISODate(parent.date_added),
