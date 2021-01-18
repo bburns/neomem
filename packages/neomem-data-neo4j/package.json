@@ -1,7 +1,7 @@
 {
-  "name": "neomem-data-bookmarks",
+  "name": "neomem-data-neo4j",
   "version": "0.1.0",
-  "description": "read chrome bookmarks",
+  "description": "make neo4j data available to neomem",
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.js",
@@ -14,7 +14,8 @@
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "dotenv": "^8.2.0",
-    "graphql": "^15.4.0"
+    "graphql": "^15.4.0",
+    "neo4j-data-migrations": "^1.2.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
