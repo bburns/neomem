@@ -2,6 +2,8 @@
 
 const { gql } = require('apollo-server')
 
+// const types = `Node,Book,Fish`.split(',')
+
 const typeDefs = gql`
   type Node {
     uuid: ID!
@@ -12,9 +14,9 @@ const typeDefs = gql`
     modified: String
   }
 
-  # type Query {
-  #   Node: [Node]
-  # }
+  type Fish {
+    name: String
+  }
 `
 
 module.exports = typeDefs
