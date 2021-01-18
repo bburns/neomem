@@ -20,12 +20,12 @@ const Table = require('./table')
 //   console.log(s)
 // }
 
-async function list() {
-  const query = `query { Node { name, notes, created, modified, depth }}`
+async function list(args) {
+  const type = args[0] || 'Node'
+  const query = `query { ${type} { name, notes, created, modified, depth }}`
   console.log(query)
   const json = await fetchQuery(query)
-  console.log(json)
-  const nodes = json.data.Node
+  const nodes = json.data[type]
   const columns = [
     {
       name: 'Name',

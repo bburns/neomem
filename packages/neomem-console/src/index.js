@@ -13,10 +13,12 @@ const prompt = '[neomem] > '
 repl.start({ prompt, eval: evalCommand })
 
 async function evalCommand(cmd, context, filename, callback) {
-  const command = commands[cmd.trim()]
+  const words = cmd.trim().split(' ')
+  const command = commands[words[0]]
+  const args = words.slice(1)
   if (command) {
     try {
-      await command()
+      await command(args)
     } catch (error) {
       return callback(error)
     }
