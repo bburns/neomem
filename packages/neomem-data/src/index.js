@@ -1,22 +1,28 @@
+// neomem-data
+
 const { ApolloServer } = require('apollo-server')
 const { ApolloGateway } = require('@apollo/gateway')
-require('dotenv').config()
+require('dotenv').config() // read .env into process.env
 
-const mocks = process.env.NODE_ENV === 'test'
+// const mocks = process.env.NODE_ENV === 'test'
 
 // serviceList not needed with apollo studio
 // const gateway = new ApolloGateway()
 
+// make federation gateway
 const gateway = new ApolloGateway({
   serviceList: [
-    { name: 'neo4j', url: 'http://localhost:4001' },
-    { name: 'filesys', url: 'http://localhost:4002' },
+    { name: 'neo4j', url: 'http://localhost:4101' },
+    { name: 'filesys', url: 'http://localhost:4102' },
+    { name: 'bookmarks', url: 'http://localhost:4103' },
   ],
 })
 
+// make apollo server
 //. subscriptions not yet compatible with gateway, so must turn off
 const server = new ApolloServer({ gateway, subscriptions: false })
 
-server.listen({ port: 4000 }).then(({ url }) => {
+// start the server
+server.listen({ port: 4100 }).then(({ url }) => {
   console.log(`GraphQL neomem server ready at ${url}`)
 })
