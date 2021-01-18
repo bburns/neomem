@@ -8,7 +8,7 @@ const typeDefs = gql`
     uuid: ID!
     depth: Int
     name: String
-    description: String
+    notes: String
     # type: String
     # url: String
     created: String

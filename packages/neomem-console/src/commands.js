@@ -21,17 +21,18 @@ const Table = require('./table')
 // }
 
 async function list() {
-  const query = `query { Node { name, description, created, modified, depth }}`
+  const query = `query { Node { name, notes, created, modified, depth }}`
+  console.log(query)
   const json = await fetchQuery(query)
   console.log(json)
-  const nodes = json.data.node
+  const nodes = json.data.Node
   const columns = [
     {
       name: 'Name',
       accessor: obj => ' '.repeat(obj.depth) + obj.name,
       width: 36,
     },
-    { name: 'Description', accessor: 'description', width: 30 },
+    { name: 'Notes', accessor: 'notes', width: 30 },
     { name: 'Created', accessor: 'created', width: 20 },
     { name: 'Modified', accessor: 'modified', width: 20 },
   ]
