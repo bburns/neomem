@@ -5,7 +5,7 @@ const typeDefs = require('./schema')
 const resolvers = require('./resolvers')
 const options = require('./options')
 
-const BookmarksAPI = require('./datasources/bookmarks')
+const Neo4jAPI = require('./datasources/neo4j')
 const fs = require('fs')
 // note: can read and parse json file directly using require,
 // but only works for files with .json extension -
@@ -22,7 +22,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-    bookmarksAPI: new BookmarksAPI({ bookmarks }),
+    bookmarksAPI: new Neo4jAPI({ bookmarks }),
   }),
 })
 

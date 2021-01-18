@@ -1,4 +1,4 @@
-// apollo bookmarks datasource
+// apollo neo4j datasource
 
 // apollo lets you define datasources and pass them to your resolvers.
 // it helps keep resolver file more concise.
@@ -10,10 +10,10 @@ const { DataSource } = require('apollo-datasource')
 // maybe this way we can test this datasource, by passing in a dummy file?
 // yes that's prob why they did it this way.
 
-class BookmarksAPI extends DataSource {
-  constructor({ bookmarks }) {
+class Neo4jAPI extends DataSource {
+  constructor({ driver }) {
     super()
-    this.bookmarks = bookmarks
+    this.driver = driver
   }
 
   find(args) {
@@ -52,4 +52,4 @@ function collectNodes(rootNode) {
   return nodes
 }
 
-module.exports = BookmarksAPI
+module.exports = Neo4jAPI
