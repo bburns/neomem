@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
 
-const uri = 'http://localhost:4111'
+const uri = 'http://localhost:4102'
 console.log('uri', uri)
 
 async function fetchQuery(query) {
