@@ -4,7 +4,7 @@
   "description": "make neo4j data available to neomem",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "DEBUG=neo4j-graphql-js nodemon src/index.js",
     "start-test": "NODE_ENV=test yarn start"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
