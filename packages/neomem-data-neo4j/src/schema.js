@@ -2,7 +2,10 @@
 
 const { gql } = require('apollo-server')
 
+// define the types in the db
 const types = `Node,Book,Fish`.split(',')
+
+// define the fields in the db
 const fields = `
   uuid: ID!
   depth: Int
@@ -11,9 +14,13 @@ const fields = `
   created: String
   modified: String
 `
+
+// define the graphql schema
 const s = types.map(type => `type ${type} {${fields}}`).join('\n')
-console.log(s)
+
+// parse the schema
 const typeDefs = gql(s)
+
 // const typeDefs = gql`
 //   type Node {
 //     uuid: ID!
@@ -22,10 +29,6 @@ const typeDefs = gql(s)
 //     notes: String
 //     created: String
 //     modified: String
-//   }
-
-//   type Fish {
-//     name: String
 //   }
 // `
 
