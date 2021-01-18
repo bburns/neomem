@@ -12,9 +12,9 @@ const typeDefs = gql`
     modified: String
   }
 
-  type Query {
-    Node: [Node]
-  }
+  # type Query {
+  #   Node: [Node]
+  # }
 `
 
 module.exports = typeDefs
