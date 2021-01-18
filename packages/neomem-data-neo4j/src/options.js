@@ -1,3 +1,5 @@
+// command line options
+
 const commandLineArgs = require('command-line-args')
 const commandLineUsage = require('command-line-usage')
 const package = require('../package.json')
