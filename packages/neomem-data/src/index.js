@@ -4,11 +4,6 @@ const { ApolloServer } = require('apollo-server')
 const { ApolloGateway } = require('@apollo/gateway')
 require('dotenv').config() // read .env into process.env
 
-// const mocks = process.env.NODE_ENV === 'test'
-
-// serviceList not needed with apollo studio
-// const gateway = new ApolloGateway()
-
 // make federation gateway
 const gateway = new ApolloGateway({
   serviceList: [
