@@ -11,7 +11,6 @@ const typeDefs = gql`
     neo4j(subquery: String): [Foo]
   }
 `
-// const body = { query: 'query { Fish { name }}' }
 
 const resolvers = {
   Query: {
@@ -29,9 +28,9 @@ const resolvers = {
       // console.log(response)
       const json = await response.json()
       // console.log(json)
-      console.log(json.data)
-      const fishes = json.data.Fish
-      return fishes
+      // console.log(json.data)
+      const nodes = json.data.Node
+      return nodes
     },
   },
 }
