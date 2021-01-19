@@ -16,7 +16,10 @@ const fields = `
 `
 
 // define the graphql schema
-const schema = types.map(type => `type ${type} {${fields}}`).join('\n')
+const schema = types
+  // .map(type => `type ${type} @key(fields: "uuid") {${fields}}`)
+  .map(type => `type ${type} {${fields}}`)
+  .join('\n')
 
 // parse the schema
 const typeDefs = gql(schema)
