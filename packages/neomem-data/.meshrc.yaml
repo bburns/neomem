@@ -3,13 +3,15 @@ sources:
     handler:
       graphql:
         endpoint: http://localhost:4101/graphql
-    # transforms:
-    #   - prefix:
-    #       value: neo4j
+    transforms:
+      - prefix:
+          value: neo4j
+          includeRootOperations: true
   - name: bookmarks
     handler:
       graphql:
         endpoint: http://localhost:4103/graphql
-    # transforms:
-    #   - prefix:
-    #       value: chrome
+    transforms:
+      - prefix:
+          value: chrome
+          includeRootOperations: true
