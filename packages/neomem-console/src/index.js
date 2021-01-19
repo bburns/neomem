@@ -2,17 +2,18 @@
 
 // this repl (read-eval-print-loop) will translate from english-like language
 // to graphql queries, and format the results nicely.
-// currently just lets you enter a graphql query directly.
 
 const repl = require('repl')
 const commands = require('./commands')
 
 // define nmdata endpoint
+//. pass as parameter
 const uri = 'http://localhost:4100'
 console.log('uri', uri)
 
 // define prompt
 // const prompt = '|> '
+//. show current location in the dataspace
 const prompt = '[neomem] > '
 
 // start the repl

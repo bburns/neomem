@@ -6,15 +6,15 @@ const fetchQuery = require('./fetchQuery')
 const Table = require('./table')
 
 async function list(args, uri) {
-  const type = args[0] || 'node'
-  // const query = `query { node { name, type, url, date_added, depth }}`
-  // const query = `query { ${type} { name, notes, created, modified, depth }}`
+  const type = args[0] || 'Node' //.
+  // const query = `query { node { name, type, url, date_added, depth }}` // bookmarks
+  // const query = `query { ${type} { name, notes, created, modified, depth }}` // neo4j
   const query = `query { bookmarks(subquery:"query{node{name}}")}`
   console.log(query)
   const json = await fetchQuery(query, uri)
-  console.log('json', json)
-  const data = json.data.bookmarks.data
-  console.log('data', data)
+  // console.log('json', json)
+  const data = json.data.bookmarks.data //.
+  // console.log('data', data)
   const nodes = data.node
   const columns = [
     {
