@@ -2,7 +2,6 @@
 
 const { ApolloServer } = require('apollo-server')
 const { makeAugmentedSchema } = require('neo4j-graphql-js')
-// const { buildFederatedSchema } = require('@apollo/federation')
 const neo4j = require('neo4j-driver').v1
 require('dotenv').config() // read .env into process.env
 const options = require('./options') // get port etc
@@ -11,9 +10,6 @@ const typeDefs = require('./schema')
 // get graphql schema
 const augmentedSchema = makeAugmentedSchema({
   typeDefs,
-  // config: {
-  //   isFederated: true,
-  // },
 })
 
 // get neo4j driver

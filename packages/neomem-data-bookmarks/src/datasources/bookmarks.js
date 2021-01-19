@@ -26,7 +26,7 @@ class BookmarksAPI extends DataSource {
       children: roots,
     }
     // if (args.flatten) {
-    const nodes = collectNodes(rootNode).slice(0, args.limit)
+    const nodes = collectNodes(rootNode).slice(0, args.first) //. handle paging
     return nodes
     // }
     // return roots

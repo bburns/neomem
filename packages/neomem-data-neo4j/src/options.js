@@ -9,8 +9,8 @@ const optionDefinitions = [
     name: 'port',
     alias: 'p',
     type: Number,
-    defaultValue: 4102,
-    description: 'The port to use, eg 4102 (default)',
+    defaultValue: 4101,
+    description: 'The port to use, eg 4101 (default)',
     typeLabel: '<port>',
   },
   // {
@@ -38,7 +38,7 @@ if (options.help) {
     },
     {
       header: 'Example',
-      content: 'node src/index.js --port=4112',
+      content: 'node src/index.js --port=4111',
     },
     {
       header: 'Options',
