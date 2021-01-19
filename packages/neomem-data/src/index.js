@@ -1,21 +1,27 @@
 // neomem-data
 
-const { ApolloServer } = require('apollo-server')
-const { ApolloGateway } = require('@apollo/gateway')
-require('dotenv').config() // read .env into process.env
+const { gql, ApolloServer } = require('apollo-server')
 
-// make federation gateway
-const gateway = new ApolloGateway({
-  serviceList: [
-    { name: 'neo4j', url: 'http://localhost:4101' },
-    { name: 'filesys', url: 'http://localhost:4102' },
-    { name: 'bookmarks', url: 'http://localhost:4103' },
-  ],
-})
+const typeDefs = gql`
+  type Foo {
+    name: String
+  }
+  type Query {
+    foo: [Foo]
+  }
+`
+
+const resolvers = {
+  Query: {
+    foo: _ => [{ name: 'pokpok' }],
+  },
+  Foo: {
+    name: _ => 'bradley',
+  },
+}
 
 // make apollo server
-//. subscriptions not yet compatible with gateway, so must turn off
-const server = new ApolloServer({ gateway, subscriptions: false })
+const server = new ApolloServer({ typeDefs, resolvers })
 
 // start the server
 server.listen({ port: 4100 }).then(({ url }) => {
