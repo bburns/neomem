@@ -28,7 +28,7 @@ const typeDefs = gql`
 // define query resolver for each mount point
 const Query = {}
 for (const [mountKey, mount] of Object.entries(mounts)) {
-  Query[mountKey] = async (parent, args, context, info) => {
+  const resolver = async (parent, args, context, info) => {
     const body = { query: args.subquery }
     const response = await fetch(mount.url, {
       method: 'POST',
@@ -38,6 +38,7 @@ for (const [mountKey, mount] of Object.entries(mounts)) {
     const json = await response.json()
     return json
   }
+  Query[mountKey] = resolver
 }
 
 // define resolvers
