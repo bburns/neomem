@@ -1,5 +1,15 @@
 sources:
-  - name: Wiki
+  - name: neo4j
     handler:
-      openapi:
-        source: https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.yaml
+      graphql:
+        endpoint: http://localhost:4101/graphql
+    # transforms:
+    #   - prefix:
+    #       value: neo4j
+  - name: bookmarks
+    handler:
+      graphql:
+        endpoint: http://localhost:4103/graphql
+    # transforms:
+    #   - prefix:
+    #       value: chrome
