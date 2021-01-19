@@ -7,24 +7,31 @@
 const repl = require('repl')
 const commands = require('./commands')
 
+// define nmdata endpoint
+const uri = 'http://localhost:4100'
+console.log('uri', uri)
+
+// define prompt
 // const prompt = '|> '
 const prompt = '[neomem] > '
 
+// start the repl
 repl.start({ prompt, eval: evalCommand })
 
-async function evalCommand(cmd, context, filename, callback) {
-  const words = cmd.trim().split(' ')
-  const command = commands[words[0]]
-  const args = words.slice(1)
+// parse command string into a fn and execute it
+async function evalCommand(commandString, context, filename, callback) {
+  const words = commandString.trim().split(' ')
+  const command = commands[words[0]] // eg 'list'
+  const args = words.slice(1) // eg ['fish']
   if (command) {
     try {
-      await command(args)
+      await command(args, uri) // call the command fn - may print to console
     } catch (error) {
       return callback(error)
     }
   } else {
     console.log('Unknown command')
   }
-  // need to call callback so it knows to print prompt again.
+  // need to call callback so it knows to print prompt again
   callback()
 }

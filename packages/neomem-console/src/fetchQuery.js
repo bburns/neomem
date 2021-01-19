@@ -1,16 +1,14 @@
 const fetch = require('node-fetch')
 
-const uri = 'http://localhost:4102'
-console.log('uri', uri)
-
-async function fetchQuery(query) {
+async function fetchQuery(query, uri) {
+  const body = { query: query }
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Accept-Encoding': 'gzip',
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify(body),
   }
   const response = await fetch(uri, options)
   const json = await response.json()
