@@ -819,6 +819,17 @@
     "@graphql-tools/utils" "7.2.4"
     "@graphql-tools/wrap" "7.0.5"
 
+"@graphql-mesh/transform-encapsulate@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@graphql-mesh/transform-encapsulate/-/transform-encapsulate-0.1.12.tgz#4ded684a5e4072612955a932690b357bb495f323"
+  integrity sha512-fpxY/1Y3v6KJAGL1pCRp7ernU3+SLv2bms8BHdgk/iD4Xm7+MW87tUQtaNTrVWeLFZofgzbX+ZBWvdOTxXzHdg==
+  dependencies:
+    "@graphql-mesh/types" "0.28.0"
+    "@graphql-mesh/utils" "0.8.3"
+    "@graphql-tools/delegate" "7.0.9"
+    "@graphql-tools/utils" "7.2.4"
+    "@graphql-tools/wrap" "7.0.5"
+
 "@graphql-mesh/transform-prefix@^0.6.15":
   version "0.6.15"
   resolved "https://registry.yarnpkg.com/@graphql-mesh/transform-prefix/-/transform-prefix-0.6.15.tgz#554c327518d1f4bcb1bdc11530677f3cb61ce959"
