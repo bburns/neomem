@@ -4,14 +4,18 @@ sources:
       graphql:
         endpoint: http://localhost:4101/graphql
     transforms:
-      - prefix:
-          value: neo4j
-          includeRootOperations: true
+      - encapsulate:
+          applyTo:
+            query: true
+            mutation: true
+            subscription: false
   - name: bookmarks
     handler:
       graphql:
         endpoint: http://localhost:4103/graphql
     transforms:
-      - prefix:
-          value: chrome
-          includeRootOperations: true
+      - encapsulate:
+          applyTo:
+            query: true
+            mutation: false
+            subscription: false
