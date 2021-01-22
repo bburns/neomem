@@ -18,13 +18,28 @@ const init = async () => {
 
   server.route({
     method: 'GET',
-    path: '/data',
+    path: '/api/v1',
     handler: (request, h) => {
       const data = {
         name: 'pokpok',
-        type: 'book',
-        description: 'lakmsd wiuehriwuhe riuh',
+        type: 'datasource',
+        description: 'a simple datasource saved to json file',
       }
+      return data
+    },
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/api/v1/',
+    handler: (request, h) => {
+      const data = [
+        {
+          name: 'neo4j',
+          type: 'datasource',
+          description: 'rest api for a neo4j database',
+        },
+      ]
       return data
     },
   })
