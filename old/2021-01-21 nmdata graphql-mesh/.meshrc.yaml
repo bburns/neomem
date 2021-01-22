@@ -1,0 +1,29 @@
+# run this with
+#   yarn graphql-mesh serve
+# serves both datasources on 4000
+# can then say with graphql
+#   query { neo4j { node { name }}}
+#   query { bookmarks { node { name }}}
+# not sure how helpful this is
+# would rather have all datasources have same structure, recursively
+sources:
+  - name: neo4j
+    handler:
+      graphql:
+        endpoint: http://localhost:4101/graphql
+    transforms:
+      - encapsulate:
+          applyTo:
+            query: true
+            mutation: true
+            subscription: false
+  - name: bookmarks
+    handler:
+      graphql:
+        endpoint: http://localhost:4103/graphql
+    transforms:
+      - encapsulate:
+          applyTo:
+            query: true
+            mutation: false
+            subscription: false
