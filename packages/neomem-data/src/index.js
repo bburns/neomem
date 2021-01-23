@@ -21,7 +21,7 @@ const init = async () => {
     path: '/api/v1',
     handler: (request, h) => {
       const data = {
-        name: 'pokpok',
+        name: 'neomem-data',
         type: 'datasource',
         description: 'a simple datasource saved to json file',
       }
