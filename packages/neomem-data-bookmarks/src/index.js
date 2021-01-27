@@ -1,7 +1,6 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi')
-
 const fs = require('fs')
 // const options = require('./options')
 
@@ -41,6 +40,7 @@ const init = async () => {
     },
   })
 
+  // return metadata about this datasource
   server.route({
     method: 'GET',
     path: '/api/v1',
@@ -54,6 +54,8 @@ const init = async () => {
     },
   })
 
+  // return contents of this datasource
+  //. handle pagination - keyset or just offset via slicing json array
   server.route({
     method: 'GET',
     path: '/api/v1/',
