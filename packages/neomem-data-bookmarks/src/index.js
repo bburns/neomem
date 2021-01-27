@@ -58,8 +58,9 @@ const init = async () => {
   //. handle pagination - keyset or just offset via slicing json array
   server.route({
     method: 'GET',
-    path: '/api/v1/',
+    path: '/api/v1/{s}',
     handler: (request, h) => {
+      console.log(request.params.s)
       const data = bookmarks
       return data
     },
