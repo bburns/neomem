@@ -1,10 +1,11 @@
 const Hapi = require('@hapi/hapi')
+const fetch = require('node-fetch')
 
 const nodes = [
   { name: 'plecy', type: 'fish' },
-  { name: 'neo4j', type: 'datasource', url: 'http://localhost:4101' },
-  { name: 'filesys', type: 'datasource', url: 'http://localhost:4102' },
-  { name: 'bookmarks', type: 'datasource', url: 'http://localhost:4103' },
+  { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
+  { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
+  { name: 'bookmarks', type: 'datasource', url: 'http://localhost:4003' },
 ]
 
 const init = async () => {
@@ -28,13 +29,21 @@ const init = async () => {
 
   server.route({
     method: 'GET',
-    path: '/api/v1/{path}',
-    handler: (request, h) => {
-      console.log(request.params.path)
-      const pathparts = request.params.path.split('/')
-      const firstpart = pathparts[0]
-      const item = nodes.find(node => node.name === firstpart)
-      return item
+    path: '/api/v1/{path*}',
+    handler: async (request, h) => {
+      // console.log(request.params.path)
+      const parts = request.params.path.split('/')
+      const first = parts[0]
+      const rest = parts.slice(1).join('/')
+      const node = nodes.find(node => node.name === first)
+      if (node.type === 'datasource') {
+        const url = node.url + '/api/v1/' + rest
+        console.log(url)
+        const response = await fetch(url)
+        const json = response.json()
+        return json
+      }
+      return node
     },
   })
 
