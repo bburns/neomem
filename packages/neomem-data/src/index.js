@@ -1,6 +1,10 @@
-'use strict'
-
 const Hapi = require('@hapi/hapi')
+
+const data = [
+  { name: 'neo4j', type: 'datasource', url: 'http://localhost:4101' },
+  { name: 'filesys', type: 'datasource', url: 'http://localhost:4102' },
+  { name: 'bookmarks', type: 'datasource', url: 'http://localhost:4103' },
+]
 
 const init = async () => {
   const server = Hapi.server({
@@ -8,13 +12,13 @@ const init = async () => {
     host: 'localhost',
   })
 
-  server.route({
-    method: 'GET',
-    path: '/hello/{name}',
-    handler: (request, h) => {
-      return `Hello ${request.params.name}!`
-    },
-  })
+  // server.route({
+  //   method: 'GET',
+  //   path: '/hello/{name}',
+  //   handler: (request, h) => {
+  //     return `Hello ${request.params.name}!`
+  //   },
+  // })
 
   server.route({
     method: 'GET',
@@ -23,7 +27,7 @@ const init = async () => {
       const data = {
         name: 'neomem-data',
         type: 'datasource',
-        description: 'a simple datasource saved to json file',
+        description: 'a federated data source',
       }
       return data
     },
@@ -33,13 +37,13 @@ const init = async () => {
     method: 'GET',
     path: '/api/v1/',
     handler: (request, h) => {
-      const data = [
-        {
-          name: 'neo4j',
-          type: 'datasource',
-          description: 'rest api for a neo4j database',
-        },
-      ]
+      // const data = [
+      //   {
+      //     name: 'neo4j',
+      //     type: 'datasource',
+      //     description: 'rest api for a neo4j database',
+      //   },
+      // ]
       return data
     },
   })
