@@ -1,0 +1,1 @@
+curl --request GET --write-out '\n' http://localhost:4003/api/v1/$*
