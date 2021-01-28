@@ -32,13 +32,15 @@ const init = async () => {
     path: '/api/v1/{path*}',
     handler: async (request, h) => {
       // console.log(request.params.path)
+      // console.log(request.raw.req.url)
+      const queryString = request.raw.req.url.split('?').slice(1)
       const parts = request.params.path.split('/')
       const first = parts[0]
       const rest = parts.slice(1).join('/')
       const node = nodes.find(node => node.name === first)
       if (node.type === 'datasource') {
-        const url = node.url + '/api/v1/' + rest
-        console.log(url)
+        const url =
+          node.url + '/api/v1/' + rest + (queryString ? '?' + queryString : '')
         const response = await fetch(url)
         const json = response.json()
         return json
