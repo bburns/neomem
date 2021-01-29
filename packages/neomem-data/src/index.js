@@ -4,10 +4,10 @@ const Hapi = require('@hapi/hapi')
 const fetch = require('node-fetch')
 
 const nodes = [
-  { name: 'plecy', type: 'fish' },
   { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
   { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
   { name: 'bookmarks', type: 'datasource', url: 'http://localhost:4003' },
+  { name: 'plecy', type: 'fish' },
 ]
 
 const init = async () => {
@@ -35,14 +35,14 @@ const init = async () => {
     handler: async (request, h) => {
       // console.log(request.params.path)
       // console.log(request.raw.req.url)
-      const parts = request.params.path.split('/') // eg ['books']
-      const queryString = request.raw.req.url.split('?').slice(1) // eg 'fields=name,type'
-      const first = parts[0] // eg 'books'
-      const rest = parts.slice(1).join('/')
+      const pathParts = request.params.path.split('/') // eg ['books']
+      const query = request.raw.req.url.split('?').slice(1)[0] // eg 'fields=name,type'
+      const first = pathParts[0] // eg 'books'
+      const rest = pathParts.slice(1).join('/')
       const node = nodes.find(node => node.name === first)
-      if (node.type === 'datasource') {
-        const url =
-          node.url + '/api/v1/' + rest + (queryString ? '?' + queryString : '')
+      if (node && node.type === 'datasource') {
+        // pass query along to other datasource
+        const url = node.url + '/api/v1/' + rest + (query ? '?' + query : '')
         const response = await fetch(url)
         const json = response.json()
         return json

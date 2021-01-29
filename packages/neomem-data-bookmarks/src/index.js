@@ -1,8 +1,8 @@
 'use strict'
 
+const fs = require('fs') // node lib
+const querystring = require('querystring') // node lib
 const Hapi = require('@hapi/hapi')
-const fs = require('fs')
-const querystring = require('querystring')
 // const options = require('./options')
 
 // read bookmarks
@@ -63,7 +63,6 @@ const init = async () => {
     handler: (request, h) => {
       console.log(request.params.path)
       console.log(request.raw.req.url)
-      // const data = bookmarks
       const path = request.params.path // eg 'books'
       const query = request.raw.req.url.split('?').slice(1)[0] // eg 'fields=name,type'
       console.log(query)
@@ -73,10 +72,10 @@ const init = async () => {
       // const queryParts = query.split('&') // eg ['fields=name,type']
       // const first = pathParts[0] // eg 'books'
       // const rest = pathParts.slice(1).join('/')
-      const data = bookmarks.roots.bookmark_bar.children
+      const nodes = bookmarks.roots.bookmark_bar.children
         .slice(0, 5)
         .map(node => ({ name: node.name, type: node.type }))
-      return data
+      return nodes
     },
   })
 
