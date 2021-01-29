@@ -33,9 +33,9 @@ const init = async () => {
     handler: async (request, h) => {
       // console.log(request.params.path)
       // console.log(request.raw.req.url)
-      const queryString = request.raw.req.url.split('?').slice(1)
-      const parts = request.params.path.split('/')
-      const first = parts[0]
+      const parts = request.params.path.split('/') // eg ['books']
+      const queryString = request.raw.req.url.split('?').slice(1) // eg 'fields=name,type'
+      const first = parts[0] // eg 'books'
       const rest = parts.slice(1).join('/')
       const node = nodes.find(node => node.name === first)
       if (node.type === 'datasource') {
