@@ -1,3 +1,5 @@
+'use strict'
+
 const Hapi = require('@hapi/hapi')
 const fetch = require('node-fetch')
 
