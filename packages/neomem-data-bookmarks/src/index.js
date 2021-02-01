@@ -63,12 +63,15 @@ const init = async () => {
     handler: (request, h) => {
       const query = parseRequest(request)
       console.log(query)
-      // const queryParts = query.split('&') // eg ['fields=name,type']
-      // const first = pathParts[0] // eg 'books'
-      // const rest = pathParts.slice(1).join('/')
+      // const first = path[0] // eg 'books'
+      // const rest = path.slice(1).join('/')
       const nodes = bookmarks.roots.bookmark_bar.children
         .slice(0, 5)
-        .map(node => ({ name: node.name, type: node.type }))
+        .map(node => {
+          const projection = {}
+          query.fields.forEach(field => (projection[field] = node[field]))
+          return projection
+        })
       return nodes
     },
   })

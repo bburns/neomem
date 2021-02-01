@@ -11,7 +11,7 @@ module.exports = function parseRequest(request) {
     sortby: 'name',
   }
   const query = {
-    path: (path || defaults.path).split(','),
+    path: (path || defaults.path).split('/'),
     fields: (queryParts.fields || defaults.fields).split(','),
     sortby: (queryParts.sortby || defaults.sortby).split(','),
   }
