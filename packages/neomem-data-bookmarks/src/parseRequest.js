@@ -12,6 +12,8 @@ module.exports = function parseRequest(request) {
     follow: 'children',
     offset: 0,
     limit: 20,
+    where: '',
+    q: '',
   }
   const query = {
     ...defaults,

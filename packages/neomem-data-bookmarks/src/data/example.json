@@ -2,6 +2,12 @@
   "checksum": "3f2aaf8dacad48f9bce807631c4200cb",
   "roots": {
     "bookmark_bar": {
+      "id": "1",
+      "name": "Bookmarks Bar",
+      "type": "folder",
+      "guid": "00000000-0000-4000-a000-000000000002",
+      "date_added": "13226339072527291",
+      "date_modified": "13254777851017233",
       "children": [
         {
           "date_added": "13234470961443451",
@@ -310,13 +316,7 @@
           "type": "url",
           "url": "https://mymodernmet.com/google-virtual-museum-tours/"
         }
-      ],
-      "date_added": "13226339072527291",
-      "date_modified": "13254777851017233",
-      "guid": "00000000-0000-4000-a000-000000000002",
-      "id": "1",
-      "name": "Bookmarks Bar",
-      "type": "folder"
+      ]
     },
     "other": {
       "children": [

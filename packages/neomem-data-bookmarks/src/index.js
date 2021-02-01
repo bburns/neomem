@@ -65,8 +65,16 @@ const init = async () => {
       console.log(query)
       // const first = query.path[0] // eg 'books'
       // const rest = query.path.slice(1)
+
+      const root = {
+        children: bookmarks.roots,
+      }
+
       const nodes = bookmarks.roots.bookmark_bar.children
         .slice(query.offset, query.offset + query.limit)
+        .filter(
+          node => node.name.includes(query.q) || node.url.includes(query.q)
+        )
         .map(node => {
           const projection = {}
           query.fields.forEach(field => (projection[field] = node[field]))
