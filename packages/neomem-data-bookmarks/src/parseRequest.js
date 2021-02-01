@@ -9,8 +9,13 @@ module.exports = function parseRequest(request) {
     path: '',
     fields: 'name,type,description',
     sortby: 'name',
+    follow: 'children',
+    offset: 0,
+    limit: 20,
   }
   const query = {
+    ...defaults,
+    ...queryParts,
     path: (path || defaults.path).split('/'),
     fields: (queryParts.fields || defaults.fields).split(','),
     sortby: (queryParts.sortby || defaults.sortby).split(','),
