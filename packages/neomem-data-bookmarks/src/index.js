@@ -84,20 +84,20 @@ process.on('unhandledRejection', err => {
 
 init()
 
-function getNodes(root, query) {
-  if (query.path[0] === '') {
-    return [root]
+function getNodes(node, query) {
+  const first = query.path[0] // eg 'books'
+  const rest = query.path.slice(1) // eg ['scifi']
+  if (!first) {
+    const nodes = node.children
+      .slice(query.offset, query.offset + query.limit)
+      .filter(node => node.name.includes(query.q) || node.url.includes(query.q))
+      .map(node => {
+        const projection = {}
+        query.fields.forEach(field => (projection[field] = node[field]))
+        return projection
+      })
+    return nodes
   }
-  // const first = query.path[0] // eg 'books'
-  // const rest = query.path.slice(1)
-  const nodes = root.children
-    .find(child => child.name === query.path[0])
-    .children.slice(query.offset, query.offset + query.limit)
-    .filter(node => node.name.includes(query.q) || node.url.includes(query.q))
-    .map(node => {
-      const projection = {}
-      query.fields.forEach(field => (projection[field] = node[field]))
-      return projection
-    })
-  return nodes
+  const node2 = node.children.find(child => child.name === first)
+  return getNodes(node2, { ...query, path: rest })
 }
