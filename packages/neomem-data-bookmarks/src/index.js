@@ -62,24 +62,13 @@ const init = async () => {
     path: '/api/v1/{path*}',
     handler: (request, h) => {
       const query = parseRequest(request)
-      console.log(query)
-      // const first = query.path[0] // eg 'books'
-      // const rest = query.path.slice(1)
-
+      // console.log(query)
       const root = {
-        children: bookmarks.roots,
+        name: 'root',
+        type: 'folder',
+        children: Object.values(bookmarks.roots),
       }
-
-      const nodes = bookmarks.roots.bookmark_bar.children
-        .slice(query.offset, query.offset + query.limit)
-        .filter(
-          node => node.name.includes(query.q) || node.url.includes(query.q)
-        )
-        .map(node => {
-          const projection = {}
-          query.fields.forEach(field => (projection[field] = node[field]))
-          return projection
-        })
+      const nodes = getNodes(root, query)
       return nodes
     },
   })
@@ -94,3 +83,21 @@ process.on('unhandledRejection', err => {
 })
 
 init()
+
+function getNodes(root, query) {
+  if (query.path[0] === '') {
+    return [root]
+  }
+  // const first = query.path[0] // eg 'books'
+  // const rest = query.path.slice(1)
+  const nodes = root.children
+    .find(child => child.name === query.path[0])
+    .children.slice(query.offset, query.offset + query.limit)
+    .filter(node => node.name.includes(query.q) || node.url.includes(query.q))
+    .map(node => {
+      const projection = {}
+      query.fields.forEach(field => (projection[field] = node[field]))
+      return projection
+    })
+  return nodes
+}
