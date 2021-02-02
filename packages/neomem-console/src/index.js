@@ -6,11 +6,6 @@ const repl = require('repl') // node lib
 const commands = require('./commands')
 const tokenize = require('./tokenize')
 
-// define nmdata endpoint
-//. pass as parameter
-const uri = 'http://localhost:4000'
-console.log('uri', uri)
-
 // define prompt
 // const prompt = '|> '
 //. show current location in dataspace
@@ -23,10 +18,10 @@ repl.start({ prompt, eval: evalCommand })
 // parameters are specified by node's repl library.
 async function evalCommand(commandString, context, filename, callback) {
   const tokens = tokenize(commandString)
-  const command = commands[tokens[0]] // eg list
+  const command = commands[tokens[0]] // eg list fn
   if (command) {
     try {
-      await command(tokens, uri) // call the command fn - may print to console
+      await command(tokens) // call the command fn - may print to console
     } catch (error) {
       return callback(error)
     }

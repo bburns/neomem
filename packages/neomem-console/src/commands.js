@@ -2,16 +2,16 @@
 
 //. query fields and coldefs will come from the datasource metainfo
 
-const fetchQuery = require('./fetchQuery')
+const api = require('./api')
 const Table = require('./table') // wrapper around gajus table library
 
-async function list(tokens, uri) {
+async function list(tokens) {
   const type = tokens[1] || 'Node' //.
   // const query = `query { node { name, type, url, date_added, depth }}` // bookmarks
   // const query = `query { ${type} { name, notes, created, modified, depth }}` // neo4j
   const query = `query { bookmarks(subquery:"query{node{name}}")}`
   console.log(query)
-  const json = await fetchQuery(query, uri)
+  const json = await api.fetch(query)
   // console.log('json', json)
   const data = json.data.bookmarks.data //.
   // console.log('data', data)
