@@ -93,6 +93,7 @@ function getNodes(node, query) {
       .filter(node => node.name.includes(query.q) || node.url.includes(query.q))
       .map(node => {
         const projection = {}
+        //. convert chrome dates to iso dates here?
         query.fields.forEach(field => (projection[field] = node[field]))
         return projection
       })

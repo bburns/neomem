@@ -5,8 +5,8 @@
 const fetchQuery = require('./fetchQuery')
 const Table = require('./table') // wrapper around gajus table library
 
-async function list(args, uri) {
-  const type = args[0] || 'Node' //.
+async function list(tokens, uri) {
+  const type = tokens[1] || 'Node' //.
   // const query = `query { node { name, type, url, date_added, depth }}` // bookmarks
   // const query = `query { ${type} { name, notes, created, modified, depth }}` // neo4j
   const query = `query { bookmarks(subquery:"query{node{name}}")}`
