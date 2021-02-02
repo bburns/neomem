@@ -3,7 +3,7 @@
 //. query fields and coldefs will come from the datasource metainfo
 
 const fetchQuery = require('./fetchQuery')
-const Table = require('./table')
+const Table = require('./table') // wrapper around gajus table library
 
 async function list(args, uri) {
   const type = args[0] || 'Node' //.
