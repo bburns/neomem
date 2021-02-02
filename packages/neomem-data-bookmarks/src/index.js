@@ -1,8 +1,7 @@
 'use strict'
 
 const fs = require('fs') // node lib
-const Hapi = require('@hapi/hapi')
-// const options = require('./options')
+const Hapi = require('@hapi/hapi') // rest api lib
 const parseRequest = require('./parseRequest')
 
 // read bookmarks
@@ -56,13 +55,11 @@ const init = async () => {
   })
 
   // return contents of this datasource
-  //. handle pagination - keyset or just offset via slicing json array
   server.route({
     method: 'GET',
     path: '/api/v1/{path*}',
     handler: (request, h) => {
       const query = parseRequest(request)
-      // console.log(query)
       const root = {
         name: 'root',
         type: 'folder',
@@ -73,6 +70,7 @@ const init = async () => {
     },
   })
 
+  // start the api server
   await server.start()
   console.log('Server running on %s', server.info.uri)
 }
@@ -84,6 +82,8 @@ process.on('unhandledRejection', err => {
 
 init()
 
+// given a node and a query, return related nodes
+//. handle pagination and recursion better
 function getNodes(node, query) {
   const first = query.path[0] // eg 'books'
   const rest = query.path.slice(1) // eg ['scifi']
