@@ -87,6 +87,7 @@ function getNodes(node, query) {
         const projection = {}
         //. convert chrome dates to iso dates here?
         query.fields.forEach(field => (projection[field] = node[field]))
+        console.log(projection)
         return projection
       })
     return nodes
