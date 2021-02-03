@@ -3,6 +3,7 @@
 const Hapi = require('@hapi/hapi')
 const fetch = require('node-fetch')
 
+// hardcode these for now - eventually want a registry of plugins
 const nodes = [
   { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
   { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
@@ -17,8 +18,8 @@ const init = async () => {
   })
 
   server.route({
-    method: 'GET',
     path: '/api/v1',
+    method: 'GET',
     handler: (request, h) => {
       const node = {
         name: 'neomem-data',
@@ -30,8 +31,17 @@ const init = async () => {
   })
 
   server.route({
+    path: '/api/v1/',
     method: 'GET',
+    handler: (request, h) => {
+      //. query each node for description, nitems, etc, if requested?
+      return nodes
+    },
+  })
+
+  server.route({
     path: '/api/v1/{path*}',
+    method: 'GET',
     handler: async (request, h) => {
       // console.log(request.params.path)
       // console.log(request.raw.req.url)
