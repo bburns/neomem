@@ -1,4 +1,5 @@
-// define commands
+// commands
+// define console ui commands - look, list, etc
 
 //. query fields and coldefs will come from the datasource metainfo
 

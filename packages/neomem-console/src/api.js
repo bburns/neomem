@@ -1,3 +1,6 @@
+// api
+// get, post, put, delete handlers
+
 const fetch = require('node-fetch') // mimics browser's fetch
 
 // define nmdata endpoint

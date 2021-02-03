@@ -1,3 +1,6 @@
+// table
+// wrapper around a console table display library
+
 const { table, getBorderCharacters } = require('table') // https://github.com/gajus/table
 
 class Table {
