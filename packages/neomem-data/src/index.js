@@ -11,6 +11,12 @@ const nodes = [
   { name: 'plecy', type: 'fish' },
 ]
 
+const root = {
+  name: 'neomem-data',
+  type: 'datasource',
+  description: 'a federated data source',
+}
+
 const init = async () => {
   const server = Hapi.server({
     port: 4000,
@@ -21,12 +27,7 @@ const init = async () => {
     path: '/api/v1',
     method: 'GET',
     handler: (request, h) => {
-      const node = {
-        name: 'neomem-data',
-        type: 'datasource',
-        description: 'a federated data source',
-      }
-      return node
+      return root
     },
   })
 

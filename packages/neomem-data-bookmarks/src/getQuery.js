@@ -16,6 +16,7 @@ module.exports = function getQuery(request) {
     offset: 0,
     limit: 20,
     where: '',
+    depth: 1,
     q: '',
   }
   const query = {
@@ -25,6 +26,10 @@ module.exports = function getQuery(request) {
     fields: queryParts.fields || defaults.fields,
     sortby: queryParts.sortby || defaults.sortby,
   }
+  if (path.endsWith('/')) {
+    query.depth = 0
+  }
+  console.log('url:', url)
   console.log('query object:', query)
   return query
 }

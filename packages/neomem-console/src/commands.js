@@ -73,7 +73,20 @@ function l(tokens, context) {
 
 async function look(tokens, context) {
   location(tokens, context)
-  console.log('print description, number of items, types, etc')
+  // console.log('print description, number of items, types, etc')
+  const dest = tokens[1] || ''
+  const path = dest.startsWith('/')
+    ? dest
+    : dest
+    ? pathLib.join(context.global.location, dest)
+    : context.global.location
+  const query = {
+    path,
+    fields: ['name', 'type', 'url', 'notes', 'created', 'modified'],
+    depth: 0,
+  }
+  const json = await api.get(query)
+  console.log(json)
 }
 
 module.exports = { go, list, location, l, look }
