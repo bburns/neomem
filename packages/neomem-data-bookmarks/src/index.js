@@ -3,6 +3,7 @@
 const fs = require('fs') // node lib
 const Hapi = require('@hapi/hapi') // rest api lib
 const parseRequest = require('./parseRequest')
+const getNodes = require('./getNodes')
 
 // read bookmarks
 // note: can read and parse json file directly using require,
@@ -73,44 +74,3 @@ process.on('unhandledRejection', err => {
 })
 
 init()
-
-// given a node and a query, return related nodes
-//. handle pagination and recursion better
-function getNodes(node, query) {
-  const first = query.path[0] // eg 'books'
-  const rest = query.path.slice(1) // eg ['scifi']
-  if (!first) {
-    const nodes = node.children
-      .slice(query.offset, query.offset + query.limit)
-      .filter(node => node.name.includes(query.q) || node.url.includes(query.q))
-      .map(node => {
-        const projection = {}
-        query.fields.forEach(field => {
-          //. convert chrome dates to iso dates here
-          if (field === 'created') {
-            projection[field] = getISODate(node.date_added)
-          } else if (field === 'modified') {
-            projection[field] = getISODate(node.date_modified)
-          } else {
-            projection[field] = node[field]
-          }
-        })
-        return projection
-      })
-    return nodes
-  }
-  const node2 = node.children.find(child => child.name === first)
-  return getNodes(node2, { ...query, path: rest })
-}
-
-// convert from 1601-based datestring to iso string.
-// chrome bookmark times are relative to 1601-01-01.
-// from https://stackoverflow.com/questions/51343828/how-to-parse-chrome-bookmarks-date-added-value-to-a-date
-const dateStart1601 = Date.UTC(1601, 0, 1)
-function getISODate(dateString1601) {
-  if (dateString1601) {
-    const date = new Date(dateStart1601 + Number(dateString1601) / 1000)
-    return date.toISOString()
-  }
-  return ''
-}
