@@ -1,6 +1,6 @@
 // neomem-console
-// this repl (read-eval-print-loop) will translate from english-like language
-// to graphql queries, and format the results nicely.
+// this repl (read-eval-print-loop) translates english-like language commands
+// to rest api queries, and formats the results nicely.
 
 const repl = require('repl') // node lib
 const commands = require('./commands')
