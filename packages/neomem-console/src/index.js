@@ -11,6 +11,8 @@ const tokenize = require('./tokenize')
 //. show current location in dataspace
 const prompt = '[neomem] > '
 
+global.location = '/' // cd
+
 // start the repl
 repl.start({ prompt, eval: evalCommand })
 

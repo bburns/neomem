@@ -2,25 +2,28 @@
 
 //. query fields and coldefs will come from the datasource metainfo
 
+const path = require('path') // node lib https://nodejs.org/api/path.html
 const api = require('./api')
-const Table = require('./table') // wrapper around gajus table library
+// const Table = require('./table') // wrapper around gajus table library
 
 async function go(tokens, context) {
-  context.global.location = tokens[1]
+  const dest = tokens[1]
+  context.global.location = dest.startsWith('/')
+    ? dest
+    : path.join(context.global.location, dest)
   console.log('Moved to', context.global.location + '.')
 }
 
 async function list(tokens, context) {
-  // const type = tokens[1] || 'Node' //.
-  // const query = `query { node { name, type, url, date_added, depth }}` // bookmarks
-  // const query = `query { ${type} { name, notes, created, modified, depth }}` // neo4j
-  // const query = `query { bookmarks(subquery:"query{node{name}}")}`
-  // const query = `bookmarks?fields=name,type,url&sortby=name&limit=5`
-  // console.log('list - foo=', context.global.foo)
+  const dest = tokens[1] || ''
+  const queryPath = dest.startsWith('/')
+    ? dest
+    : dest
+    ? path.join(context.global.location, dest)
+    : context.global.location
   const query = {
-    // path: 'bookmarks',
-    path: context.global.location,
-    fields: ['name', 'type', 'url'],
+    path: queryPath,
+    fields: ['name', 'type', 'url', 'notes', 'created', 'modified'],
     sortby: ['name'],
     limit: 5,
   }

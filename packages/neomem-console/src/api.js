@@ -2,7 +2,7 @@ const fetch = require('node-fetch') // mimics browser's fetch
 
 // define nmdata endpoint
 //. pass as parameter
-const baseUrl = 'http://localhost:4000/api/v1/'
+const baseUrl = 'http://localhost:4000/api/v1'
 console.log('baseUrl', baseUrl)
 
 // get json from the given uri
@@ -14,6 +14,7 @@ async function get(query) {
       'Accept-Encoding': 'gzip',
     },
   }
+  // const url = path.join(baseUrl, s)
   const url = baseUrl + s
   console.log('fetch', url)
   const response = await fetch(url, options)
