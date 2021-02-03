@@ -71,6 +71,7 @@ Some use cases to test the app and database structure -
 - Lotus Symphony (1990) - spreadsheet, chart, and document views of same information
 - Apple II, Zork, Linux cli, IPython - for console interface
 - Airtable - advanced table editor
+- [The Inform Designer's Manual](https://www.amazon.com/Inform-Designers-Manual-Graham-Nelson/dp/0971311900) by Graham Nelson - the language and parser of Zork
 
 
 ## Implementation
