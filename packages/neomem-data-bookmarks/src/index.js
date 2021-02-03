@@ -2,7 +2,7 @@
 
 const fs = require('fs') // node lib
 const Hapi = require('@hapi/hapi') // rest api lib
-const parseRequest = require('./parseRequest')
+const getQuery = require('./getQuery')
 const getNodes = require('./getNodes')
 
 // read bookmarks
@@ -52,7 +52,7 @@ const init = async () => {
     method: 'GET',
     path: '/api/v1/{path*}',
     handler: (request, h) => {
-      const query = parseRequest(request)
+      const query = getQuery(request)
       const root = {
         name: 'root',
         type: 'folder',
