@@ -50,4 +50,8 @@ async function list(tokens, context) {
   // console.log('done')
 }
 
-module.exports = { go, list }
+async function location(tokens, context) {}
+
+async function look(tokens, context) {}
+
+module.exports = { go, list, location, look }
