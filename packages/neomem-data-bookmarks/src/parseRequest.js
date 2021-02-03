@@ -1,4 +1,7 @@
-const querystring = require('querystring') // node lib
+// parseRequest
+// parse an http request url
+
+const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 
 // parse an http request url
 // returns an object with the encoded query
@@ -22,7 +25,8 @@ module.exports = function parseRequest(request) {
     ...defaults,
     ...queryParts,
     path: (path || defaults.path).split('/'),
-    fields: (queryParts.fields || defaults.fields).split(','),
+    // fields: (queryParts.fields || defaults.fields).split(','),
+    fields: queryParts.fields || [],
     sortby: (queryParts.sortby || defaults.sortby).split(','),
   }
   return query

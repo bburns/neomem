@@ -7,8 +7,6 @@ const commands = require('./commands')
 const tokenize = require('./tokenize')
 
 // define prompt
-// const prompt = '|> '
-//. show current location in dataspace
 const prompt = '[neomem] > '
 
 global.location = '/' // cd

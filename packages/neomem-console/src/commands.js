@@ -3,27 +3,39 @@
 
 //. query fields and coldefs will come from the datasource metainfo
 
-const path = require('path') // node lib https://nodejs.org/api/path.html
+const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 const api = require('./api')
 // const Table = require('./table') // wrapper around gajus table library
 
+async function exists(path) {
+  // ask the datasource if the given path exists
+  // const json = await api.get(query)
+  return true //. for now
+}
+
 async function go(tokens, context) {
   const dest = tokens[1]
-  context.global.location = dest.startsWith('/')
+  //. validate path
+  const path = dest.startsWith('/')
     ? dest
-    : path.join(context.global.location, dest)
-  console.log('Moved to', context.global.location + '.')
+    : pathLib.join(context.global.location, dest)
+  if (await exists(path)) {
+    context.global.location = path
+    console.log('Moved to', path + '.')
+  } else {
+    console.log('Invalid location.')
+  }
 }
 
 async function list(tokens, context) {
   const dest = tokens[1] || ''
-  const queryPath = dest.startsWith('/')
+  const path = dest.startsWith('/')
     ? dest
     : dest
-    ? path.join(context.global.location, dest)
+    ? pathLib.join(context.global.location, dest)
     : context.global.location
   const query = {
-    path: queryPath,
+    path,
     fields: ['name', 'type', 'url', 'notes', 'created', 'modified'],
     sortby: ['name'],
     limit: 5,
@@ -51,8 +63,17 @@ async function list(tokens, context) {
   // console.log('done')
 }
 
-async function location(tokens, context) {}
+async function location(tokens, context) {
+  console.log(context.location)
+}
 
-async function look(tokens, context) {}
+function l(tokens, context) {
+  return look(tokens, context)
+}
 
-module.exports = { go, list, location, look }
+async function look(tokens, context) {
+  location(tokens, context)
+  console.log('print description, number of items, types, etc')
+}
+
+module.exports = { go, list, location, l, look }

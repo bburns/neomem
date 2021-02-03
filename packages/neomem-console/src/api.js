@@ -1,6 +1,7 @@
 // api
 // get, post, put, delete handlers
 
+const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const fetch = require('node-fetch') // mimics browser's fetch
 
 // define nmdata endpoint
@@ -10,7 +11,8 @@ console.log('baseUrl', baseUrl)
 
 // get json from the given uri
 async function get(query) {
-  const s = `${query.path}?fields=name,type,url`
+  // const s = `${query.path}?fields=name,type,url`
+  const s = `${query.path}?${querystring.stringify(query)}`
   const options = {
     method: 'GET',
     headers: {
