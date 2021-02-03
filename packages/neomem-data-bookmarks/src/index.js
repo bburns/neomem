@@ -23,14 +23,6 @@ const init = async () => {
     host: 'localhost',
   })
 
-  // server.route({
-  //   method: 'GET',
-  //   path: '/hello/{name}',
-  //   handler: (request, h) => {
-  //     return `Hello ${request.params.name}!`
-  //   },
-  // })
-
   // this handles both localhost:4003 and localhost:4003/
   server.route({
     method: 'GET',

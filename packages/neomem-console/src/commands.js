@@ -5,21 +5,28 @@
 const api = require('./api')
 const Table = require('./table') // wrapper around gajus table library
 
-async function list(tokens) {
+async function go(tokens, context) {
+  context.global.location = tokens[1]
+  console.log('Moved to', context.global.location + '.')
+}
+
+async function list(tokens, context) {
   // const type = tokens[1] || 'Node' //.
   // const query = `query { node { name, type, url, date_added, depth }}` // bookmarks
   // const query = `query { ${type} { name, notes, created, modified, depth }}` // neo4j
   // const query = `query { bookmarks(subquery:"query{node{name}}")}`
   // const query = `bookmarks?fields=name,type,url&sortby=name&limit=5`
+  // console.log('list - foo=', context.global.foo)
   const query = {
-    path: 'bookmarks',
+    // path: 'bookmarks',
+    path: context.global.location,
     fields: ['name', 'type', 'url'],
     sortby: ['name'],
     limit: 5,
   }
-  console.log(query)
+  // console.log('query:', query)
   const json = await api.get(query)
-  console.log('json', json)
+  console.log(json)
   // const data = json.data.bookmarks.data //.
   // console.log('data', data)
   // const nodes = data.node
@@ -40,4 +47,4 @@ async function list(tokens) {
   // console.log('done')
 }
 
-module.exports = { list }
+module.exports = { go, list }

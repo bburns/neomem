@@ -19,7 +19,7 @@ const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 const init = async () => {
   const server = Hapi.server({
-    port: 4003,
+    port: 4004,
     host: 'localhost',
   })
 
