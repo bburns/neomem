@@ -5,6 +5,7 @@ const fetch = require('node-fetch')
 const { getQuery } = require('neomem-util')
 
 // hardcode these for now - eventually want a registry of plugins
+//. query each node for description, nitems, etc, if requested?
 const nodes = [
   { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
   { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
@@ -34,23 +35,6 @@ const init = async () => {
   })
 
   server.route({
-    path: '/api/v1',
-    method: 'GET',
-    handler: (request, h) => {
-      return root
-    },
-  })
-
-  // server.route({
-  //   path: '/api/v1/',
-  //   method: 'GET',
-  //   handler: (request, h) => {
-  //     //. query each node for description, nitems, etc, if requested?
-  //     return nodes
-  //   },
-  // })
-
-  server.route({
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
@@ -72,9 +56,8 @@ process.on('unhandledRejection', err => {
 init()
 
 async function getNodes(root, query) {
-  const pathParts = query.path // eg ['books']
-  const first = pathParts[0] // eg 'books'
-  const rest = pathParts.slice(1).join('/')
+  const first = query.path[0] // eg 'bookmarks'
+  const rest = query.path.slice(1).join('/') // eg 'books/scifi'
   const node = nodes.find(node => node.name === first)
   if (node && node.type === 'datasource') {
     // pass query along to other datasource
@@ -84,7 +67,13 @@ async function getNodes(root, query) {
     return json
   }
   if (Number(query.depth) === 0) {
-    return root
+    return getProjection(root, query)
   }
-  return nodes
+  return nodes.map(node => getProjection(node, query))
+}
+
+function getProjection(node, query) {
+  const projection = {}
+  query.fields.forEach(field => (projection[field] = node[field]))
+  return projection
 }
