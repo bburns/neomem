@@ -2,8 +2,9 @@
 
 const fs = require('fs') // node lib
 const Hapi = require('@hapi/hapi') // rest api lib
-const getQuery = require('./getQuery')
+// const getQuery = require('./getQuery')
 const getNodes = require('./getNodes')
+const { getQuery } = require('neomem-util')
 
 // read bookmarks
 // note: can read and parse json file directly using require,
