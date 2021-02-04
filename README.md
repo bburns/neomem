@@ -46,7 +46,7 @@ All views will be developed as plugins. The backend can connect to multiple data
 
 ## Current Status
 
-See the list of issues in the current milestone here - https://github.com/bburns/Neomem/milestone/1
+See the list of issues in the current milestone [here](https://github.com/bburns/Neomem/milestone/1).
 
 
 ## Goals
