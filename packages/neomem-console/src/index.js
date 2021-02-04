@@ -7,7 +7,7 @@ const commands = require('./commands')
 const tokenize = require('./tokenize')
 
 // define prompt
-const prompt = '[neomem] > '
+const prompt = '\n[neomem] > '
 
 global.location = '/' // cd
 

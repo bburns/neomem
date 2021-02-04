@@ -67,10 +67,6 @@ async function location(tokens, context) {
   console.log(context.location)
 }
 
-function l(tokens, context) {
-  return look(tokens, context)
-}
-
 async function look(tokens, context) {
   location(tokens, context)
   // console.log('print description, number of items, types, etc')
@@ -88,5 +84,7 @@ async function look(tokens, context) {
   const json = await api.get(query)
   console.log(json)
 }
+
+const l = look
 
 module.exports = { go, list, location, l, look }

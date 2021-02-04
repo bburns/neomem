@@ -24,6 +24,14 @@ const init = async () => {
   })
 
   server.route({
+    path: '/',
+    method: 'GET',
+    handler: (request, h) => {
+      return 'Try /api/v1/'
+    },
+  })
+
+  server.route({
     path: '/api/v1',
     method: 'GET',
     handler: (request, h) => {
@@ -31,14 +39,14 @@ const init = async () => {
     },
   })
 
-  server.route({
-    path: '/api/v1/',
-    method: 'GET',
-    handler: (request, h) => {
-      //. query each node for description, nitems, etc, if requested?
-      return nodes
-    },
-  })
+  // server.route({
+  //   path: '/api/v1/',
+  //   method: 'GET',
+  //   handler: (request, h) => {
+  //     //. query each node for description, nitems, etc, if requested?
+  //     return nodes
+  //   },
+  // })
 
   server.route({
     path: '/api/v1/{path*}',
@@ -58,7 +66,10 @@ const init = async () => {
         const json = response.json()
         return json
       }
-      return node
+      if (query.depth === 0) {
+        return root
+      }
+      return nodes
     },
   })
 
