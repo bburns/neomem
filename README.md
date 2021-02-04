@@ -17,6 +17,7 @@ An open-source information manager - with plugins for different views and dataso
 
 - [Neomem](#neomem)
   - [About](#about)
+  - [Current Status](#current-status)
   - [Goals](#goals)
   - [Use Cases](#use-cases)
   - [Inspiration](#inspiration)
@@ -41,6 +42,11 @@ Data can be filtered, grouped, and sorted as required.
 Other views are possible for the same underlying information - chart, map, calendar, kanban, graph. Multiple views could be visible at the same time. A console view could allow exploration and manipulation of items in a text console. 
 
 All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development of them all as npm packages. 
+
+
+## Current Status
+
+See the list of issues in the current milestone here - https://github.com/bburns/Neomem/milestone/1
 
 
 ## Goals
