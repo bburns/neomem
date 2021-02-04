@@ -5,6 +5,9 @@ const Hapi = require('@hapi/hapi') // rest api lib
 const getNodes = require('./getNodes')
 const { getQuery } = require('neomem-util')
 
+//. use lib to find open port
+const port = process.env.PORT || 4003
+
 // read bookmarks
 // note: can read and parse json file directly using require,
 // but only works for files with .json extension -
@@ -28,11 +31,11 @@ const root = {
 
 const init = async () => {
   const server = Hapi.server({
-    port: 4003,
     host: 'localhost',
+    port,
   })
 
-  // note: this handles both localhost:4003 and localhost:4003/
+  // note: this handles both localhost:<port> and localhost:<port>/
   server.route({
     method: 'GET',
     path: '/',

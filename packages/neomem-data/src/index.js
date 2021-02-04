@@ -4,6 +4,9 @@ const Hapi = require('@hapi/hapi')
 const fetch = require('node-fetch')
 const { getQuery } = require('neomem-util')
 
+//. use a lib to find open port?
+const port = process.env.PORT || 4000
+
 // hardcode these for now - eventually want a registry of plugins
 //. query each node for description, nitems, etc, if requested?
 const nodes = [
@@ -22,7 +25,7 @@ const root = {
 
 const init = async () => {
   const server = Hapi.server({
-    port: 4000,
+    port,
     host: 'localhost',
   })
 
