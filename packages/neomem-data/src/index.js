@@ -64,7 +64,8 @@ const init = async () => {
       const node = nodes.find(node => node.name === first)
       if (node && node.type === 'datasource') {
         // pass query along to other datasource
-        const url = node.url + '/api/v1/' + rest + (query ? '?' + query : '')
+        // const url = node.url + '/api/v1/' + rest + (query ? '?' + query : '')
+        const url = node.url + '/api/v1/' + rest + '?' + query.string
         const response = await fetch(url)
         const json = response.json()
         return json

@@ -32,5 +32,6 @@ module.exports = function getQuery(request) {
   }
   console.log('url:', url)
   console.log('query object:', query)
+  query.string = querystring.stringify(query)
   return query
 }

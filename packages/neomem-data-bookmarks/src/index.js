@@ -41,15 +41,6 @@ const init = async () => {
     },
   })
 
-  // return metadata about this datasource
-  server.route({
-    method: 'GET',
-    path: '/api/v1',
-    handler: (request, h) => {
-      return root
-    },
-  })
-
   // return contents of this datasource
   server.route({
     method: 'GET',
