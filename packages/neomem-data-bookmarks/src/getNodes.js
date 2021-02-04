@@ -6,7 +6,7 @@ function getNodes(node, query) {
   const first = query.path[0] // eg 'books'
   const rest = query.path.slice(1) // eg ['scifi']
   if (!first) {
-    if (query.depth === 0) {
+    if (Number(query.depth) === 0) {
       return node
     }
     const nodes = node.children
