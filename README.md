@@ -27,6 +27,7 @@ An open-source information manager - with plugins for different views and dataso
   - [Installation](#installation)
   - [Running](#running)
   - [Development](#development)
+  - [License](#license)
 
 
 ## About
@@ -121,3 +122,7 @@ Install dependencies
     
 ## Development
 
+
+## License
+
+MIT
