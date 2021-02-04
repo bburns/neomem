@@ -10,13 +10,21 @@ const getNodes = require('./getNodes')
 // but only works for files with .json extension -
 // otherwise it thinks it's javascript.
 // see https://stackoverflow.com/a/36591002/243392
+//. how obtain user's folder etc?
 // const chromePath = '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks'
 // const examplePath = __dirname + '/../test/fixtures/example.json'
 // const chromePath = __dirname + '/../test/fixtures/example2.json'
 // const path = options.use === 'chrome' ? chromePath : examplePath
 // console.log(`Reading ${path}...`)
-const path = __dirname + '/data/example.json'
+const path = __dirname + '/data/example.json' // a smaller example file
 const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
+
+const root = {
+  name: 'bookmarks',
+  type: 'datasource',
+  description: 'Datasource for Chrome bookmarks. Currently read-only.',
+  children: Object.values(bookmarks.roots),
+}
 
 const init = async () => {
   const server = Hapi.server({
@@ -24,12 +32,12 @@ const init = async () => {
     host: 'localhost',
   })
 
-  // this handles both localhost:4003 and localhost:4003/
+  // note: this handles both localhost:4003 and localhost:4003/
   server.route({
     method: 'GET',
     path: '/',
     handler: (request, h) => {
-      return `Hello world!\n`
+      return `Try /api/v1/`
     },
   })
 
@@ -38,12 +46,7 @@ const init = async () => {
     method: 'GET',
     path: '/api/v1',
     handler: (request, h) => {
-      const data = {
-        name: 'neomem-data-bookmarks',
-        type: 'datasource',
-        description: 'a simple datasource saved to json file',
-      }
-      return data
+      return root
     },
   })
 
@@ -53,11 +56,6 @@ const init = async () => {
     path: '/api/v1/{path*}',
     handler: (request, h) => {
       const query = getQuery(request)
-      const root = {
-        name: 'root',
-        type: 'folder',
-        children: Object.values(bookmarks.roots),
-      }
       const nodes = getNodes(root, query)
       return nodes
     },
