@@ -2,7 +2,6 @@
 
 const fs = require('fs') // node lib
 const Hapi = require('@hapi/hapi') // rest api lib
-// const getQuery = require('./getQuery')
 const getNodes = require('./getNodes')
 const { getQuery } = require('neomem-util')
 

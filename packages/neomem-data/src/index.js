@@ -2,6 +2,7 @@
 
 const Hapi = require('@hapi/hapi')
 const fetch = require('node-fetch')
+const { getQuery } = require('neomem-util')
 
 // hardcode these for now - eventually want a registry of plugins
 const nodes = [
@@ -15,6 +16,7 @@ const root = {
   name: 'neomem-data',
   type: 'datasource',
   description: 'a federated data source',
+  children: nodes,
 }
 
 const init = async () => {
@@ -55,7 +57,8 @@ const init = async () => {
       // console.log(request.params.path)
       // console.log(request.raw.req.url)
       const pathParts = request.params.path.split('/') // eg ['books']
-      const query = request.raw.req.url.split('?').slice(1)[0] // eg 'fields=name,type'
+      // const query = request.raw.req.url.split('?').slice(1)[0] // eg 'fields=name,type'
+      const query = getQuery(request)
       const first = pathParts[0] // eg 'books'
       const rest = pathParts.slice(1).join('/')
       const node = nodes.find(node => node.name === first)
@@ -66,7 +69,7 @@ const init = async () => {
         const json = response.json()
         return json
       }
-      if (query.depth === 0) {
+      if (query.depth === '0') {
         return root
       }
       return nodes
