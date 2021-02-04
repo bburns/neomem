@@ -2,7 +2,7 @@ const util = require('./util')
 
 // given a node and a query, return related nodes
 //. handle pagination and recursion better
-function getNodes(node, query) {
+async function getNodes(node, query) {
   const first = query.path[0] // eg 'books'
   const rest = query.path.slice(1) // eg ['scifi']
   if (!first) {

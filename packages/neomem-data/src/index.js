@@ -54,21 +54,8 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
-      const pathParts = request.params.path.split('/') // eg ['books']
       const query = getQuery(request)
-      const first = pathParts[0] // eg 'books'
-      const rest = pathParts.slice(1).join('/')
-      const node = nodes.find(node => node.name === first)
-      if (node && node.type === 'datasource') {
-        // pass query along to other datasource
-        const url = node.url + '/api/v1/' + rest + '?' + query.string
-        const response = await fetch(url)
-        const json = response.json()
-        return json
-      }
-      if (Number(query.depth) === 0) {
-        return root
-      }
+      const nodes = await getNodes(root, query)
       return nodes
     },
   })
@@ -83,3 +70,21 @@ process.on('unhandledRejection', err => {
 })
 
 init()
+
+async function getNodes(root, query) {
+  const pathParts = query.path // eg ['books']
+  const first = pathParts[0] // eg 'books'
+  const rest = pathParts.slice(1).join('/')
+  const node = nodes.find(node => node.name === first)
+  if (node && node.type === 'datasource') {
+    // pass query along to other datasource
+    const url = node.url + '/api/v1/' + rest + '?' + query.string
+    const response = await fetch(url)
+    const json = response.json()
+    return json
+  }
+  if (Number(query.depth) === 0) {
+    return root
+  }
+  return nodes
+}

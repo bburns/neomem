@@ -45,9 +45,9 @@ const init = async () => {
   server.route({
     method: 'GET',
     path: '/api/v1/{path*}',
-    handler: (request, h) => {
+    handler: async (request, h) => {
       const query = getQuery(request)
-      const nodes = getNodes(root, query)
+      const nodes = await getNodes(root, query)
       return nodes
     },
   })
