@@ -25,8 +25,8 @@ An open-source information manager - with plugins for different views and dataso
   - [Features](#features)
   - [Packages](#packages)
   - [Installation](#installation)
-  - [Running](#running)
-  - [Development](#development)
+  - [Links](#links)
+  - [Support](#support)
   - [License](#license)
 
 
@@ -116,11 +116,14 @@ Install dependencies
     yarn
 
 
-## Running
+## Links
 
-    yarn start
-    
-## Development
+Follow along on Twitter - https://twitter.com/neomem_io.
+
+
+## Support
+
+You can support me through ko-fi here - https://ko-fi.com/bburns. Thank you! ❤︎
 
 
 ## License
