@@ -5,15 +5,24 @@
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const commands = require('./commands')
 const tokenize = require('./tokenize')
+const package = require('../package')
 
 // define prompt
 const prompt = '\n[neomem] > '
 
-global.location = '/' // cd
+// set current directory
+global.location = '/'
+
+// print welcome
+console.log()
+console.log('Welcome to Neomem')
+console.log(`Version ${package.version}`)
+console.log(
+  '--------------------------------------------------------------------------'
+)
 
 // start the repl
 repl.start({ prompt, eval: evalCommand })
-// repl.start()
 
 // parse command string into a fn and execute it.
 // parameters are specified by node's repl library.
