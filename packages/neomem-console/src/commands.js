@@ -4,9 +4,10 @@
 //. query fields and coldefs will come from the datasource metainfo
 
 const api = require('./api')
-// const Table = require('./table') // wrapper around gajus table library
 const { getPath } = require('neomem-util')
+// const Table = require('./table') // wrapper around gajus table library
 
+//. move to neomem-util?
 async function exists(path) {
   // ask the datasource if the given path exists
   // const json = await api.get(query)
@@ -32,15 +33,10 @@ async function go(tokens, context) {
   } else {
     console.log('Invalid location.')
   }
+  await look(tokens, context)
 }
 
 async function list(tokens, context) {
-  // const dest = tokens[1] || ''
-  // const path = dest.startsWith('/')
-  //   ? dest
-  //   : dest
-  //   ? pathLib.join(context.global.location, dest)
-  //     : context.global.location
   const path = getPath(tokens[1], context.global.location)
   const query = {
     path,
@@ -48,7 +44,6 @@ async function list(tokens, context) {
     sortby: ['name'],
     limit: 5,
   }
-  // console.log('query:', query)
   const json = await api.get(query)
   console.log(json)
   // const data = json.data.bookmarks.data //.
@@ -85,7 +80,7 @@ async function look(tokens, context) {
     depth: 0,
   }
   const json = await api.get(query)
-  location(tokens, context) // print location
+  await location(tokens, context) // print location
   console.log(json)
   console.log('print number of items, types, etc')
 }

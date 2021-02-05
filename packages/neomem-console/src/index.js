@@ -1,6 +1,6 @@
 // neomem-console
 // this repl (read-eval-print-loop) translates english-like language commands
-// to rest api queries, and formats the results nicely.
+// to rest api queries, and formats the results.
 
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const commands = require('./commands')
