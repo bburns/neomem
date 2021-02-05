@@ -3,7 +3,6 @@
 
 //. query fields and coldefs will come from the datasource metainfo
 
-const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 const api = require('./api')
 // const Table = require('./table') // wrapper around gajus table library
 const { getPath } = require('neomem-util')
@@ -15,11 +14,18 @@ async function exists(path) {
 }
 
 async function go(tokens, context) {
+  // const dest = tokens[1]
+  // const path = dest.startsWith('/')
+  //   ? dest
+  //   : pathLib.join(context.global.location, dest)
+  //. make sure have a destination
+  // eventually could be a direction etc
   const dest = tokens[1]
-  //. validate path
-  const path = dest.startsWith('/')
-    ? dest
-    : pathLib.join(context.global.location, dest)
+  if (!dest) {
+    console.log('No location given.')
+    return
+  }
+  const path = getPath(dest, context.global.location)
   if (await exists(path)) {
     context.global.location = path
     console.log('Moved to', path + '.')

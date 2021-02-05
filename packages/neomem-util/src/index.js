@@ -1,4 +1,5 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
+const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 
 // get absolute path from names and current absolute location.
 // eg names = 'books/scif', location = '/bookmarks'
