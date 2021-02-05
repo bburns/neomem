@@ -29,12 +29,13 @@ async function go(tokens, context) {
 }
 
 async function list(tokens, context) {
-  const dest = tokens[1] || ''
-  const path = dest.startsWith('/')
-    ? dest
-    : dest
-    ? pathLib.join(context.global.location, dest)
-    : context.global.location
+  // const dest = tokens[1] || ''
+  // const path = dest.startsWith('/')
+  //   ? dest
+  //   : dest
+  //   ? pathLib.join(context.global.location, dest)
+  //     : context.global.location
+  const path = getPath(tokens[1], context.global.location)
   const query = {
     path,
     fields: ['name', 'type', 'url', 'notes', 'created', 'modified'],
@@ -71,7 +72,6 @@ async function location(tokens, context) {
 const loc = location
 
 async function look(tokens, context) {
-  location(tokens, context) // print location
   const path = getPath(tokens[1], context.global.location)
   const query = {
     path,
@@ -79,10 +79,11 @@ async function look(tokens, context) {
     depth: 0,
   }
   const json = await api.get(query)
+  location(tokens, context) // print location
   console.log(json)
-  console.log('print description, number of items, types, etc')
+  console.log('print number of items, types, etc')
 }
 
 const l = look
 
-module.exports = { go, list, loc, location, l, look }
+module.exports = { go, list, location, loc, look, l }

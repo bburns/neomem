@@ -13,11 +13,11 @@ global.location = '/' // cd
 
 // start the repl
 repl.start({ prompt, eval: evalCommand })
+// repl.start()
 
 // parse command string into a fn and execute it.
 // parameters are specified by node's repl library.
 async function evalCommand(commandString, context, filename, callback) {
-  // console.log('context', context, filename)
   const tokens = tokenize(commandString)
   const command = commands[tokens[0]] // eg list fn
   if (command) {
