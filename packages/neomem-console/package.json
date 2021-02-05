@@ -11,6 +11,7 @@
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^4.1.0",
     "node-fetch": "^2.6.1",
     "table": "^6.0.7"
   },

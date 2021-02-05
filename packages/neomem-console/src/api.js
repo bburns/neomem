@@ -3,6 +3,7 @@
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const fetch = require('node-fetch') // mimics browser's fetch
+const chalk = require('chalk') // color text
 
 // define nmdata endpoint
 //. pass as parameter
@@ -11,7 +12,6 @@ console.log('baseUrl', baseUrl)
 
 // get json from the given uri
 async function get(query) {
-  // const s = `${query.path}?fields=name,type,url`
   const s = `${query.path}?${querystring.stringify(query)}`
   const options = {
     method: 'GET',
@@ -21,7 +21,7 @@ async function get(query) {
   }
   // const url = path.join(baseUrl, s)
   const url = baseUrl + s
-  console.log('fetch', url)
+  console.log(chalk.gray(url))
   const response = await fetch(url, options)
   const json = await response.json()
   return json
