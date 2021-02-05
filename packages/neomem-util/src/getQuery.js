@@ -1,7 +1,15 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 
 // parse an http request url
-// returns an object with the encoded query
+// returns an object with the encoded query.
+// request is { params.path, raw.req.url }
+// where path is the part after api/v1
+// eg for url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
+// returns query object like
+// {
+//   fields: ['name', 'type'],
+//   sortby: 'name'
+// }
 module.exports = function getQuery(request) {
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const path = request.params.path // eg 'books/scifi'
@@ -10,12 +18,11 @@ module.exports = function getQuery(request) {
   const defaults = {
     path: '',
     fields: 'name,type,description'.split(','),
-    sortby: 'name',
-    // follow: 'children',
-    follow: '',
+    sortby: '', // 'name',
+    where: '',
+    follow: '', // 'children',
     offset: 0,
     limit: 20,
-    where: '',
     depth: 1,
     q: '',
   }
@@ -23,8 +30,8 @@ module.exports = function getQuery(request) {
     ...defaults,
     ...queryParts,
     path: (path || defaults.path).split('/'),
-    fields: queryParts.fields || defaults.fields,
-    sortby: queryParts.sortby || defaults.sortby,
+    // fields: queryParts.fields || defaults.fields,
+    // sortby: queryParts.sortby || defaults.sortby,
   }
   //.?
   if (path.endsWith('/')) {

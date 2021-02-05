@@ -67,6 +67,8 @@ async function location(tokens, context) {
   console.log(context.location)
 }
 
+const loc = location
+
 async function look(tokens, context) {
   location(tokens, context)
   // console.log('print description, number of items, types, etc')
@@ -87,4 +89,4 @@ async function look(tokens, context) {
 
 const l = look
 
-module.exports = { go, list, location, l, look }
+module.exports = { go, list, loc, location, l, look }
