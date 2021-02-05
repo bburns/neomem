@@ -46,14 +46,14 @@ async function go(tokens, context) {
     console.log('No location given.')
     return
   }
-  const path = getPath(dest, context.global.location)
+  const path = getPath(dest, context.location)
   if (await exists(path)) {
-    context.global.location = path
+    context.location = path
     console.log('Moved to', path + '.')
   } else {
     console.log('Invalid location.')
   }
-  await look(tokens, context)
+  await look([], context) // don't pass tokens here
 }
 
 async function list(tokens, context) {
@@ -95,10 +95,12 @@ async function location(tokens, context) {
 const loc = location
 
 async function look(tokens, context) {
-  const path = getPath(tokens[1], context.global.location)
+  const path = getPath(tokens[1], context.location)
+  const meta = await getMeta(path)
+  const fields = getFields(meta)
   const query = {
     path,
-    fields: ['name', 'type', 'description', 'created', 'modified'],
+    fields, // eg ['name', 'type', 'description']
     depth: 0,
   }
   const json = await api.get(query)
