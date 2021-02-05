@@ -6,6 +6,7 @@
 const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 const api = require('./api')
 // const Table = require('./table') // wrapper around gajus table library
+const { getPath } = require('neomem-util')
 
 async function exists(path) {
   // ask the datasource if the given path exists
@@ -70,21 +71,16 @@ async function location(tokens, context) {
 const loc = location
 
 async function look(tokens, context) {
-  location(tokens, context)
-  // console.log('print description, number of items, types, etc')
-  const dest = tokens[1] || ''
-  const path = dest.startsWith('/')
-    ? dest
-    : dest
-    ? pathLib.join(context.global.location, dest)
-    : context.global.location
+  location(tokens, context) // print location
+  const path = getPath(tokens[1], context.global.location)
   const query = {
     path,
-    fields: ['name', 'type', 'url', 'notes', 'created', 'modified'],
+    fields: ['name', 'type', 'description', 'created', 'modified'],
     depth: 0,
   }
   const json = await api.get(query)
   console.log(json)
+  console.log('print description, number of items, types, etc')
 }
 
 const l = look
