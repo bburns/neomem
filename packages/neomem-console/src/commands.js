@@ -14,13 +14,16 @@ async function exists(path) {
   return true //. for now
 }
 
+async function getMeta(path) {
+  const query = {
+    path,
+    fields: [''],
+  }
+  const json = await api.get(query)
+  return json
+}
+
 async function go(tokens, context) {
-  // const dest = tokens[1]
-  // const path = dest.startsWith('/')
-  //   ? dest
-  //   : pathLib.join(context.global.location, dest)
-  //. make sure have a destination
-  // eventually could be a direction etc
   const dest = tokens[1]
   if (!dest) {
     console.log('No location given.')
@@ -38,14 +41,16 @@ async function go(tokens, context) {
 
 async function list(tokens, context) {
   const path = getPath(tokens[1], context.global.location)
+  const meta = await getMeta(path)
   const query = {
     path,
-    fields: ['name', 'type', 'url', 'notes', 'created', 'modified'],
+    fields: ['name', 'type', 'url', 'notes', 'created', 'modified'], //. get from meta
     sortby: ['name'],
     limit: 5,
   }
   const json = await api.get(query)
   console.log(json)
+  //. recurse and build depth values for treelist
   // const data = json.data.bookmarks.data //.
   // console.log('data', data)
   // const nodes = data.node

@@ -19,8 +19,9 @@ function getPath(names, location) {
 // request is { params.path, raw.req.url }
 // where path is the part after api/v1
 // eg for url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
-// returns query object like
+// returns a query object like
 // {
+//   path: 'books/scifi',
 //   fields: ['name', 'type'],
 //   sortby: 'name'
 // }
