@@ -14,13 +14,30 @@ async function exists(path) {
   return true //. for now
 }
 
+// get meta information for a path, including views
 async function getMeta(path) {
-  const query = {
-    path,
-    fields: [''],
+  // const query = {
+  //   path,
+  //   fields: [''],
+  // }
+  // const json = await api.get(query)
+  const json = {
+    view: {
+      columns: [
+        { key: 'name', width: 20 },
+        { key: 'type', width: 12 },
+        { key: 'url', width: 30 },
+        { key: 'created', width: 12 },
+        { key: 'modified', width: 12 },
+      ],
+    },
   }
-  const json = await api.get(query)
   return json
+}
+
+function getFields(meta) {
+  const fields = meta.view.columns.map(col => col.key)
+  return fields
 }
 
 async function go(tokens, context) {
@@ -42,9 +59,10 @@ async function go(tokens, context) {
 async function list(tokens, context) {
   const path = getPath(tokens[1], context.global.location)
   const meta = await getMeta(path)
+  const fields = getFields(meta)
   const query = {
     path,
-    fields: ['name', 'type', 'url', 'notes', 'created', 'modified'], //. get from meta
+    fields, // eg ['name', 'type', 'url']
     sortby: ['name'],
     limit: 5,
   }
@@ -68,7 +86,6 @@ async function list(tokens, context) {
   // const t = new Table(columns, nodes)
   // const s = t.toString()
   // console.log(s)
-  // console.log('done')
 }
 
 async function location(tokens, context) {
