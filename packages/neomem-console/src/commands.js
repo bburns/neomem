@@ -20,8 +20,9 @@ async function getMeta(path) {
   //   path,
   //   fields: [''],
   // }
+  //. recurse upwards until find a .neomem item?
   // const json = await api.get(query)
-  const json = {
+  const meta = {
     view: {
       columns: [
         { key: 'name', width: 20 },
@@ -32,7 +33,7 @@ async function getMeta(path) {
       ],
     },
   }
-  return json
+  return meta
 }
 
 function getFields(meta) {

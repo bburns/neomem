@@ -29,6 +29,18 @@ const root = {
   children: Object.values(bookmarks.roots),
 }
 
+const meta = {
+  view: {
+    columns: [
+      { key: 'name', width: 20 },
+      { key: 'type', width: 12 },
+      { key: 'url', width: 30 },
+      { key: 'created', width: 12 },
+      { key: 'modified', width: 12 },
+    ],
+  },
+}
+
 const init = async () => {
   const server = Hapi.server({
     host: 'localhost',
@@ -50,6 +62,9 @@ const init = async () => {
     path: '/api/v1/{path*}',
     handler: async (request, h) => {
       const query = getQuery(request)
+      if (query.url.endsWith('/.neomem')) {
+        return meta
+      }
       const nodes = await getNodes(root, query)
       return nodes
     },

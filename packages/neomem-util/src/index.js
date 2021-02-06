@@ -40,6 +40,7 @@ function getQuery(request) {
     limit: 20,
     depth: 1,
     q: '',
+    url,
   }
   const query = {
     ...defaults,
