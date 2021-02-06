@@ -1,8 +1,6 @@
 // commands
 // define console ui commands - look, list, etc
 
-//. query fields and coldefs will come from the datasource metainfo
-
 const pathLib = require('path') // node lib
 const api = require('./api')
 const { getPath } = require('neomem-util')
@@ -17,10 +15,7 @@ async function exists(path) {
 
 // get meta information for a path, including views
 async function getMeta(path) {
-  const query = {
-    path: pathLib.join(path, '.neomem'),
-  }
-  const def = {
+  const metaDefault = {
     view: {
       columns: [
         { key: 'name', width: 12 },
@@ -29,8 +24,11 @@ async function getMeta(path) {
       ],
     },
   }
+  const query = {
+    path: pathLib.join(path, '.neomem'),
+  }
   //. recurse upwards until find a .neomem item?
-  const meta = (await api.get(query)) || def
+  const meta = (await api.get(query)) || metaDefault
   return meta
 }
 
