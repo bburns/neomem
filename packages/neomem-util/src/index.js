@@ -33,7 +33,6 @@ function getQuery(request) {
   const paramsDict = querystring.parse(params) // eg { fields: ['name','type'], sortby: 'name' }
   const defaults = {
     path,
-    pathArray: path.split('/'),
     fields: 'name,type,description'.split(','),
     sortby: '',
     where: '',
@@ -51,6 +50,7 @@ function getQuery(request) {
   console.log('url:', url)
   console.log('query object:', query)
   query.string = querystring.stringify(query)
+  query.pathArray = path.split('/')
   query.url = url
   return query
 }
