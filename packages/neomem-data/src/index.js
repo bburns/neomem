@@ -77,8 +77,8 @@ process.on('unhandledRejection', err => {
 init()
 
 async function getNodes(root, query) {
-  const first = query.path[0] // eg 'bookmarks'
-  const rest = query.path.slice(1).join('/') // eg 'books/scifi'
+  const first = query.pathArray[0] // eg 'bookmarks'
+  const rest = query.pathArray.slice(1).join('/') // eg 'books/scifi'
   const node = nodes.find(node => node.name === first)
   if (node && node.type === 'datasource') {
     // pass query along to other datasource

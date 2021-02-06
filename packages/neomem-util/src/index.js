@@ -42,7 +42,6 @@ function getQuery(request) {
     limit: 20,
     depth: 1,
     q: '',
-    url,
   }
   const query = { ...defaults, ...paramsDict }
   //.?
@@ -52,6 +51,7 @@ function getQuery(request) {
   console.log('url:', url)
   console.log('query object:', query)
   query.string = querystring.stringify(query)
+  query.url = url
   return query
 }
 

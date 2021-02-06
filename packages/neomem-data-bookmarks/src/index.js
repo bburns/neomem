@@ -62,7 +62,7 @@ const init = async () => {
     path: '/api/v1/{path*}',
     handler: async (request, h) => {
       const query = getQuery(request)
-      if (query.path[query.path.length - 1] === '.neomem') {
+      if (query.path.endsWith('.neomem')) {
         return meta
       }
       const nodes = await getNodes(root, query)

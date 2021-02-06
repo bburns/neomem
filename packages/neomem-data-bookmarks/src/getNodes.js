@@ -3,8 +3,8 @@ const util = require('./util')
 // given a node and a query, return related nodes
 //. handle pagination and recursion better
 async function getNodes(node, query) {
-  const first = query.path[0] // eg 'books'
-  const rest = query.path.slice(1) // eg ['scifi']
+  const first = query.pathArray[0] // eg 'books'
+  const rest = query.pathArray.slice(1) // eg ['scifi']
   if (!first) {
     if (Number(query.depth) === 0) {
       return getProjection(node, query)
@@ -15,9 +15,8 @@ async function getNodes(node, query) {
       .map(node => getProjection(node, query))
     return nodes
   }
-
   const node2 = node.children.find(child => child.name === first)
-  return getNodes(node2, { ...query, path: rest })
+  return getNodes(node2, { ...query, pathArray: rest })
 }
 
 function getProjection(node, query) {
