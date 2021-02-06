@@ -14,26 +14,28 @@ function getPath(names, location) {
   return path
 }
 
-// parse an http request url
+// parse an http request url.
 // returns an object with the encoded query.
 // request is { params.path, raw.req.url }
-// where path is the part after api/v1
 // eg for url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
 // returns a query object like
 // {
 //   path: 'books/scifi',
-//   fields: ['name', 'type'],
-//   sortby: 'name'
+//   pathArray: ['books', 'scifi']
+//   fields: 'name' or ['name', 'type'],
+//   sortby: 'name' or ['year', 'name']
 // }
 function getQuery(request) {
+  const path = request.params.path || '' // eg 'books/scifi'
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
-  const path = request.params.path // eg 'books/scifi'
-  const params = url.split('?').slice(1)[0] // eg 'fields=name,type&sortby=name'
-  const queryParts = querystring.parse(params) // eg { fields: ['name','type'], sortby: 'name' }
+  const params = url.split('?')[1] // eg 'fields=name,type&sortby=name'
+  // querystring lib returns a string if one value, an array if >1
+  const paramsDict = querystring.parse(params) // eg { fields: ['name','type'], sortby: 'name' }
   const defaults = {
-    path: '',
+    path,
+    pathArray: path.split('/'),
     fields: 'name,type,description'.split(','),
-    sortby: '', // 'name',
+    sortby: '',
     where: '',
     follow: '', // 'children',
     offset: 0,
@@ -42,13 +44,7 @@ function getQuery(request) {
     q: '',
     url,
   }
-  const query = {
-    ...defaults,
-    ...queryParts,
-    path: (path || defaults.path).split('/'),
-    // fields: queryParts.fields || defaults.fields,
-    // sortby: queryParts.sortby || defaults.sortby,
-  }
+  const query = { ...defaults, ...paramsDict }
   //.?
   if (path.endsWith('/')) {
     query.depth = 0
