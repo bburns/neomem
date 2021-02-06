@@ -61,6 +61,9 @@ const init = async () => {
     method: 'GET',
     handler: async (request, h) => {
       const query = getQuery(request)
+      // if (query.url.endsWith('/.neomem')) {
+      //   return meta
+      // }
       const nodes = await getNodes(root, query)
       return nodes
     },

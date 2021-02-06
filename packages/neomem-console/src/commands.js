@@ -3,6 +3,7 @@
 
 //. query fields and coldefs will come from the datasource metainfo
 
+const pathLib = require('path') // node lib
 const api = require('./api')
 const { getPath } = require('neomem-util')
 // const Table = require('./table') // wrapper around gajus table library
@@ -16,27 +17,28 @@ async function exists(path) {
 
 // get meta information for a path, including views
 async function getMeta(path) {
-  // const query = {
-  //   path,
-  //   fields: [''],
-  // }
-  //. recurse upwards until find a .neomem item?
-  // const json = await api.get(query)
-  const meta = {
-    view: {
-      columns: [
-        { key: 'name', width: 20 },
-        { key: 'type', width: 12 },
-        { key: 'url', width: 30 },
-        { key: 'created', width: 12 },
-        { key: 'modified', width: 12 },
-      ],
-    },
+  const query = {
+    path: pathLib.join(path, '.neomem'),
+    // fields: [''],
   }
+  //. recurse upwards until find a .neomem item?
+  const meta = await api.get(query)
+  // const meta = {
+  //   view: {
+  //     columns: [
+  //       { key: 'name', width: 20 },
+  //       { key: 'type', width: 12 },
+  //       { key: 'url', width: 30 },
+  //       { key: 'created', width: 12 },
+  //       { key: 'modified', width: 12 },
+  //     ],
+  //   },
+  // }
   return meta
 }
 
 function getFields(meta) {
+  console.log(meta)
   const fields = meta.view.columns.map(col => col.key)
   return fields
 }
@@ -60,6 +62,7 @@ async function go(tokens, context) {
 async function list(tokens, context) {
   const path = getPath(tokens[1], context.global.location)
   const meta = await getMeta(path)
+  console.log(meta)
   const fields = getFields(meta)
   const query = {
     path,
