@@ -32,7 +32,6 @@ function getQuery(request) {
   // querystring lib returns a string if one value, an array if >1
   const paramsDict = querystring.parse(params) // eg { fields: ['name','type'], sortby: 'name' }
   const defaults = {
-    path,
     fields: 'name,type,description'.split(','),
     sortby: '',
     where: '',
@@ -50,6 +49,7 @@ function getQuery(request) {
   console.log('url:', url)
   console.log('query object:', query)
   query.string = querystring.stringify(query)
+  query.path = path
   query.pathArray = path.split('/')
   query.url = url
   return query
