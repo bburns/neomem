@@ -29,12 +29,10 @@ async function getMeta(path) {
   }
   //. recurse upwards until find a .neomem item?
   const meta = (await api.get(query)) || metaDefault
-  console.log('gotmeta', meta)
   return meta
 }
 
 function getFields(meta) {
-  console.log(meta)
   const fields = meta.view.columns.map(col => col.key)
   return fields
 }
@@ -66,21 +64,14 @@ async function list(tokens, context) {
     limit: 5,
   }
   const json = await api.get(query)
-  console.log(json)
   //. recurse and build depth values for treelist
   const items = json
-  // console.log('data', data)
-  // const items = data.node
   // const columns = [
   //   {
   //     name: 'Name',
   //     accessor: item => ' '.repeat(item.depth) + item.name,
   //     width: 36,
   //   },
-  //   { name: 'Type', accessor: 'type', width: 10 },
-  //   { name: 'Notes', accessor: 'notes', width: 20 },
-  //   { name: 'Created', accessor: 'created', width: 18 },
-  //   { name: 'Modified', accessor: 'modified', width: 18 },
   // ]
   const columns = meta.view.columns.map(column => ({
     name: column.key,
@@ -101,7 +92,6 @@ const loc = location
 async function look(tokens, context) {
   const path = getPath(tokens[1], context.location)
   const meta = await getMeta(path)
-  console.log(101, meta)
   const fields = getFields(meta)
   const query = {
     path,

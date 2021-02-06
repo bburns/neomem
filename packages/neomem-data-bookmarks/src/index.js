@@ -35,8 +35,8 @@ const meta = {
       { key: 'name', width: 20 },
       { key: 'type', width: 12 },
       { key: 'url', width: 30 },
-      { key: 'created', width: 15 },
-      { key: 'modified', width: 15 },
+      { key: 'created', width: 13 },
+      { key: 'modified', width: 13 },
     ],
   },
 }
@@ -66,7 +66,6 @@ const init = async () => {
         return meta
       }
       const nodes = await getNodes(root, query)
-      console.log(nodes)
       return nodes
     },
   })
