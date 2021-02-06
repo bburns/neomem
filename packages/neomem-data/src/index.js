@@ -23,6 +23,17 @@ const root = {
   children: nodes,
 }
 
+const meta = {
+  view: {
+    columns: [
+      { key: 'name', width: 10 },
+      { key: 'type', width: 20 },
+      { key: 'url', width: 20 },
+      { key: 'description', width: 20 },
+    ],
+  },
+}
+
 const init = async () => {
   const server = Hapi.server({
     port,
@@ -34,6 +45,14 @@ const init = async () => {
     method: 'GET',
     handler: (request, h) => {
       return 'Try /api/v1/'
+    },
+  })
+
+  server.route({
+    path: '/api/v1/.neomem',
+    method: 'GET',
+    handler: async (request, h) => {
+      return meta
     },
   })
 

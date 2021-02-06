@@ -6,7 +6,7 @@ const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
   siteMetadata: {
-    siteTitleAlt: `Minimal Blog - Gatsby Theme`,
+    siteTitleAlt: `Neomem`,
   },
   plugins: [
     {
@@ -14,14 +14,14 @@ module.exports = {
       // See the theme's README for all available options
       options: {
         navigation: [
-          {
-            title: `Blog`,
-            slug: `/blog`,
-          },
-          {
-            title: `About`,
-            slug: `/about`,
-          },
+          // {
+          //   title: `Blog`,
+          //   slug: `/blog`,
+          // },
+          // {
+          //   title: `About`,
+          //   slug: `/about`,
+          // },
         ],
         externalLinks: [
           {
@@ -35,12 +35,12 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     trackingId: process.env.GOOGLE_ANALYTICS_ID,
+    //   },
+    // },
     `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
