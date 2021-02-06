@@ -4,22 +4,22 @@
 const { table, getBorderCharacters } = require('table') // https://github.com/gajus/table
 
 class Table {
-  constructor(columns, objs) {
+  constructor(columns, items) {
     this.columns = columns
-    this.objs = objs
+    this.items = items
   }
 
   toString() {
     const headings = this.columns.map(col => col.name)
     const rows = [headings]
 
-    for (const obj of this.objs) {
+    for (const item of this.items) {
       const row = []
       for (const col of this.columns) {
         if (typeof col.accessor === 'function') {
-          row.push(col.accessor(obj))
+          row.push(col.accessor(item))
         } else {
-          row.push(obj[col.accessor])
+          row.push(item[col.accessor])
         }
       }
       rows.push(row)

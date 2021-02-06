@@ -13,7 +13,6 @@ const nodes = [
   { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
   { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
   { name: 'bookmarks', type: 'datasource', url: 'http://localhost:4003' },
-  { name: 'plecy', type: 'fish' },
 ]
 
 const root = {
@@ -61,9 +60,6 @@ const init = async () => {
     method: 'GET',
     handler: async (request, h) => {
       const query = getQuery(request)
-      // if (query.url.endsWith('/.neomem')) {
-      //   return meta
-      // }
       const nodes = await getNodes(root, query)
       return nodes
     },

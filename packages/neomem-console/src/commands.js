@@ -6,7 +6,7 @@
 const pathLib = require('path') // node lib
 const api = require('./api')
 const { getPath } = require('neomem-util')
-// const Table = require('./table') // wrapper around gajus table library
+const Table = require('./table') // wrapper around gajus table library
 
 //. move to neomem-util?
 async function exists(path) {
@@ -19,21 +19,18 @@ async function exists(path) {
 async function getMeta(path) {
   const query = {
     path: pathLib.join(path, '.neomem'),
-    // fields: [''],
+  }
+  const def = {
+    view: {
+      columns: [
+        { key: 'name', width: 12 },
+        { key: 'type', width: 12 },
+        { key: 'description', width: 20 },
+      ],
+    },
   }
   //. recurse upwards until find a .neomem item?
-  const meta = await api.get(query)
-  // const meta = {
-  //   view: {
-  //     columns: [
-  //       { key: 'name', width: 20 },
-  //       { key: 'type', width: 12 },
-  //       { key: 'url', width: 30 },
-  //       { key: 'created', width: 12 },
-  //       { key: 'modified', width: 12 },
-  //     ],
-  //   },
-  // }
+  const meta = (await api.get(query)) || def
   return meta
 }
 
@@ -73,23 +70,23 @@ async function list(tokens, context) {
   const json = await api.get(query)
   console.log(json)
   //. recurse and build depth values for treelist
-  // const data = json.data.bookmarks.data //.
+  const items = json
   // console.log('data', data)
-  // const nodes = data.node
-  // const columns = [
-  //   {
-  //     name: 'Name',
-  //     accessor: obj => ' '.repeat(obj.depth) + obj.name,
-  //     width: 36,
-  //   },
-  //   { name: 'Type', accessor: 'type', width: 10 },
-  //   { name: 'Notes', accessor: 'notes', width: 20 },
-  //   { name: 'Created', accessor: 'created', width: 18 },
-  //   { name: 'Modified', accessor: 'modified', width: 18 },
-  // ]
-  // const t = new Table(columns, nodes)
-  // const s = t.toString()
-  // console.log(s)
+  // const items = data.node
+  const columns = [
+    {
+      name: 'Name',
+      accessor: item => ' '.repeat(item.depth) + item.name,
+      width: 36,
+    },
+    { name: 'Type', accessor: 'type', width: 10 },
+    { name: 'Notes', accessor: 'notes', width: 20 },
+    { name: 'Created', accessor: 'created', width: 18 },
+    { name: 'Modified', accessor: 'modified', width: 18 },
+  ]
+  const t = new Table(columns, items)
+  const s = t.toString()
+  console.log(s)
 }
 
 async function location(tokens, context) {
@@ -101,11 +98,12 @@ const loc = location
 async function look(tokens, context) {
   const path = getPath(tokens[1], context.location)
   const meta = await getMeta(path)
+  console.log(101, meta)
   const fields = getFields(meta)
   const query = {
     path,
     fields, // eg ['name', 'type', 'description']
-    depth: 0,
+    depth: 0, // look at the item not its contents
   }
   const json = await api.get(query)
   await location(tokens, context) // print location
