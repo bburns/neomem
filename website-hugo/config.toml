@@ -24,8 +24,8 @@ enableRobotsTXT = true
   filename = "sitemap.xml"
 
 [params]
-  favicon = "neomem.ico"
-  site_logo = "neomem.png"
+  favicon = "images/neomem.ico"
+  # site_logo = "images/neomem.png"
   description = "An open-source information manager"
   facebook = ""
   twitter = "https://twitter.com/neomem_io"
