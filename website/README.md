@@ -1,7 +1,7 @@
 
-the site is currently built/hosted on google sites
+This site is built with Hugo. 
 
-https://www.neomem.io
+To serve development version, 
 
-eventually make a static site generator landing page with blog etc
+    hugo serve
 
