@@ -1,3 +1,6 @@
+// data
+// manage data for this datasource - folders and other datasources
+
 const fetch = require('node-fetch')
 
 //. hardcode these for now - eventually want a registry of plugins
@@ -8,6 +11,7 @@ const items = [
   { name: 'bookmarks', type: 'datasource', url: 'http://localhost:4003' },
 ]
 
+// the root data item
 const root = {
   name: 'neomem-data',
   type: 'datasource',
@@ -16,17 +20,18 @@ const root = {
 }
 
 async function get(query, start = root) {
-  const item = items.find(item => item.name === query.pathFirst)
+  const items = start.children
+  const item = items.find(item => item.name === query.firstOfPath)
   if (item && item.type === 'datasource') {
     // pass query along to other datasource
     const url =
-      item.url + '/api/v1/' + query.pathRest + '?' + query.paramsString
+      item.url + '/api/v1/' + query.restOfPath + '?' + query.paramsString
     const response = await fetch(url)
     const json = response.json()
     return json
   }
   if (Number(query.params.depth) === 0) {
-    return getProjection(start, query)
+    return getProjection(start, query) // get ONE item
   }
   return items.map(item => getProjection(item, query))
 }
