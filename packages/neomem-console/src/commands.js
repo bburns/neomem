@@ -57,10 +57,11 @@ const loc = location
 
 async function look(tokens, context, ui) {
   const path = getPath(tokens[1], context.location)
-  const meta = await getMeta(path) //. const view = meta.get()
+  const meta = await getMeta(path) //. const view = meta.get('view') ?
   const fields = getFields(meta) //. const fields = view.fields ?
   const query = {
     path,
+    pathString: 'lookpokpok',
     params: {
       fields, // eg ['name', 'type', 'description']
       depth: 0, // look at the item not its contents

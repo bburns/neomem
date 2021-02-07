@@ -8,7 +8,6 @@ const chalk = require('chalk') // color text
 // define nmdata endpoint
 //. pass as parameter? use lib to find open port?
 const baseUrl = 'http://localhost:4000/api/v1'
-console.log('baseUrl', baseUrl)
 
 async function exists(path) {
   // ask the datasource if the given path exists
