@@ -1,4 +1,4 @@
-header {
+body > header {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -36,4 +36,8 @@ p a {
 }
 p a:visited {
   color: gray;
+}
+
+span.share-on {
+  vertical-align: middle;
 }

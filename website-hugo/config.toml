@@ -5,17 +5,10 @@ themesDir = "./themes"
 resourceDir = "./resources"
 theme = "ananke"
 
-# DefaultContentLanguage = "en"
 SectionPagesMenu = "main"
-Paginate = 3 # this is set low for demonstrating with dummy content. Set to a higher number
+Paginate = 3
 googleAnalytics = ""
 enableRobotsTXT = true
-
-# [languages]
-#   [languages.en]
-#     title = "Neomem.io"
-#     weight = 1
-#     contentDir = "content"
 
 [sitemap]
   changefreq = "monthly"
@@ -26,14 +19,14 @@ enableRobotsTXT = true
   favicon = "images/neomem.ico"
   # site_logo = "images/neomem.png"
   description = "An open-source information manager"
-  facebook = ""
   twitter = "https://twitter.com/neomem_io"
+  github = "https://github.com/bburns/neomem"
   instagram = ""
   youtube = ""
-  github = "https://github.com/bburns/neomem"
   gitlab = ""
   linkedin = ""
   mastodon = ""
+  facebook = ""
   slack = ""
   stackoverflow = ""
   rss = ""
@@ -43,4 +36,5 @@ enableRobotsTXT = true
   recent_posts_number = 2
   cover_dimming_class = "bg-black-20"
   custom_css = ["css/styles.css"]
-  
+  disable_share = true
+  omit_header_text = true
