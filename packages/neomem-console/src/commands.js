@@ -3,31 +3,29 @@
 
 const api = require('./api')
 const { getPath } = require('neomem-util')
-const Table = require('./table') // wrapper around gajus table library
-const meta = require('./meta')
-
-// commands
+const { getMeta, getFields } = require('./meta')
+const Table = require('./table') // wrapper around a table library
 
 async function go(tokens, context, ui) {
   const dest = tokens[1]
   if (!dest) {
-    console.log('No location given.')
+    ui.print('No location given.')
     return
   }
   const path = getPath(dest, context.location)
   if (await exists(path)) {
     context.location = path
-    console.log('Moved to', path + '.')
+    ui.print('Moved to', path + '.')
   } else {
-    console.log('Invalid location.')
+    ui.print('Invalid location.')
   }
   await look([], context) // don't pass tokens here
 }
 
 async function list(tokens, context, ui) {
   const path = getPath(tokens[1], context.location)
-  const meta = await meta.getMeta(path)
-  const fields = meta.getFields(meta)
+  const meta = await getMeta(path)
+  const fields = getFields(meta)
   const query = {
     path,
     params: {
@@ -40,7 +38,7 @@ async function list(tokens, context, ui) {
   //. recurse and build depth values for treelist
   const items = json
   //. handle tree indentation with item.depth
-  //     accessor: item => ' '.repeat(item.depth) + item.name,
+  // accessor: item => ' '.repeat(item.depth) + item.name,
   const columns = meta.view.columns.map(column => ({
     name: column.key,
     accessor: column.key,
@@ -48,19 +46,19 @@ async function list(tokens, context, ui) {
   }))
   const t = new Table(columns, items)
   const s = t.toString()
-  console.log(s)
+  ui.print(s)
 }
 
 async function location(tokens, context, ui) {
-  console.log(context.location)
+  ui.print(context.location)
 }
 
 const loc = location
 
 async function look(tokens, context, ui) {
   const path = getPath(tokens[1], context.location)
-  const meta = await meta.getMeta(path) //. const view = meta.get()
-  const fields = meta.getFields(meta) //. const fields = view.fields ?
+  const meta = await getMeta(path) //. const view = meta.get()
+  const fields = getFields(meta) //. const fields = view.fields ?
   const query = {
     path,
     params: {
@@ -69,7 +67,7 @@ async function look(tokens, context, ui) {
     },
   }
   const item = await api.get(query) // get the ONE item
-  await location(tokens, context) // print location
+  await location(tokens, context, ui) // print location
   const items = fields.map(field => ({ name: field, value: item[field] }))
   const columns = [
     { name: 'Name', accessor: 'name', width: 12 },
@@ -77,8 +75,8 @@ async function look(tokens, context, ui) {
   ]
   const t = new Table(columns, items)
   const s = t.toString()
-  console.log(s)
-  console.log('and print number of items, types, etc')
+  ui.print(s)
+  ui.print('and print number of items, types, etc')
 }
 
 const l = look
