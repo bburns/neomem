@@ -1,22 +1,21 @@
 baseURL = "https://neomem.io"
 languageCode = "en-us"
 title = "Neomem.io"
-
-theme = "ananke"
 themesDir = "./themes"
 resourceDir = "./resources"
+theme = "ananke"
 
-DefaultContentLanguage = "en"
+# DefaultContentLanguage = "en"
 SectionPagesMenu = "main"
 Paginate = 3 # this is set low for demonstrating with dummy content. Set to a higher number
 googleAnalytics = ""
 enableRobotsTXT = true
 
-[languages]
-  [languages.en]
-    title = "Neomem.io"
-    weight = 1
-    contentDir = "content"
+# [languages]
+#   [languages.en]
+#     title = "Neomem.io"
+#     weight = 1
+#     contentDir = "content"
 
 [sitemap]
   changefreq = "monthly"
