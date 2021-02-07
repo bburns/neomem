@@ -1,7 +1,6 @@
-//. handle updates to metadata - eg save column layout to json file
-// have a meta.js for diff datasources in home/<user>/.config/neomem?
-
 // metadata for this datasource includes the default view (columns etc).
+//. save column layout to json file
+// have a meta.js for diff datasources in home/<user>/.config/neomem?
 const meta = {
   view: {
     columns: [

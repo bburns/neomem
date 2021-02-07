@@ -12,7 +12,7 @@ const fs = require('fs') // node lib
 // const examplePath = __dirname + '/../test/fixtures/example.json'
 // const path = options.use === 'chrome' ? chromePath : examplePath
 // console.log(`Reading ${path}...`)
-const path = __dirname + '/data/example.json' // a smaller example file
+const path = __dirname + '/example.json' // a smaller example file
 const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 module.exports = bookmarks

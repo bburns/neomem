@@ -1,7 +1,7 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi') // rest api lib
-const getItems = require('./getItems')
+const { getItems } = require('./data')
 const { getQuery } = require('neomem-util')
 const { getMeta } = require('./meta')
 const bookmarks = require('./bookmarks')

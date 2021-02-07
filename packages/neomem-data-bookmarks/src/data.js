@@ -1,7 +1,7 @@
 const util = require('./util')
 
 // given an item and a query object, return related items.
-module.exports = async function getItems(item, query) {
+async function getItems(item, query) {
   const first = query.pathArray[0] // eg 'books'
   const rest = query.pathArray.slice(1) // eg ['scifi']
   if (!first) {
@@ -33,3 +33,5 @@ function getProjection(item, query) {
   })
   return projection
 }
+
+module.exports = { getItems }

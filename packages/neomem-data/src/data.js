@@ -4,7 +4,7 @@
 
 const fetch = require('node-fetch')
 
-//. hardcode these for now - eventually want a registry of plugins
+//. hardcode these for now
 //. query each item for description, nitems, etc, if requested?
 const items = [
   { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
