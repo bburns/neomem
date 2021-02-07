@@ -3,6 +3,7 @@
 const Hapi = require('@hapi/hapi')
 const fetch = require('node-fetch')
 const { getQuery } = require('neomem-util')
+const { getMeta } = require('./meta')
 
 //. use a lib to find open port?
 const port = process.env.PORT || 4000
@@ -20,17 +21,6 @@ const root = {
   type: 'datasource',
   description: 'a federated data source',
   children: nodes,
-}
-
-const meta = {
-  view: {
-    columns: [
-      { key: 'name', width: 10 },
-      { key: 'type', width: 16 },
-      { key: 'url', width: 30 },
-      { key: 'description', width: 20 },
-    ],
-  },
 }
 
 const init = async () => {
@@ -51,6 +41,7 @@ const init = async () => {
     path: '/api/v1/.neomem',
     method: 'GET',
     handler: async (request, h) => {
+      const meta = getMeta()
       return meta
     },
   })
