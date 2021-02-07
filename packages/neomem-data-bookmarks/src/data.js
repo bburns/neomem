@@ -50,6 +50,10 @@ async function get(query, start = root) {
 function getProjection(item, query) {
   const projection = {}
   query.params.fields.forEach(field => {
+    const datatype = metadata.view.fields[field].datatype || 'string'
+    const sourcefield = metadata.view.fields[field].sourcefield
+    const converter = util.datatypes[datatype]
+    projection[field] = converter.parse(item[sourcefield])
     // convert chrome dates to iso dates here
     if (field === 'created') {
       projection[field] = util.datatypes.date1601.getISODate(item.date_added)
