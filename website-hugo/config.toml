@@ -2,7 +2,6 @@ baseURL = "https://neomem.io"
 languageCode = "en-us"
 title = "Neomem.io"
 
-
 theme = "ananke"
 themesDir = "./themes"
 resourceDir = "../resources"
@@ -14,32 +13,32 @@ googleAnalytics = ""
 enableRobotsTXT = true
 
 [languages]
-[languages.en]
-title = "Neomem.io Blog"
-weight = 1
-contentDir = "content/en"
+  [languages.en]
+    title = "Neomem.io"
+    weight = 1
+    contentDir = "content/en"
 
 [sitemap]
-changefreq = "monthly"
-priority = 0.5
-filename = "sitemap.xml"
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
 
 [params]
-favicon = ""
-site_logo = ""
-description = "An open-source information manager"
-facebook = ""
-twitter = "https://twitter.com/neomem_io"
-instagram = ""
-youtube = ""
-github = ""
-gitlab = ""
-linkedin = ""
-mastodon = ""
-slack = ""
-stackoverflow = ""
-rss = ""
-# choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
-background_color_class = "bg-black"
-featured_image = "/images/gohugo-default-sample-hero-image.jpg"
-recent_posts_number = 2
+  favicon = ""
+  site_logo = ""
+  description = "An open-source information manager"
+  facebook = ""
+  twitter = "https://twitter.com/neomem_io"
+  instagram = ""
+  youtube = ""
+  github = "https://github.com/bburns/neomem"
+  gitlab = ""
+  linkedin = ""
+  mastodon = ""
+  slack = ""
+  stackoverflow = ""
+  rss = ""
+  # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
+  background_color_class = "bg-black"
+  featured_image = "/images/gohugo-default-sample-hero-image.jpg"
+  recent_posts_number = 2
