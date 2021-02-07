@@ -3,24 +3,34 @@
 // to rest api queries, and formats the results.
 
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
+const chalk = require('chalk') // color text
 const commands = require('./commands')
 const tokenize = require('./tokenize')
 const package = require('../package')
 
 // define prompt
 //. how change this as cd changes?
-const prompt = '\n[neomem] > '
+// const prompt = '\n[neomem] > '
+const prompt = '> '
 
 // set current directory
 global.location = '/'
 
-// print welcome
-console.log()
-console.log('Welcome to Neomem')
-console.log(`Version ${package.version}`)
-console.log(
-  '--------------------------------------------------------------------------'
-)
+function printWelcome() {
+  console.log()
+  console.log('Welcome to Neomem')
+  console.log(`Version ${package.version}`)
+  console.log(
+    '--------------------------------------------------------------------------'
+  )
+}
+
+function printLocation(context) {
+  console.log(chalk.bold(`\n[${context.location}]`))
+}
+
+printWelcome()
+printLocation(global)
 
 // start the repl
 repl.start({ prompt, eval: evalCommand })
@@ -41,5 +51,6 @@ async function evalCommand(commandString, context, filename, callback) {
     console.log('Unknown command')
   }
   // need to call callback so it knows to print prompt again
+  printLocation(context)
   callback()
 }
