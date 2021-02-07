@@ -16,39 +16,43 @@ const prompt = '> '
 // set current directory
 global.location = '/'
 
+// define the ui callbacks
+const ui = {
+  print: console.log,
+}
+
 function printWelcome() {
-  console.log()
-  console.log('Welcome to Neomem')
-  console.log(`Version ${package.version}`)
-  console.log(
+  ui.print()
+  ui.print('Welcome to Neomem')
+  ui.print(`Version ${package.version}`)
+  ui.print(
     '--------------------------------------------------------------------------'
   )
 }
 
 function printLocation(context) {
-  console.log(chalk.bold(`\n[${context.location}]`))
+  ui.print(chalk.bold(`\n[${context.location}]`))
 }
 
+// start the repl
 printWelcome()
 printLocation(global)
-
-// start the repl
 repl.start({ prompt, eval: evalCommand })
 
 // parse command string into a fn and execute it.
 // parameters are specified by node's repl library.
 async function evalCommand(commandString, context, filename, callback) {
-  const tokens = tokenize(commandString)
+  const tokens = tokenize(commandString) // eg 'list books/scifi' -> ['list', 'books/scifi']
   const command = commands[tokens[0]] // eg list fn
   if (command) {
     try {
       // call the command fn - may print to console, update context
-      await command(tokens, context)
+      await command(tokens, context, ui)
     } catch (error) {
       return callback(error)
     }
   } else {
-    console.log('Unknown command')
+    ui.print(`Unknown command '${commandString.trim()}'.`)
   }
   // need to call callback so it knows to print prompt again
   printLocation(context)

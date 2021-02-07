@@ -10,9 +10,15 @@ const chalk = require('chalk') // color text
 const baseUrl = 'http://localhost:4000/api/v1'
 console.log('baseUrl', baseUrl)
 
+async function exists(path) {
+  // ask the datasource if the given path exists
+  // const query = { path } //. and fields = none, limit: 0 ?
+  // const json = await get(query)
+  return true //. for now
+}
+
 // get json from the given uri
 async function get(query) {
-  // const s = `${query.path}?${querystring.stringify(query)}`
   const s = `${query.path}?${query.paramsString}`
   const options = {
     method: 'GET',
@@ -44,4 +50,4 @@ async function get(query) {
 //   return json
 // }
 
-module.exports = { get }
+module.exports = { exists, get }
