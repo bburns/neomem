@@ -49,7 +49,7 @@ async function get(query, start = root) {
 // project an item's data into the query's required fields.
 function getProjection(item, query) {
   const projection = {}
-  query.fields.forEach(field => {
+  query.params.fields.forEach(field => {
     // convert chrome dates to iso dates here
     if (field === 'created') {
       projection[field] = util.datatypes.date1601.getISODate(item.date_added)
