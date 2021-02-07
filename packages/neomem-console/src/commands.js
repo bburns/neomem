@@ -61,7 +61,6 @@ async function look(tokens, context, ui) {
   const fields = getFields(meta) //. const fields = view.fields ?
   const query = {
     path,
-    pathString: 'lookpokpok',
     params: {
       fields, // eg ['name', 'type', 'description']
       depth: 0, // look at the item not its contents

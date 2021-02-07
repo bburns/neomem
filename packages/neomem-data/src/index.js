@@ -38,6 +38,7 @@ const init = async () => {
       const query = getQuery(request)
       console.log('GET', query)
       // if (query.meta) return meta.get()
+      // this passes query to other datasources if needed
       const items = await data.get(query)
       return items
     },

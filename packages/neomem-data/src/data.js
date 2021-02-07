@@ -1,5 +1,6 @@
 // data
-// manage data for this datasource - folders and other datasources
+// manage data for this datasource - folders and other datasources.
+//. handle datasource registry also - put/post/delete datasources.
 
 const fetch = require('node-fetch')
 
@@ -19,6 +20,7 @@ const root = {
   children: items,
 }
 
+// get an item or items
 async function get(query, start = root) {
   const items = start.children
   const item = items.find(item => item.name === query.firstOfPath)
@@ -36,6 +38,7 @@ async function get(query, start = root) {
   return items.map(item => getProjection(item, query))
 }
 
+// get requested fields for the given item
 function getProjection(item, query) {
   const projection = {}
   query.params.fields.forEach(field => (projection[field] = item[field]))
