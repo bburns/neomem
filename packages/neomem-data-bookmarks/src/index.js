@@ -1,44 +1,19 @@
 'use strict'
 
-const fs = require('fs') // node lib
 const Hapi = require('@hapi/hapi') // rest api lib
 const getItems = require('./getItems')
 const { getQuery } = require('neomem-util')
+const meta = require('./meta')
+const bookmarks = require('./bookmarks')
 
-//. use lib to find open port
+//. use lib to find open port, then register it with nmdata registry.
 const port = process.env.PORT || 4003
-
-// read bookmarks
-// note: can read and parse json file directly using require,
-// but only works for files with .json extension -
-// otherwise it thinks it's javascript.
-// see https://stackoverflow.com/a/36591002/243392
-//. how obtain user's folder etc?
-// const chromePath = '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks'
-// const examplePath = __dirname + '/../test/fixtures/example.json'
-// const chromePath = __dirname + '/../test/fixtures/example2.json'
-// const path = options.use === 'chrome' ? chromePath : examplePath
-// console.log(`Reading ${path}...`)
-const path = __dirname + '/data/example.json' // a smaller example file
-const bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 const root = {
   name: 'bookmarks',
   type: 'datasource',
-  description: 'Datasource for Chrome bookmarks. Currently read-only.',
+  description: 'Datasource for Chrome bookmarks. Read-only for now.',
   children: Object.values(bookmarks.roots),
-}
-
-const meta = {
-  view: {
-    columns: [
-      { key: 'name', width: 20 },
-      { key: 'type', width: 12 },
-      { key: 'url', width: 30 },
-      { key: 'created', width: 13 },
-      { key: 'modified', width: 13 },
-    ],
-  },
 }
 
 const init = async () => {
