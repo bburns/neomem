@@ -36,6 +36,7 @@ const init = async () => {
     method: 'GET',
     handler: async (request, h) => {
       const query = getQuery(request)
+      console.log('GET', query)
       // if (query.meta) return meta.get()
       const items = await data.get(query)
       return items

@@ -22,18 +22,20 @@ module.exports = function getQuery(request) {
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const urlParams = url.split('?')[1] // eg 'fields=name,type&sortby=name'
 
+  console.log('getQuery', path, url)
+
   // get param object and string
   // note: querystring lib returns a string if one value, an array if >1
   const requestParams = querystring.parse(urlParams) // eg { fields: ['name','type'], sortby: 'name' }
   const defaultParams = {
     fields: 'name,type,description'.split(','),
-    sortby: '',
-    where: '',
-    follow: '', // 'children',
-    offset: 0,
+    // sortby: '',
+    // where: '',
+    // follow: '', // 'children',
+    // offset: 0,
     limit: 20,
     depth: 1,
-    q: '',
+    // q: '',
   }
   const params = { ...defaultParams, ...requestParams }
   // //.?

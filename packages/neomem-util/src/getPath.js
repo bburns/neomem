@@ -5,6 +5,7 @@ const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 // eg names = '/neo4j', location = '/bookmarks' => '/neo4j'
 // eg names = '', location = '/bookmarks' => '/bookmarks'
 module.exports = function getPath(names, location) {
+  console.log('getPath', names, location)
   const dest = names || ''
   const path = dest.startsWith('/')
     ? dest
