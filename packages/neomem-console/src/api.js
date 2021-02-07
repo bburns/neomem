@@ -12,8 +12,8 @@ console.log('baseUrl', baseUrl)
 
 // get json from the given uri
 async function get(query) {
-  const s = `${query.path}?${querystring.stringify(query)}`
-  // const s = `${query.path}?${query.params}`
+  // const s = `${query.path}?${querystring.stringify(query)}`
+  const s = `${query.path}?${query.paramsString}`
   const options = {
     method: 'GET',
     headers: {

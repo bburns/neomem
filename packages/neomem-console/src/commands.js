@@ -96,12 +96,16 @@ async function look(tokens, context) {
   const fields = getFields(meta) //. const fields = view.fields ?
   const query = {
     path,
-    fields, // eg ['name', 'type', 'description']
-    depth: 0, // look at the item not its contents
+    // fields, // eg ['name', 'type', 'description']
+    // depth: 0, // look at the item not its contents
+    params: {
+      fields,
+      depth: 0,
+    },
   }
-  const item = await api.get(query)
+  const item = await api.get(query) // get the ONE item
   await location(tokens, context) // print location
-  console.log(item)
+  // console.log(item)
   // const items = [item]
   const items = fields.map(field => ({ name: field, value: item[field] }))
   const columns = [
