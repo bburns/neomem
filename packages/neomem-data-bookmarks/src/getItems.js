@@ -15,7 +15,7 @@ module.exports = async function getItems(item, query) {
     return items
   }
   const item2 = item.children.find(child => child.name === first)
-  return getNodes(item2, { ...query, pathArray: rest })
+  return getItems(item2, { ...query, pathArray: rest }) // recurse
 }
 
 // project an item's data into the query's required fields.

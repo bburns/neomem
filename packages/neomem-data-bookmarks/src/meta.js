@@ -1,5 +1,6 @@
 // metadata for this datasource includes the default view (columns etc).
-module.exports = {
+
+const meta = {
   view: {
     columns: [
       { key: 'name', width: 20 },
@@ -10,3 +11,9 @@ module.exports = {
     ],
   },
 }
+
+function getMeta() {
+  return meta
+}
+
+module.exports = { getMeta }
