@@ -24,8 +24,8 @@ enableRobotsTXT = true
   filename = "sitemap.xml"
 
 [params]
-  favicon = ""
-  site_logo = ""
+  favicon = "neomem.ico"
+  site_logo = "neomem.png"
   description = "An open-source information manager"
   facebook = ""
   twitter = "https://twitter.com/neomem_io"
@@ -40,5 +40,5 @@ enableRobotsTXT = true
   rss = ""
   # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
   background_color_class = "bg-black"
-  featured_image = "/images/tree800.jpg"
+  featured_image = "/images/landscape.jpg"
   recent_posts_number = 2

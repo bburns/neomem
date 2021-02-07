@@ -1,9 +1,8 @@
 ---
 title: "Neomem.io"
-featured_image: '/images/tree800.jpg'
 description: "An open-source information manager"
 ---
-Neomem is an information manager - a combination table and document editor, with paid hosting plans and a marketplace for plugins. 
+Neomem is a combination table and document editor, with free and paid hosting plans and a marketplace for plugins. 
 
 Open source and cross-platform.
 
