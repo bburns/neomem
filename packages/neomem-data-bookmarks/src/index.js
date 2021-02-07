@@ -2,7 +2,7 @@
 
 const fs = require('fs') // node lib
 const Hapi = require('@hapi/hapi') // rest api lib
-const getNodes = require('./getNodes')
+const getItems = require('./getItems')
 const { getQuery } = require('neomem-util')
 
 //. use lib to find open port
@@ -65,8 +65,8 @@ const init = async () => {
       if (query.path.endsWith('.neomem')) {
         return meta
       }
-      const nodes = await getNodes(root, query)
-      return nodes
+      const items = await getItems(root, query)
+      return items
     },
   })
 
