@@ -1,10 +1,10 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi') // rest api lib
-const { getItems } = require('./data')
-const { getQuery } = require('neomem-util')
+const bookmarks = require('./bookmarks') //. do lazy loading
 const meta = require('./meta')
-const bookmarks = require('./bookmarks')
+const data = require('./data')
+const { getQuery } = require('neomem-util')
 
 //. use lib to find open port, then register it with nmdata registry.
 const port = process.env.PORT || 4003
@@ -42,7 +42,7 @@ const init = async () => {
         const metadata = meta.get()
         return metadata
       }
-      const items = await getItems(root, query)
+      const items = await data.get(query, root)
       return items
     },
   })
