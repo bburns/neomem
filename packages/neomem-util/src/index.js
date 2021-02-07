@@ -52,6 +52,7 @@ function getQuery(request) {
   query.path = path
   query.pathArray = path.split('/')
   query.url = url
+  query.params = params
   return query
 }
 
