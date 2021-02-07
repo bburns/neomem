@@ -17,6 +17,8 @@ module.exports = function getQuery(request) {
   // get url path and parameters
   const path = request.params.path || '' // eg 'books/scifi'
   const pathArray = path.split('/') // eg ['books', 'scifi']
+  const pathFirst = pathArray[0] // eg 'books'
+  const pathRest = pathArray.slice(1).join('/') // eg 'scifi'
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const urlParams = url.split('?')[1] // eg 'fields=name,type&sortby=name'
 
@@ -34,20 +36,21 @@ module.exports = function getQuery(request) {
     q: '',
   }
   const params = { ...defaultParams, ...requestParams }
-  const paramsString = querystring.stringify(params)
-
   // //.?
   // if (path.endsWith('/')) {
-  //   query.depth = 0
+  //   params.depth = 0
   // }
+  const paramsString = querystring.stringify(params)
 
   const query = {
     path,
     pathArray,
+    pathFirst,
+    pathRest,
     url,
     params,
     paramsString,
   }
-  console.log('query', query)
+  console.log('getQuery', query)
   return query
 }
