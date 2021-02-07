@@ -51,6 +51,7 @@ const init = async () => {
     method: 'GET',
     handler: async (request, h) => {
       const query = getQuery(request)
+      // if (query.meta) return getMeta()
       const nodes = await getNodes(root, query)
       return nodes
     },

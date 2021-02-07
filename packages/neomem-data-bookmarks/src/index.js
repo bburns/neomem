@@ -31,12 +31,13 @@ const init = async () => {
     },
   })
 
-  // return contents of this datasource
+  // return contents of this datasource or meta item
   server.route({
     method: 'GET',
     path: '/api/v1/{path*}',
     handler: async (request, h) => {
       const query = getQuery(request)
+      //. if (query.meta) return getMeta() // ?
       if (query.path.endsWith('.neomem')) {
         const meta = getMeta()
         return meta
