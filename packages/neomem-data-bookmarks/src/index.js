@@ -1,20 +1,12 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi') // rest api lib
-const bookmarks = require('./bookmarks') //. do lazy loading
 const meta = require('./meta')
 const data = require('./data')
 const { getQuery } = require('neomem-util')
 
 //. use lib to find open port, then register it with nmdata registry.
 const port = process.env.PORT || 4003
-
-const root = {
-  name: 'bookmarks',
-  type: 'datasource',
-  description: 'Datasource for Chrome bookmarks. Read-only for now.',
-  children: Object.values(bookmarks.roots),
-}
 
 const init = async () => {
   const server = Hapi.server({
@@ -42,7 +34,7 @@ const init = async () => {
         const metadata = meta.get()
         return metadata
       }
-      const items = await data.get(query, root)
+      const items = await data.get(query)
       return items
     },
   })
