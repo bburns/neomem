@@ -16,7 +16,7 @@ enableRobotsTXT = true
   [languages.en]
     title = "Neomem.io"
     weight = 1
-    contentDir = "content/en"
+    contentDir = "content"
 
 [sitemap]
   changefreq = "monthly"
