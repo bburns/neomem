@@ -1,5 +1,5 @@
 const fs = require('fs') // node lib
-const util = require('./util')
+const util = require('neomem-util')
 
 //. get user's folder - need node lib
 // const chromePath = '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks'
@@ -52,9 +52,9 @@ function getProjection(item, query) {
   query.fields.forEach(field => {
     // convert chrome dates to iso dates here
     if (field === 'created') {
-      projection[field] = util.getISODate(item.date_added)
+      projection[field] = util.datatypes.date1601.getISODate(item.date_added)
     } else if (field === 'modified') {
-      projection[field] = util.getISODate(item.date_modified)
+      projection[field] = util.datatypes.date1601.getISODate(item.date_modified)
     } else {
       projection[field] = item[field]
     }
