@@ -2,10 +2,10 @@
 
 const Hapi = require('@hapi/hapi')
 const { getQuery } = require('neomem-util')
-const { getMeta } = require('./meta')
+const meta = require('./meta')
 const data = require('./data')
 
-//. use a lib to find open port?
+//. use a lib to find open port and register with nmdata registry
 const port = process.env.PORT || 4000
 
 const init = async () => {
@@ -26,8 +26,8 @@ const init = async () => {
     path: '/api/v1/.neomem',
     method: 'GET',
     handler: async (request, h) => {
-      const meta = getMeta()
-      return meta
+      const obj = meta.get()
+      return obj
     },
   })
 
@@ -36,9 +36,8 @@ const init = async () => {
     method: 'GET',
     handler: async (request, h) => {
       const query = getQuery(request)
-      // if (query.meta) return getMeta()
-      // const items = await getItems(root, query)
-      const items = await data.get(root, query)
+      // if (query.meta) return meta.get()
+      const items = await data.get(query)
       return items
     },
   })

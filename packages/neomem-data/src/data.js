@@ -1,8 +1,8 @@
 const fetch = require('node-fetch')
 
-// hardcode these for now - eventually want a registry of plugins
-//. query each node for description, nitems, etc, if requested?
-const nodes = [
+//. hardcode these for now - eventually want a registry of plugins
+//. query each item for description, nitems, etc, if requested?
+const items = [
   { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
   { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
   { name: 'bookmarks', type: 'datasource', url: 'http://localhost:4003' },
@@ -12,30 +12,28 @@ const root = {
   name: 'neomem-data',
   type: 'datasource',
   description: 'a federated data source',
-  children: nodes,
+  children: items,
 }
 
-async function get(root, query) {
-  // const first = query.pathArray[0] // eg 'bookmarks'
-  // const rest = query.pathArray.slice(1).join('/') // eg 'books/scifi'
-  const node = nodes.find(node => node.name === query.pathFirst)
-  if (node && node.type === 'datasource') {
+async function get(query, start = root) {
+  const item = items.find(item => item.name === query.pathFirst)
+  if (item && item.type === 'datasource') {
     // pass query along to other datasource
     const url =
-      node.url + '/api/v1/' + query.pathRest + '?' + query.paramsString
+      item.url + '/api/v1/' + query.pathRest + '?' + query.paramsString
     const response = await fetch(url)
     const json = response.json()
     return json
   }
   if (Number(query.params.depth) === 0) {
-    return getProjection(root, query)
+    return getProjection(start, query)
   }
-  return nodes.map(node => getProjection(node, query))
+  return items.map(item => getProjection(item, query))
 }
 
-function getProjection(node, query) {
+function getProjection(item, query) {
   const projection = {}
-  query.params.fields.forEach(field => (projection[field] = node[field]))
+  query.params.fields.forEach(field => (projection[field] = item[field]))
   return projection
 }
 

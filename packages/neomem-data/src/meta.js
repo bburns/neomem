@@ -3,7 +3,7 @@
 
 //. make a class and treat as a db object with get, put, post, delete?
 
-const meta = {
+const obj = {
   view: {
     columns: [
       { key: 'name', width: 10 },
@@ -14,8 +14,12 @@ const meta = {
   },
 }
 
-function getMeta() {
-  return meta
+class Meta {
+  get() {
+    return obj
+  }
 }
 
-module.exports = { getMeta }
+const meta = new Meta()
+
+module.exports = meta
