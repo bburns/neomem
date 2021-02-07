@@ -1,9 +1,6 @@
 //. handle updates to metadata eg view column layout
 // save to user's config folder?
-
-//. make a class and treat as a db object with get, put, post, delete?
-
-const obj = {
+const metadata = {
   view: {
     columns: [
       { key: 'name', width: 10 },
@@ -14,12 +11,8 @@ const obj = {
   },
 }
 
-class Meta {
-  get() {
-    return obj
-  }
+function get() {
+  return metadata
 }
 
-const meta = new Meta()
-
-module.exports = meta
+module.exports = { get }

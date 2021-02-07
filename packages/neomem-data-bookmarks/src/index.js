@@ -3,7 +3,7 @@
 const Hapi = require('@hapi/hapi') // rest api lib
 const { getItems } = require('./data')
 const { getQuery } = require('neomem-util')
-const { getMeta } = require('./meta')
+const meta = require('./meta')
 const bookmarks = require('./bookmarks')
 
 //. use lib to find open port, then register it with nmdata registry.
@@ -39,8 +39,8 @@ const init = async () => {
       const query = getQuery(request)
       //. if (query.meta) return getMeta() // ?
       if (query.path.endsWith('.neomem')) {
-        const meta = getMeta()
-        return meta
+        const metadata = meta.get()
+        return metadata
       }
       const items = await getItems(root, query)
       return items

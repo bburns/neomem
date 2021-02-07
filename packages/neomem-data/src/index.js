@@ -26,8 +26,8 @@ const init = async () => {
     path: '/api/v1/.neomem',
     method: 'GET',
     handler: async (request, h) => {
-      const obj = meta.get()
-      return obj
+      const metadata = meta.get()
+      return metadata
     },
   })
 

@@ -1,7 +1,7 @@
 // metadata for this datasource includes the default view (columns etc).
 //. save column layout to json file
 // have a meta.js for diff datasources in home/<user>/.config/neomem?
-const meta = {
+const metadata = {
   view: {
     columns: [
       { key: 'name', width: 20 },
@@ -13,8 +13,8 @@ const meta = {
   },
 }
 
-function getMeta() {
-  return meta
+function get() {
+  return metadata
 }
 
-module.exports = { getMeta }
+module.exports = { get }
