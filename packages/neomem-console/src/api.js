@@ -6,20 +6,21 @@ const fetch = require('node-fetch') // mimics browser's fetch
 const chalk = require('chalk') // color text
 
 // define nmdata endpoint
-//. pass as parameter
+//. pass as parameter? use lib to find open port?
 const baseUrl = 'http://localhost:4000/api/v1'
 console.log('baseUrl', baseUrl)
 
 // get json from the given uri
 async function get(query) {
-  const s = `${query.path}?${querystring.stringify(query)}`
+  // const s = `${query.path}?${querystring.stringify(query)}`
+  const s = `${query.path}?${query.params}`
   const options = {
     method: 'GET',
     headers: {
+      'Content-Type': 'application/json',
       'Accept-Encoding': 'gzip',
     },
   }
-  // const url = path.join(baseUrl, s)
   const url = baseUrl + s
   console.log(chalk.gray(url))
   const response = await fetch(url, options)

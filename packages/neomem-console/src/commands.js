@@ -66,6 +66,7 @@ async function list(tokens, context) {
   const json = await api.get(query)
   //. recurse and build depth values for treelist
   const items = json
+  //. handle tree indentation with item.depth
   // const columns = [
   //   {
   //     name: 'Name',
@@ -91,16 +92,25 @@ const loc = location
 
 async function look(tokens, context) {
   const path = getPath(tokens[1], context.location)
-  const meta = await getMeta(path)
-  const fields = getFields(meta)
+  const meta = await getMeta(path) //. const view = meta.get()
+  const fields = getFields(meta) //. const fields = view.fields ?
   const query = {
     path,
     fields, // eg ['name', 'type', 'description']
     depth: 0, // look at the item not its contents
   }
-  const json = await api.get(query)
+  const item = await api.get(query)
   await location(tokens, context) // print location
-  console.log(json)
+  console.log(item)
+  // const items = [item]
+  const items = fields.map(field => ({ name: field, value: item[field] }))
+  const columns = [
+    { name: 'Name', accessor: 'name', width: 12 },
+    { name: 'Value', accessor: 'value', width: 50 },
+  ]
+  const t = new Table(columns, items)
+  const s = t.toString()
+  console.log(s)
   console.log('print number of items, types, etc')
 }
 

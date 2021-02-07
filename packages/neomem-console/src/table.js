@@ -1,9 +1,10 @@
 // table
 // wrapper around a console table display library
 
-const { table, getBorderCharacters } = require('table') // https://github.com/gajus/table
+// see https://github.com/gajus/table
+const { table, getBorderCharacters } = require('table')
 
-class Table {
+module.exports = class Table {
   constructor(columns, items) {
     this.columns = columns
     this.items = items
@@ -42,5 +43,3 @@ class Table {
     return s
   }
 }
-
-module.exports = Table

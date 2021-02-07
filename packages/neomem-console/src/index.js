@@ -8,6 +8,7 @@ const tokenize = require('./tokenize')
 const package = require('../package')
 
 // define prompt
+//. how change this as cd changes?
 const prompt = '\n[neomem] > '
 
 // set current directory
