@@ -42,3 +42,4 @@ enableRobotsTXT = true
   background_color_class = "bg-black"
   featured_image = "/images/landscape.jpg"
   recent_posts_number = 2
+  cover_dimming_class = "bg-black-20"
