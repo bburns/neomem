@@ -3,28 +3,7 @@
 //. handle datasource registry also - put/post/delete datasources.
 
 const fetch = require('node-fetch')
-
-//. hardcode these for now
-//. query each item for description, nitems, etc, if requested?
-const items = [
-  { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
-  { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
-  {
-    name: 'bookmarks',
-    type: 'datasource',
-    url: 'http://localhost:4003',
-    created: '2021-02-02',
-  },
-]
-
-// the root data item
-const root = {
-  name: 'neomem-data',
-  type: 'datasource',
-  description: 'a federated data source',
-  created: '2021-02-01',
-  children: items,
-}
+const root = require('./sample')
 
 // get an item or items
 async function get(query, start = root) {
