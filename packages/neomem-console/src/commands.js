@@ -3,7 +3,7 @@
 
 const api = require('./api')
 const { getPath } = require('neomem-util')
-const { getMeta, getFields } = require('./meta')
+const { getMetadata, getFields } = require('./meta')
 const Table = require('./table') // wrapper around a table library
 
 async function go(tokens, context, ui) {
@@ -24,7 +24,7 @@ async function go(tokens, context, ui) {
 
 async function list(tokens, context, ui) {
   const path = getPath(tokens[1], context.location) // eg '/bookmarks'
-  const metadata = await getMeta(path)
+  const metadata = await getMetadata(path)
   const fields = getFields(metadata)
   // build a query object and fetch results
   const query = {
@@ -57,7 +57,7 @@ const loc = location
 
 async function look(tokens, context, ui) {
   const path = getPath(tokens[1], context.location)
-  const metadata = await getMeta(path) //. const view = meta.get('view') ?
+  const metadata = await getMetadata(path) //. const view = meta.get('view') ?
   const fields = getFields(metadata) //. const fields = view.fields ?
   const query = {
     path,

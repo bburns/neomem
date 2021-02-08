@@ -29,7 +29,7 @@ const init = async () => {
     path: '/api/v1/{path*}',
     handler: async (request, h) => {
       const query = getQuery(request)
-      //. if (query.meta) return getMeta() // ?
+      //. if (query.meta) return getMetadata() // ?
       if (query.path.endsWith('.neomem')) {
         const metadata = meta.get()
         return metadata

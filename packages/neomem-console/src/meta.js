@@ -12,7 +12,7 @@ const defaultMetadata = {
 }
 
 // get meta information for a path, including views
-async function getMeta(path) {
+async function getMetadata(path) {
   const query = {
     path: pathLib.join(path, '.neomem'),
   }
@@ -21,9 +21,9 @@ async function getMeta(path) {
   return metadata
 }
 
-function getFields(meta) {
-  const fields = meta.view.columns.map(col => col.key)
+function getFields(metadata) {
+  const fields = metadata.view.columns.map(col => col.key)
   return fields
 }
 
-module.exports = { getMeta, getFields }
+module.exports = { getMetadata, getFields }
