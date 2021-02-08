@@ -17,8 +17,6 @@ const types = [
   { key: 'modified', type: 'field', datatype: 'dateISO' },
 ]
 
-// module.exports = types
-
 function get() {
   return types
 }
