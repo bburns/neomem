@@ -1,5 +1,5 @@
-const environment = process.env.NODE_ENV || 'development'
+const environment = process.env.NODE_ENV || 'dev'
 
-const meta = require('./meta')
-const data = require('./live')
-const types = require('./types')
+const data = require('./' + environment)
+
+module.exports = data
