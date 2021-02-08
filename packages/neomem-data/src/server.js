@@ -16,15 +16,6 @@ const init = async () => {
     handler: _ => 'Try /api/v1/',
   })
 
-  // server.route({
-  //   path: '/api/v1/.neomem',
-  //   method: 'GET',
-  //   handler: async (request, h) => {
-  //     const metadata = meta.get()
-  //     return metadata
-  //   },
-  // })
-
   server.route({
     path: '/api/v1/{path*}',
     method: 'GET',

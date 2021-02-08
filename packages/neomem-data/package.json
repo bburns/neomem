@@ -4,7 +4,8 @@
   "description": "neomem data server",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/server.js",
+    "test": "nodemon test/index.js"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
