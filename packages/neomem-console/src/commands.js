@@ -23,7 +23,7 @@ async function go(tokens, context, ui) {
 }
 
 async function list(tokens, context, ui) {
-  const path = getPath(tokens[1], context.location)
+  const path = getPath(tokens[1], context.location) // eg '/bookmarks'
   const metadata = await getMeta(path)
   const fields = getFields(metadata)
   // build a query object and fetch results

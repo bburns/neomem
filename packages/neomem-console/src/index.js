@@ -9,8 +9,6 @@ const tokenize = require('./tokenize')
 const package = require('../package')
 
 // define prompt
-//. how change this as cd changes?
-// const prompt = '\n[neomem] > '
 const prompt = '> '
 
 // set current directory
@@ -34,11 +32,6 @@ function printLocation(context) {
   ui.print(chalk.bold(`\n[${context.location}]`))
 }
 
-// start the repl
-printWelcome()
-printLocation(global)
-repl.start({ prompt, eval: evalCommand })
-
 // parse command string into a fn and execute it.
 // parameters are specified by node's repl library.
 async function evalCommand(commandString, context, filename, callback) {
@@ -58,3 +51,8 @@ async function evalCommand(commandString, context, filename, callback) {
   printLocation(context)
   callback()
 }
+
+// start the repl
+printWelcome()
+printLocation(global)
+repl.start({ prompt, eval: evalCommand })

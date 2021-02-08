@@ -1,19 +1,14 @@
-// project an item's data into the query's required fields.
+// project an item's data into the list of fields.
 module.exports = function getProjection(item, fields, types) {
   const projection = {}
   fields.forEach(field => {
-    // // eg convert chrome dates to iso dates
-    // if (field === 'created') {
-    //   projection[field] = util.datatypes.date1601.getISODate(item.date_added)
-    // } else if (field === 'modified') {
-    //   projection[field] = util.datatypes.date1601.getISODate(item.date_modified)
-    // } else {
-    //   projection[field] = item[field]
-    // }
-    const datatype = metadata.view.fields[field].datatype || 'string'
-    const sourcefield = metadata.view.fields[field].sourcefield
-    const converter = util.datatypes[datatype]
-    projection[field] = converter.parse(item[sourcefield])
+    const dest = field.key // eg 'created'
+    const source = field.source // eg 'date_added'
+    const datatype = field.datatype || 'string' // eg 'date1601'
+    const converter = types[datatype] // eg date1601
+    const sourceValue = item[source] // eg '13818259345'
+    const destValue = converter.parse(sourceValue) // eg '2021-02-01'
+    projection[dest] = destValue
   })
   return projection
 }
