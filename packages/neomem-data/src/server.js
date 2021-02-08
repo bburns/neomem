@@ -1,6 +1,6 @@
 const Hapi = require('@hapi/hapi')
-const { getQuery } = require('neomem-util')
-const data = require('./index')
+const { Query } = require('neomem-util')
+const { data } = require('./index')
 
 //. use a lib to find open port, or pass in envar
 const port = process.env.PORT || 4000
@@ -15,7 +15,7 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
-      const query = getQuery(request)
+      const query = Query.make(request)
       const items = await data.get(query)
       return items
     },
