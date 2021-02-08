@@ -10,8 +10,8 @@ const metadata = {
       key: 'datasource',
       fields: 'name,type,description,created,url,created,modified'.split(','),
     },
-  ],
-  fields: [
+    // ],
+    // fields: [
     { key: 'name', datatype: 'string' },
     { key: 'description', datatype: 'string' },
     { key: 'type', datatype: 'string' },
