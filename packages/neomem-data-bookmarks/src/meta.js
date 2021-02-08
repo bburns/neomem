@@ -5,8 +5,6 @@ const metadata = {
   types: [
     { key: 'folder', fields: 'name,type,created,modified'.split(',') },
     { key: 'url', fields: 'name,type,created,url,created,modified'.split(',') },
-    // ],
-    // fields: [
     { key: 'name', datatype: 'string' },
     { key: 'type', datatype: 'string' },
     { key: 'url', datatype: 'string' },
