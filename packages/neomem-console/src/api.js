@@ -1,7 +1,7 @@
 // api
 // get, post, put, delete handlers
 
-const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
+// const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const fetch = require('node-fetch') // mimics browser's fetch
 const chalk = require('chalk') // color text
 

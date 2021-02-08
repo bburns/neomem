@@ -1,4 +1,4 @@
 module.exports = {
-  format: _ => _,
-  parse: _ => _,
+  format: s => s,
+  parse: s => s,
 }
