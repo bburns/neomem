@@ -16,7 +16,8 @@ async function getMetadata(path) {
   const query = {
     path: pathLib.join(path, '.neomem'),
   }
-  //. recurse upwards until find a .neomem item
+  //. recurse upwards until find a .neomem item?
+  // or let the datasource handle that?
   const metadata = (await api.get(query)) || defaultMetadata
   return metadata
 }

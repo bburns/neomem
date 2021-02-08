@@ -1,24 +1,23 @@
-// api
 // get, post, put, delete handlers
 
-// const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const fetch = require('node-fetch') // mimics browser's fetch
 const chalk = require('chalk') // color text
 
 // define nmdata endpoint
-//. pass as parameter? use lib to find open port?
+//. pass as parameter or use lib to find open port?
 const baseUrl = 'http://localhost:4000/api/v1'
 
+//. ask a datasource if the given path exists
 async function exists(path) {
-  // ask the datasource if the given path exists
-  // const query = { path } //. and fields = none, limit: 0 ?
+  // const query = { path, limit: 0 }
   // const json = await get(query)
-  return true //. for now
+  return true
 }
 
 // get json from the given uri
 async function get(query) {
   const s = `${query.path}?${query.paramsString}`
+  const url = baseUrl + s
   const options = {
     method: 'GET',
     headers: {
@@ -26,7 +25,6 @@ async function get(query) {
       'Accept-Encoding': 'gzip',
     },
   }
-  const url = baseUrl + s
   console.log(chalk.gray(url))
   const response = await fetch(url, options)
   const json = await response.json()
