@@ -2,9 +2,9 @@
   "name": "neomem-data",
   "version": "0.1.0",
   "description": "neomem data server",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/server.js"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
