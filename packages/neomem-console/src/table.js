@@ -1,4 +1,3 @@
-// table
 // wrapper around a console table display library
 
 // see https://github.com/gajus/table

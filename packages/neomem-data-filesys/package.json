@@ -4,7 +4,8 @@
   "description": "datasource for file system",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "test": "nodemon test/index.js"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",

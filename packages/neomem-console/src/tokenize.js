@@ -1,4 +1,3 @@
-// tokenize
 // tokenize an input string into tokens for parsers to consume
 
 //. handle strings, escapes, etc
