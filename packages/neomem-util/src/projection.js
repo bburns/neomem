@@ -1,3 +1,5 @@
+//. i think this should be a class, for speed
+
 // project an item's data into the list of fields.
 function Projection(item, fields, types) {
   const projection = {}
