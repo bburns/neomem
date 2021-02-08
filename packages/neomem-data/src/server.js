@@ -4,16 +4,13 @@ const Hapi = require('@hapi/hapi')
 const { getQuery } = require('neomem-util')
 const data = require('./data')
 
-//. use a lib to find open port and register with nmdata registry
+//. use a lib to find open port, or pass in envar
 const port = process.env.PORT || 4000
 
 const init = async () => {
-  const server = Hapi.server({ host: 'localhost', port })
-
-  server.route({
-    path: '/',
-    method: 'GET',
-    handler: _ => 'Try /api/v1/',
+  const server = Hapi.server({
+    host: 'localhost',
+    port,
   })
 
   server.route({
