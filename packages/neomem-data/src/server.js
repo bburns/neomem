@@ -2,7 +2,7 @@
 
 const Hapi = require('@hapi/hapi')
 const { getQuery } = require('neomem-util')
-const data = require('./data')
+const data = require('./index')
 
 //. use a lib to find open port, or pass in envar
 const port = process.env.PORT || 4000
