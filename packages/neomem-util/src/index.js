@@ -1,5 +1,5 @@
 const getPath = require('./getPath')
 const getQuery = require('./getQuery')
-const datatypes = require('./datatypes')
+const types = require('./types')
 
-module.exports = { getPath, getQuery, datatypes }
+module.exports = { getPath, getQuery, types }
