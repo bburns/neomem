@@ -6,6 +6,7 @@ const fetch = require('node-fetch')
 const root = require('./sample')
 
 // get an item or items
+//. recurse to handle folders etc
 async function get(query, start = root) {
   const items = start.children
   const item = items.find(item => item.name === query.firstOfPath)

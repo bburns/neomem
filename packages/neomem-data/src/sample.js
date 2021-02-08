@@ -1,5 +1,4 @@
-//. hardcode these for now
-//. query each item for description, nitems, etc, if requested?
+//. could also query each item for description, nitems, etc, if requested?
 const items = [
   { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
   { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
