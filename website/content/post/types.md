@@ -13,7 +13,7 @@ Put this in neomem-util? neomem-types? neomem-data?
 
 Types need to be dynamic, as with neo4j - user will be able to define new types/labels as needed, and they can contain fields, or relations with other nodes. 
 
-Should we start developing the neo4j datasource to exercise all this stuff? Danger is that once we get there we will have to rework the architecture if it's inadequate.
+Should we start developing the neo4j datasource to exercise all this stuff? Should at least sketch out what it needs. 
 
 
 

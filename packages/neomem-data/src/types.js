@@ -7,7 +7,7 @@ const types = [
   {
     key: 'datasource',
     type: 'type',
-    fields: 'name,type,description,created,url,created,modified'.split(','),
+    fields: 'name,type,description,url,created,modified'.split(','),
   },
   { key: 'name', type: 'field', datatype: 'string' },
   { key: 'description', type: 'field', datatype: 'string' },
