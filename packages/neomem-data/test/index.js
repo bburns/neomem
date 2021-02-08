@@ -1,5 +1,5 @@
 const assert = require('assert').strict
-const data = require('../src')
+const { data } = require('../src')
 
 let query
 let items

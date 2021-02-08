@@ -4,14 +4,17 @@
 const fetch = require('node-fetch')
 const { Projection } = require('neomem-util')
 const { Root } = require('./root')
-const meta = require('./meta')
-const types = require('./types')
+// const meta = require('./meta')
+// const types = require('./types')
 
-const root = await Root.get()
+let root
 
 // get an item or items
 //. recurse or loop with stack to handle folders etc
-async function get(query, start = root) {
+async function get(query, start) {
+  if (start === undefined) {
+    start = await Root.get()
+  }
   const items = start.children
   const item = items.find(item => item.name === query.firstOfPath)
   if (item && item.type === 'datasource') {
