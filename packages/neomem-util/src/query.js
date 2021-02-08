@@ -13,7 +13,7 @@ const querystring = require('querystring') // node lib https://nodejs.org/api/qu
 //     sortby: ['year', 'name'],
 //   },
 // }
-module.exports = function getQuery(request) {
+function Query(request) {
   // get url path and parameters
   const path = request.params.path || '' // eg 'books/scifi'
   const pathArray = path.split('/') // eg ['books', 'scifi']
@@ -56,3 +56,5 @@ module.exports = function getQuery(request) {
   console.log('getQuery', query)
   return query
 }
+
+module.exports = { Query }

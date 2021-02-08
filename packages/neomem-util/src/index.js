@@ -1,6 +1,6 @@
 const getPath = require('./getPath')
-const getProjection = require('./getProjection')
-const getQuery = require('./getQuery')
+const { Projection } = require('./projection')
+const { Query } = require('./query')
 const types = require('./types')
 
-module.exports = { getPath, getProjection, getQuery, types }
+module.exports = { getPath, Projection, Query, types }

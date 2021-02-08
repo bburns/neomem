@@ -1,5 +1,5 @@
 // project an item's data into the list of fields.
-module.exports = function getProjection(item, fields, types) {
+function Projection(item, fields, types) {
   const projection = {}
   fields.forEach(field => {
     const dest = field.key // eg 'created'
@@ -12,3 +12,12 @@ module.exports = function getProjection(item, fields, types) {
   })
   return projection
 }
+
+// // get requested fields for the given item
+// function getProjection(item, query) {
+//   const projection = {}
+//   query.params.fields.forEach(field => (projection[field] = item[field]))
+//   return projection
+// }
+
+module.exports = { Projection }

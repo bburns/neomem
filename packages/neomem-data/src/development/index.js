@@ -3,13 +3,13 @@
 //. handle datasource registry also - put/post/delete datasources.
 
 const fetch = require('node-fetch')
-const util = require('neomem-util')
+const { Projection } = require('neomem-util')
 const root = require('./root')
 const meta = require('./meta')
 const types = require('./types')
 
 // get an item or items
-//. recurse to handle folders etc
+//. recurse or loop with stack to handle folders etc
 async function get(query, start = root) {
   const items = start.children
   const item = items.find(item => item.name === query.firstOfPath)
@@ -22,16 +22,9 @@ async function get(query, start = root) {
     return json
   }
   if (Number(query.params.depth) === 0) {
-    return util.getProjection(start, query) // get ONE item
+    return Projection(start, query) // get ONE item
   }
-  return items.map(item => util.getProjection(item, query))
+  return items.map(item => Projection(item, query))
 }
 
-// // get requested fields for the given item
-// function getProjection(item, query) {
-//   const projection = {}
-//   query.params.fields.forEach(field => (projection[field] = item[field]))
-//   return projection
-// }
-
-module.exports = { get }
+module.exports = { get } //. and post, put, delete

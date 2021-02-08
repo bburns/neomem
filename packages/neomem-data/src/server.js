@@ -1,5 +1,3 @@
-'use strict'
-
 const Hapi = require('@hapi/hapi')
 const { getQuery } = require('neomem-util')
 const data = require('./index')
