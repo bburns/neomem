@@ -24,8 +24,9 @@ async function go(tokens, context, ui) {
 
 async function list(tokens, context, ui) {
   const path = getPath(tokens[1], context.location)
-  const meta = await getMeta(path)
-  const fields = getFields(meta)
+  const metadata = await getMeta(path)
+  const fields = getFields(metadata)
+  // build a query object and fetch results
   const query = {
     path,
     params: {
@@ -34,17 +35,16 @@ async function list(tokens, context, ui) {
       limit: 5,
     },
   }
-  const json = await api.get(query)
+  const items = await api.get(query)
   //. recurse and build depth values for treelist
-  const items = json
   //. handle tree indentation with item.depth
   // accessor: item => ' '.repeat(item.depth) + item.name,
-  const columns = meta.view.columns.map(column => ({
+  const tableColumns = metadata.view.columns.map(column => ({
     name: column.key,
     accessor: column.key,
     width: column.width || 10,
   }))
-  const t = new Table(columns, items)
+  const t = new Table(tableColumns, items)
   const s = t.toString()
   ui.print(s)
 }
@@ -57,8 +57,8 @@ const loc = location
 
 async function look(tokens, context, ui) {
   const path = getPath(tokens[1], context.location)
-  const meta = await getMeta(path) //. const view = meta.get('view') ?
-  const fields = getFields(meta) //. const fields = view.fields ?
+  const metadata = await getMeta(path) //. const view = meta.get('view') ?
+  const fields = getFields(metadata) //. const fields = view.fields ?
   const query = {
     path,
     params: {
@@ -69,11 +69,11 @@ async function look(tokens, context, ui) {
   const item = await api.get(query) // get the ONE item
   await location(tokens, context, ui) // print location
   const items = fields.map(field => ({ name: field, value: item[field] }))
-  const columns = [
+  const tableColumns = [
     { name: 'Name', accessor: 'name', width: 12 },
     { name: 'Value', accessor: 'value', width: 50 },
   ]
-  const t = new Table(columns, items)
+  const t = new Table(tableColumns, items)
   const s = t.toString()
   ui.print(s)
   ui.print('and print number of items, types, etc')

@@ -16,8 +16,8 @@ async function getMeta(path) {
     path: pathLib.join(path, '.neomem'),
   }
   //. recurse upwards until find a .neomem item?
-  const meta = (await api.get(query)) || metaDefault
-  return meta
+  const metadata = (await api.get(query)) || metaDefault
+  return metadata
 }
 
 function getFields(meta) {
