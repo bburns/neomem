@@ -1,6 +1,9 @@
 const assert = require('assert').strict
-const data = require('../src/data')
+const data = require('../src')
 
-const query = { path: '' }
-const items = data.get(query)
+let query
+let items
+
+query = {}
+items = await data.get(query)
 assert.deepEquals(items, [])

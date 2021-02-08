@@ -4,7 +4,7 @@
 
 const fetch = require('node-fetch')
 const util = require('neomem-util')
-const root = require('./sample')
+const root = require('./root')
 const meta = require('./meta')
 const types = require('./types')
 
