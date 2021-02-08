@@ -1,4 +1,4 @@
-module.exports = [
+const items = [
   {
     name: 'lkm',
     type: 'folder',
