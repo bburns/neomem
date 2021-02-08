@@ -17,7 +17,7 @@ const types = [
   { key: 'modified', type: 'field', datatype: 'dateISO' },
 ]
 
-function get() {
+async function get() {
   return types
 }
 

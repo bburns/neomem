@@ -1,12 +1,13 @@
-// data
 // manage data for this datasource - folders and other datasources.
 //. handle datasource registry also - put/post/delete datasources.
 
 const fetch = require('node-fetch')
 const { Projection } = require('neomem-util')
-const root = require('./root')
+const { Root } = require('./root')
 const meta = require('./meta')
 const types = require('./types')
+
+const root = await Root.get()
 
 // get an item or items
 //. recurse or loop with stack to handle folders etc
@@ -16,15 +17,15 @@ async function get(query, start = root) {
   if (item && item.type === 'datasource') {
     // pass query along to other datasource
     const url =
-      item.url + '/api/v1/' + query.restOfPath + '?' + query.paramsString
+      item.url + '/api/v1/' + query.path.restString + '?' + query.paramsString
     const response = await fetch(url)
     const json = response.json()
     return json
   }
   if (Number(query.params.depth) === 0) {
-    return Projection(start, query) // get ONE item
+    return Projection.make(start, query) // get ONE item
   }
-  return items.map(item => Projection(item, query))
+  return items.map(item => Projection.make(item, query))
 }
 
 module.exports = { get } //. and post, put, delete

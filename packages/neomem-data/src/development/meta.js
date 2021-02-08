@@ -11,7 +11,7 @@ const metadata = {
   },
 }
 
-function get() {
+async function get() {
   return metadata
 }
 
