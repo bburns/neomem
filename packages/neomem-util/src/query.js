@@ -3,15 +3,16 @@ const { Path } = require('./path')
 
 // parse an http request url into a query object.
 // request is { params.path, raw.req.url }
-// eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
+// eg with url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
+// and path = '/books/scifi'
 // returns a query object like
 // {
-//   path: { string: '/books/scifi', ... },
-//   url: 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name',
 //   params: {
 //     fields: ['name', 'type'],
 //     sortby: 'name',
 //   },
+//   path: { string: 'books/scifi', ... },
+//   url: 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name',
 // }
 function make(request) {
   const path = Path.make(request.params.path)
@@ -23,16 +24,16 @@ function make(request) {
   const requestParams = querystring.parse(urlParams) // eg { fields: ['name','type'], sortby: 'name' }
   const defaultParams = {
     fields: 'name,type,description'.split(','),
+    depth: 1,
     // sortby: '',
     // where: '',
     // follow: '', // 'children',
     // offset: 0,
     // limit: 20,
     // q: '',
-    depth: 1,
   }
   const params = { ...defaultParams, ...requestParams }
-  const paramsString = querystring.stringify(params)
+  const paramsString = querystring.stringify(params).replace(/%2C/g, ',')
 
   const query = {
     path,

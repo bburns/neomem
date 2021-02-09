@@ -16,7 +16,7 @@ test('test all parts', t => {
   params.depth = 1 // add depth
   const query = Query.make(request)
   t.deepEqual(query.params, params)
-  t.deepEqual(query.paramsString, paramsString)
+  t.deepEqual(query.paramsString, 'fields=name,type,url&depth=1&sortby=name')
   t.deepEqual(query.path, path)
   t.deepEqual(query.url, url)
 })
