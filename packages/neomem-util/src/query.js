@@ -1,5 +1,5 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
-const Path = require('./path')
+const { Path } = require('./path')
 
 // parse an http request url into a query object.
 // request is { params.path, raw.req.url }
@@ -14,7 +14,7 @@ const Path = require('./path')
 //   },
 // }
 function make(request) {
-  const path = Path.make('/', request.params.path)
+  const path = Path.make(request.params.path)
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const urlParams = url.split('?')[1] // eg 'fields=name,type&sortby=name'
 
