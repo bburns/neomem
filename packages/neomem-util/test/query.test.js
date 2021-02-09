@@ -4,7 +4,12 @@ const { Query, Path } = require('../src')
 
 test(`make`, async t => {
   const query = Query.make()
-  t.deepEqual(query, {})
+  t.deepEqual(query, {
+    path: Path.make(),
+    url: '',
+    params: {},
+    paramsString: '',
+  })
 })
 
 test('makeFromRequest', t => {
@@ -20,8 +25,8 @@ test('makeFromRequest', t => {
   const params = querystring.parse(paramsString)
   params.depth = 1 // add depth
   const query = Query.makeFromRequest(request)
-  t.deepEqual(query.params, params)
-  t.deepEqual(query.paramsString, 'fields=name,type,url&depth=1&sortby=name')
   t.deepEqual(query.path, path)
   t.deepEqual(query.url, url)
+  t.deepEqual(query.params, params)
+  t.deepEqual(query.paramsString, 'fields=name,type,url&depth=1&sortby=name')
 })

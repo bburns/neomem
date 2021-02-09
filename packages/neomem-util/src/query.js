@@ -1,8 +1,10 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-function make(pathString = '') {
-  const path = Path.make(pathString)
+function make(url = '') {
+  const path = Path.make(url)
+  const paramsString = url.split('?')[1] || ''
+  const params = querystring.parse(paramsString)
   const query = {
     path,
     url,
