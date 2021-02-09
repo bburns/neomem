@@ -4,8 +4,7 @@
 
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const chalk = require('chalk') // color text
-const commands = require('./commands')
-const tokenize = require('./tokenize')
+const { Command } = require('./command')
 const package = require('../package')
 
 const prompt = '> '
@@ -31,21 +30,21 @@ function printLocation(context) {
 
 // parse command string into a fn and execute it.
 // parameters are specified by node's repl library.
-async function evalCommand(commandString, context, filename, callback) {
-  const tokens = tokenize(commandString) // eg 'list books/scifi' -> ['list', 'books/scifi']
-  const command = commands[tokens[0]] // eg list fn
+async function evalCommand(str, context, filename, callback) {
+  const command = Command.make(str, context, ui)
   if (command) {
     try {
       // call the command fn - may print to console, update context
-      await command(tokens, context, ui)
+      // await command(tokens, context, ui)
+      await command.execute()
     } catch (error) {
       return callback(error)
     }
   } else {
-    ui.print(`Unknown command '${commandString.trim()}'.`)
+    ui.print(`Unknown command '${str.trim()}'.`)
   }
-  // need to call callback so it knows to print prompt again
   printLocation(context)
+  // need to call callback so it knows to print prompt again
   callback()
 }
 
