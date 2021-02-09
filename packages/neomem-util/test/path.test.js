@@ -1,10 +1,37 @@
 const test = require('ava')
-
-const assert = require('assert').strict
 const { Path } = require('../src')
 
-test('foo', t => {
-  t.pass()
-  const path = Path.make('lkm', '/pok')
-  t.is(path.string, '/pok')
+// note:
+
+test('go /filesys', t => {
+  const path = Path.make('/bookmarks', '/filesys')
+  t.deepEqual(path, {
+    string: '/filesys',
+    array: ['', 'filesys'], //.
+    first: '', //.
+    rest: ['filesys'],
+    restString: 'filesys',
+  })
+})
+
+test('go books/scifi', t => {
+  const path = Path.make('/bookmarks', 'books/scifi')
+  t.deepEqual(path, {
+    string: '/bookmarks/books/scifi',
+    array: ['', 'bookmarks', 'books', 'scifi'], //.
+    first: '', //.
+    rest: ['bookmarks', 'books', 'scifi'],
+    restString: 'bookmarks/books/scifi',
+  })
+})
+
+test('go', t => {
+  const path = Path.make('/bookmarks')
+  t.deepEqual(path, {
+    string: '/bookmarks',
+    array: ['', 'bookmarks'], //.
+    first: '', //.
+    rest: ['bookmarks'],
+    restString: 'bookmarks',
+  })
 })
