@@ -4,7 +4,7 @@
 const api = require('./api')
 const { getPath } = require('neomem-util')
 const { getMetadata, getFields } = require('./meta')
-const Table = require('./table') // wrapper around a table library
+const { Table } = require('./table') // wrapper around a table library
 
 async function go(tokens, context, ui) {
   const dest = tokens[1]

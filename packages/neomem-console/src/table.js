@@ -3,7 +3,7 @@
 // see https://github.com/gajus/table
 const { table, getBorderCharacters } = require('table')
 
-module.exports = class Table {
+class Table {
   constructor(columns, items) {
     this.columns = columns
     this.items = items
@@ -42,3 +42,5 @@ module.exports = class Table {
     return s
   }
 }
+
+module.exports = { Table }
