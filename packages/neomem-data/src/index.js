@@ -1,5 +1,5 @@
 const environment = process.env.NODE_ENV || 'development'
 
-const data = require('./' + environment) //. is this okay?
+const data = require('./' + environment)
 
 module.exports = { data }

@@ -8,19 +8,17 @@ class Query {
 
   // parse an http request url into a query object.
   // request is { params.path, raw.req.url }
-  // eg for url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
+  // eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
   // returns a query object like
   // {
-  //   path: 'books/scifi',
-  //   pathArray: ['books', 'scifi'],
+  //   path: { string: '/books/scifi', ... },
   //   url: 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name',
   //   params: {
   //     fields: ['name', 'type'],
-  //     sortby: ['year', 'name'],
+  //     sortby: 'name',
   //   },
   // }
   static make(request) {
-    // get url path and parameters
     const path = Path.make(request.params.path)
     const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
     const urlParams = url.split('?')[1] // eg 'fields=name,type&sortby=name'
@@ -47,7 +45,6 @@ class Query {
       params,
       paramsString,
     }
-    console.log('getQuery', query)
     return query
   }
 }

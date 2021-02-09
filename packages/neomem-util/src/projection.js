@@ -1,12 +1,13 @@
-//. i think this should use the class constructor, for speed,
-// as each item will need this ?
-// well that's premature. just leave option open for now.
-
 class Projection {
   constructor() {
     throw new Error('Use the Projection.make fn')
   }
-  // project an item's data into the list of fields.
+  // project an item's data into the given list of fields.
+  // eg make(
+  //   { date_added: '13818259345' },
+  //   [{ key: 'created', source: 'date_added', datatype: 'date1601' }]),
+  //   { date1601: { format: <fn>, parse: <fn> }},
+  // } => { created: '2021-02-01' }
   static make(item, fields, types) {
     const projection = {}
     fields.forEach(field => {
