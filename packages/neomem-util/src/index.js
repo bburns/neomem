@@ -1,6 +1,6 @@
 const { Path } = require('./path')
-const { Projection } = require('./projection')
 const { Query } = require('./query')
+const { Translation } = require('./translation')
 const { Types } = require('./types')
 
-module.exports = { Path, Projection, Query, Types }
+module.exports = { Path, Translation, Query, Types }

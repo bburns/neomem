@@ -31,4 +31,5 @@ test('make from request', t => {
   // t.deepEqual(query.params, params)
   // t.deepEqual(query.paramsString, 'fields=name,type,url&depth=1&sortby=name')
   t.deepEqual(query.depthZero, false)
+  t.deepEqual(query.fields, [])
 })
