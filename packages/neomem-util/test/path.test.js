@@ -1,7 +1,8 @@
 const test = require('ava')
 const { Path } = require('../src')
 
-// note:
+// note: we simulate how Path is used - first argument is always
+// location, which is an absolute path.
 
 test('go /filesys', t => {
   const path = Path.make('/bookmarks', '/filesys')

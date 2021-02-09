@@ -23,12 +23,12 @@ const types = [
   },
 ]
 
-async function get() {
-  return types
-}
+const dict = {}
+types.forEach(type => (dict[type.key] = type))
 
 const Types = {
-  get,
+  list: types,
+  dict,
 }
 
 module.exports = { Types }
