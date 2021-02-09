@@ -19,7 +19,7 @@ async function get(query = emptyQuery, start = undefined) {
   }
 
   if (query.depthZero) {
-    return Projection.make(start, query, Types) // get ONE item
+    return Projection.make(start, query.fields, Types) // get ONE item
   }
 
   if (query.meta) {
@@ -38,7 +38,7 @@ async function get(query = emptyQuery, start = undefined) {
   }
 
   // return projection of items
-  return items.map(item => Projection.make(item, query, Types))
+  return items.map(item => Projection.make(item, query.fields, Types))
 }
 
 async function post(query = emptyQuery) {}

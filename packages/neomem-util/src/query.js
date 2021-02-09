@@ -40,22 +40,16 @@ function make(request = emptyRequest) {
   const params = { ...defaultParams, ...requestParams }
   const paramsString = querystring.stringify(params).replace(/%2C/g, ',')
 
-  // const query = {
-  //   path,
-  //   params,
-  //   paramsString,
-  //   url,
-  // }
-  // return query
-
   const depthZero = Number(params.depth || 0) === 0
   const first = path.first
   const meta = url.endsWith('.neomem')
+  const fields = params.fields
 
   return {
     depthZero,
     first,
     meta,
+    fields,
     getRemainingUrl(item) {
       return `${item.url || ''}/api/v1/${path.restString}?${paramsString}`
     },

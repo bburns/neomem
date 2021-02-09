@@ -1,12 +1,17 @@
 const { Types } = require('./types')
+const { Query } = require('./query')
+
+const emptyQuery = Query.make()
 
 // project an item's data into the given list of fields.
-// eg make(
+// eg Projection.make(
 //   { date_added: '13818259345' },
 //   [{ key: 'created', source: 'date_added', datatype: 'date1601' }]),
 //   [{ date1601: { format: <fn>, parse: <fn> }}],
 // } => { created: '2021-02-01' }
 function make(item, fields = [], AdditionalTypes = {}) {
+  // function make(item, query = emptyQuery, AdditionalTypes = {}) {
+  // const fields = query.fields
   const projection = {}
   fields.forEach(field => {
     const dest = field.key // eg 'created'
