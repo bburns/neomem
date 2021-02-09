@@ -2,10 +2,10 @@ const test = require('ava')
 const { Data } = require('../src')
 const { Query } = require('neomem-util')
 
-//. should this just get the root object? i guess so
+//. should this just get the root object? nothing? empty object?
 test('get()', async t => {
   const items = await Data.get()
-  t.deepEqual(items, undefined)
+  t.deepEqual(items, {})
 })
 
 // test('get({})', async t => {
