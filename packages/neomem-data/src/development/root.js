@@ -17,12 +17,16 @@ const root = {
   ],
 }
 
-const Root = {
-  // fetch items - could be from db so make async.
-  // could be a memoized fn eg for reading giant bookmarks file.
-  get: async function () {
-    return root
-  },
+// fetch items - could be from db so make async.
+// could be a memoized fn eg for reading giant bookmarks file.
+async function get() {
+  return root
 }
+
+async function post() {}
+async function put() {}
+async function del() {}
+
+const Root = { get, post, put, del }
 
 module.exports = { Root }
