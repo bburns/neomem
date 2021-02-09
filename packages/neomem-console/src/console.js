@@ -8,11 +8,8 @@ const commands = require('./commands')
 const tokenize = require('./tokenize')
 const package = require('../package')
 
-// define prompt
 const prompt = '> '
-
-// set current directory
-global.location = '/'
+const defaultLocation = '/'
 
 // define the ui callbacks
 const ui = {
@@ -53,14 +50,11 @@ async function evalCommand(commandString, context, filename, callback) {
 }
 
 function make() {
-  let prompt = '> '
-  const context = {
-    location,
-  }
-  function start(location = '/') {
+  const context = {}
+  function start(location = defaultLocation) {
     context.location = location
     printWelcome()
-    printLocation(global)
+    printLocation(context)
     repl.start({ prompt, eval: evalCommand, context })
   }
   return {

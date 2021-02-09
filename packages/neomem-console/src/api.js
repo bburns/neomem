@@ -31,20 +31,4 @@ async function get(query) {
   return json
 }
 
-// // post a query object as json to the given uri, return json response.
-// async function post(query) {
-//   const body = { query: query }
-//   const options = {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept-Encoding': 'gzip',
-//     },
-//     body: JSON.stringify(body),
-//   }
-//   const response = await fetch(uri, options)
-//   const json = await response.json()
-//   return json
-// }
-
 module.exports = { exists, get }
