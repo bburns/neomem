@@ -6,7 +6,7 @@ function make(str, context, ui) {
   const execute = commands[tokens[0]] // eg list fn
   const command = {
     str,
-    execute,
+    execute: _ => execute(tokens, context, ui),
     undo: _ => _,
     context,
     ui,
