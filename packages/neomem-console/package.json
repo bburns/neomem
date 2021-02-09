@@ -4,8 +4,7 @@
   "description": "console interface for neomem",
   "main": "src/index.js",
   "scripts": {
-    "//start": "NODE_OPTIONS=--experimental-repl-await nodemon src/index.js",
-    "//": "note: need '--no-stdin' to prevent echo of command at repl",
+    "//start": "note: need '--no-stdin' to prevent echo of command at repl",
     "start": "nodemon --no-stdin src/index.js",
     "test": "ava --watch"
   },

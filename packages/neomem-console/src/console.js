@@ -35,7 +35,6 @@ async function evalCommand(str, context, filename, callback) {
   if (command) {
     try {
       // call the command fn - may print to console, update context
-      // await command(tokens, context, ui)
       await command.execute()
     } catch (error) {
       return callback(error)

@@ -8,8 +8,8 @@ function make(str, context, ui) {
     str,
     execute: _ => execute(tokens, context, ui),
     undo: _ => _,
-    context,
-    ui,
+    // context,
+    // ui,
   }
   return command
 }

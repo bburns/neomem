@@ -14,7 +14,7 @@ const defaultMetadata = {
 // get meta information for a path, including views
 async function getMetadata(path) {
   const query = {
-    path: pathLib.join(path, '.neomem'),
+    path: pathLib.join(path.string, '.neomem'),
   }
   //. recurse upwards until find a .neomem item?
   // or let the datasource handle that?

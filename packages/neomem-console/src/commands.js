@@ -57,6 +57,7 @@ const loc = location
 
 async function look(tokens, context, ui) {
   const path = Path.make(context.location, tokens[1])
+  // const metadata = api.get(query, true)
   const metadata = await getMetadata(path) //. const view = meta.get('view') ?
   const fields = getFields(metadata) //. const fields = view.fields ?
   const query = {
@@ -68,10 +69,11 @@ async function look(tokens, context, ui) {
   }
   const item = await api.get(query) // get the ONE item
   await location(tokens, context, ui) // print location
+  // print table with properties
   const items = fields.map(field => ({ name: field, value: item[field] }))
   const tableColumns = [
-    { name: 'Name', accessor: 'name', width: 12 },
-    { name: 'Value', accessor: 'value', width: 50 },
+    { name: 'name', accessor: 'name', width: 12 },
+    { name: 'value', accessor: 'value', width: 50 },
   ]
   const t = new Table(tableColumns, items)
   const s = t.toString()
