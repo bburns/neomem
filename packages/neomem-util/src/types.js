@@ -23,8 +23,12 @@ const types = [
   },
 ]
 
-function get() {
+async function get() {
   return types
+}
+
+const Types = {
+  get,
 }
 
 module.exports = { get }
