@@ -53,7 +53,8 @@ function make() {
     context.location = location
     printWelcome()
     printLocation(context)
-    repl.start({ prompt, eval: evalCommand, context })
+    const replServer = repl.start({ prompt, eval: evalCommand })
+    replServer.context = context
   }
   return {
     start,

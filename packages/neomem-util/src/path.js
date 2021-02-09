@@ -5,6 +5,7 @@ const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 // eg make('/bookmarks', '/fishes') => { string: '/fishes', ... }
 // eg make('/bookmarks', '') => { string: '/bookmarks', ... }
 function make(...parts) {
+  console.log(parts)
   // see https://nodejs.org/api/path.html#path_path_resolve_paths
   const string = pathLib.resolve('/', ...parts).slice(1) // remove leading /
   const array = string.split('/') // eg ['bookmarks', 'books']

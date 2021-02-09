@@ -1,8 +1,11 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-//. make a Request namespace to parse out request
+//. clean this all up -
+// make a Request namespace to parse out request?
 // use hapi-url lib
+// merge make and makeFromUrl
+
 const emptyRequest = {
   params: { path: '' },
   raw: { req: { url: '' } },

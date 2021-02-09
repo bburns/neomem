@@ -56,16 +56,19 @@ async function location(tokens, context, ui) {
 const loc = location
 
 async function look(tokens, context, ui) {
-  const path = Path.make(context.location, tokens[1])
+  const path = Path.make(context.location, tokens[1] || '')
+  // const path = '/'
   // const metadata = api.get(query, true)
-  const metadata = await getMetadata(path) //. const view = meta.get('view') ?
-  const fields = getFields(metadata) //. const fields = view.fields ?
+  // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
+  // const fields = getFields(metadata) //. const fields = view.fields ?
+  const fields = 'name,type,description,url'.split(',')
   const query = {
     path,
     params: {
       fields, // eg ['name', 'type', 'description']
       depth: 0, // look at the item not its contents
     },
+    paramsString: '',
   }
   const item = await api.get(query) // get the ONE item
   await location(tokens, context, ui) // print location
