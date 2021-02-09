@@ -9,8 +9,9 @@ test(`make()`, async t => {
   t.deepEqual(query.first, '')
   t.deepEqual(
     query.getRemainingUrl(item),
-    '/api/v1/?fields=name&fields=type&fields=description'
+    '/api/v1/?fields=name,type,description'
   )
+  t.deepEqual(query.fields, 'name,type,description'.split(','))
 })
 
 test('make from request', t => {
@@ -31,5 +32,5 @@ test('make from request', t => {
   // t.deepEqual(query.params, params)
   // t.deepEqual(query.paramsString, 'fields=name,type,url&depth=1&sortby=name')
   t.deepEqual(query.depthZero, false)
-  t.deepEqual(query.fields, [])
+  t.deepEqual(query.fields, 'name,type,url'.split(','))
 })
