@@ -1,6 +1,17 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
+function make(pathString = '') {
+  const path = Path.make(pathString)
+  const query = {
+    path,
+    url,
+    params,
+    paramsString,
+  }
+  return query
+}
+
 // parse an http request url into a query object.
 // request is { params.path, raw.req.url }
 // eg with url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
@@ -14,7 +25,7 @@ const { Path } = require('./path')
 //   path: { string: 'books/scifi', ... },
 //   url: 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name',
 // }
-function make(request) {
+function makeFromRequest(request) {
   const path = Path.make(request.params.path)
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const urlParams = url.split('?')[1] // eg 'fields=name,type&sortby=name'
@@ -46,6 +57,7 @@ function make(request) {
 
 const Query = {
   make,
+  makeFromRequest,
 }
 
 module.exports = { Query }

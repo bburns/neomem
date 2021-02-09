@@ -1,6 +1,17 @@
 const test = require('ava')
 const { Path } = require('../src')
 
+test(`make with empty path`, async t => {
+  const path = Path.make()
+  t.deepEqual(path, {
+    string: '',
+    array: [''],
+    first: '',
+    rest: [],
+    restString: '',
+  })
+})
+
 test('go /filesys', t => {
   const path = Path.make('/bookmarks', '/filesys')
   t.deepEqual(path, {

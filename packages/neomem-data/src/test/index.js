@@ -1,5 +1,5 @@
-const data = {
+const Data = {
   get: _ => _,
 }
 
-module.exports = data
+module.exports = { Data }
