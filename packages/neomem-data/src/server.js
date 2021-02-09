@@ -22,7 +22,7 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
-      const query = Query.makeFromRequest(request)
+      const query = Query.make(request)
       const json = await Data.get(query)
       return json
     },
@@ -32,7 +32,7 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'POST',
     handler: async (request, h) => {
-      const query = Query.makeFromRequest(request)
+      const query = Query.make(request)
       const json = await Data.post(query)
       return json
     },

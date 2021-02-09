@@ -3,7 +3,7 @@
 //. handle datasource registry also - put/post/delete datasources.
 
 const fetch = require('node-fetch')
-const { Projection } = require('neomem-util')
+const { Projection, Query } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
 const { Types } = require('./types')
@@ -14,14 +14,17 @@ async function get(query, start = undefined) {
   if (start === undefined) {
     start = await Root.get() // memoized fn
   }
-  if (query === undefined || Number(query.params.depth) === 0) {
+  // if (Query.isDepthZero(query)) {
+  if (query.depthZero) {
     return Projection.make(start, query, Types) // get ONE item
   }
   const items = start.children
-  const item = items.find(item => item.name === query.path.first)
+  // const item = items.find(item => item.name === query.path.first)
+  const item = items.find(item => item.name === query.first)
   if (item && item.type === 'datasource') {
     // pass query along to other datasource
-    const url = `${item.url}/api/v1/${query.path.restString}?${query.paramsString}`
+    // const url = `${item.url}/api/v1/${query.path.restString}?${query.paramsString}`
+    const url = query.getRestUrl(item.url)
     const response = await fetch(url)
     const json = response.json() //. no await?
     return json

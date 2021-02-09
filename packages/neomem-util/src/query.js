@@ -1,18 +1,18 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-function make(url = '') {
-  const path = Path.make(url)
-  const paramsString = url.split('?')[1] || ''
-  const params = querystring.parse(paramsString)
-  const query = {
-    path,
-    url,
-    params,
-    paramsString,
-  }
-  return query
-}
+// function make(url = '') {
+//   const path = Path.make(url)
+//   const paramsString = url.split('?')[1] || ''
+//   const params = querystring.parse(paramsString)
+//   const query = {
+//     path,
+//     url,
+//     params,
+//     paramsString,
+//   }
+//   return query
+// }
 
 // parse an http request url into a query object.
 // request is { params.path, raw.req.url }
@@ -27,10 +27,10 @@ function make(url = '') {
 //   path: { string: 'books/scifi', ... },
 //   url: 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name',
 // }
-function makeFromRequest(request) {
-  const path = Path.make(request.params.path)
-  const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
-  const urlParams = url.split('?')[1] // eg 'fields=name,type&sortby=name'
+function make(request) {
+  const path = Path.make(request ? request.params.path : '')
+  const url = request ? request.raw.req.url : '' // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
+  const urlParams = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'
 
   // get param object and string
   // note: querystring lib returns a string if one value, an array if >1
@@ -48,18 +48,23 @@ function makeFromRequest(request) {
   const params = { ...defaultParams, ...requestParams }
   const paramsString = querystring.stringify(params).replace(/%2C/g, ',')
 
-  const query = {
-    path,
-    url,
-    params,
-    paramsString,
+  // const query = {
+  //   path,
+  //   params,
+  //   paramsString,
+  //   url,
+  // }
+  // return query
+
+  const depthZero = Number(params.depth || 0) === 0
+
+  return {
+    depthZero,
   }
-  return query
 }
 
 const Query = {
   make,
-  makeFromRequest,
 }
 
 module.exports = { Query }
