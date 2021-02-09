@@ -1,3 +1,5 @@
+//. convert to es6 module so can do top-level await
+
 const Hapi = require('@hapi/hapi')
 const { Query } = require('neomem-util')
 const { data } = require('./index')

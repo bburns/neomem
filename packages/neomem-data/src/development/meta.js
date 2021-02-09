@@ -1,5 +1,6 @@
 //. handle updates to metadata eg view column layout -
 // save to user's config folder
+
 const metadata = {
   view: {
     columns: [

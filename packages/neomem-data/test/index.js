@@ -1,3 +1,5 @@
+// note: can't have top-level await unless type:module and import
+
 const assert = require('assert').strict
 const { data } = require('../src')
 
@@ -7,6 +9,5 @@ const { data } = require('../src')
 
   query = {}
   items = await data.get(query)
-  console.log(items)
   assert(items === {})
 })()
