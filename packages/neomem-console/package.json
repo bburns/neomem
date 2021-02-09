@@ -6,7 +6,8 @@
   "scripts": {
     "//start": "NODE_OPTIONS=--experimental-repl-await nodemon src/index.js",
     "//": "note: need '--no-stdin' to prevent echo of command at repl",
-    "start": "nodemon --no-stdin src/index.js"
+    "start": "nodemon --no-stdin src/index.js",
+    "test": "ava --watch"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "table": "^6.0.7"
   },
   "devDependencies": {
+    "ava": "^3.15.0",
     "nodemon": "^2.0.7"
   }
 }
