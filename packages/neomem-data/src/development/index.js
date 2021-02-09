@@ -33,4 +33,11 @@ async function post() {}
 async function put() {}
 async function del() {}
 
-module.exports = { get, post, put, del }
+const Data = {
+  get,
+  post,
+  put,
+  del,
+}
+
+module.exports = { Data }
