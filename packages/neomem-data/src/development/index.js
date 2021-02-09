@@ -5,8 +5,8 @@
 const fetch = require('node-fetch')
 const { Projection } = require('neomem-util')
 const { Root } = require('./root')
-// const meta = require('./meta')
-const types = require('./types')
+const { Meta } = require('./meta')
+const { Types } = require('./types')
 
 // get an item or items
 //. recurse or loop with stack to handle folders etc
@@ -33,11 +33,6 @@ async function post() {}
 async function put() {}
 async function del() {}
 
-const Data = {
-  get,
-  post,
-  put,
-  del,
-}
+const Data = { get, post, put, del }
 
 module.exports = { Data }

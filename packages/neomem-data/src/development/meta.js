@@ -16,4 +16,10 @@ async function get() {
   return metadata
 }
 
-module.exports = { get }
+async function post() {}
+async function put() {}
+async function del() {}
+
+const Meta = { get, post, put, del }
+
+module.exports = { Meta }

@@ -31,4 +31,4 @@ const Types = {
   get,
 }
 
-module.exports = { get }
+module.exports = { Types }
