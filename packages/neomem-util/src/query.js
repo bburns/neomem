@@ -1,18 +1,10 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-// function make(url = '') {
-//   const path = Path.make(url)
-//   const paramsString = url.split('?')[1] || ''
-//   const params = querystring.parse(paramsString)
-//   const query = {
-//     path,
-//     url,
-//     params,
-//     paramsString,
-//   }
-//   return query
-// }
+const emptyRequest = {
+  params: { path: '' },
+  raw: { req: { url: '' } },
+}
 
 // parse an http request url into a query object.
 // request is { params.path, raw.req.url }
@@ -27,9 +19,9 @@ const { Path } = require('./path')
 //   path: { string: 'books/scifi', ... },
 //   url: 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name',
 // }
-function make(request) {
-  const path = Path.make(request ? request.params.path : '')
-  const url = request ? request.raw.req.url : '' // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
+function make(request = emptyRequest) {
+  const path = Path.make(request.params.path)
+  const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const urlParams = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'
 
   // get param object and string
@@ -37,7 +29,7 @@ function make(request) {
   const requestParams = querystring.parse(urlParams) // eg { fields: ['name','type'], sortby: 'name' }
   const defaultParams = {
     fields: 'name,type,description'.split(','),
-    depth: 1,
+    // depth: 0,
     // sortby: '',
     // where: '',
     // follow: '', // 'children',
@@ -58,16 +50,14 @@ function make(request) {
 
   const depthZero = Number(params.depth || 0) === 0
   const first = path.first
+  const meta = url.endsWith('.neomem')
 
   return {
-    get depthZero() {
-      return depthZero
-    },
-    get first() {
-      return first
-    },
+    depthZero,
+    first,
+    meta,
     getRemainingUrl(item) {
-      return `${item.url}/api/v1/${path.restString}?${paramsString}`
+      return `${item.url || ''}/api/v1/${path.restString}?${paramsString}`
     },
   }
 }
