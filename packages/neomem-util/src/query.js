@@ -1,18 +1,34 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
+//. make a Request namespace to parse out request
+// use hapi-url lib
 const emptyRequest = {
   params: { path: '' },
   raw: { req: { url: '' } },
 }
 
+function extractPathString(url) {
+  const pathString = ''
+  return pathString
+}
+
+function makeFromUrl(url) {
+  const pathString = extractPathString(url)
+  const request = {
+    params: { path: pathString },
+    raw: { req: { url } },
+  }
+  return make(request)
+}
+
 // parse an http request url into a query object.
 // request is { params.path, raw.req.url }
 // eg with url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
-// and path = '/books/scifi'
+// and params.path = '/books/scifi'
 // returns a query object
 function make(request = emptyRequest) {
-  const path = Path.make(request.params.path)
+  const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const urlParams = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'
 
@@ -51,6 +67,7 @@ function make(request = emptyRequest) {
 
 const Query = {
   make,
+  makeFromUrl,
 }
 
 module.exports = { Query }
