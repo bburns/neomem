@@ -1,21 +1,20 @@
 const test = require('ava')
-
 const { Data } = require('../src')
 const { Query } = require('neomem-util')
 
-test('empty get', async t => {
-  const json = await Data.get()
-  t.deepEqual(json, undefined)
+test('get()', async t => {
+  const items = await Data.get()
+  t.deepEqual(items, undefined)
 })
 
-test('empty query', async t => {
+test('get({})', async t => {
   const query = {}
-  const json = await Data.get(query)
-  t.deepEqual(json, {})
+  const items = await Data.get(query)
+  t.deepEqual(items, {})
 })
 
-test('query', async t => {
+test('get(Query.make())', async t => {
   const query = Query.make()
-  const json = await Data.get(query)
-  t.deepEqual(json, {})
+  const items = await Data.get(query)
+  t.deepEqual(items, {})
 })

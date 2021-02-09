@@ -26,7 +26,7 @@ async function get(query, start = undefined) {
     const json = response.json() //. no await?
     return json
   }
-  return items.map(item => Projection.make(item, query, types))
+  return items.map(item => Projection.make(item, query, Types))
 }
 
 async function post() {}

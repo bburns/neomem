@@ -1,7 +1,7 @@
 const test = require('ava')
 const { Path } = require('../src')
 
-test(`make with empty path`, async t => {
+test(`make()`, async t => {
   const path = Path.make()
   t.deepEqual(path, {
     string: '',

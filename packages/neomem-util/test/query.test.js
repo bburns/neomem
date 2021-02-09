@@ -2,7 +2,7 @@ const test = require('ava')
 const querystring = require('querystring')
 const { Query, Path } = require('../src')
 
-test(`make`, async t => {
+test(`make()`, async t => {
   const query = Query.make()
   t.deepEqual(query, {
     path: Path.make(),
