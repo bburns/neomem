@@ -1,6 +1,10 @@
+const test = require('ava')
+
 const assert = require('assert').strict
 const { Path } = require('../src')
 
-let path
-path = Path.make('lkm', '/pok')
-assert.equal(path.string, '/pok')
+test('foo', t => {
+  t.pass()
+  const path = Path.make('lkm', '/pok')
+  t.is(path.string, '/pok')
+})
