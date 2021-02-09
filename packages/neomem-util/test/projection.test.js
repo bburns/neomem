@@ -1,12 +1,11 @@
 const test = require('ava')
 const { Projection } = require('../src')
 
-test('pok', t => {
-  const item = { date_added: '1234567890' }
+test('date1601', t => {
+  const item = { date_added: '0' }
   const fields = [
     { key: 'created', source: 'date_added', datatype: 'date1601' },
   ]
-  const types = {}
-  const projection = Projection.make(item, fields, types)
-  t.deepEqual(projection, {})
+  const projection = Projection.make(item, fields)
+  t.is(projection.created, '1601-01-01T00:00:00.000Z')
 })

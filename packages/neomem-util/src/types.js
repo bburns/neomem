@@ -27,8 +27,9 @@ const dict = {}
 types.forEach(type => (dict[type.key] = type))
 
 const Types = {
-  list: types,
-  dict,
+  // list: types,
+  // dict,
+  get: typename => dict[typename],
 }
 
 module.exports = { Types }
