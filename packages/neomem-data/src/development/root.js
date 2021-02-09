@@ -1,4 +1,5 @@
 //. could also query each item for description, nitems, etc, if requested?
+
 const root = {
   name: 'neomem-data',
   type: 'datasource',
@@ -16,15 +17,12 @@ const root = {
   ],
 }
 
-class Root {
-  constructor() {
-    throw new Error('Use Root.get fn')
-  }
+const Root = {
   // fetch items - could be from db so make async.
   // could be a memoized fn eg for reading giant bookmarks file.
-  static async get() {
+  get: async function () {
     return root
-  }
+  },
 }
 
 module.exports = { Root }

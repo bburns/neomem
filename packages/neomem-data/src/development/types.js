@@ -21,4 +21,11 @@ async function get() {
   return types
 }
 
-module.exports = { get }
+const Types = {
+  get,
+  // post,
+  // put,
+  // del,
+}
+
+module.exports = { Types }
