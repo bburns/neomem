@@ -10,11 +10,11 @@ const { Types } = require('./types')
 
 // get an item or items
 //. recurse or loop with stack to handle folders etc
-async function get(query, start = undefined) {
+// async function get(query = {}, start = undefined) {
+async function get(query = Query.make(), start = undefined) {
   if (start === undefined) {
     start = await Root.get() // memoized fn
   }
-  // if (Query.isDepthZero(query)) {
   if (query.depthZero) {
     return Projection.make(start, query, Types) // get ONE item
   }
@@ -24,7 +24,7 @@ async function get(query, start = undefined) {
   if (item && item.type === 'datasource') {
     // pass query along to other datasource
     // const url = `${item.url}/api/v1/${query.path.restString}?${query.paramsString}`
-    const url = query.getRestUrl(item.url)
+    const url = query.getRemainingUrl(item)
     const response = await fetch(url)
     const json = response.json() //. no await?
     return json

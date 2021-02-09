@@ -57,9 +57,18 @@ function make(request) {
   // return query
 
   const depthZero = Number(params.depth || 0) === 0
+  const first = path.first
 
   return {
-    depthZero,
+    get depthZero() {
+      return depthZero
+    },
+    get first() {
+      return first
+    },
+    getRemainingUrl(item) {
+      return `${item.url}/api/v1/${path.restString}?${paramsString}`
+    },
   }
 }
 
