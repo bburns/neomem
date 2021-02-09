@@ -19,7 +19,7 @@ class Query {
   //   },
   // }
   static make(request) {
-    const path = Path.make(request.params.path)
+    const path = Path.make('/', request.params.path)
     const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
     const urlParams = url.split('?')[1] // eg 'fields=name,type&sortby=name'
 
@@ -32,9 +32,9 @@ class Query {
       // where: '',
       // follow: '', // 'children',
       // offset: 0,
-      limit: 20,
-      depth: 1,
+      // limit: 20,
       // q: '',
+      depth: 1,
     }
     const params = { ...defaultParams, ...requestParams }
     const paramsString = querystring.stringify(params)

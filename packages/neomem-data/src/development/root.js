@@ -16,14 +16,12 @@ const root = {
   ],
 }
 
-// async function get() {
-//   return root
-// }
-
 class Root {
   constructor() {
     throw new Error('Use Root.get fn')
   }
+  // fetch items - could be from db so make async.
+  // could be a memoized fn eg for reading giant bookmarks file.
   static async get() {
     return root
   }
