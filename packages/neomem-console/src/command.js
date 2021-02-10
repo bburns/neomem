@@ -11,9 +11,8 @@ function make(str, options) {
   options.verb = verb
   const command = {
     str: str.trim(),
-    // execute: _ => execute(tokens, context, ui),
     execute: _ => execute(options),
-    // undo: _ => _,
+    undo: execute.undo, // optional undo
   }
   return command
 }

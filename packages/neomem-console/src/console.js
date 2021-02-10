@@ -32,7 +32,18 @@ const history = []
 const processor = {
   execute: async command => {
     await command.execute() // print to console, may update context
-    history.push(command)
+    if (command.undo) {
+      history.push(command)
+    }
+    console.log(history)
+  },
+  undo: async options => {
+    const command = history.pop()
+    if (command) {
+      await command.undo(options)
+    } else {
+      options.ui.print(`No more history to undo.`)
+    }
     console.log(history)
   },
 }

@@ -1,4 +1,3 @@
-// commands
 // define console ui commands - look, list, etc
 
 const api = require('./api')
@@ -8,26 +7,35 @@ const { Table } = require('./table') // wrapper around a table library
 
 async function go(options) {
   const { tokens, context, ui } = options
-  const dest = tokens[1]
-  if (!dest) {
+  const destination = tokens[1]
+  if (!destination) {
     ui.print('No location given.')
     return
   }
-  const path = getPath(dest, context.location)
-  if (await exists(path)) {
-    context.location = path
-    ui.print('Moved to', path + '.')
+  const path = Path.make(context.location, destination)
+  if (await api.exists(path.string)) {
+    context.location = path.string
+    ui.print('Moved to', path.string + '.')
   } else {
     ui.print('Invalid location.')
   }
-  await look([], context) // don't pass tokens here
+  //. await look([], context) // don't pass tokens here
+}
+
+go.undo = options => {
+  const { ui, context } = options
+  // ui.print(`kjsnkfdjns dkjfn`)
+  // context.location = `jhbjhb`
+  await go(options)
 }
 
 async function list(options) {
   const { tokens, context, ui } = options
-  const path = getPath(tokens[1], context.location) // eg '/bookmarks'
-  const metadata = await getMetadata(path)
-  const fields = getFields(metadata)
+  const destination = tokens[1] || ''
+  const path = Path.make(context.location, destination)
+  // const metadata = await getMetadata(path)
+  // const fields = getFields(metadata)
+  const fields = 'name,type,url'.split(',')
   // build a query object and fetch results
   const query = {
     path,
@@ -38,21 +46,20 @@ async function list(options) {
     },
   }
   const items = await api.get(query)
-  //. recurse and build depth values for treelist
-  //. handle tree indentation with item.depth
-  // accessor: item => ' '.repeat(item.depth) + item.name,
-  const tableColumns = metadata.view.columns.map(column => ({
-    name: column.key,
-    accessor: column.key,
-    width: column.width || 10,
-  }))
-  const t = new Table(tableColumns, items)
-  const s = t.toString()
-  ui.print(s)
+  console.log(items)
+  // //. recurse and build depth values for treelist
+  // //. handle tree indentation with item.depth
+  // // accessor: item => ' '.repeat(item.depth) + item.name,
+  // const tableColumns = metadata.view.columns.map(column => ({
+  //   name: column.key,
+  //   accessor: column.key,
+  //   width: column.width || 10,
+  // }))
+  // const t = new Table(tableColumns, items)
+  // const s = t.toString()
+  // ui.print(s)
 }
 
-// async function location(tokens, context, ui) {
-// async function location(options) {
 async function location(options) {
   const { ui, context } = options
   ui.print(context.location)
@@ -63,7 +70,6 @@ const loc = location
 // async function look(tokens, context, ui) {
 async function look(options) {
   const { tokens, context, ui } = options
-  // const { location } = context // eg '/bookmarks'
   const destination = tokens[1] || '' // eg 'books/scifi'
   const path = Path.make(context.location, destination)
 
@@ -100,15 +106,15 @@ async function look(options) {
 
 const l = look
 
-// async function undo(tokens, context, ui, history, processor) {
 async function undo(options) {
-  const { tokens, context, ui } = options
-  const command = options.history.pop()
-  if (command) {
-    options.processor.undo(command)
-  } else {
-    ui.print(`No more history to undo.`)
-  }
+  const { ui, processor, history } = options
+  await processor.undo(options)
+  // const command = history.pop()
+  // if (command) {
+  //   await processor.undo(command)
+  // } else {
+  //   ui.print(`No more history to undo.`)
+  // }
 }
 
 async function unknown(options) {
