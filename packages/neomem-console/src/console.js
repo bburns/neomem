@@ -54,7 +54,6 @@ async function evalCommand(str, context, filename, callback) {
   const options = {
     context,
     ui,
-    history,
     processor,
   }
   const command = Command.make(str, options)

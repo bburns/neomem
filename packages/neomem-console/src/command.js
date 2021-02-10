@@ -12,7 +12,7 @@ function make(str, options) {
   const command = {
     str: str.trim(),
     execute: _ => execute(options),
-    undo: execute.undo, // optional undo
+    undo: _ => execute.undo(options), // optional undo
   }
   return command
 }

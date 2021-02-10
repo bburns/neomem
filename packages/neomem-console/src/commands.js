@@ -21,12 +21,11 @@ async function go(options) {
   }
   //. await look([], context) // don't pass tokens here
 }
-
-go.undo = options => {
+go.undo = async options => {
   const { ui, context } = options
-  // ui.print(`kjsnkfdjns dkjfn`)
-  // context.location = `jhbjhb`
-  await go(options)
+  ui.print(`Not yet implemented.`)
+  context.location = `jhbjhb`
+  // await go(options)
 }
 
 async function list(options) {
@@ -91,7 +90,6 @@ async function look(options) {
   const item = await api.get(query) // get the ONE item
 
   // print location and table with item properties
-  // await location(tokens, context, ui)
   await location(options)
   const rows = fields.map(field => ({ name: field, value: item[field] }))
   const tableColumns = [
@@ -106,21 +104,20 @@ async function look(options) {
 
 const l = look
 
+async function redo(options) {
+  const { processor } = options
+  await processor.redo(options)
+}
+
 async function undo(options) {
-  const { ui, processor, history } = options
+  const { processor } = options
   await processor.undo(options)
-  // const command = history.pop()
-  // if (command) {
-  //   await processor.undo(command)
-  // } else {
-  //   ui.print(`No more history to undo.`)
-  // }
 }
 
 async function unknown(options) {
   const { tokens, context, ui } = options
   ui.print(`Unknown command: ${tokens[0]}.`)
-  throw new Error('kjnkjnkjnk')
+  // throw new Error('kjnkjnkjnk') //. this seems to slow down repl - why?
 }
 
-module.exports = { go, list, location, loc, look, l, undo, unknown }
+module.exports = { go, list, location, loc, look, l, redo, undo, unknown }
