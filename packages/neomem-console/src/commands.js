@@ -2,7 +2,7 @@
 // define console ui commands - look, list, etc
 
 const api = require('./api')
-const { Path } = require('neomem-util')
+const { Path, Query } = require('neomem-util')
 const { getMetadata, getFields } = require('./meta')
 const { Table } = require('./table') // wrapper around a table library
 
@@ -57,11 +57,13 @@ const loc = location
 
 async function look(tokens, context, ui) {
   const path = Path.make(context.location, tokens[1] || '')
-  // const path = '/'
-  // const metadata = api.get(query, true)
+
+  //. const metadataQuery = Query.make()
+  //. const metadata = await api.get(metadataQuery)
   // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
-  // const fields = getFields(metadata) //. const fields = view.fields ?
+  // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
   const fields = 'name,type,description,url'.split(',')
+
   const query = {
     path,
     params: {
@@ -70,15 +72,17 @@ async function look(tokens, context, ui) {
     },
     paramsString: '',
   }
+  // const query = Query.make()
   const item = await api.get(query) // get the ONE item
-  await location(tokens, context, ui) // print location
-  // print table with properties
-  const items = fields.map(field => ({ name: field, value: item[field] }))
+
+  // print location and table with item properties
+  await location(tokens, context, ui)
+  const rows = fields.map(field => ({ name: field, value: item[field] }))
   const tableColumns = [
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
-  const t = new Table(tableColumns, items)
+  const t = new Table(tableColumns, rows)
   const s = t.toString()
   ui.print(s)
   ui.print('and print number of items, types, etc')
@@ -86,4 +90,9 @@ async function look(tokens, context, ui) {
 
 const l = look
 
-module.exports = { go, list, location, loc, look, l }
+async function unknown(tokens, context, ui) {
+  ui.print(`Unknown command: ${tokens[0]}.`)
+  throw new Error('kjnkjnkjnk')
+}
+
+module.exports = { go, list, location, loc, look, l, unknown }

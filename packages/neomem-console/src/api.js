@@ -16,8 +16,8 @@ async function exists(path) {
 
 // get json from the given uri
 async function get(query) {
-  const s = `${query.path}?${query.paramsString}`
-  const url = baseUrl + s
+  const s = `${query.path.string}?${query.paramsString}`
+  const url = baseUrl + '/' + s
   const options = {
     method: 'GET',
     headers: {

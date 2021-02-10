@@ -32,19 +32,13 @@ function printLocation(context) {
 // parameters are specified by node's repl library.
 async function evalCommand(str, context, filename, callback) {
   const command = Command.make(str, context, ui)
-  if (command) {
-    try {
-      // call the command fn - may print to console, update context
-      await command.execute()
-    } catch (error) {
-      return callback(error)
-    }
-  } else {
-    ui.print(`Unknown command '${str.trim()}'.`)
+  try {
+    await command.execute() // print to console, may update context
+  } catch (error) {
+    return callback(error)
   }
   printLocation(context)
-  // need to call callback so it knows to print prompt again
-  callback()
+  callback() // so knows to print prompt again
 }
 
 function make() {
