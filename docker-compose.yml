@@ -1,25 +1,28 @@
 version: '3'
 
 services:
-  nodejs:
+  neomemdata:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: nodejs
-    container_name: nodejs
-    restart: unless-stopped
-    env_file: .env
-    environment:
-      - MONGO_USERNAME=$MONGO_USERNAME
-      - MONGO_PASSWORD=$MONGO_PASSWORD
-      - MONGO_HOSTNAME=db
-      - MONGO_PORT=$MONGO_PORT
-      - MONGO_DB=$MONGO_DB
+      dockerfile: packages/neomem-data/Dockerfile
     ports:
-      - '80:8080'
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    networks:
-      - app-network
-    command: /home/node/app/node_modules/.bin/nodemon app.js
+      - '4000:4000'
+# services:
+#   nodejs:
+#     build:
+#       context: .
+#       dockerfile: packages/neomem-data/Dockerfile
+#     image: nodejs
+#     container_name: neomem-data
+#     restart: unless-stopped
+#     environment:
+#       - MONGO_HOSTNAME=db
+#     ports:
+#       - '80:8080'
+#     volumes:
+#       - .:/home/node/app
+#       - node_modules:/home/node/app/node_modules
+#     # command: /home/node/app/node_modules/.bin/nodemon app.js
+
+# volumes:
+#   node_modules:
