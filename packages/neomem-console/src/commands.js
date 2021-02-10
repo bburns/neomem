@@ -23,9 +23,6 @@ async function go(options) {
 }
 go.undo = async options => {
   const { ui, context } = options
-  // ui.print(`Not yet implemented.`)
-  // context.location = `jhbjhb`
-  // await go(options)
   context.location = options.preservedLocation
 }
 
@@ -67,7 +64,6 @@ async function location(options) {
 
 const loc = location
 
-// async function look(tokens, context, ui) {
 async function look(options) {
   const { tokens, context, ui } = options
   const destination = tokens[1] || '' // eg 'books/scifi'
@@ -118,7 +114,6 @@ async function undo(options) {
 async function unknown(options) {
   const { tokens, context, ui } = options
   ui.print(`Unknown command: ${tokens[0]}.`)
-  // throw new Error('kjnkjnkjnk') //. this seems to slow down repl - why?
 }
 
 module.exports = { go, list, location, loc, look, l, redo, undo, unknown }

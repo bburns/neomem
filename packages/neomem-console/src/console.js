@@ -1,4 +1,3 @@
-// neomem-console
 // this repl (read-eval-print-loop) translates english-like language commands
 // to rest api queries, and formats the results.
 
@@ -10,7 +9,7 @@ const package = require('../package')
 const prompt = '> '
 const defaultLocation = '/'
 
-// define the ui callbacks
+// ui callbacks
 const ui = {
   print: console.log,
 }
@@ -28,6 +27,8 @@ function printLocation(context) {
   ui.print(chalk.bold(`\n[${context.location}]`))
 }
 
+// command processor and history
+//. put in a processor.js ?
 const history = []
 const processor = {
   execute: async command => {
@@ -56,7 +57,7 @@ async function evalCommand(str, context, filename, callback) {
     ui,
     processor,
   }
-  const command = Command.make(str, options)
+  const command = Command.make(str.trim(), options)
   try {
     await processor.execute(command)
   } catch (error) {
@@ -66,6 +67,7 @@ async function evalCommand(str, context, filename, callback) {
   callback() // so knows to print prompt again
 }
 
+// make and return a console object. run it with console.start()
 function make() {
   const context = {}
   function start(location = defaultLocation) {
@@ -73,7 +75,7 @@ function make() {
     printWelcome()
     printLocation(context)
     const replServer = repl.start({ prompt, eval: evalCommand })
-    replServer.context = context
+    replServer.context = context // this is how you pass context to the repl
   }
   return {
     start,

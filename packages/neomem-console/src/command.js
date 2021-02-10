@@ -9,7 +9,7 @@ function make(str, options = {}) {
   options.tokens = tokens
   options.preservedLocation = options.context ? options.context.location : '' // so can undo go cmd
   const command = {
-    str: str.trim(),
+    str,
     tokens,
     execute: _ => execute(options),
     undo: execute.undo, // optional undo
