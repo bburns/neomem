@@ -23,9 +23,10 @@ async function go(options) {
 }
 go.undo = async options => {
   const { ui, context } = options
-  ui.print(`Not yet implemented.`)
-  context.location = `jhbjhb`
+  // ui.print(`Not yet implemented.`)
+  // context.location = `jhbjhb`
   // await go(options)
+  context.location = options.preservedLocation
 }
 
 async function list(options) {
