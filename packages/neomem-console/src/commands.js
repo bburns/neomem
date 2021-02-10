@@ -6,7 +6,8 @@ const { Path, Query } = require('neomem-util')
 const { getMetadata, getFields } = require('./meta')
 const { Table } = require('./table') // wrapper around a table library
 
-async function go(tokens, context, ui) {
+async function go(options) {
+  const { tokens, context, ui } = options
   const dest = tokens[1]
   if (!dest) {
     ui.print('No location given.')
@@ -22,7 +23,8 @@ async function go(tokens, context, ui) {
   await look([], context) // don't pass tokens here
 }
 
-async function list(tokens, context, ui) {
+async function list(options) {
+  const { tokens, context, ui } = options
   const path = getPath(tokens[1], context.location) // eg '/bookmarks'
   const metadata = await getMetadata(path)
   const fields = getFields(metadata)
@@ -61,9 +63,9 @@ const loc = location
 // async function look(tokens, context, ui) {
 async function look(options) {
   const { tokens, context, ui } = options
-  const { location } = context // eg '/bookmarks'
+  // const { location } = context // eg '/bookmarks'
   const destination = tokens[1] || '' // eg 'books/scifi'
-  const path = Path.make(location, destination)
+  const path = Path.make(context.location, destination)
 
   //. const metadataQuery = Query.make()
   //. const metadata = await api.get(metadataQuery)
@@ -100,15 +102,17 @@ const l = look
 
 // async function undo(tokens, context, ui, history, processor) {
 async function undo(options) {
+  const { tokens, context, ui } = options
   const command = options.history.pop()
   if (command) {
     options.processor.undo(command)
   } else {
-    options.ui.print(`No more history to undo.`)
+    ui.print(`No more history to undo.`)
   }
 }
 
-async function unknown(tokens, context, ui) {
+async function unknown(options) {
+  const { tokens, context, ui } = options
   ui.print(`Unknown command: ${tokens[0]}.`)
   throw new Error('kjnkjnkjnk')
 }
