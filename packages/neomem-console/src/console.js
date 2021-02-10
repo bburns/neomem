@@ -28,12 +28,21 @@ function printLocation(context) {
   ui.print(chalk.bold(`\n[${context.location}]`))
 }
 
+const history = []
+const processor = {
+  execute: async command => {
+    await command.execute() // print to console, may update context
+    history.push(command)
+    console.log(history)
+  },
+}
+
 // parse command string into a fn and execute it.
 // parameters are specified by node's repl library.
 async function evalCommand(str, context, filename, callback) {
-  const command = Command.make(str, context, ui)
+  const command = Command.make(str.trim(), context, ui)
   try {
-    await command.execute() // print to console, may update context
+    await processor.execute(command)
   } catch (error) {
     return callback(error)
   }
