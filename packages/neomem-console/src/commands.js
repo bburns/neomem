@@ -49,14 +49,21 @@ async function list(tokens, context, ui) {
   ui.print(s)
 }
 
-async function location(tokens, context, ui) {
+// async function location(tokens, context, ui) {
+// async function location(options) {
+async function location(options) {
+  const { ui, context } = options
   ui.print(context.location)
 }
 
 const loc = location
 
-async function look(tokens, context, ui) {
-  const path = Path.make(context.location, tokens[1] || '')
+// async function look(tokens, context, ui) {
+async function look(options) {
+  const { tokens, context, ui } = options
+  const { location } = context // eg '/bookmarks'
+  const destination = tokens[1] || '' // eg 'books/scifi'
+  const path = Path.make(location, destination)
 
   //. const metadataQuery = Query.make()
   //. const metadata = await api.get(metadataQuery)
@@ -76,7 +83,8 @@ async function look(tokens, context, ui) {
   const item = await api.get(query) // get the ONE item
 
   // print location and table with item properties
-  await location(tokens, context, ui)
+  // await location(tokens, context, ui)
+  await location(options)
   const rows = fields.map(field => ({ name: field, value: item[field] }))
   const tableColumns = [
     { name: 'name', accessor: 'name', width: 12 },
@@ -90,9 +98,19 @@ async function look(tokens, context, ui) {
 
 const l = look
 
+// async function undo(tokens, context, ui, history, processor) {
+async function undo(options) {
+  const command = options.history.pop()
+  if (command) {
+    options.processor.undo(command)
+  } else {
+    options.ui.print(`No more history to undo.`)
+  }
+}
+
 async function unknown(tokens, context, ui) {
   ui.print(`Unknown command: ${tokens[0]}.`)
   throw new Error('kjnkjnkjnk')
 }
 
-module.exports = { go, list, location, loc, look, l, unknown }
+module.exports = { go, list, location, loc, look, l, undo, unknown }

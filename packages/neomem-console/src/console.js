@@ -40,7 +40,13 @@ const processor = {
 // parse command string into a fn and execute it.
 // parameters are specified by node's repl library.
 async function evalCommand(str, context, filename, callback) {
-  const command = Command.make(str.trim(), context, ui)
+  const options = {
+    context,
+    ui,
+    history,
+    processor,
+  }
+  const command = Command.make(str, options)
   try {
     await processor.execute(command)
   } catch (error) {
