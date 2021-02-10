@@ -1,21 +1,18 @@
 const tokenize = require('./tokenize')
 const commands = require('./commands')
 
-// function make(str, context, ui) {
-// function make({ str, context, ui, history, processor }) {
+// make a command object from the given input string and options
 function make(str, options = {}) {
   const tokens = tokenize(str) // eg 'list books/scifi' -> ['list', 'books/scifi']
   const verb = tokens[0] // eg 'list'
   const execute = commands[verb] || commands.unknown // eg list fn
   options.tokens = tokens
-  options.verb = verb
-  options.preservedLocation = options.context.location
+  options.preservedLocation = options.context ? options.context.location : '' // so can undo go cmd
   const command = {
     str: str.trim(),
     tokens,
     execute: _ => execute(options),
-    // undo: _ => execute.undo(options), // optional undo
-    undo: execute.undo, // optional
+    undo: execute.undo, // optional undo
   }
   return command
 }
