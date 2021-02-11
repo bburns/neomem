@@ -76,10 +76,12 @@ async function look(options) {
   const { tokens, context, ui } = options
   const destination = tokens[1] || '' // eg 'books/scifi'
   const path = Path.make(context.location, destination)
+  // console.debug(path)
 
   //. const metadataQuery = Query.make()
   //. const metadata = await api.get(metadataQuery)
-  // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
+  const metadata = await getMetadata(path) //. const view = meta.get('view') ?
+  console.debug('metadata', metadata)
   // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
   const fields = 'name,type,description,url'.split(',')
 
@@ -96,11 +98,11 @@ async function look(options) {
 
   // print location and table with item properties
   await location(options)
-  const rows = fields.map(field => ({ name: field, value: item[field] }))
   const tableColumns = [
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
+  const rows = fields.map(field => ({ name: field, value: item[field] }))
   const t = new Table(tableColumns, rows)
   const s = t.toString()
   ui.print(s)

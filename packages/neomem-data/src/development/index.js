@@ -14,16 +14,16 @@ const emptyQuery = Query.make()
 // get an item or items
 //. recurse or loop with stack to handle folders etc
 async function get(query = emptyQuery, start = undefined) {
+  if (query.meta) {
+    return Meta.get()
+  }
+
   if (start === undefined) {
     start = await Root.get() // memoized fn
   }
 
   if (query.depthZero) {
     return Projection.make(start, query.fields) // get ONE item
-  }
-
-  if (query.meta) {
-    return Meta.get()
   }
 
   const items = start.children
