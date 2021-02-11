@@ -1,10 +1,10 @@
-const test = require('ava')
+const test = require('ava').default
 const { Path } = require('../src')
 
 test(`make()`, async t => {
   const path = Path.make()
   t.deepEqual(path, {
-    string: '',
+    str: '',
     array: [''],
     first: '',
     rest: [],
@@ -15,7 +15,7 @@ test(`make()`, async t => {
 test('go /filesys', t => {
   const path = Path.make('/bookmarks', '/filesys')
   t.deepEqual(path, {
-    string: 'filesys',
+    str: 'filesys',
     array: ['filesys'],
     first: 'filesys',
     rest: [],
@@ -26,7 +26,7 @@ test('go /filesys', t => {
 test('go books/scifi', t => {
   const path = Path.make('/bookmarks', 'books/scifi')
   t.deepEqual(path, {
-    string: 'bookmarks/books/scifi',
+    str: 'bookmarks/books/scifi',
     array: ['bookmarks', 'books', 'scifi'],
     first: 'bookmarks',
     rest: ['books', 'scifi'],
@@ -37,7 +37,7 @@ test('go books/scifi', t => {
 test('go', t => {
   const path = Path.make('/bookmarks')
   t.deepEqual(path, {
-    string: 'bookmarks',
+    str: 'bookmarks',
     array: ['bookmarks'],
     first: 'bookmarks',
     rest: [],

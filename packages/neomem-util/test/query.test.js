@@ -1,4 +1,4 @@
-const test = require('ava')
+const test = require('ava').default
 const querystring = require('querystring')
 const { Query, Path } = require('../src')
 
@@ -16,14 +16,14 @@ test(`make()`, async t => {
 
 test('make from request', t => {
   const baseUrl = 'http://localhost:4000/api/v1'
-  const pathString = '/bookmarks/books/scifi'
+  const pathStr = '/bookmarks/books/scifi'
   const paramsString = 'fields=name,type,url&sortby=name&depth=1'
-  const url = baseUrl + pathString + '?' + paramsString
+  const url = baseUrl + pathStr + '?' + paramsString
   const request = {
-    params: { path: pathString },
+    params: { path: pathStr },
     raw: { req: { url } },
   }
-  // const path = Path.make(pathString)
+  // const path = Path.make(pathStr)
   // const params = querystring.parse(paramsString)
   // params.depth = 1 // add depth
   const query = Query.make(request)
