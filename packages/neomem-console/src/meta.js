@@ -14,7 +14,7 @@ const defaultMetadata = {
 // get meta information for a path, including views
 async function getMetadata(path) {
   const query = {
-    path: pathLib.join(path.string, '.neomem'),
+    path: pathLib.join(path.str, '.neomem'),
   }
   console.debug('query', query)
   //. recurse upwards until find a .neomem item?

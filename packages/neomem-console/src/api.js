@@ -1,6 +1,6 @@
 // get, post, put, delete handlers
 
-const fetch = require('node-fetch') // mimics browser's fetch
+const fetch = require('node-fetch').default // mimics browser's fetch
 const chalk = require('chalk') // color text
 
 // define nmdata endpoint
@@ -16,7 +16,7 @@ async function exists(path) {
 
 // get json from the given uri
 async function get(query) {
-  const s = `${query.path.string}?${query.paramsString}`
+  const s = `${query.path.str}?${query.paramsString}`
   const url = baseUrl + '/' + s
   const options = {
     method: 'GET',

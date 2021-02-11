@@ -5,17 +5,20 @@ const { Path, Query } = require('neomem-util')
 const { getMetadata, getFields } = require('./meta')
 const { Table } = require('./table') // wrapper around a table library
 
+/**
+ * go [destination]
+ */
 async function go(options) {
   const { tokens, context, ui } = options
-  const destination = tokens[1]
+  const destination = tokens[1] // eg "bookmarks"
   if (!destination) {
     ui.print('No location given.')
     return
   }
   const path = Path.make(context.location, destination)
-  if (await api.exists(path.string)) {
-    context.location = path.string
-    ui.print('Moved to', path.string + '.')
+  if (await api.exists(path.str)) {
+    context.location = path.str
+    ui.print('Moved to', path.str + '.')
   } else {
     ui.print('Invalid location.')
   }
