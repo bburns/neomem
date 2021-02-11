@@ -1,4 +1,4 @@
-//. convert to es6 module so can do top-level await?
+// run a webserver to respond to get/post etc requests
 
 const Hapi = require('@hapi/hapi')
 const { Query } = require('neomem-util')
@@ -11,6 +11,8 @@ process.on('unhandledRejection', err => {
   console.log(err)
   process.exit(1)
 })
+
+//. could convert to es6 module so can do top-level await
 
 const init = async () => {
   const server = Hapi.server({
@@ -28,15 +30,15 @@ const init = async () => {
     },
   })
 
-  server.route({
-    path: '/api/v1/{path*}',
-    method: 'POST',
-    handler: async (request, h) => {
-      const query = Query.make(request)
-      const json = await Data.post(query)
-      return json
-    },
-  })
+  // server.route({
+  //   path: '/api/v1/{path*}',
+  //   method: 'POST',
+  //   handler: async (request, h) => {
+  //     const query = Query.make(request)
+  //     const json = await Data.post(query)
+  //     return json
+  //   },
+  // })
 
   await server.start()
   console.log('Server running on %s', server.info.uri)
