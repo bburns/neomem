@@ -8,7 +8,6 @@ const processor = {
     if (command.undo) {
       history.push(command)
     }
-    console.log(history)
   },
 
   undo: async options => {
@@ -18,7 +17,6 @@ const processor = {
     } else {
       options.ui.print(`No more history to undo.`)
     }
-    console.log(history)
   },
 
   history: _ => {
