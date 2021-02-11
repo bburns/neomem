@@ -4,7 +4,7 @@ const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 
 /**
  * get absolute path by joining parts
- * @param parts {[string]}
+ * @param parts {string[]}
  * eg make('/bookmarks', 'books/scif') => { str: '/bookmarks/books/scifi', ... }
  * eg make('/bookmarks', '/fishes') => { str: '/fishes', ... }
  * eg make('/bookmarks', '') => { str: '/bookmarks', ... }

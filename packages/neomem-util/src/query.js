@@ -62,6 +62,10 @@ function make(request = emptyRequest) {
     first,
     meta,
     fields,
+    /** @param baseUrl { string } */
+    getUrl(baseUrl) {
+      return `${baseUrl}/${path.str}?${paramsString}`
+    },
     getRemainingUrl(item) {
       return `${item.url || ''}/api/v1/${path.restString}?${paramsString}`
     },

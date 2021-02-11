@@ -7,7 +7,8 @@
     "neomem-data": "npm run --prefix packages/neomem-data start",
     "neomem-data-bookmarks": "npm run --prefix packages/neomem-data-bookmarks start",
     "//neomem-data-filesys": "npm run --prefix packages/neomem-data-filesys start",
-    "//neomem-data-neo4j": "npm run --prefix packages/neomem-data-neo4j start"
+    "//neomem-data-neo4j": "npm run --prefix packages/neomem-data-neo4j start",
+    "start-console": "npm run --prefix packages/neomem-console start"
   },
   "devDependencies": {
     "lerna": "^3.22.1",

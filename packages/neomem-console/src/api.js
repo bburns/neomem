@@ -14,10 +14,14 @@ async function exists(path) {
   return true
 }
 
-// get json from the given uri
+/**
+ * get json from the given uri
+ * @param query { Query } //. how import query obj type?
+ */
 async function get(query) {
-  const s = `${query.path.str}?${query.paramsString}`
-  const url = baseUrl + '/' + s
+  // const s = `${query.path.str}?${query.paramsString}`
+  // const url = baseUrl + '/' + s
+  const url = query.getUrl(baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
   const options = {
     method: 'GET',
     headers: {
