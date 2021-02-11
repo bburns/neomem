@@ -2,8 +2,16 @@
   "name": "neomem",
   "description": "an open source information manager",
   "version": "0.1.0",
+  "scripts": {
+    "start": "npm-run-all --parallel --race neomem-data neomem-data-bookmarks",
+    "neomem-data": "npm run --prefix packages/neomem-data start",
+    "neomem-data-bookmarks": "npm run --prefix packages/neomem-data-bookmarks start",
+    "//neomem-data-filesys": "npm run --prefix packages/neomem-data-filesys start",
+    "//neomem-data-neo4j": "npm run --prefix packages/neomem-data-neo4j start"
+  },
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+    "npm-run-all": "^4.1.5"
   },
   "private": true,
   "workspaces": [
