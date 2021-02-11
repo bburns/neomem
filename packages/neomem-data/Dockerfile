@@ -1,4 +1,5 @@
-# FROM ubuntu:18.04
+# a work in progress...
+
 FROM node:8-alpine
 
 COPY . /app
