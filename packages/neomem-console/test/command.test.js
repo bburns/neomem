@@ -1,4 +1,4 @@
-const test = require('ava')
+const test = require('ava').default
 const { Command } = require('../src/command')
 
 test(`look`, async t => {

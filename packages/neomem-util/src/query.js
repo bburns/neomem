@@ -1,3 +1,6 @@
+// query objects are kind of like sql -
+// they specify what you want to get from a datasource
+
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
@@ -25,11 +28,23 @@ function makeFromUrl(url) {
   return make(request)
 }
 
-// parse an http request url into a query object.
-// request is { params.path, raw.req.url }
-// eg with url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
-// and params.path = '/books/scifi'
-// returns a query object
+/**
+ * @typedef {Object} query
+ * @property {boolean} depthZero
+ * @property {string} first
+ * @property {boolean} meta
+ * @property {string[]} fields
+ * @property {function} getUrl
+ * @property {function} getRemainingUrl
+ */
+
+/**
+ * Parse a hapi http request object into a query object.
+ * request is { params.path, raw.req.url } //. uck
+ * eg with url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
+ * and params.path = '/books/scifi'
+ * @returns {query}
+ */
 function make(request = emptyRequest) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
@@ -59,8 +74,8 @@ function make(request = emptyRequest) {
 
   return {
     depthZero,
-    first,
     meta,
+    first,
     fields,
     /** @param baseUrl { string } */
     getUrl(baseUrl) {
