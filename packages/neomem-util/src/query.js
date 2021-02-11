@@ -25,7 +25,7 @@ function makeFromUrl(url) {
     params: { path: pathString },
     raw: { req: { url } },
   }
-  return make(request)
+  return makeFromRequest(request)
 }
 
 /**
@@ -45,7 +45,7 @@ function makeFromUrl(url) {
  * and params.path = '/books/scifi'
  * @returns {query}
  */
-function make(request = emptyRequest) {
+function makeFromRequest(request = emptyRequest) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
   const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   const urlParams = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'

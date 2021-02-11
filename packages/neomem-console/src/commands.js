@@ -90,15 +90,15 @@ async function look(options) {
   // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
   const fields = 'name,type,description,url'.split(',')
 
-  // const query = {
-  //   path,
-  //   params: {
-  //     fields, // eg ['name', 'type', 'description']
-  //     depth: 0, // look at the item not its contents
-  //   },
-  //   paramsString: '',
-  // }
-  const query = Query.makeFromPath(path, params)
+  const query = {
+    path,
+    params: {
+      fields, // eg ['name', 'type', 'description']
+      depth: 0, // look at the item not its contents
+    },
+    paramsString: '',
+  }
+  // const query = Query.makeFromPath(path, params)
   const item = await api.get(query) // get the ONE item
 
   // print location and table with item properties

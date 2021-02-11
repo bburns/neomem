@@ -26,7 +26,7 @@ test('Query.make(request) - make from request', t => {
   // const path = Path.make(pathStr)
   // const params = querystring.parse(paramsString)
   // params.depth = 1 // add depth
-  const query = Query.make(request)
+  const query = Query.makeFromRequest(request)
   // t.deepEqual(query.path, path)
   // t.deepEqual(query.url, url)
   // t.deepEqual(query.params, params)

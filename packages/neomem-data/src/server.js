@@ -24,21 +24,11 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
-      const query = Query.make(request)
+      const query = Query.makeFromRequest(request)
       const json = await Data.get(query)
       return json
     },
   })
-
-  // server.route({
-  //   path: '/api/v1/{path*}',
-  //   method: 'POST',
-  //   handler: async (request, h) => {
-  //     const query = Query.make(request)
-  //     const json = await Data.post(query)
-  //     return json
-  //   },
-  // })
 
   await server.start()
   console.log('Server running on %s', server.info.uri)
