@@ -3,7 +3,7 @@
   "description": "an open source information manager",
   "version": "0.1.0",
   "scripts": {
-    "start": "npm-run-all --parallel --race neomem-data neomem-data-bookmarks",
+    "start": "npm-run-all --parallel --print-label --race neomem-data neomem-data-bookmarks",
     "neomem-data": "npm run --prefix packages/neomem-data start",
     "neomem-data-bookmarks": "npm run --prefix packages/neomem-data-bookmarks start",
     "//neomem-data-filesys": "npm run --prefix packages/neomem-data-filesys start",

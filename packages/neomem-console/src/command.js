@@ -1,3 +1,5 @@
+// build command object from input string
+
 const tokenize = require('./tokenize')
 const commands = require('./commands')
 
