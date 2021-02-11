@@ -26,10 +26,18 @@ go.undo = async options => {
   context.location = options.preservedLocation
 }
 
+async function history(options) {
+  const { processor, ui } = options
+  const history = processor.history()
+  ui.print(history)
+}
+
+const h = history
+
 async function list(options) {
   const { tokens, context, ui } = options
-  const destination = tokens[1] || ''
-  const path = Path.make(context.location, destination)
+  const destination = tokens[1] || '' // eg 'books'
+  const path = Path.make(context.location, destination) // eg => '/bookmarks/books'
   // const metadata = await getMetadata(path)
   // const fields = getFields(metadata)
   const fields = 'name,type,url'.split(',')
@@ -101,6 +109,7 @@ async function look(options) {
 
 const l = look
 
+//. will require processor to leave items in history tree, move a pointer on undo
 async function redo(options) {
   const { processor } = options
   await processor.redo(options)
@@ -116,4 +125,16 @@ async function unknown(options) {
   ui.print(`Unknown command: ${tokens[0]}.`)
 }
 
-module.exports = { go, list, location, loc, look, l, redo, undo, unknown }
+module.exports = {
+  go,
+  history,
+  h,
+  list,
+  location,
+  loc,
+  look,
+  l,
+  redo,
+  undo,
+  unknown,
+}

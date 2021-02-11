@@ -10,6 +10,7 @@ const processor = {
     }
     console.log(history)
   },
+
   undo: async options => {
     const command = history.pop()
     if (command) {
@@ -18,6 +19,10 @@ const processor = {
       options.ui.print(`No more history to undo.`)
     }
     console.log(history)
+  },
+
+  history: _ => {
+    return history
   },
 }
 
