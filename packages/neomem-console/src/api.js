@@ -2,6 +2,7 @@
 
 const fetch = require('node-fetch').default // mimics browser's fetch
 const chalk = require('chalk') // color text
+// const { Query } = require('neomem-util')
 
 // define nmdata endpoint
 //. pass as parameter or use lib to find open port?
@@ -13,6 +14,11 @@ async function exists(path) {
   // const json = await get(query)
   return true
 }
+
+/**
+ * //. yuck - better way? jsconfig.json file?
+ * @typedef {import('../../neomem-util/src/query.js').TQuery} TQuery
+ */
 
 /**
  * get json from the given uri

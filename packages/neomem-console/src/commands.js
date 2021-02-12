@@ -80,29 +80,39 @@ const loc = location
  */
 async function look(options) {
   const { tokens, context, ui } = options
-  const destination = tokens[1] || '' // eg 'books/scifi'
-  const path = Path.make(context.location, destination)
 
-  //. const metadataQuery = Query.make()
-  //. const metadata = await api.get(metadataQuery)
-  const metadata = await getMetadata(path) //. const view = meta.get('view') ?
-  console.debug('metadata', metadata)
-  // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
-  const fields = 'name,type,description,url'.split(',')
+  // parse sentence
+  const destination = tokens[1] || '' // eg 'books/scifi' or ''
 
-  const query = {
-    path,
-    params: {
-      fields, // eg ['name', 'type', 'description']
-      depth: 0, // look at the item not its contents
-    },
-    paramsString: '',
-  }
-  // const query = Query.makeFromPath(path, params)
-  const item = await api.get(query) // get the ONE item
+  // get absolute path
+  const path = Path.make(context.location, destination) // eg { str: '/bookmarks/books/scifi', ... }
+
+  // // const query = Query.makeFromPath(path, params)
+  // // const metadataQuery = { ...query, meta: true }
+  // //. const metadataQuery = Query.make()
+  // //. const metadata = await api.get(metadataQuery)
+  // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
+  // // console.debug('metadata', metadata)
+  // // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
+  // const fields = 'name,type,description,url'.split(',')
+  // // build a Query manually - nogood
+  // const query = {
+  //   path,
+  //   params: {
+  //     fields, // eg ['name', 'type', 'description']
+  //     depth: 0, // look at the item not its contents
+  //   },
+  //   paramsString: '',
+  // }
+
+  const metadataQuery = Query.makeMetadataQuery(path)
+  const metadata = await api.get(metadataQuery)
+  const query = Query.makeFromMetadata(metadata)
+  const item = await api.get(query) // get the ONE item, because depth=0
 
   // print location and table with item properties
   await location(options)
+  //. this is more metadata, eh? where store?
   const tableColumns = [
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },

@@ -1,8 +1,5 @@
 // build query objects from server requests
 
-const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
-const { Path } = require('./path')
-
 /**
  * Query objects are kind of like sql - they specify what you want to
  * get from a datasource.
@@ -22,6 +19,9 @@ const { Path } = require('./path')
  * @property {Object} params
  * @property {Object} query
  */
+
+const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
+const { Path } = require('./path')
 
 //. use hapi-url lib?
 //. merge make and makeFromUrl
@@ -47,6 +47,11 @@ const emptyRequest = {
 // }
 
 /**
+ * @param path {TPath}
+ */
+function makeMetadataQuery(path) {}
+
+/**
  * Parse a hapi http request object into a TQuery object.
  * request is { params.path, raw.req.url } //. uck
  * eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
@@ -57,11 +62,12 @@ const emptyRequest = {
  */
 function makeFromRequest(request = emptyRequest) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
+
   // const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
   // const urlQuery = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'
   // const urlQuery = request.query
 
-  // get param object and string
+  // get query dict and string
   // note: querystring lib returns a string if one value, an array if >1
   const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
   const defaultQuery = {
