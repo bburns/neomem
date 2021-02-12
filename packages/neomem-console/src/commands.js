@@ -1,22 +1,28 @@
 // define console ui commands - look, list, etc
 
-const api = require('./api')
+const { Data } = require('./data')
+const { Metadata } = require('./metadata')
 const { Path, Query } = require('neomem-util')
 const { getMetadata, getFields } = require('./meta')
 const { Table } = require('./table') // wrapper around a table library
 
 /**
- * go [destination]
+ * go [target]
  */
 async function go(options) {
   const { tokens, context, ui } = options
-  const destination = tokens[1] // eg "bookmarks"
-  if (!destination) {
+
+  // parse input
+  const target = tokens[1] // eg "bookmarks"
+
+  if (!target) {
     ui.print('No location given.')
     return
   }
-  const path = Path.make(context.location, destination)
-  if (await api.exists(path.str)) {
+
+  const path = Path.make(context.location, target)
+
+  if (await Data.exists(path.str)) {
     context.location = path.str
     ui.print('Moved to', path.str + '.')
   } else {
@@ -24,6 +30,7 @@ async function go(options) {
   }
   //. await look([], context) // don't pass tokens here
 }
+
 go.undo = async options => {
   const { ui, context } = options
   context.location = options.preservedLocation
@@ -39,22 +46,34 @@ const h = history
 
 async function list(options) {
   const { tokens, context, ui } = options
-  const destination = tokens[1] || '' // eg 'books'
-  const path = Path.make(context.location, destination) // eg => '/bookmarks/books'
-  // const metadata = await getMetadata(path)
-  // const fields = getFields(metadata)
-  const fields = 'name,type,url'.split(',')
-  // build a query object and fetch results
-  const query = {
-    path,
-    params: {
-      fields, // eg ['name', 'type', 'url']
-      sortby: 'name',
-      limit: 5,
-    },
-  }
-  const items = await api.get(query)
-  console.log(items)
+
+  // parse input
+  const target = tokens[1] || '' // eg 'books'
+
+  // get absolute path
+  const path = Path.make(context.location, target) // eg => '/bookmarks/books'
+
+  // get metadata
+  const metadata = await Metadata.get({ path })
+
+  // get data
+  const data = await Data.get({ path, metadata })
+
+  // // const metadata = await getMetadata(path)
+  // // const fields = getFields(metadata)
+  // const fields = 'name,type,url'.split(',')
+  // // build a query object and fetch results
+  // const query = {
+  //   path,
+  //   params: {
+  //     fields, // eg ['name', 'type', 'url']
+  //     sortby: 'name',
+  //     limit: 5,
+  //   },
+  // }
+  // const items = await api.get(query)
+  // console.log(items)
+
   // //. recurse and build depth values for treelist
   // //. handle tree indentation with item.depth
   // // accessor: item => ' '.repeat(item.depth) + item.name,
@@ -76,39 +95,22 @@ async function location(options) {
 const loc = location
 
 /**
- * look [destination]
+ * look [target]
  */
 async function look(options) {
   const { tokens, context, ui } = options
 
   // parse sentence
-  const destination = tokens[1] || '' // eg 'books/scifi' or ''
+  const target = tokens[1] || '' // eg 'books/scifi' or ''
 
   // get absolute path
-  const path = Path.make(context.location, destination) // eg { str: '/bookmarks/books/scifi', ... }
+  const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
 
-  // // const query = Query.makeFromPath(path, params)
-  // // const metadataQuery = { ...query, meta: true }
-  // //. const metadataQuery = Query.make()
-  // //. const metadata = await api.get(metadataQuery)
-  // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
-  // // console.debug('metadata', metadata)
-  // // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
-  // const fields = 'name,type,description,url'.split(',')
-  // // build a Query manually - nogood
-  // const query = {
-  //   path,
-  //   params: {
-  //     fields, // eg ['name', 'type', 'description']
-  //     depth: 0, // look at the item not its contents
-  //   },
-  //   paramsString: '',
-  // }
+  // get metadata about item
+  const metadata = await Meta.get({ path })
 
-  const metadataQuery = Query.makeMetadataQuery(path)
-  const metadata = await api.get(metadataQuery)
-  const query = Query.makeFromMetadata(metadata)
-  const item = await api.get(query) // get the ONE item, because depth=0
+  // get data
+  const data = await Data.get({ path, metadata })
 
   // print location and table with item properties
   await location(options)

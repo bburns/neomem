@@ -120,6 +120,7 @@ function makeFromRequest(request = emptyRequest) {
     getUrl(baseUrl) {
       return `${baseUrl}/${path.str}?${queryString}`
     },
+    //. ugh
     getRemainingUrl(item) {
       return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
     },

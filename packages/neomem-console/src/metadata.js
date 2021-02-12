@@ -1,9 +1,10 @@
 // handle metadata
 
 const pathLib = require('path') // node lib
-const api = require('./api')
+const { Data } = require('./data')
 
 // define default metadata including view columns
+//. better place to store this?
 const defaultMetadata = {
   view: {
     columns: [
@@ -18,15 +19,14 @@ const defaultMetadata = {
  * get metadata information for a path, including views
  * @params path {TPath}
  */
-async function getMetadata(path) {
+async function get({ path }) {
   const query = {
     path: pathLib.join(path.str, '.neomem'),
   }
-  console.debug('query', query)
-  // const query = Query.makeFromRequest()
+  // const query = Query.make({ path })
   //. recurse upwards until find a .neomem item?
-  // or let the datasource handle that?
-  const metadata = (await api.get(query)) || defaultMetadata
+  // let the datasource handle that?
+  const metadata = (await Data.get({ query })) || defaultMetadata
   return metadata
 }
 
@@ -39,4 +39,9 @@ function getFields(metadata) {
   return fields
 }
 
-module.exports = { getMetadata, getFields }
+const Metadata = {
+  get,
+}
+
+// module.exports = { getMetadata, getFields }
+module.exports = { Metadata }

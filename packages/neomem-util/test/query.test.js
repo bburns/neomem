@@ -1,17 +1,16 @@
 const test = require('ava').default
-// const querystring = require('querystring')
 const { Query } = require('../src')
 
 test(`Query.makeFromRequest() - a default query`, async t => {
-  const query = Query.makeFromRequest()
+  const query = Query.make()
   const item = {}
   t.deepEqual(query.depth, 0)
   t.deepEqual(query.first, '')
+  t.deepEqual(query.fields, 'name,type,description'.split(','))
   t.deepEqual(
     query.getRemainingUrl(item),
     '/api/v1/?fields=name,type,description&depth=0'
   )
-  t.deepEqual(query.fields, 'name,type,description'.split(','))
 })
 
 test('Query.makeFromRequest(request) - make from request', t => {

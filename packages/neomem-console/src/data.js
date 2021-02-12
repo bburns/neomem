@@ -24,7 +24,7 @@ async function exists(path) {
  * get json from the given uri
  * @param query { TQuery } //. how import query obj type?
  */
-async function get(query) {
+async function get({ query }) {
   // const s = `${query.path.str}?${query.paramsString}`
   // const url = baseUrl + '/' + s
   const url = query.getUrl(baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
@@ -41,4 +41,9 @@ async function get(query) {
   return json
 }
 
-module.exports = { exists, get }
+const Data = {
+  exists,
+  get,
+}
+
+module.exports = { Data }
