@@ -4,7 +4,6 @@ const Hapi = require('@hapi/hapi')
 const { Query } = require('neomem-util')
 const { Data } = require('./data')
 
-//. use a lib to find open port, or pass in envar
 const port = process.env.PORT || 4000
 
 process.on('unhandledRejection', err => {
@@ -15,10 +14,7 @@ process.on('unhandledRejection', err => {
 //. could convert to es6 module so can do top-level await
 
 const init = async () => {
-  const server = Hapi.server({
-    host: 'localhost',
-    port,
-  })
+  const server = Hapi.server({ host: 'localhost', port })
 
   server.route({
     path: '/api/v1/{path*}',

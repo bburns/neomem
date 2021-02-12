@@ -9,7 +9,7 @@ test('get()', async t => {
 })
 
 test('get(empty query)', async t => {
-  const query = Query.make()
+  const query = Query.makeFromRequest()
   const item = await Data.get(query)
   t.deepEqual(item.name, 'neomem-data')
 })

@@ -1,4 +1,4 @@
-// define query objects
+// build query objects from server requests
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
@@ -6,6 +6,7 @@ const { Path } = require('./path')
 /**
  * query objects are kind of like sql - they specify what you want to
  * get from a datasource.
+ * may take a while to hammer out details.
  * @typedef {Object} query
  * @property {boolean} depthZero
  * @property {string} first
@@ -20,10 +21,7 @@ const { Path } = require('./path')
 // use hapi-url lib
 // merge make and makeFromUrl
 
-const emptyRequest = {
-  params: { path: '' },
-  raw: { req: { url: '' } },
-}
+const emptyRequest = { params: { path: '' }, raw: { req: { url: '' } } }
 
 function extractPathString(url) {
   const pathString = ''
@@ -56,7 +54,7 @@ function makeFromRequest(request = emptyRequest) {
   const requestParams = querystring.parse(urlParams) // eg { fields: 'name,type', sortby: 'name' }
   const defaultParams = {
     fields: 'name,type,description',
-    // depth: 0,
+    depth: 0,
     // sortby: '',
     // where: '',
     // follow: '', // 'children',

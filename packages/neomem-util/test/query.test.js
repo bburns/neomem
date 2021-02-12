@@ -1,20 +1,20 @@
 const test = require('ava').default
-const querystring = require('querystring')
-const { Query, Path } = require('../src')
+// const querystring = require('querystring')
+const { Query } = require('../src')
 
-test(`Query.make() - a default query`, async t => {
-  const query = Query.make()
+test(`Query.makeFromRequest() - a default query`, async t => {
+  const query = Query.makeFromRequest()
   const item = {}
   t.deepEqual(query.depthZero, true)
   t.deepEqual(query.first, '')
   t.deepEqual(
     query.getRemainingUrl(item),
-    '/api/v1/?fields=name,type,description'
+    '/api/v1/?fields=name,type,description&depth=0'
   )
   t.deepEqual(query.fields, 'name,type,description'.split(','))
 })
 
-test('Query.make(request) - make from request', t => {
+test('Query.makeFromRequest(request) - make from request', t => {
   const baseUrl = 'http://localhost:4000/api/v1'
   const pathStr = '/bookmarks/books/scifi'
   const paramsString = 'fields=name,type,url&sortby=name&depth=1'

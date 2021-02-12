@@ -1,7 +1,7 @@
 const { Types } = require('./types')
 const { Query } = require('./query')
 
-const emptyQuery = Query.make()
+const emptyQuery = Query.makeFromRequest()
 
 // translate an item's data into the given list of fields.
 // eg Translation.make(

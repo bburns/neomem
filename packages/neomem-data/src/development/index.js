@@ -2,14 +2,14 @@
 
 //. handle datasource registry also - put/post/delete datasources.
 
-const fetch = require('node-fetch')
-const { Projection, Query } = require('neomem-util')
+const fetch = require('node-fetch').default
+const { Query, Projection } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
 const { Types } = require('./types')
 
 // used as default query for all fns
-const emptyQuery = Query.make()
+const emptyQuery = Query.makeFromRequest()
 
 // get an item or items
 //. recurse or loop with stack to handle folders etc
