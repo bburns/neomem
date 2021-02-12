@@ -1,5 +1,13 @@
 // build command object from input string
 
+/**
+ * @typedef {Object} TCommand
+ * @property {string} str
+ * @property {string[]} tokens
+ * @property {function} execute
+ * @property {function} undo?
+ */
+
 const tokenize = require('./tokenize')
 const commands = require('./commands')
 
@@ -7,12 +15,7 @@ const commands = require('./commands')
  * make a command object from the given input string and options.
  * the command object has an execute fn and optional undo function.
  * @param str { string } the user's input, eg "list books/scifi"
- * @returns {{
- *   str: string,
- *   tokens: [token:string],
- *   execute: function,
- *   undo?: function,
- * }}
+ * @returns {TCommand}
  */
 function make(str, options = {}) {
   const tokens = tokenize(str) // eg 'list books/scifi' -> ['list', 'books/scifi']

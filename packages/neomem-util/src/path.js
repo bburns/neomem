@@ -1,7 +1,5 @@
 // path functions
 
-const pathLib = require('path') // node lib https://nodejs.org/api/path.html
-
 /**
  * A path is an object breaking down a path like '/bookmarks/books/scifi'
  * into its component parts.
@@ -13,6 +11,8 @@ const pathLib = require('path') // node lib https://nodejs.org/api/path.html
  * @property {string} restString
  */
 
+const pathLib = require('path') // node lib https://nodejs.org/api/path.html
+
 /**
  * Get an absolute path object by joining parts.
  * eg make('/bookmarks', 'books/scif') => { str: '/bookmarks/books/scifi', ... }
@@ -23,12 +23,18 @@ const pathLib = require('path') // node lib https://nodejs.org/api/path.html
  */
 function make(...parts) {
   // see https://nodejs.org/api/path.html#path_path_resolve_paths
-  const str = pathLib.resolve('/', ...parts).slice(1) // remove leading /
+  const str = pathLib.resolve('/', ...parts).slice(1) // remove leading '/'
   const array = str.split('/') // eg ['bookmarks', 'books']
   const first = array[0] // eg 'bookmarks'
   const rest = array.slice(1) // eg ['books']
   const restString = rest.join('/') // eg 'books'
-  const path = { str, array, first, rest, restString }
+  const path = {
+    str,
+    array,
+    first,
+    rest,
+    restString,
+  }
   return path
 }
 

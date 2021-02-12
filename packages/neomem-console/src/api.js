@@ -16,7 +16,7 @@ async function exists(path) {
 
 /**
  * get json from the given uri
- * @param query { Query } //. how import query obj type?
+ * @param query { TQuery } //. how import query obj type?
  */
 async function get(query) {
   // const s = `${query.path.str}?${query.paramsString}`
