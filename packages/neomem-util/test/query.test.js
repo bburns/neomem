@@ -5,7 +5,7 @@ const { Query } = require('../src')
 test(`Query.makeFromRequest() - a default query`, async t => {
   const query = Query.makeFromRequest()
   const item = {}
-  t.deepEqual(query.depthZero, true)
+  t.deepEqual(query.depth, 0)
   t.deepEqual(query.first, '')
   t.deepEqual(
     query.getRemainingUrl(item),
@@ -32,6 +32,6 @@ test('Query.makeFromRequest(request) - make from request', t => {
   // t.deepEqual(query.url, url)
   // t.deepEqual(query.params, params)
   // t.deepEqual(query.queryString, 'fields=name,type,url&depth=1&sortby=name')
-  t.deepEqual(query.depthZero, false)
+  t.deepEqual(query.depth, 1)
   t.deepEqual(query.fields, 'name,type,url'.split(','))
 })

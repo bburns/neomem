@@ -1,7 +1,7 @@
-// path functions
+// path objects
 
 /**
- * A path is an object breaking down a path like '/bookmarks/books/scifi'
+ * A path object breaks down a path like '/bookmarks/books/scifi'
  * into its component parts.
  * @typedef {Object} TPath
  * @property {string} str

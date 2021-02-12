@@ -1,11 +1,13 @@
 // build query objects from server requests
 
+//. could use hapi-url lib to get full url
+
 /**
  * Query objects are kind of like sql - they specify what you want to
  * get from a datasource.
  * may take a while to hammer out details.
  * @typedef {Object} TQuery
- * @property {boolean} depthZero
+ * @property {integer} depth
  * @property {string} first
  * @property {boolean} meta
  * @property {string[]} fields
@@ -23,14 +25,11 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-//. use hapi-url lib?
-//. merge make and makeFromUrl
-
-// const emptyRequest = { params: { path: '' }, raw: { req: { url: '' } } }
-const emptyRequest = {
-  params: { path: '' },
-  query: '',
-}
+// const emptyRequest = {
+//   params: { path: '' },
+//   query: '',
+//   // raw: { req: { url: '' } }
+// }
 
 // function extractPathString(url) {
 //   const pathString = ''
@@ -47,9 +46,33 @@ const emptyRequest = {
 // }
 
 /**
+ * Make a query to get metadata info from the given path.
  * @param path {TPath}
+ * @returns {TQuery}
  */
-function makeMetadataQuery(path) {}
+function makeMetadataQuery(path) {
+  // // const query = Query.makeFromPath(path, params)
+  // // const metadataQuery = { ...query, meta: true }
+  // //. const metadataQuery = Query.make()
+  // //. const metadata = await api.get(metadataQuery)
+  // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
+  // // console.debug('metadata', metadata)
+  // // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
+  // const fields = 'name,type,description,url'.split(',')
+  // // build a Query manually - nogood
+  // const query = {
+  //   path,
+  //   params: {
+  //     fields, // eg ['name', 'type', 'description']
+  //     depth: 0, // look at the item not its contents
+  //   },
+  //   paramsString: '',
+  // }
+  const query = {
+    path: pathLib.join(path.str, '.neomem'),
+  }
+  return query
+}
 
 /**
  * Parse a hapi http request object into a TQuery object.
@@ -83,14 +106,14 @@ function makeFromRequest(request = emptyRequest) {
   const queryDict = { ...defaultQuery, ...requestQuery }
   const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
 
-  const depthZero = Number(queryDict.depth || 0) === 0
+  const depth = Number(queryDict.depth || 0)
   const first = path.first
   const meta = path.str.endsWith('.neomem')
   const fields = queryDict.fields.split(',')
   // typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
 
   const query = {
-    depthZero,
+    depth,
     meta,
     first,
     fields,

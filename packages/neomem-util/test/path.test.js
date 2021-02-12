@@ -12,7 +12,7 @@ test(`make()`, async t => {
   })
 })
 
-test('go /filesys', t => {
+test('eg go /filesys', t => {
   const path = Path.make('/bookmarks', '/filesys')
   t.deepEqual(path, {
     str: 'filesys',
@@ -23,7 +23,7 @@ test('go /filesys', t => {
   })
 })
 
-test('go books/scifi', t => {
+test('eg go books/scifi', t => {
   const path = Path.make('/bookmarks', 'books/scifi')
   t.deepEqual(path, {
     str: 'bookmarks/books/scifi',
@@ -34,7 +34,7 @@ test('go books/scifi', t => {
   })
 })
 
-test('go', t => {
+test('eg go', t => {
   const path = Path.make('/bookmarks')
   t.deepEqual(path, {
     str: 'bookmarks',
