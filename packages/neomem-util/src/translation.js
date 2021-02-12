@@ -1,14 +1,20 @@
+// translate an item's data into a given list of fields.
+
 const { Types } = require('./types')
-const { Query } = require('./query')
+// const { Query } = require('./query')
 
-const emptyQuery = Query.makeFromRequest()
+// const emptyQuery = Query.makeFromRequest()
 
-// translate an item's data into the given list of fields.
-// eg Translation.make(
-//   { date_added: '13818259345' },
-//   [{ key: 'created', source: 'date_added', datatype: 'date1601' }]),
-//   [{ date1601: { format: <fn>, parse: <fn> }}],
-// } => { created: '2021-02-01' }
+/**
+ * Translate an item's data into the given list of fields.
+ * eg Translation.make(
+ *   { date_added: '13818259345' },
+ *   [{ key: 'created', source: 'date_added', datatype: 'date1601' }]),
+ *   [{ date1601: { format: <fn>, parse: <fn> }}],
+ * } => { created: '2021-02-01' }
+ * @param item {Object}
+ * @param fields {Object[]}
+ */
 function make(item, fields = [], AdditionalTypes = {}) {
   // function make(item, query = emptyQuery, AdditionalTypes = {}) {
   // const fields = query.fields
