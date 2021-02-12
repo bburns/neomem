@@ -4,8 +4,7 @@
   "description": "neomem data server",
   "//main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
-    "//test": "NODE_ENV=test nodemon test/index.js",
+    "start": "cross-env PORT=4000 nodemon src/server.js",
     "test": "ava --watch test/*.test.js"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
@@ -16,6 +15,7 @@
     "nodemon": "^2.0.7"
   },
   "devDependencies": {
-    "ava": "^3.15.0"
+    "ava": "^3.15.0",
+    "cross-env": "^7.0.3"
   }
 }
