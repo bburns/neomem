@@ -1,8 +1,19 @@
-// query objects are kind of like sql -
-// they specify what you want to get from a datasource
+// define query objects
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
+
+/**
+ * query objects are kind of like sql - they specify what you want to
+ * get from a datasource.
+ * @typedef {Object} query
+ * @property {boolean} depthZero
+ * @property {string} first
+ * @property {boolean} meta
+ * @property {string[]} fields
+ * @property {function} getUrl
+ * @property {function} getRemainingUrl
+ */
 
 //. clean this all up -
 // make a Request namespace to parse out request?
@@ -27,16 +38,6 @@ function makeFromUrl(url) {
   }
   return makeFromRequest(request)
 }
-
-/**
- * @typedef {Object} query
- * @property {boolean} depthZero
- * @property {string} first
- * @property {boolean} meta
- * @property {string[]} fields
- * @property {function} getUrl
- * @property {function} getRemainingUrl
- */
 
 /**
  * Parse a hapi http request object into a query object.
@@ -88,7 +89,7 @@ function makeFromRequest(request = emptyRequest) {
 }
 
 const Query = {
-  make,
+  makeFromRequest,
   makeFromUrl,
 }
 
