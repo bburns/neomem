@@ -1,16 +1,16 @@
 // build query objects from server requests
 
-//. could use hapi-url lib to get full url
+//. could use hapi-url lib to get full url of request, if needed
 
 /**
  * Query objects are kind of like sql - they specify what you want to
  * get from a datasource.
  * may take a while to hammer out details.
  * @typedef {Object} TQuery
- * @property {integer} depth
- * @property {string} first
- * @property {boolean} meta
- * @property {string[]} fields
+ * @property {boolean} meta - asking for metadata about item
+ * @property {integer} depth - depth to pursue related items
+ * @property {string[]} fields - list of fields to retrieve
+ * @property {string} first - first part of path
  * @property {function} getUrl
  * @property {function} getRemainingUrl
  */
@@ -25,11 +25,11 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-// const emptyRequest = {
-//   params: { path: '' },
-//   query: '',
-//   // raw: { req: { url: '' } }
-// }
+const emptyRequest = {
+  params: { path: '' },
+  query: '',
+  // raw: { req: { url: '' } }
+}
 
 // function extractPathString(url) {
 //   const pathString = ''
@@ -76,19 +76,17 @@ function makeMetadataQuery(path) {
 
 /**
  * Parse a hapi http request object into a TQuery object.
- * request is { params.path, raw.req.url } //. uck
  * eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
- * gives params.path = '/books/scifi'
- * and query = 'fields=name,type&sortby=name'
+ * would make a request object like
+ * {
+ *   params: { path: 'books/scifi' },
+ *   query: 'fields=name,type&sortby=name'
+ * }
  * @param request {TRequest}
  * @returns {TQuery}
  */
 function makeFromRequest(request = emptyRequest) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
-
-  // const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
-  // const urlQuery = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'
-  // const urlQuery = request.query
 
   // get query dict and string
   // note: querystring lib returns a string if one value, an array if >1
@@ -106,18 +104,19 @@ function makeFromRequest(request = emptyRequest) {
   const queryDict = { ...defaultQuery, ...requestQuery }
   const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
 
-  const depth = Number(queryDict.depth || 0)
-  const first = path.first
   const meta = path.str.endsWith('.neomem')
+  const depth = Number(queryDict.depth)
   const fields = queryDict.fields.split(',')
-  // typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
+  // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
+
+  const first = path.first
 
   const query = {
-    depth,
     meta,
-    first,
+    depth,
     fields,
-    /** @param baseUrl { string } */
+    first,
+    //. should we make a class to handle these?
     getUrl(baseUrl) {
       return `${baseUrl}/${path.str}?${queryString}`
     },
