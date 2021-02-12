@@ -17,20 +17,21 @@ test(`Query.makeFromRequest() - a default query`, async t => {
 test('Query.makeFromRequest(request) - make from request', t => {
   const baseUrl = 'http://localhost:4000/api/v1'
   const pathStr = '/bookmarks/books/scifi'
-  const paramsString = 'fields=name,type,url&sortby=name&depth=1'
-  const url = baseUrl + pathStr + '?' + paramsString
+  const queryString = 'fields=name,type,url&sortby=name&depth=1'
+  // const url = baseUrl + pathStr + '?' + queryString
   const request = {
     params: { path: pathStr },
-    raw: { req: { url } },
+    // raw: { req: { url } },
+    query: queryString,
   }
   // const path = Path.make(pathStr)
-  // const params = querystring.parse(paramsString)
+  // const params = querystring.parse(queryString)
   // params.depth = 1 // add depth
   const query = Query.makeFromRequest(request)
   // t.deepEqual(query.path, path)
   // t.deepEqual(query.url, url)
   // t.deepEqual(query.params, params)
-  // t.deepEqual(query.paramsString, 'fields=name,type,url&depth=1&sortby=name')
+  // t.deepEqual(query.queryString, 'fields=name,type,url&depth=1&sortby=name')
   t.deepEqual(query.depthZero, false)
   t.deepEqual(query.fields, 'name,type,url'.split(','))
 })

@@ -3,9 +3,9 @@
 const pathLib = require('path') // node lib https://nodejs.org/api/path.html
 
 /**
- * a path is an object breaking down a path like '/bookmarks/books/scifi'
+ * A path is an object breaking down a path like '/bookmarks/books/scifi'
  * into its component parts.
- * @typedef {Object} path
+ * @typedef {Object} TPath
  * @property {string} str
  * @property {string[]} array
  * @property {string} first
@@ -14,15 +14,14 @@ const pathLib = require('path') // node lib https://nodejs.org/api/path.html
  */
 
 /**
- * get absolute path by joining parts
- * @param parts {string[]}
+ * Get an absolute path object by joining parts.
  * eg make('/bookmarks', 'books/scif') => { str: '/bookmarks/books/scifi', ... }
  * eg make('/bookmarks', '/fishes') => { str: '/fishes', ... }
  * eg make('/bookmarks', '') => { str: '/bookmarks', ... }
- * @returns {path}
+ * @param parts {string[]}
+ * @returns {TPath}
  */
 function make(...parts) {
-  console.log(parts)
   // see https://nodejs.org/api/path.html#path_path_resolve_paths
   const str = pathLib.resolve('/', ...parts).slice(1) // remove leading /
   const array = str.split('/') // eg ['bookmarks', 'books']

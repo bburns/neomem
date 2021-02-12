@@ -4,10 +4,10 @@ const querystring = require('querystring') // node lib https://nodejs.org/api/qu
 const { Path } = require('./path')
 
 /**
- * query objects are kind of like sql - they specify what you want to
+ * Query objects are kind of like sql - they specify what you want to
  * get from a datasource.
  * may take a while to hammer out details.
- * @typedef {Object} query
+ * @typedef {Object} TQuery
  * @property {boolean} depthZero
  * @property {string} first
  * @property {boolean} meta
@@ -16,43 +16,55 @@ const { Path } = require('./path')
  * @property {function} getRemainingUrl
  */
 
-//. clean this all up -
-// make a Request namespace to parse out request?
-// use hapi-url lib
-// merge make and makeFromUrl
+/**
+ * Hapi api request objects.
+ * @typedef {Object} TRequest
+ * @property {Object} params
+ * @property {Object} query
+ */
 
-const emptyRequest = { params: { path: '' }, raw: { req: { url: '' } } }
+//. use hapi-url lib?
+//. merge make and makeFromUrl
 
-function extractPathString(url) {
-  const pathString = ''
-  return pathString
+// const emptyRequest = { params: { path: '' }, raw: { req: { url: '' } } }
+const emptyRequest = {
+  params: { path: '' },
+  query: '',
 }
 
-function makeFromUrl(url) {
-  const pathString = extractPathString(url)
-  const request = {
-    params: { path: pathString },
-    raw: { req: { url } },
-  }
-  return makeFromRequest(request)
-}
+// function extractPathString(url) {
+//   const pathString = ''
+//   return pathString
+// }
+
+// function makeFromUrl(url) {
+//   const pathString = extractPathString(url)
+//   const request = {
+//     params: { path: pathString },
+//     raw: { req: { url } },
+//   }
+//   return makeFromRequest(request)
+// }
 
 /**
- * Parse a hapi http request object into a query object.
+ * Parse a hapi http request object into a TQuery object.
  * request is { params.path, raw.req.url } //. uck
- * eg with url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
- * and params.path = '/books/scifi'
- * @returns {query}
+ * eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
+ * gives params.path = '/books/scifi'
+ * and query = 'fields=name,type&sortby=name'
+ * @param request {TRequest}
+ * @returns {TQuery}
  */
 function makeFromRequest(request = emptyRequest) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
-  const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
-  const urlParams = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'
+  // const url = request.raw.req.url // eg 'localhost:4003/books/scifi?fields=name,type&sortby=name'
+  // const urlQuery = url.split('?')[1] || '' // eg 'fields=name,type&sortby=name'
+  // const urlQuery = request.query
 
   // get param object and string
   // note: querystring lib returns a string if one value, an array if >1
-  const requestParams = querystring.parse(urlParams) // eg { fields: 'name,type', sortby: 'name' }
-  const defaultParams = {
+  const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
+  const defaultQuery = {
     fields: 'name,type,description',
     depth: 0,
     // sortby: '',
@@ -62,33 +74,33 @@ function makeFromRequest(request = emptyRequest) {
     // limit: 20,
     // q: '',
   }
-  const params = { ...defaultParams, ...requestParams }
-  const paramsString = querystring.stringify(params).replace(/%2C/g, ',')
+  const queryDict = { ...defaultQuery, ...requestQuery }
+  const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
 
-  const depthZero = Number(params.depth || 0) === 0
+  const depthZero = Number(queryDict.depth || 0) === 0
   const first = path.first
-  const meta = url.endsWith('.neomem')
-  const fields = params.fields.split(',')
-  // typeof params.fields === 'string' ? [params.fields] : params.fields
+  const meta = path.str.endsWith('.neomem')
+  const fields = queryDict.fields.split(',')
+  // typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
 
-  return {
+  const query = {
     depthZero,
     meta,
     first,
     fields,
     /** @param baseUrl { string } */
     getUrl(baseUrl) {
-      return `${baseUrl}/${path.str}?${paramsString}`
+      return `${baseUrl}/${path.str}?${queryString}`
     },
     getRemainingUrl(item) {
-      return `${item.url || ''}/api/v1/${path.restString}?${paramsString}`
+      return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
     },
   }
+  return query
 }
 
 const Query = {
   makeFromRequest,
-  makeFromUrl,
 }
 
 module.exports = { Query }
