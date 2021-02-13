@@ -1,11 +1,9 @@
 // get, post, put, delete handlers
 
-const fetch = require('node-fetch').default // mimics browser's fetch
-const chalk = require('chalk') // color text
-const { Query } = require('neomem-util')
+const { Http, Query } = require('neomem-util')
 
 // define nmdata endpoint
-//. pass as parameter or use lib to find open port?
+//. pass as parameter
 const baseUrl = 'http://localhost:4000/api/v1'
 
 //. ask a datasource if the given path exists
@@ -17,7 +15,7 @@ async function exists(path) {
 
 /**
  * Get json from the given uri.
- * @param path { TPath }
+ * @param path { TPath } path object
  * @param metadata { Object } includes view of what you need
  * @returns json data
  */
@@ -25,16 +23,7 @@ async function get({ path, metadata } = {}) {
   const query = Query.make({ path, metadata })
   //.. bombs
   const url = query.getUrl(baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept-Encoding': 'gzip',
-    },
-  }
-  console.log(chalk.gray(url))
-  const response = await fetch(url, options)
-  const json = await response.json()
+  const json = await Http.get(url)
   return json
 }
 
