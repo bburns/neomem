@@ -16,17 +16,11 @@ async function exists(path) {
 }
 
 /**
- * //. yuck - better way? jsconfig.json file?
- * @typedef {import('../../neomem-util/src/query.js').TQuery} TQuery
- */
-
-/**
- * get json from the given uri
+ * Get json from the given uri.
  * @param path { TPath }
- * @param metadata { Object }
- * @param query { TQuery }
+ * @param metadata { Object } includes view
+ * @returns json data
  */
-// async function get({ query }) {
 async function get({ path, metadata }) {
   const query = Query.make({ path, metadata })
   // const s = `${query.path.str}?${query.paramsString}`

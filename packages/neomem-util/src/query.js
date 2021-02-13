@@ -23,10 +23,10 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-const emptyRequest = {
-  params: { path: '' },
-  query: '',
-}
+// const emptyRequest = {
+//   params: { path: '' },
+//   query: '',
+// }
 
 // function extractPathString(url) {
 //   const pathString = ''
@@ -83,7 +83,8 @@ function makeMetadataQuery({ path }) {
  * @param request {TRequest}
  * @returns {TQuery}
  */
-function makeFromRequest(request = emptyRequest) {
+// function makeFromRequest(request = emptyRequest) {
+function makeFromRequest({ request }) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
 
   // get query dict and string
@@ -128,7 +129,10 @@ function makeFromRequest(request = emptyRequest) {
 
 function make({ path, metadata, request }) {
   if (request) {
-    return makeFromRequest(request)
+    return makeFromRequest({ request })
+  }
+  if (metadata === true) {
+    return makeMetadataQuery({ path })
   }
 }
 

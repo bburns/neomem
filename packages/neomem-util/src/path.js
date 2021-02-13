@@ -34,6 +34,7 @@ function make(...parts) {
     first,
     rest,
     restString,
+    add: suffix => make(...parts, suffix),
   }
   return path
 }
