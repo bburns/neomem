@@ -1,4 +1,4 @@
-const test = require('ava')
+const test = require('ava').default
 const { Types } = require('../src')
 
 const date1601 = Types.get('date1601') // get a type
