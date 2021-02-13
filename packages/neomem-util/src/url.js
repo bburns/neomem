@@ -5,6 +5,12 @@
 
 const URL = require('url').URL
 
-const Url = URL
+function make(url) {
+  return new URL(url)
+}
+
+const Url = {
+  make,
+}
 
 module.exports = { Url }
