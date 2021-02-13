@@ -3,7 +3,6 @@
 const { Data } = require('./data')
 const { Metadata } = require('./metadata')
 const { Path, Query } = require('neomem-util')
-const { getMetadata, getFields } = require('./meta')
 const { Table } = require('./table') // wrapper around a table library
 
 /**
@@ -20,15 +19,19 @@ async function go(options) {
     return
   }
 
+  // get absolute path object
   const path = Path.make(context.location, target)
 
-  if (await Data.exists(path.str)) {
+  // move to target if it exists
+  if (await Data.exists({ path })) {
     context.location = path.str
     ui.print('Moved to', path.str + '.')
   } else {
     ui.print('Invalid location.')
   }
-  //. await look([], context) // don't pass tokens here
+
+  // if verbose
+  //. await look({ tokens: [], context, ui }) // don't pass tokens here
 }
 
 go.undo = async options => {
@@ -47,11 +50,11 @@ const h = history
 async function list(options) {
   const { tokens, context, ui } = options
 
-  // parse input
+  // parse input (will be more extensive)
   const target = tokens[1] || '' // eg 'books'
 
   // get absolute path
-  const path = Path.make(context.location, target) // eg => '/bookmarks/books'
+  const path = Path.make(context.location, target)
 
   // get metadata
   const metadata = await Metadata.get({ path })
@@ -100,17 +103,17 @@ const loc = location
 async function look(options) {
   const { tokens, context, ui } = options
 
-  // parse sentence
+  // parse input
   const target = tokens[1] || '' // eg 'books/scifi' or ''
 
   // get absolute path
   const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
 
   // get metadata about item
-  const metadata = await Meta.get({ path })
+  const metadata = await Metadata.get({ path })
 
   // get data
-  const data = await Data.get({ path, metadata })
+  const item = await Data.get({ path, metadata })
 
   // print location and table with item properties
   await location(options)

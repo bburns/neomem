@@ -2,7 +2,7 @@
 
 const fetch = require('node-fetch').default // mimics browser's fetch
 const chalk = require('chalk') // color text
-// const { Query } = require('neomem-util')
+const { Query } = require('neomem-util')
 
 // define nmdata endpoint
 //. pass as parameter or use lib to find open port?
@@ -22,9 +22,13 @@ async function exists(path) {
 
 /**
  * get json from the given uri
- * @param query { TQuery } //. how import query obj type?
+ * @param path { TPath }
+ * @param metadata { Object }
+ * @param query { TQuery }
  */
-async function get({ query }) {
+// async function get({ query }) {
+async function get({ path, metadata }) {
+  const query = Query.make({ path, metadata })
   // const s = `${query.path.str}?${query.paramsString}`
   // const url = baseUrl + '/' + s
   const url = query.getUrl(baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"

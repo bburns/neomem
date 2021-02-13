@@ -1,7 +1,5 @@
 // build query objects from server requests
 
-//. could use hapi-url lib to get full url of request, if needed
-
 /**
  * Query objects are kind of like sql - they specify what you want to
  * get from a datasource.
@@ -28,7 +26,6 @@ const { Path } = require('./path')
 const emptyRequest = {
   params: { path: '' },
   query: '',
-  // raw: { req: { url: '' } }
 }
 
 // function extractPathString(url) {
@@ -50,7 +47,7 @@ const emptyRequest = {
  * @param path {TPath}
  * @returns {TQuery}
  */
-function makeMetadataQuery(path) {
+function makeMetadataQuery({ path }) {
   // // const query = Query.makeFromPath(path, params)
   // // const metadataQuery = { ...query, meta: true }
   // //. const metadataQuery = Query.make()
@@ -69,7 +66,8 @@ function makeMetadataQuery(path) {
   //   paramsString: '',
   // }
   const query = {
-    path: pathLib.join(path.str, '.neomem'),
+    // path: pathLib.join(path.str, '.neomem'),
+    path: path.add('.neomem'),
   }
   return query
 }
@@ -128,8 +126,14 @@ function makeFromRequest(request = emptyRequest) {
   return query
 }
 
+function make({ path, metadata, request }) {
+  if (request) {
+    return makeFromRequest(request)
+  }
+}
+
 const Query = {
-  makeFromRequest,
+  make,
 }
 
 module.exports = { Query }
