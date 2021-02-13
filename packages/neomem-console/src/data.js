@@ -1,10 +1,7 @@
 // get, post, put, delete handlers
 
 const { Http, Query } = require('neomem-util')
-
-// define nmdata endpoint
-//. pass as parameter
-const baseUrl = 'http://localhost:4000/api/v1'
+const { Config } = require('./config')
 
 //. ask a datasource if the given path exists
 async function exists(path) {
@@ -22,7 +19,7 @@ async function exists(path) {
 async function get({ path, metadata } = {}) {
   const query = Query.make({ path, metadata })
   //.. bombs
-  const url = query.getUrl(baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
+  const url = query.getUrl(Config.baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
   const json = await Http.get(url)
   return json
 }

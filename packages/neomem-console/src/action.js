@@ -89,6 +89,9 @@ async function list(options) {
   // ui.print(s)
 }
 
+/**
+ * location
+ */
 async function location(options) {
   const { ui, context } = options
   ui.print(context.location)
@@ -110,7 +113,7 @@ async function look(options) {
 
   // get metadata about item
   // const metadata = await Metadata.get({ path })
-  // const metadata = await Data.get({ path })
+  // const metadata = await Data.get({ path, metadata: true }) //?
 
   // get data
   //. what if this got the metadata first, then got what was needed?

@@ -1,6 +1,12 @@
 // tokenize an input string into tokens for parsers to consume
 
 //. handle strings, escapes, etc
-module.exports = function tokenize(s) {
+function tokenize(s) {
   return s.trim().split(' ')
 }
+
+const Tokenizer = {
+  tokenize,
+}
+
+module.exports = { Tokenizer }
