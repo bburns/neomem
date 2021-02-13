@@ -1,4 +1,4 @@
-// build query objects from server requests
+// build query objects
 
 /**
  * Query objects are kind of like sql - they specify what you want to
@@ -80,6 +80,21 @@ function makeFromRequest({ request }) {
     // q: '',
   }
   const queryDict = { ...defaultQuery, ...requestQuery }
+}
+
+/**
+ * Make a query object given scheme, host, port, path, queryString
+ * input:
+ * output: a query object
+ */
+function make({ path, queryDict } = {}) {
+  // if (request) {
+  //   return makeFromRequest({ request })
+  // }
+  // if (metadata === true) {
+  //   return makeMetadataQuery({ path })
+  // }
+
   const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
 
   const meta = path.str.endsWith('.neomem')
@@ -105,20 +120,6 @@ function makeFromRequest({ request }) {
     },
   }
   return query
-}
-
-function make({ path, metadata, request } = {}) {
-  if (request) {
-    return makeFromRequest({ request })
-  }
-  if (metadata === true) {
-    return makeMetadataQuery({ path })
-  }
-  return {
-    depth: 0,
-    fields: 'name,type,description'.split(','),
-    first: '',
-  }
 }
 
 const Query = {

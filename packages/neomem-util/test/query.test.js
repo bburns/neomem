@@ -3,8 +3,8 @@ const { Query } = require('../src')
 
 test(`Query.make() - a default query`, async t => {
   const query = Query.make()
-  t.deepEqual(query.depth, 0)
   t.deepEqual(query.fields, 'name,type,description'.split(','))
+  t.deepEqual(query.depth, 0)
   t.deepEqual(query.first, '')
   // const item = {}
   // t.deepEqual(

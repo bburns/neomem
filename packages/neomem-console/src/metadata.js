@@ -22,9 +22,6 @@ const defaultMetadata = {
  */
 async function get({ path }) {
   // const query = Query.make({ path, metadata: true })
-  // console.log(25, query)
-  //. recurse upwards until find a .neomem item?
-  // let the datasource handle that?
   // const metadata = (await Data.get({ query })) || defaultMetadata
   const metadata = (await Data.get({ path })) || defaultMetadata
   return metadata
