@@ -149,7 +149,7 @@ async function unknown(options) {
   ui.print(`Unknown command: ${tokens[0]}.`)
 }
 
-module.exports = {
+const Action = {
   go,
   history,
   h,
@@ -162,3 +162,5 @@ module.exports = {
   undo,
   unknown,
 }
+
+module.exports = { Action }

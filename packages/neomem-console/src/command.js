@@ -9,7 +9,7 @@
  */
 
 const tokenize = require('./tokenize')
-const commands = require('./commands')
+const { Action } = require('./action')
 
 /**
  * Make a command object from the given input string and options.
@@ -20,7 +20,7 @@ const commands = require('./commands')
 function make(str, options = {}) {
   const tokens = tokenize(str) // eg 'list books/scifi' -> ['list', 'books/scifi']
   const verb = tokens[0] // eg 'list'
-  const execute = commands[verb] || commands.unknown // eg list fn
+  const execute = Action[verb] || Action.unknown // eg list fn
   options.tokens = tokens
   // save for undo go cmd
   options.preservedLocation = options.context ? options.context.location : ''
