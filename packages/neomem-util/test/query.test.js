@@ -3,9 +3,9 @@ const { Query } = require('../src')
 
 test(`Query.make() - an empty query`, async t => {
   const query = Query.make()
-  t.deepEqual(query.fields, '')
-  t.deepEqual(query.depth, 0)
   t.deepEqual(query.path.first, '')
+  t.deepEqual(query.fields, [])
+  t.deepEqual(query.depth, 0)
   // const item = {}
   // t.deepEqual(
   //   query.getRemainingUrl(item),

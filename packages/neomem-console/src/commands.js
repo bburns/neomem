@@ -62,20 +62,19 @@ async function list(options) {
   // get data
   const data = await Data.get({ path, metadata })
 
-  // // const metadata = await getMetadata(path)
-  // // const fields = getFields(metadata)
-  // const fields = 'name,type,url'.split(',')
-  // // build a query object and fetch results
-  // const query = {
-  //   path,
-  //   params: {
-  //     fields, // eg ['name', 'type', 'url']
-  //     sortby: 'name',
-  //     limit: 5,
-  //   },
-  // }
-  // const items = await api.get(query)
-  // console.log(items)
+  const metadata = await getMetadata(path)
+  const fields = getFields(metadata)
+  // build a query object and fetch results
+  const query = {
+    path,
+    params: {
+      fields, // eg ['name', 'type', 'url']
+      sortby: 'name',
+      limit: 5,
+    },
+  }
+  const items = await api.get(query)
+  console.log(items)
 
   // //. recurse and build depth values for treelist
   // //. handle tree indentation with item.depth
@@ -108,7 +107,6 @@ async function look(options) {
 
   // get absolute path
   const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  // console.log(path)
 
   // get metadata about item
   // const metadata = await Metadata.get({ path })
@@ -119,18 +117,18 @@ async function look(options) {
   // or do we need to be more explicit at this level?
   const item = await Data.get({ path })
 
-  // // print location and table with item properties
-  // await location(options)
-  // //. this is more metadata, eh? where store?
-  // const tableColumns = [
-  //   { name: 'name', accessor: 'name', width: 12 },
-  //   { name: 'value', accessor: 'value', width: 50 },
-  // ]
-  // const rows = fields.map(field => ({ name: field, value: item[field] }))
-  // const t = new Table(tableColumns, rows)
-  // const s = t.toString()
-  // ui.print(s)
-  // ui.print('and print number of items, types, etc')
+  // print location and table with item properties
+  await location(options)
+  //. this is more metadata, eh? where store?
+  const tableColumns = [
+    { name: 'name', accessor: 'name', width: 12 },
+    { name: 'value', accessor: 'value', width: 50 },
+  ]
+  const rows = fields.map(field => ({ name: field, value: item[field] }))
+  const t = new Table(tableColumns, rows)
+  const s = t.toString()
+  ui.print(s)
+  ui.print('and print number of items, types, etc')
 }
 
 const l = look

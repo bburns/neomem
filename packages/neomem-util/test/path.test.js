@@ -44,3 +44,12 @@ test('eg go', t => {
     restString: '',
   })
 })
+
+// will need to be able to extend a path
+// how does node's path lib do it? path.join?
+test(`withtarget .neomem`, async t => {
+  const path = Path.make('/bookmarks')
+  // const path2 = path.withTarget('.neomem')
+  // path.addTarget('.neomem')
+  t.deepEqual(1, 1)
+})

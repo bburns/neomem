@@ -3,6 +3,7 @@
 /**
  * A path object breaks down a path like '/bookmarks/books/scifi'
  * into its component parts.
+ * The components are dictated by what the app needs...
  * @typedef {Object} TPath
  * @property {string} str
  * @property {string[]} array
