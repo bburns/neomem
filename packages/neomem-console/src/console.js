@@ -36,9 +36,10 @@ async function evalCommand(str, context, filename, callback) {
     ui,
     processor,
   }
+  // build a command object from the user's input string
   const command = Command.make(str.trim(), options)
   try {
-    await processor.execute(command)
+    await processor.execute(command) // execute the command object
   } catch (error) {
     return callback(error)
   }

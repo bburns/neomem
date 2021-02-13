@@ -108,25 +108,27 @@ async function look(options) {
 
   // get absolute path
   const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
+  // console.log(path)
 
   // get metadata about item
   const metadata = await Metadata.get({ path })
+  console.log(metadata)
 
-  // get data
-  const item = await Data.get({ path, metadata })
+  // // get data
+  // const item = await Data.get({ path, metadata })
 
-  // print location and table with item properties
-  await location(options)
-  //. this is more metadata, eh? where store?
-  const tableColumns = [
-    { name: 'name', accessor: 'name', width: 12 },
-    { name: 'value', accessor: 'value', width: 50 },
-  ]
-  const rows = fields.map(field => ({ name: field, value: item[field] }))
-  const t = new Table(tableColumns, rows)
-  const s = t.toString()
-  ui.print(s)
-  ui.print('and print number of items, types, etc')
+  // // print location and table with item properties
+  // await location(options)
+  // //. this is more metadata, eh? where store?
+  // const tableColumns = [
+  //   { name: 'name', accessor: 'name', width: 12 },
+  //   { name: 'value', accessor: 'value', width: 50 },
+  // ]
+  // const rows = fields.map(field => ({ name: field, value: item[field] }))
+  // const t = new Table(tableColumns, rows)
+  // const s = t.toString()
+  // ui.print(s)
+  // ui.print('and print number of items, types, etc')
 }
 
 const l = look

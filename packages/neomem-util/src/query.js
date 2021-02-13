@@ -37,7 +37,6 @@ function makeMetadataQuery({ path }) {
   // // console.debug('metadata', metadata)
   // // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
   // const fields = 'name,type,description,url'.split(',')
-  // // build a Query manually - nogood
   // const query = {
   //   path,
   //   params: {
@@ -109,7 +108,7 @@ function makeFromRequest({ request }) {
   return query
 }
 
-function make({ path, metadata, request }) {
+function make({ path, metadata, request } = {}) {
   if (request) {
     return makeFromRequest({ request })
   }

@@ -1,6 +1,6 @@
 // handle metadata
 
-const pathLib = require('path') // node lib
+// const pathLib = require('path') // node lib
 const { Data } = require('./data')
 const { Query } = require('neomem-util')
 
@@ -21,13 +21,12 @@ const defaultMetadata = {
  * @params path {TPath}
  */
 async function get({ path }) {
-  // const query = {
-  //   path: pathLib.join(path.str, '.neomem'),
-  // }
-  const query = Query.make({ path, metadata: true })
+  // const query = Query.make({ path, metadata: true })
+  // console.log(25, query)
   //. recurse upwards until find a .neomem item?
   // let the datasource handle that?
-  const metadata = (await Data.get({ query })) || defaultMetadata
+  // const metadata = (await Data.get({ query })) || defaultMetadata
+  const metadata = (await Data.get({ path })) || defaultMetadata
   return metadata
 }
 
