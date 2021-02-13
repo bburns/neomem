@@ -86,7 +86,6 @@ function makeFromRequest({ request }) {
   const depth = Number(queryDict.depth)
   const fields = queryDict.fields.split(',')
   // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
-
   const first = path.first
 
   const query = {
@@ -114,6 +113,11 @@ function make({ path, metadata, request } = {}) {
   }
   if (metadata === true) {
     return makeMetadataQuery({ path })
+  }
+  return {
+    depth: 0,
+    fields: 'name,type,description'.split(','),
+    first: '',
   }
 }
 
