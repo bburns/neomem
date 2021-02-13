@@ -112,10 +112,12 @@ async function look(options) {
 
   // get metadata about item
   // const metadata = await Metadata.get({ path })
-  const metadata = await Data.get({ path })
+  // const metadata = await Data.get({ path })
 
   // get data
-  const item = await Data.get({ path, metadata })
+  //. what if this got the metadata first, then got what was needed?
+  // or do we need to be more explicit at this level?
+  const item = await Data.get({ path })
 
   // // print location and table with item properties
   // await location(options)

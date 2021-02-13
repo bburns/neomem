@@ -5,10 +5,10 @@
  * get from a datasource.
  * may take a while to hammer out details.
  * @typedef {Object} TQuery
+ * @property {TPath} path - path to item
  * @property {boolean} meta - asking for metadata about item
  * @property {integer} depth - depth to pursue related items
  * @property {string[]} fields - list of fields to retrieve
- * @property {string} first - first part of path
  * @property {function} getUrl
  * @property {function} getRemainingUrl
  */
@@ -23,34 +23,34 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-/**
- * Make a query to get metadata info from the given path.
- * @param path {TPath}
- * @returns {TQuery}
- */
-function makeMetadataQuery({ path }) {
-  // // const query = Query.makeFromPath(path, params)
-  // // const metadataQuery = { ...query, meta: true }
-  // //. const metadataQuery = Query.make()
-  // //. const metadata = await api.get(metadataQuery)
-  // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
-  // // console.debug('metadata', metadata)
-  // // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
-  // const fields = 'name,type,description,url'.split(',')
-  // const query = {
-  //   path,
-  //   params: {
-  //     fields, // eg ['name', 'type', 'description']
-  //     depth: 0, // look at the item not its contents
-  //   },
-  //   paramsString: '',
-  // }
-  const query = {
-    // path: pathLib.join(path.str, '.neomem'),
-    path: path.add('.neomem'),
-  }
-  return query
-}
+// /**
+//  * Make a query to get metadata info from the given path.
+//  * @param path {TPath}
+//  * @returns {TQuery}
+//  */
+// function makeMetadataQuery({ path }) {
+//   // // const query = Query.makeFromPath(path, params)
+//   // // const metadataQuery = { ...query, meta: true }
+//   // //. const metadataQuery = Query.make()
+//   // //. const metadata = await api.get(metadataQuery)
+//   // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
+//   // // console.debug('metadata', metadata)
+//   // // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
+//   // const fields = 'name,type,description,url'.split(',')
+//   // const query = {
+//   //   path,
+//   //   params: {
+//   //     fields, // eg ['name', 'type', 'description']
+//   //     depth: 0, // look at the item not its contents
+//   //   },
+//   //   paramsString: '',
+//   // }
+//   const query = {
+//     // path: pathLib.join(path.str, '.neomem'),
+//     path: path.add('.neomem'),
+//   }
+//   return query
+// }
 
 /**
  * Parse a hapi http request object into a TQuery object.
@@ -63,9 +63,8 @@ function makeMetadataQuery({ path }) {
  * @param request {TRequest}
  * @returns {TQuery}
  */
-function makeFromRequest({ request }) {
+function makeFromRequest({ request } = {}) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
-
   // get query dict and string
   // note: querystring lib returns a string if one value, an array if >1
   const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
@@ -80,12 +79,12 @@ function makeFromRequest({ request }) {
     // q: '',
   }
   const queryDict = { ...defaultQuery, ...requestQuery }
+  return make({ path, queryDict })
 }
 
 /**
- * Make a query object given scheme, host, port, path, queryString
- * input:
- * output: a query object
+ * Make a query object
+ * @returns {TQuery}
  */
 function make({ path, queryDict } = {}) {
   // if (request) {
@@ -97,17 +96,18 @@ function make({ path, queryDict } = {}) {
 
   const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
 
-  const meta = path.str.endsWith('.neomem')
+  const meta = path && path.str.endsWith('.neomem')
   const depth = Number(queryDict.depth)
   const fields = queryDict.fields.split(',')
   // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
-  const first = path.first
+  // const first = path.first
 
   const query = {
+    path,
     meta,
     depth,
     fields,
-    first,
+    // first,
     //. should we make a class to handle these?
     // const s = `${query.path.str}?${query.paramsString}`
     // const url = baseUrl + '/' + s
@@ -123,6 +123,7 @@ function make({ path, queryDict } = {}) {
 }
 
 const Query = {
+  makeFromRequest,
   make,
 }
 

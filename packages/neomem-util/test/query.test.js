@@ -1,11 +1,11 @@
 const test = require('ava').default
 const { Query } = require('../src')
 
-test(`Query.make() - a default query`, async t => {
+test(`Query.make() - an empty query`, async t => {
   const query = Query.make()
-  t.deepEqual(query.fields, 'name,type,description'.split(','))
+  t.deepEqual(query.fields, '')
   t.deepEqual(query.depth, 0)
-  t.deepEqual(query.first, '')
+  t.deepEqual(query.path.first, '')
   // const item = {}
   // t.deepEqual(
   //   query.getRemainingUrl(item),
