@@ -23,8 +23,6 @@ async function exists(path) {
  */
 async function get({ path, metadata }) {
   const query = Query.make({ path, metadata })
-  // const s = `${query.path.str}?${query.paramsString}`
-  // const url = baseUrl + '/' + s
   const url = query.getUrl(baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
   const options = {
     method: 'GET',

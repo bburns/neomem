@@ -3,7 +3,7 @@ const { Path } = require('../src')
 
 test(`make()`, async t => {
   const path = Path.make()
-  t.deepEqual(path, {
+  t.like(path, {
     str: '',
     array: [''],
     first: '',
@@ -14,7 +14,7 @@ test(`make()`, async t => {
 
 test('eg go /filesys', t => {
   const path = Path.make('/bookmarks', '/filesys')
-  t.deepEqual(path, {
+  t.like(path, {
     str: 'filesys',
     array: ['filesys'],
     first: 'filesys',
@@ -25,7 +25,7 @@ test('eg go /filesys', t => {
 
 test('eg go books/scifi', t => {
   const path = Path.make('/bookmarks', 'books/scifi')
-  t.deepEqual(path, {
+  t.like(path, {
     str: 'bookmarks/books/scifi',
     array: ['bookmarks', 'books', 'scifi'],
     first: 'bookmarks',
@@ -36,7 +36,7 @@ test('eg go books/scifi', t => {
 
 test('eg go', t => {
   const path = Path.make('/bookmarks')
-  t.deepEqual(path, {
+  t.like(path, {
     str: 'bookmarks',
     array: ['bookmarks'],
     first: 'bookmarks',

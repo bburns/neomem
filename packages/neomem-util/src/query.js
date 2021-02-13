@@ -23,25 +23,6 @@
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const { Path } = require('./path')
 
-// const emptyRequest = {
-//   params: { path: '' },
-//   query: '',
-// }
-
-// function extractPathString(url) {
-//   const pathString = ''
-//   return pathString
-// }
-
-// function makeFromUrl(url) {
-//   const pathString = extractPathString(url)
-//   const request = {
-//     params: { path: pathString },
-//     raw: { req: { url } },
-//   }
-//   return makeFromRequest(request)
-// }
-
 /**
  * Make a query to get metadata info from the given path.
  * @param path {TPath}
@@ -83,7 +64,6 @@ function makeMetadataQuery({ path }) {
  * @param request {TRequest}
  * @returns {TQuery}
  */
-// function makeFromRequest(request = emptyRequest) {
 function makeFromRequest({ request }) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
 
@@ -116,6 +96,8 @@ function makeFromRequest({ request }) {
     fields,
     first,
     //. should we make a class to handle these?
+    // const s = `${query.path.str}?${query.paramsString}`
+    // const url = baseUrl + '/' + s
     getUrl(baseUrl) {
       return `${baseUrl}/${path.str}?${queryString}`
     },
