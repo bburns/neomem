@@ -3,12 +3,14 @@
   "description": "an open source information manager",
   "version": "0.1.0",
   "scripts": {
-    "start": "npm-run-all --parallel --print-label --race neomem-data neomem-data-bookmarks",
-    "neomem-data": "npm run --prefix packages/neomem-data start",
-    "neomem-data-bookmarks": "npm run --prefix packages/neomem-data-bookmarks start",
-    "//neomem-data-filesys": "npm run --prefix packages/neomem-data-filesys start",
-    "//neomem-data-neo4j": "npm run --prefix packages/neomem-data-neo4j start",
-    "console": "npm run --prefix packages/neomem-console start"
+    "console": "npm run --prefix packages/neomem-console start",
+    "backend": "COMMAND=start npm-run-all --parallel --print-label --race data data-bookmarks",
+    "data": "npm run --prefix packages/neomem-data ${COMMAND}",
+    "data-bookmarks": "npm run --prefix packages/neomem-data-bookmarks ${COMMAND}",
+    "util": "npm run --prefix packages/neomem-util ${COMMAND}",
+    "test-util": "COMMAND=test npm run util",
+    "//data-filesys": "npm run --prefix packages/neomem-data-filesys ${COMMAND}",
+    "//data-neo4j": "npm run --prefix packages/neomem-data-neo4j ${COMMAND}"
   },
   "devDependencies": {
     "lerna": "^3.22.1",

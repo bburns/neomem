@@ -1,8 +1,8 @@
 // define console ui commands - look, list, etc
 
+const { Path, Query } = require('neomem-util')
 const { Data } = require('./data')
 const { Metadata } = require('./metadata')
-const { Path, Query } = require('neomem-util')
 const { Table } = require('./table') // wrapper around a table library
 
 /**
@@ -40,8 +40,8 @@ go.undo = async options => {
 }
 
 async function history(options) {
-  const { processor, ui } = options
-  const history = processor.history()
+  const { Processor, ui } = options
+  const history = Processor.getHistory()
   ui.print(history)
 }
 
@@ -135,13 +135,13 @@ const l = look
 
 //. will require processor to leave items in history tree, move a pointer on undo
 async function redo(options) {
-  const { processor } = options
-  await processor.redo(options)
+  const { Processor } = options
+  await Processor.redo(options)
 }
 
 async function undo(options) {
-  const { processor } = options
-  await processor.undo(options)
+  const { Processor } = options
+  await Processor.undo(options)
 }
 
 async function unknown(options) {

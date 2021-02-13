@@ -4,8 +4,8 @@
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const chalk = require('chalk') // color text
 const { Command } = require('./command')
+const { Processor } = require('./processor')
 const package = require('../package')
-const processor = require('./processor')
 
 const prompt = '> '
 const defaultLocation = '/'
@@ -34,12 +34,12 @@ async function evalCommand(str, context, filename, callback) {
   const options = {
     context,
     ui,
-    processor,
+    Processor,
   }
   // build a command object from the user's input string
   const command = Command.make(str.trim(), options)
   try {
-    await processor.execute(command) // execute the command object
+    await Processor.execute(command) // execute the command object
   } catch (error) {
     return callback(error)
   }
