@@ -5,7 +5,7 @@ const { Data } = require('./data')
 const { Query } = require('neomem-util')
 
 // define default metadata including view columns
-//. better place to store? neomem-data?
+//. move to neomem-data, yes?
 const defaultMetadata = {
   view: {
     columns: [
@@ -18,9 +18,9 @@ const defaultMetadata = {
 
 /**
  * Get metadata information for a path, including views.
- * @params path {TPath}
+ * @params path {TPath} datapath eg { str: '/bookmarks/books/scifi', ... }
  */
-async function get({ path }) {
+async function get({ path } = {}) {
   // const query = Query.make({ path, metadata: true })
   // const metadata = (await Data.get({ query })) || defaultMetadata
   const metadata = (await Data.get({ path })) || defaultMetadata

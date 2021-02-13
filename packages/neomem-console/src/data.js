@@ -18,10 +18,10 @@ async function exists(path) {
 /**
  * Get json from the given uri.
  * @param path { TPath }
- * @param metadata { Object } includes view
+ * @param metadata { Object } includes view of what you need
  * @returns json data
  */
-async function get({ path, metadata }) {
+async function get({ path, metadata } = {}) {
   const query = Query.make({ path, metadata })
   //.. bombs
   const url = query.getUrl(baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"

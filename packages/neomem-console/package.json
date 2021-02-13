@@ -6,7 +6,7 @@
   "scripts": {
     "//start": "note: need '--no-stdin' to prevent echo of command at repl",
     "start": "nodemon --no-stdin src/index.js",
-    "test": "ava --watch"
+    "test": "ava --watch --verbose"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",

@@ -111,11 +111,11 @@ async function look(options) {
   // console.log(path)
 
   // get metadata about item
-  const metadata = await Metadata.get({ path })
-  console.log(metadata)
+  // const metadata = await Metadata.get({ path })
+  const metadata = await Data.get({ path })
 
-  // // get data
-  // const item = await Data.get({ path, metadata })
+  // get data
+  const item = await Data.get({ path, metadata })
 
   // // print location and table with item properties
   // await location(options)
