@@ -52,49 +52,41 @@ function make(parts) {
  */
 class CQuery {
   constructor() {
-    // const depth = Number(queryDict.depth)
-    // const fields = queryDict.fields.split(',')
-    // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
-    // const first = path.first
     this.base = ''
     this.path = ''
     this.fields = ''
     this.depth = ''
   }
+
   update(parts = {}) {
     for (const key of Object.keys(parts)) {
       this[key] = parts[key]
     }
   }
+
   get(property) {
     return this[property]
   }
+
+  /**
+   * returns a query that requests the metadata assoc with the location
+   */
   meta(metapath) {
-    // return this.path.endsWith('.neomem')
-    //   // // const query = Query.makeFromPath(path, params)
-    //   // // const metadataQuery = { ...query, meta: true }
-    //   // //. const metadataQuery = Query.make()
-    //   // //. const metadata = await api.get(metadataQuery)
-    //   // const metadata = await getMetadata(path) //. const view = meta.get('view') ?
-    //   // // console.debug('metadata', metadata)
-    //   // // const fieldnames = getFieldNames(metadata) //. const fields = view.fields ?
-    //   // const fields = 'name,type,description,url'.split(',')
-    //   // const query = {
-    //   //   path,
-    //   //   params: {
-    //   //     fields, // eg ['name', 'type', 'description']
-    //   //     depth: 0, // look at the item not its contents
-    //   //   },
-    //   //   paramsString: '',
-    //   // }
-    //   const query = {
-    //     // path: pathLib.join(path.str, '.neomem'),
-    //     path: path.add('.neomem'),
-    //   }
-    //   return query
-    this.path += '.neomem'
-    return this
+    const query = { ...this }
+    query.path += '.neomem'
+    console.log(query)
+    return query
   }
+
+  /**
+   * returns a query that requests the fields assoc with the given view obj
+   */
+  view(view) {
+    const query = { ...this }
+    console.log(query)
+    return query
+  }
+
   get url() {
     //. use node's url lib to construct url
     const url = `${this.base}/${this.path}`
