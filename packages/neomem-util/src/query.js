@@ -88,19 +88,11 @@ function makeFromRequest({ base, request } = {}) {
 
 /**
  * Make a query object
- * @param {Object {base?: string, path?: string }}
  * @returns {CQuery}
  */
-function make({ base, path } = {}) {
-  // const meta = path && path.str.endsWith('.neomem')
-  // const depth = Number(queryDict.depth)
-  // const fields = queryDict.fields.split(',')
-  // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
-  // const first = path.first
-  const query = new CQuery(base)
-  if (path) {
-    query.update({ path })
-  }
+function make(parts) {
+  const query = new CQuery()
+  query.update(parts)
   return query
 }
 
@@ -108,22 +100,28 @@ function make({ base, path } = {}) {
  * @typedef CQuery
  */
 class CQuery {
-  constructor(base) {
-    this.base = base
-    this.path = Path.make()
-    return this
+  constructor() {
+    // const depth = Number(queryDict.depth)
+    // const fields = queryDict.fields.split(',')
+    // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
+    // const first = path.first
+    this.base = ''
+    this.path = ''
   }
-  update(keyvalues) {
-    for (const key of Object.keys(keyvalues)) {
-      this[key] = keyvalues[key]
+  update(parts = {}) {
+    for (const key of Object.keys(parts)) {
+      this[key] = parts[key]
     }
   }
   get(property) {
     return this[property]
   }
+  get meta() {
+    return this.path.endsWith('.neomem')
+  }
   get url() {
     //. use node's url lib to construct url
-    const url = pathlib.join(this.base, this.path.str)
+    const url = `${this.base}/${this.path}`
     //   //. should we make a class to handle these?
     // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
     //   // const s = `${query.path.str}?${query.paramsString}`
@@ -135,6 +133,7 @@ class CQuery {
     //   // getRemainingUrl(item) {
     //   //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
     //   // },
+    return url
   }
 }
 

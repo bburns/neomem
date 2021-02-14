@@ -5,8 +5,8 @@ const base = 'http://localhost:4000/api/v1'
 
 test(`Query.make() - an empty query`, async t => {
   const query = Query.make()
-  t.deepEqual(query.url, '')
-  // t.deepEqual(query.path.first, '')
+  t.deepEqual(query.path, '')
+  t.deepEqual(query.url, '/')
   // t.deepEqual(query.fields, [])
   // t.deepEqual(query.depth, 0)
 })
