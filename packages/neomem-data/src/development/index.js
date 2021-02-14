@@ -8,12 +8,12 @@ const { Root } = require('./root')
 const { Meta } = require('./meta')
 const { Types } = require('./types')
 
-// used as default query for all fns
-const emptyQuery = Query.makeFromRequest()
+// // used as default query for all fns
+// const emptyQuery = Query.makeFromRequest()
 
 // get an item or items
 //. recurse or loop with stack to handle folders etc
-async function get(query = emptyQuery, start = undefined) {
+async function get(query, start = undefined) {
   if (query.meta) {
     return Meta.get()
   }
@@ -31,7 +31,7 @@ async function get(query = emptyQuery, start = undefined) {
 
   // pass query along to other datasource if needed
   if (item && item.type === 'datasource') {
-    const url = query.getRemainingUrl(item)
+    const url = query.urlRemaining(item)
     const response = await fetch(url)
     const json = await response.json()
     return json
@@ -41,9 +41,9 @@ async function get(query = emptyQuery, start = undefined) {
   return items.map(item => Projection.make(item, query.fields))
 }
 
-async function post(query = emptyQuery) {}
-async function put(query = emptyQuery) {}
-async function del(query = emptyQuery) {}
+async function post(query) {}
+async function put(query) {}
+async function del(query) {}
 
 const Data = { get, post, put, del }
 

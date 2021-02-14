@@ -3,9 +3,11 @@
 /**
  * Query objects are kind of like sql - they specify what you want to
  * get from a datasource.
- * may take a while to hammer out details.
+ * First the ui builds one up and we convert it to a url to fetch the data,
+ * then the backend parses the url back into a query object, which it
+ * traverses to find the data to return.
  * @typedef {Object} TQuery
- * @property {string} base - baseurl, eg 'http://localhost:4000/api/v1'
+ * @property {string} base - base url, eg 'http://localhost:4000/api/v1'
  * @property {TPath} path - path to item, eg { str: 'bookmarks', ... }
  * @property {boolean} meta - asking for metadata about item
  * @property {integer} depth - depth to pursue related items
@@ -23,6 +25,7 @@
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const URL = require('url').URL // node lib
+const pathlib = require('path') // node lib
 const { Path } = require('./path')
 
 // /**
@@ -95,7 +98,9 @@ function make({ base, path } = {}) {
   // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
   // const first = path.first
   const query = new CQuery(base)
-  query.update({ path })
+  if (path) {
+    query.update({ path })
+  }
   return query
 }
 
@@ -113,20 +118,12 @@ class CQuery {
       this[key] = keyvalues[key]
     }
   }
-  // path(path) {
-  //   this.path = path
-  //   return this
-  // }
-  // fields(fields) {
-  //   this.fields = fields
-  //   return this
-  // }
   get(property) {
     return this[property]
   }
-  url() {
+  get url() {
     //. use node's url lib to construct url
-    return this.base + this.path.str
+    const url = pathlib.join(this.base, this.path.str)
     //   //. should we make a class to handle these?
     // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
     //   // const s = `${query.path.str}?${query.paramsString}`

@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "//test": "NODE_ENV=test nodemon test/index.js",
-    "test": "ava --watch"
+    "test": "ava --watch --verbose"
   },
   "keywords": [],
   "author": "Brian Burns <bburns.km@gmail.com>",

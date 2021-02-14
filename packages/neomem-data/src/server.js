@@ -21,6 +21,8 @@ const init = async () => {
     method: 'GET',
     handler: async (request, h) => {
       const query = Query.makeFromRequest(request)
+      // const url = geturl(request)
+      // const query = Query.makeFromUrl(url)
       const json = await Data.get(query)
       return json
     },
