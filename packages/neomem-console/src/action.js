@@ -85,7 +85,6 @@ async function list(options) {
 
   // get data
   const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  // const query = Query.base(context.base).path(path)
   const query = Query.make({ base: context.base, path })
   const view = await Data.get(query.meta('views/console/list'))
   const items = await Data.get(query.view(view))

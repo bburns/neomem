@@ -21,6 +21,7 @@
  */
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
+const URL = require('url').URL // node lib
 const { Path } = require('./path')
 
 // /**
@@ -63,9 +64,8 @@ const { Path } = require('./path')
  * @param request {TRequest}
  * @returns {TQuery}
  */
-function makeFromRequest({ request } = {}) {
+function makeFromRequest({ base, request } = {}) {
   const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
-  // get query dict and string
   // note: querystring lib returns a string if one value, an array if >1
   const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
   const defaultQuery = {
@@ -78,35 +78,23 @@ function makeFromRequest({ request } = {}) {
     // limit: 20,
     // q: '',
   }
-  const queryDict = { ...defaultQuery, ...requestQuery }
-  return make({ path, queryDict })
+  const params = { ...defaultQuery, ...requestQuery }
+  return make({ base, path, params })
 }
 
 /**
  * Make a query object
  * @param {Object {base?: string, path?: string }}
- * @returns {TQuery}
+ * @returns {CQuery}
  */
 function make({ base, path } = {}) {
-  // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
   // const meta = path && path.str.endsWith('.neomem')
   // const depth = Number(queryDict.depth)
   // const fields = queryDict.fields.split(',')
   // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
   // const first = path.first
-
-  // const query = new CQuery().base(base).path(path)
   const query = new CQuery(base)
-  // query.path(path)
   query.update({ path })
-  // const query = {
-  //   base,
-  //   path,
-  //   meta,
-  // depth,
-  // fields,
-  // first,
-  // }
   return query
 }
 
@@ -135,17 +123,18 @@ class CQuery {
   url() {
     //. use node's url lib to construct url
     return this.base + this.path.str
+    //   //. should we make a class to handle these?
+    // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
+    //   // const s = `${query.path.str}?${query.paramsString}`
+    //   // const url = baseUrl + '/' + s
+    //   // getUrl(baseUrl) {
+    //   //   return `${baseUrl}/${path.str}?${queryString}`
+    //   // },
+    //   //. ugh
+    //   // getRemainingUrl(item) {
+    //   //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
+    //   // },
   }
-  //   //. should we make a class to handle these?
-  //   // const s = `${query.path.str}?${query.paramsString}`
-  //   // const url = baseUrl + '/' + s
-  //   // getUrl(baseUrl) {
-  //   //   return `${baseUrl}/${path.str}?${queryString}`
-  //   // },
-  //   //. ugh
-  //   // getRemainingUrl(item) {
-  //   //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
-  //   // },
 }
 
 // function base(base) {
