@@ -7,8 +7,8 @@ test(`Query.make() - an empty query`, async t => {
   const query = Query.make()
   t.deepEqual(query.path, '')
   t.deepEqual(query.url, '/')
-  // t.deepEqual(query.fields, [])
-  // t.deepEqual(query.depth, 0)
+  t.deepEqual(query.fields, '')
+  t.deepEqual(query.depth, '')
 })
 
 // test(`Query.make({base})`, async t => {

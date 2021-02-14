@@ -1,5 +1,10 @@
 // build query objects
 
+const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
+const URL = require('url').URL // node lib
+const pathlib = require('path') // node lib
+const { Path } = require('./path')
+
 /**
  * Query objects are kind of like sql - they specify what you want to
  * get from a datasource.
@@ -12,21 +17,16 @@
  * @property {boolean} meta - asking for metadata about item
  * @property {integer} depth - depth to pursue related items
  * @property {string[]} fields - list of fields to retrieve
- * @property {function} url
- * @property {function} remainingUrl
+ * @property {function} url - represents query as a url
+ * @property {function} remainingUrl - url but cuts out first part of path
  */
 
-/**
- * Hapi api request objects.
- * @typedef {Object} TRequest
- * @property {Object} params
- * @property {Object} query
- */
-
-const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
-const URL = require('url').URL // node lib
-const pathlib = require('path') // node lib
-const { Path } = require('./path')
+// /**
+//  * Hapi api request objects.
+//  * @typedef {Object} TRequest
+//  * @property {Object} params
+//  * @property {Object} query
+//  */
 
 // /**
 //  * Make a query to get metadata info from the given path.
@@ -65,29 +65,32 @@ const { Path } = require('./path')
  *   params: { path: 'books/scifi' },
  *   query: 'fields=name,type&sortby=name'
  * }
- * @param request {TRequest}
+ * @param url {string}
  * @returns {TQuery}
  */
-function makeFromRequest({ base, request } = {}) {
-  const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
+// function parseUrl({ base, request } = {}) {
+function parseUrl(url) {
+  const urlobj = URL.parse(url)
+  // const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
   // note: querystring lib returns a string if one value, an array if >1
-  const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
-  const defaultQuery = {
-    fields: 'name,type,description',
-    depth: 0,
-    // sortby: '',
-    // where: '',
-    // follow: '', // 'children',
-    // offset: 0,
-    // limit: 20,
-    // q: '',
-  }
-  const params = { ...defaultQuery, ...requestQuery }
+  // const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
+  // const defaultQuery = {
+  //   fields: 'name,type,description',
+  //   depth: 0,
+  //   // sortby: '',
+  //   // where: '',
+  //   // follow: '', // 'children',
+  //   // offset: 0,
+  //   // limit: 20,
+  //   // q: '',
+  // }
+  // const params = { ...defaultQuery, ...requestQuery }
   return make({ base, path, params })
 }
 
 /**
  * Make a query object
+ * @param parts {Object} could be { base: 'http://localhost:4000', path: 'bookmarks', ... }
  * @returns {CQuery}
  */
 function make(parts) {
@@ -107,6 +110,8 @@ class CQuery {
     // const first = path.first
     this.base = ''
     this.path = ''
+    this.fields = ''
+    this.depth = ''
   }
   update(parts = {}) {
     for (const key of Object.keys(parts)) {
@@ -137,15 +142,9 @@ class CQuery {
   }
 }
 
-// function base(base) {
-//   const query = new CQuery(base)
-//   return query
-// }
-
 const Query = {
-  makeFromRequest,
+  parseUrl,
   make,
-  // base,
 }
 
 module.exports = { Query }
