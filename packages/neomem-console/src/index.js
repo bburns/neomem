@@ -1,5 +1,5 @@
 const { Console } = require('./console')
-const { Config } = require('./config')
+const config = require('./config')
 
-const console = Console.make(Config)
+const console = Console.make(config)
 console.start()

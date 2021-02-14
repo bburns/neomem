@@ -45,15 +45,15 @@ async function evalCommand(str, context, filename, callback) {
 }
 
 // make and return a console object. run it with console.start()
-function make(Config) {
+function make(config) {
   const context = {
-    baseUrl: Config.baseUrl,
-    location: Config.location,
+    baseUrl: config.baseUrl,
+    location: config.location,
   }
   function start() {
     printWelcome()
     printLocation(context)
-    const replServer = repl.start({ prompt: Config.prompt, eval: evalCommand })
+    const replServer = repl.start({ prompt: config.prompt, eval: evalCommand })
     replServer.context = context // this is how you pass context to the repl
   }
   return {
