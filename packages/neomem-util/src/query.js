@@ -5,12 +5,13 @@
  * get from a datasource.
  * may take a while to hammer out details.
  * @typedef {Object} TQuery
- * @property {TPath} path - path to item
+ * @property {string} base - baseurl, eg 'http://localhost:4000/api/v1'
+ * @property {TPath} path - path to item, eg { str: 'bookmarks', ... }
  * @property {boolean} meta - asking for metadata about item
  * @property {integer} depth - depth to pursue related items
  * @property {string[]} fields - list of fields to retrieve
- * @property {function} getUrl
- * @property {function} getRemainingUrl
+ * @property {function} url
+ * @property {function} remainingUrl
  */
 
 /**
@@ -98,6 +99,9 @@ function make({ base, path } = {}) {
   return query
 }
 
+/**
+ * @typedef CQuery
+ */
 class CQuery {
   constructor(base) {
     this.base = base
