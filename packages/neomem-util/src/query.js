@@ -86,12 +86,12 @@ function makeFromRequest({ request } = {}) {
  * Make a query object
  * @returns {TQuery}
  */
-function make({ path, queryDict } = {}) {
-  const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
+function make({ base, path, queryDict } = {}) {
+  // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
 
   const meta = path && path.str.endsWith('.neomem')
-  const depth = Number(queryDict.depth)
-  const fields = queryDict.fields.split(',')
+  const depth = queryDict && Number(queryDict.depth)
+  const fields = queryDict && queryDict.fields.split(',')
   // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
   // const first = path.first
 
@@ -104,37 +104,40 @@ function make({ path, queryDict } = {}) {
     //. should we make a class to handle these?
     // const s = `${query.path.str}?${query.paramsString}`
     // const url = baseUrl + '/' + s
-    getUrl(baseUrl) {
-      return `${baseUrl}/${path.str}?${queryString}`
-    },
+    // getUrl(baseUrl) {
+    //   return `${baseUrl}/${path.str}?${queryString}`
+    // },
     //. ugh
-    getRemainingUrl(item) {
-      return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
-    },
+    // getRemainingUrl(item) {
+    //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
+    // },
   }
   return query
 }
 
-class CQuery {
-  constructor(base) {
-    this.base = base
-    return this
-  }
-  fields(fields) {
-    this.fields = fields
-    return this
-  }
-}
+// class CQuery {
+//   constructor(base) {
+//     this.base = base
+//     return this
+//   }
+//   fields(fields) {
+//     this.fields = fields
+//     return this
+//   }
+//   get(prop) {
+//     return this[prop]
+//   }
+// }
 
-function base(base) {
-  const query = new CQuery(base)
-  return query
-}
+// function base(base) {
+//   const query = new CQuery(base)
+//   return query
+// }
 
 const Query = {
   makeFromRequest,
   make,
-  base,
+  // base,
 }
 
 module.exports = { Query }

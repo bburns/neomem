@@ -3,18 +3,18 @@ const { Query } = require('../src')
 
 const base = 'http://localhost:4000/api/v1'
 
-// test(`Query.make() - an empty query`, async t => {
-//   const query = Query.make()
-//   t.deepEqual(query.path.first, '')
-//   t.deepEqual(query.fields, [])
-//   t.deepEqual(query.depth, 0)
-// })
-
-test(`pok`, async t => {
-  const query = Query.base(base).fields('pok,lkm')
-  t.deepEqual(query.base, base)
-  t.deepEqual(query.fields, 'pok,lkm')
+test(`Query.make() - an empty query`, async t => {
+  const query = Query.make()
+  // t.deepEqual(query.path.first, '')
+  t.deepEqual(query.fields, [])
+  t.deepEqual(query.depth, 0)
 })
+
+// test(`pok`, async t => {
+//   const query = Query.base(base).fields('pok,lkm')
+//   t.deepEqual(query.get('base'), base)
+//   t.deepEqual(query.get('fields'), 'pok,lkm')
+// })
 
 // test('Query.makeFromRequest(request) - make from request', t => {
 //   // const baseUrl = 'http://localhost:4000/api/v1'
