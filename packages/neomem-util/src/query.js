@@ -28,7 +28,7 @@ const { Path } = require('./path')
  * @returns {TQuery}
  */
 function parseUrl(url) {
-  const urlobj = URL.parse(url)
+  const urlobj = new URL(url)
   // const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
   // note: querystring lib returns a string if one value, an array if >1
   // const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
@@ -47,9 +47,6 @@ function make(parts) {
   return query
 }
 
-/**
- * @typedef CQuery
- */
 class CQuery {
   constructor() {
     this.base = ''

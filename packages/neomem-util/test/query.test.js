@@ -20,11 +20,10 @@ test(`Query.make({base}) and update`, async t => {
   t.deepEqual(query.url, base + '/bookmarks')
 })
 
-// test(`pok`, async t => {
-//   const query = Query.base(base).fields('pok,lkm')
-//   t.deepEqual(query.get('base'), base)
-//   t.deepEqual(query.get('fields'), 'pok,lkm')
-// })
+test(`Query.parseUrl()`, async t => {
+  const query = Query.parseUrl(base)
+  t.deepEqual(query, {})
+})
 
 // test('Query.makeFromRequest(request) - make from request', t => {
 //   // const baseUrl = 'http://localhost:4000/api/v1'
