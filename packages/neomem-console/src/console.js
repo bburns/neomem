@@ -3,12 +3,10 @@
 
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const chalk = require('chalk') // color text
+const { Config } = require('./config')
 const { Command } = require('./command')
 const { Processor } = require('./processor')
 const package = require('../package')
-
-const prompt = '> '
-const defaultLocation = '/'
 
 // ui callbacks
 const ui = {
@@ -50,13 +48,13 @@ async function evalCommand(str, context, filename, callback) {
 // make and return a console object. run it with console.start()
 function make() {
   const context = {
-    baseUrl,
-    location,
+    baseUrl: Config.baseUrl,
+    location: Config.location,
   }
   function start() {
     printWelcome()
     printLocation(context)
-    const replServer = repl.start({ prompt, eval: evalCommand })
+    const replServer = repl.start({ prompt: Config.prompt, eval: evalCommand })
     replServer.context = context // this is how you pass context to the repl
   }
   return {
