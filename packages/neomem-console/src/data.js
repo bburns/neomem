@@ -12,13 +12,11 @@ async function exists({ path }) {
 
 /**
  * Get json from the given uri.
- * @param path { TPath } path object
- * @param metadata { Object } includes view of what you need
  * @returns json data
  */
-async function get({ path, metadata } = {}) {
-  const query = Query.make({ path, metadata })
-  const url = query.getUrl(Config.baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
+async function get(query) {
+  // const url = query.getUrl(Config.baseUrl) // eg "http://localhost:4000/bookmarks?fields=name,url"
+  const url = query.getUrl()
   const json = await Http.get({ url })
   return json
 }

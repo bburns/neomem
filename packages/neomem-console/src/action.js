@@ -47,46 +47,57 @@ async function history(options) {
 
 const h = history
 
+/**
+ * list [target]
+ */
 async function list(options) {
   const { tokens, context, ui } = options
 
   // parse input (will be more extensive)
   const target = tokens[1] || '' // eg 'books'
 
-  // get absolute path
-  const path = Path.make(context.location, target)
+  // // get absolute path
+  // const path = Path.make(context.location, target)
 
-  // get metadata
-  const metadata = await Metadata.get({ path })
+  // // get metadata
+  // const metadata = await Metadata.get({ path })
+
+  // // get data
+  // const data = await Data.get({ path, metadata })
+
+  // const metadata = await getMetadata(path)
+  // const fields = getFields(metadata)
+
+  // // build a query object and fetch results
+  // const query = {
+  //   path,
+  //   params: {
+  //     fields, // eg ['name', 'type', 'url']
+  //     sortby: 'name',
+  //     limit: 5,
+  //   },
+  // }
+  // const items = await api.get(query)
+  // console.log(items)
 
   // get data
-  const data = await Data.get({ path, metadata })
+  const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
+  const query = Query.path(path)
+  const view = await Data.get(query.meta('views/console/list'))
+  const items = await Data.get(query.view(view))
 
-  const metadata = await getMetadata(path)
-  const fields = getFields(metadata)
-  // build a query object and fetch results
-  const query = {
-    path,
-    params: {
-      fields, // eg ['name', 'type', 'url']
-      sortby: 'name',
-      limit: 5,
-    },
-  }
-  const items = await api.get(query)
-  console.log(items)
-
-  // //. recurse and build depth values for treelist
-  // //. handle tree indentation with item.depth
-  // // accessor: item => ' '.repeat(item.depth) + item.name,
+  //. recurse and build depth values for treelist
+  //. handle tree indentation with item.depth
+  // accessor: item => ' '.repeat(item.depth) + item.name,
   // const tableColumns = metadata.view.columns.map(column => ({
-  //   name: column.key,
-  //   accessor: column.key,
-  //   width: column.width || 10,
-  // }))
-  // const t = new Table(tableColumns, items)
-  // const s = t.toString()
-  // ui.print(s)
+  const tableColumns = view.columns.map(column => ({
+    name: column.key,
+    accessor: column.key,
+    width: column.width || 10,
+  }))
+  const t = new Table(tableColumns, items)
+  const s = t.toString()
+  ui.print(s)
 }
 
 /**
@@ -108,9 +119,9 @@ async function look(options) {
   // parse input
   const target = tokens[1] || '' // eg 'books/scifi' or ''
 
-  // get path, query, view, and item
+  // get data
   const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  const query = Query.make({ path })
+  const query = Query.path(path)
   const view = await Data.get(query.meta('views/console/look'))
   const item = await Data.get(query.view(view))
 
