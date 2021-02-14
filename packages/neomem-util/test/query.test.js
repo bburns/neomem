@@ -22,7 +22,7 @@ test(`Query.make({base}) and update`, async t => {
 
 test(`Query.parseUrl()`, async t => {
   const query = Query.parseUrl(base)
-  t.deepEqual(query, {})
+  t.deepEqual(query.base, base)
 })
 
 // test('Query.makeFromRequest(request) - make from request', t => {

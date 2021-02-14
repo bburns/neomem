@@ -1,7 +1,7 @@
 // build query objects
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
-const URL = require('url').URL // node lib
+const URL = require('url').URL // node lib https://nodejs.org/api/url.html
 const pathlib = require('path') // node lib
 const { Path } = require('./path')
 
@@ -12,7 +12,7 @@ const { Path } = require('./path')
  * then the backend parses the url back into a query object, which it
  * traverses to find the data to return.
  * @typedef {Object} TQuery
- * @property {string} base - base url, eg 'http://localhost:4000/api/v1'
+ * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
  * @property {TPath} path - path to item, eg { str: 'bookmarks', ... }
  * @property {string[]} fields - list of fields to retrieve
  * @property {boolean} meta - asking for metadata about item
@@ -25,7 +25,7 @@ const { Path } = require('./path')
  * Parse a url string to a TQuery object.
  * eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
  * @param url {string}
- * @returns {TQuery}
+ * @returns {CQuery}
  */
 function parseUrl(url) {
   const urlobj = new URL(url)
@@ -33,7 +33,13 @@ function parseUrl(url) {
   // note: querystring lib returns a string if one value, an array if >1
   // const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
   // return make({ base, path, params })
-  return urlobj
+  // return urlobj
+  const parts = {
+    base: urlobj.origin, //. better name than base? but it excludes /api/v1
+  }
+  const query = new CQuery()
+  query.update(parts)
+  return query
 }
 
 /**
