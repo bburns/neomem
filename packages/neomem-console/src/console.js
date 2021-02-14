@@ -3,7 +3,6 @@
 
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const chalk = require('chalk') // color text
-const { Config } = require('./config')
 const { Command } = require('./command')
 const { Processor } = require('./processor')
 const package = require('../package')
@@ -46,7 +45,7 @@ async function evalCommand(str, context, filename, callback) {
 }
 
 // make and return a console object. run it with console.start()
-function make() {
+function make(Config) {
   const context = {
     baseUrl: Config.baseUrl,
     location: Config.location,
