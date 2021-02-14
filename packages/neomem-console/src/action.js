@@ -108,17 +108,11 @@ async function look(options) {
   // parse input
   const target = tokens[1] || '' // eg 'books/scifi' or ''
 
-  // get absolute path
+  // get path, query, view, and item
   const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-
-  // get metadata about item
-  // const metadata = await Metadata.get({ path })
-  // const metadata = await Data.get({ path, metadata: true }) //?
-
-  // get data
-  //. what if this got the metadata first, then got what was needed?
-  // or do we need to be more explicit at this level?
-  const item = await Data.get({ path })
+  const query = Query.make({ path })
+  const view = await Data.get(query.meta('views/console/look'))
+  const item = await Data.get(query.view(view))
 
   // print location and table with item properties
   await location(options)

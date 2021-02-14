@@ -1,6 +1,5 @@
 // handle metadata
 
-// const pathLib = require('path') // node lib
 const { Data } = require('./data')
 const { Query } = require('neomem-util')
 
