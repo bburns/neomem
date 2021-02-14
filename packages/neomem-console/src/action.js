@@ -84,16 +84,18 @@ async function list(options) {
   // console.log(items)
 
   // get data
-  const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  const query = Query.make({ base: context.base, path })
+  const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
+  const query = Query.make({ base: context.base, pathobj })
   const view = await Data.get(query.meta('views/console/list'))
   const items = await Data.get(query.view(view))
+  console.log(items)
 
   //. recurse and build depth values for treelist
   //. handle tree indentation with item.depth
   // accessor: item => ' '.repeat(item.depth) + item.name,
   // const tableColumns = metadata.view.columns.map(column => ({
-  const tableColumns = view.columns.map(column => ({
+  const columns = view.columns || 'name,type,description'.split(',')
+  const tableColumns = columns.map(column => ({
     name: column.key,
     accessor: column.key,
     width: column.width || 10,
@@ -125,7 +127,6 @@ async function look(options) {
   // get data
   const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
   const query = Query.make({ base: context.base, path: pathobj.str })
-  console.log(query)
   const view = await Data.get(query.meta('views/console/look'))
   const item = await Data.get(query.view(view))
 
@@ -136,7 +137,7 @@ async function look(options) {
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
-  const fields = view.fields
+  const fields = view.fields || 'name,type,description'.split(',')
   const rows = fields.map(field => ({ name: field, value: item[field] }))
   const t = new Table(tableColumns, rows)
   const s = t.toString()
