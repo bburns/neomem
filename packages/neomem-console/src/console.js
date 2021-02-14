@@ -47,7 +47,7 @@ async function evalCommand(str, context, filename, callback) {
 // make and return a console object. run it with console.start()
 function make(config) {
   const context = {
-    baseUrl: config.baseUrl,
+    base: config.base,
     location: config.location,
   }
   function start() {

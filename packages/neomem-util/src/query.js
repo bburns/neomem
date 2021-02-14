@@ -87,13 +87,6 @@ function makeFromRequest({ request } = {}) {
  * @returns {TQuery}
  */
 function make({ path, queryDict } = {}) {
-  // if (request) {
-  //   return makeFromRequest({ request })
-  // }
-  // if (metadata === true) {
-  //   return makeMetadataQuery({ path })
-  // }
-
   const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
 
   const meta = path && path.str.endsWith('.neomem')
@@ -122,9 +115,26 @@ function make({ path, queryDict } = {}) {
   return query
 }
 
+class CQuery {
+  constructor(base) {
+    this.base = base
+    return this
+  }
+  fields(fields) {
+    this.fields = fields
+    return this
+  }
+}
+
+function base(base) {
+  const query = new CQuery(base)
+  return query
+}
+
 const Query = {
   makeFromRequest,
   make,
+  base,
 }
 
 module.exports = { Query }

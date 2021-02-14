@@ -39,6 +39,9 @@ go.undo = async options => {
   context.location = options.preservedLocation
 }
 
+/**
+ * history
+ */
 async function history(options) {
   const { Processor, ui } = options
   const history = Processor.getHistory()
@@ -121,7 +124,7 @@ async function look(options) {
 
   // get data
   const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  const query = Query.path(path)
+  const query = Query.base(context.base).path(path)
   const view = await Data.get(query.meta('views/console/look'))
   const item = await Data.get(query.view(view))
 
@@ -142,16 +145,25 @@ async function look(options) {
 const l = look
 
 //. will require processor to leave items in history tree, move a pointer on undo
+/**
+ * redo
+ */
 async function redo(options) {
   const { Processor } = options
   await Processor.redo(options)
 }
 
+/**
+ * undo
+ */
 async function undo(options) {
   const { Processor } = options
   await Processor.undo(options)
 }
 
+/**
+ * unknown
+ */
 async function unknown(options) {
   const { tokens, context, ui } = options
   ui.print(`Unknown command: ${tokens[0]}.`)
