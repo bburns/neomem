@@ -11,10 +11,12 @@ test(`Query.make() - an empty query`, async t => {
 })
 
 test(`Query.make({base})`, async t => {
-  const query = Query.make()
+  const query = Query.make({ base })
+  query.update({ path: 'bookmarks' })
   // t.deepEqual(query.path.first, '')
-  t.deepEqual(query.fields, [])
-  t.deepEqual(query.depth, 0)
+  // t.deepEqual(query.fields, [])
+  // t.deepEqual(query.depth, 0)
+  t.deepEqual(query.url(), 'pokpok')
 })
 
 // test(`pok`, async t => {

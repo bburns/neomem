@@ -84,6 +84,7 @@ function makeFromRequest({ request } = {}) {
 
 /**
  * Make a query object
+ * @param {Object {base?: string, path?: string }}
  * @returns {TQuery}
  */
 function make({ base, path } = {}) {
@@ -96,7 +97,8 @@ function make({ base, path } = {}) {
 
   // const query = new CQuery().base(base).path(path)
   const query = new CQuery(base)
-  query.path(path)
+  // query.path(path)
+  query.update({ path })
   // const query = {
   //   base,
   //   path,
@@ -111,18 +113,28 @@ function make({ base, path } = {}) {
 class CQuery {
   constructor(base) {
     this.base = base
+    this.path = Path.make()
     return this
   }
-  path(path) {
-    this.path = path
-    return this
+  update(keyvalues) {
+    for (const key of Object.keys(keyvalues)) {
+      this[key] = keyvalues[key]
+    }
   }
-  fields(fields) {
-    this.fields = fields
-    return this
+  // path(path) {
+  //   this.path = path
+  //   return this
+  // }
+  // fields(fields) {
+  //   this.fields = fields
+  //   return this
+  // }
+  get(property) {
+    return this[property]
   }
-  get(prop) {
-    return this[prop]
+  url() {
+    //. use node's url lib to construct url
+    return this.base + this.path.str
   }
   //   //. should we make a class to handle these?
   //   // const s = `${query.path.str}?${query.paramsString}`
