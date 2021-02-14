@@ -1,6 +1,6 @@
 // get, post, put, delete handlers
 
-const { Http, Query } = require('neomem-util')
+const { Http } = require('neomem-util')
 const { Config } = require('./config')
 
 //. ask a datasource if the given path exists

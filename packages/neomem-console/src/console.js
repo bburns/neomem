@@ -49,9 +49,11 @@ async function evalCommand(str, context, filename, callback) {
 
 // make and return a console object. run it with console.start()
 function make() {
-  const context = {}
-  function start(location = defaultLocation) {
-    context.location = location
+  const context = {
+    baseUrl,
+    location,
+  }
+  function start() {
     printWelcome()
     printLocation(context)
     const replServer = repl.start({ prompt, eval: evalCommand })
