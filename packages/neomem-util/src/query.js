@@ -68,36 +68,41 @@ class CQuery {
   /**
    * returns a query that requests the metadata assoc with the location
    */
-  meta(metapath) {
-    const query = { ...this }
-    query.path += '.neomem'
-    console.log(query)
+  meta(metapath = '') {
+    // const query = { ...this }
+    // query.path += '.neomem' + (metapath ? '/' + metapath : '')
+    // console.log(74, query)
+    const query = new CQuery()
+    query.update(this.parts)
+    query.path += '.neomem' + (metapath ? '/' + metapath : '')
     return query
+  }
+
+  get parts() {
+    return { ...this }
   }
 
   /**
    * returns a query that requests the fields assoc with the given view obj
    */
   view(view) {
-    const query = { ...this }
-    console.log(query)
+    // const query = { ...this }
+    // console.log(83, query)
+    const query = new CQuery()
+    query.update(this.parts)
     return query
   }
 
   get url() {
     //. use node's url lib to construct url
     const url = `${this.base}/${this.path}`
-    //   //. should we make a class to handle these?
     // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
-    //   // const s = `${query.path.str}?${query.paramsString}`
-    //   // const url = baseUrl + '/' + s
-    //   // getUrl(baseUrl) {
-    //   //   return `${baseUrl}/${path.str}?${queryString}`
-    //   // },
-    //   //. ugh
-    //   // getRemainingUrl(item) {
-    //   //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
-    //   // },
+    // const s = `${query.path.str}?${query.paramsString}`
+    //. ugh
+    // getRemainingUrl(item) {
+    //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
+    // },
+    console.log(101, url)
     return url
   }
 }

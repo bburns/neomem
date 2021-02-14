@@ -123,8 +123,8 @@ async function look(options) {
   const target = tokens[1] || '' // eg 'books/scifi' or ''
 
   // get data
-  const path = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  const query = Query.make({ base: context.base, path: path.str })
+  const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
+  const query = Query.make({ base: context.base, path: pathobj.str })
   console.log(query)
   const view = await Data.get(query.meta('views/console/look'))
   const item = await Data.get(query.view(view))
@@ -136,6 +136,7 @@ async function look(options) {
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
+  const fields = view.fields
   const rows = fields.map(field => ({ name: field, value: item[field] }))
   const t = new Table(tableColumns, rows)
   const s = t.toString()

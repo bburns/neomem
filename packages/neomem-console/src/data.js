@@ -15,7 +15,9 @@ async function exists({ path }) {
  * @returns {Object} json data
  */
 async function get(query) {
-  const json = await Http.get({ url: query.url })
+  // console.log('get', query.url)
+  const url = query.url
+  const json = await Http.get({ url })
   return json
 }
 
