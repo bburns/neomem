@@ -59,36 +59,12 @@ async function list(options) {
   // parse input (will be more extensive)
   const target = tokens[1] || '' // eg 'books'
 
-  // // get absolute path
-  // const path = Path.make(context.location, target)
-
-  // // get metadata
-  // const metadata = await Metadata.get({ path })
-
-  // // get data
-  // const data = await Data.get({ path, metadata })
-
-  // const metadata = await getMetadata(path)
-  // const fields = getFields(metadata)
-
-  // // build a query object and fetch results
-  // const query = {
-  //   path,
-  //   params: {
-  //     fields, // eg ['name', 'type', 'url']
-  //     sortby: 'name',
-  //     limit: 5,
-  //   },
-  // }
-  // const items = await api.get(query)
-  // console.log(items)
-
   // get data
   const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
   const query = Query.make({ base: context.base, pathobj })
   const view = await Data.get(query.meta('views/console/list'))
   const items = await Data.get(query.view(view))
-  console.log(items)
+  console.log(67, items)
 
   //. recurse and build depth values for treelist
   //. handle tree indentation with item.depth

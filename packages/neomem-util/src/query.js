@@ -61,35 +61,32 @@ class CQuery {
     }
   }
 
+  get parts() {
+    return { ...this }
+  }
+
   get(property) {
     return this[property]
   }
 
   /**
-   * returns a query that requests the metadata assoc with the location
+   * returns a new query that requests the metadata assoc with the location
    */
   meta(metapath = '') {
-    // const query = { ...this }
-    // query.path += '.neomem' + (metapath ? '/' + metapath : '')
-    // console.log(74, query)
     const query = new CQuery()
     query.update(this.parts)
     query.path += '.neomem' + (metapath ? '/' + metapath : '')
     return query
   }
 
-  get parts() {
-    return { ...this }
-  }
-
   /**
-   * returns a query that requests the fields assoc with the given view obj
+   * returns a new query that requests the fields assoc with the given view obj
    */
   view(view) {
-    // const query = { ...this }
-    // console.log(83, query)
     const query = new CQuery()
     query.update(this.parts)
+    const fields = view.fields
+    query.update({ fields })
     return query
   }
 
