@@ -10,6 +10,13 @@ test(`Query.make() - an empty query`, async t => {
   t.deepEqual(query.depth, 0)
 })
 
+test(`Query.make({base})`, async t => {
+  const query = Query.make()
+  // t.deepEqual(query.path.first, '')
+  t.deepEqual(query.fields, [])
+  t.deepEqual(query.depth, 0)
+})
+
 // test(`pok`, async t => {
 //   const query = Query.base(base).fields('pok,lkm')
 //   t.deepEqual(query.get('base'), base)

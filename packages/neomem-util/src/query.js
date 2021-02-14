@@ -86,48 +86,55 @@ function makeFromRequest({ request } = {}) {
  * Make a query object
  * @returns {TQuery}
  */
-function make({ base, path, queryDict } = {}) {
+function make({ base, path } = {}) {
   // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
-
-  const meta = path && path.str.endsWith('.neomem')
-  const depth = queryDict && Number(queryDict.depth)
-  const fields = queryDict && queryDict.fields.split(',')
+  // const meta = path && path.str.endsWith('.neomem')
+  // const depth = Number(queryDict.depth)
+  // const fields = queryDict.fields.split(',')
   // const fields = typeof queryDict.fields === 'string' ? [queryDict.fields] : queryDict.fields
   // const first = path.first
 
-  const query = {
-    path,
-    meta,
-    depth,
-    fields,
-    // first,
-    //. should we make a class to handle these?
-    // const s = `${query.path.str}?${query.paramsString}`
-    // const url = baseUrl + '/' + s
-    // getUrl(baseUrl) {
-    //   return `${baseUrl}/${path.str}?${queryString}`
-    // },
-    //. ugh
-    // getRemainingUrl(item) {
-    //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
-    // },
-  }
+  // const query = new CQuery().base(base).path(path)
+  const query = new CQuery(base)
+  query.path(path)
+  // const query = {
+  //   base,
+  //   path,
+  //   meta,
+  // depth,
+  // fields,
+  // first,
+  // }
   return query
 }
 
-// class CQuery {
-//   constructor(base) {
-//     this.base = base
-//     return this
-//   }
-//   fields(fields) {
-//     this.fields = fields
-//     return this
-//   }
-//   get(prop) {
-//     return this[prop]
-//   }
-// }
+class CQuery {
+  constructor(base) {
+    this.base = base
+    return this
+  }
+  path(path) {
+    this.path = path
+    return this
+  }
+  fields(fields) {
+    this.fields = fields
+    return this
+  }
+  get(prop) {
+    return this[prop]
+  }
+  //   //. should we make a class to handle these?
+  //   // const s = `${query.path.str}?${query.paramsString}`
+  //   // const url = baseUrl + '/' + s
+  //   // getUrl(baseUrl) {
+  //   //   return `${baseUrl}/${path.str}?${queryString}`
+  //   // },
+  //   //. ugh
+  //   // getRemainingUrl(item) {
+  //   //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
+  //   // },
+}
 
 // function base(base) {
 //   const query = new CQuery(base)
