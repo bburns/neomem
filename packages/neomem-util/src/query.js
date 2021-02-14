@@ -92,7 +92,7 @@ class CQuery {
     //     path: path.add('.neomem'),
     //   }
     //   return query
-    this.path += '/.neomem'
+    this.path += '.neomem'
     return this
   }
   get url() {
