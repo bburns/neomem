@@ -2,14 +2,14 @@
 // save to user's config folder
 
 const metadata = {
-  view: {
-    columns: [
-      { key: 'name', width: 10 },
-      { key: 'type', width: 16 },
-      { key: 'url', width: 30 },
-      { key: 'description', width: 20 },
-    ],
-  },
+  // view: {
+  columns: [
+    { key: 'name', width: 10 },
+    { key: 'type', width: 16 },
+    { key: 'url', width: 30 },
+    { key: 'description', width: 20 },
+  ],
+  // },
 }
 
 async function get() {

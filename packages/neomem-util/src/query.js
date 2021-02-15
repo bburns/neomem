@@ -56,9 +56,8 @@ class CQuery {
   }
 
   get fields() {
-    const q = querystring.parse(this.search)
-    const fields = q.fields.split(',')
-    console.log(61, q, fields)
+    const q = querystring.parse(this.search || '')
+    const fields = q.fields && q.fields.split(',')
     return fields
   }
 
@@ -71,23 +70,25 @@ class CQuery {
     return query
   }
 
+  get isMeta() {
+    return this.path && this.path.startsWith('.neomem')
+  }
+
   /**
    * returns a new query that requests the fields assoc with the given view obj
    */
   view(view) {
     const query = new CQuery(this.parts)
-    const search = view.fields
-      ? 'fields=' + view.fields.map(field => field.name).join(',')
+    const search = view.columns
+      ? 'fields=' + view.columns.map(column => column.key).join(',')
       : ''
     query.update({ search })
-    console.log(71, query)
     return query
   }
 
   get url() {
     //. use node's url lib to construct url?
     const url = `${this.base}/${this.path}?${this.search}`
-    console.log(78, url)
     return url
   }
 
