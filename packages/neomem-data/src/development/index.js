@@ -11,9 +11,13 @@ const { Types } = require('./types')
 // // used as default query for all fns
 // const emptyQuery = Query.makeFromRequest()
 
-// get an item or items
-//. recurse or loop with stack to handle folders etc
+/** get an item or items
+ * @param query {CQuery}
+ * @param start? {Object}
+ * //. recurse or loop with stack to handle folders etc
+ */
 async function get(query, start = undefined) {
+  console.log('nmdata.get', query, start)
   if (query.isMeta) {
     return Meta.get()
   }
@@ -37,8 +41,12 @@ async function get(query, start = undefined) {
     return json
   }
 
-  // return projection of items
-  return items.map(item => Projection.make(item, query.fields))
+  return items
+
+  // // return projection of items
+  // return items.map(item =>
+  //   Projection.make(item, query.params.fields.split(','))
+  // )
 }
 
 async function post(query) {}
