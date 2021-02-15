@@ -11,14 +11,19 @@ test(`Query.make() - an empty query`, async t => {
 })
 
 test(`Query.make({base}) and update`, async t => {
+  // should make a query that is updateable
   const query = Query.make({ base })
   t.deepEqual(query.base, base)
   query.update({ path: 'bookmarks' })
   t.deepEqual(query.path, 'bookmarks')
   t.deepEqual(query.url, base + '/bookmarks')
+  query.path = 'pokpok'
+  t.deepEqual(query.path, 'pokpok')
+  t.deepEqual(query.url, base + '/pokpok')
 })
 
 test(`Query.make and .meta`, async t => {
+  // should make a new query with path + /.neomem
   const path = 'bookmarks'
   const query = Query.make({ base, path })
   t.deepEqual(query.path, path)
@@ -27,6 +32,7 @@ test(`Query.make and .meta`, async t => {
 })
 
 test(`Query.make and .view`, async t => {
+  // should make a new query with fields given by the view metadata
   const path = 'bookmarks'
   const query = Query.make({ base, path })
   t.deepEqual(query.path, path)
@@ -39,7 +45,7 @@ test(`Query.make and .view`, async t => {
 
 // -------
 
-// test(`Query.parseUrl()`, async t => {
+// test(`Query.parseUrlObj()`, async t => {
 //   const query = Query.parseUrlObj(base)
 //   t.deepEqual(query.base, base)
 // })

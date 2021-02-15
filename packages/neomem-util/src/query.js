@@ -1,6 +1,6 @@
 // build query objects and urls
 
-const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
+// const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 // const URL = require('url').URL // node lib https://nodejs.org/api/url.html
 // const pathlib = require('path') // node lib
 // const { Path } = require('./path')
@@ -14,8 +14,8 @@ const querystring = require('querystring') // node lib https://nodejs.org/api/qu
  * @typedef {Object} TQuery
  * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
  * @property {string} path - path to item, eg 'bookmarks/books'
- * @property {string} fields - list of field names to retrieve
- * @property {string} depth - depth to pursue related items
+ * @property {Object} params - dict of params and their js representations
+ * @property {string} hash - the hashtag at the end of the url, eg #foo
  * @property {string} url - represents query as a url
  * @property {string} remainingUrl - url but cuts out first part of path
  */
@@ -29,6 +29,10 @@ class CQuery {
     return this
   }
 
+  /**
+   * Update the query with the given parts,
+   * e.g. query.update({ path: 'pokpok', hash: 'kjnkjn' })
+   */
   update(parts = {}) {
     for (const key of Object.keys(parts)) {
       this[key] = parts[key]
@@ -36,27 +40,20 @@ class CQuery {
     return this
   }
 
+  /**
+   * Get the enumerable parts of the query { base, path, params, hash }
+   */
   get parts() {
     return { ...this }
   }
-
-  // get(property) {
-  //   return this[property]
-  // }
 
   get first() {
     const first = this.path ? this.path.split('/')[0] : ''
     return first
   }
 
-  // get fields() {
-  //   const q = querystring.parse(this.search || '')
-  //   const fields = q.fields && q.fields.split(',')
-  //   return fields
-  // }
-
   /**
-   * returns a new query that requests the metadata assoc with the location
+   * Get a new query that requests the metadata assoc with the location.
    */
   meta(metapath = '') {
     const query = new CQuery(this.parts)
@@ -69,19 +66,22 @@ class CQuery {
   }
 
   /**
-   * returns a new query that requests the fields assoc with the given view obj
+   * Get a new query that requests the fields assoc with the given view object.
+   * e.g. if view is { columns: [{key:'name'}, {key:'url'}]} then
+   * this would update query.params.fields to ['name', 'url'].
    */
   view(view) {
     const query = new CQuery(this.parts)
-    // const fields = view.columns
-    //   ? 'fields=' + view.columns.map(column => column.key).join(',')
-    //   : ''
-    // query.update({ fields })
-    // query.update({ search })
     query.params.fields = view.columns.map(column => column.key)
     return query
   }
 
+  /**
+   * Get a string representation of the params object.
+   * e.g. "fields=name,url&sortby=name"
+   */
+  //. oh, will fail if fields is an array -
+  //. use URL's parser etc
   get paramsString() {
     const skeys = []
     for (const key of Object.keys(this.params)) {
@@ -93,24 +93,23 @@ class CQuery {
   }
 
   get url() {
-    //. use node's url lib to construct url?
-    // const url = `${this.base}/${this.path}?${this.paramsString}`
+    //. use node's url lib to construct url
     const paramsString = this.paramsString
     let url = this.base
     url += this.path ? '/' + this.path : ''
     url += paramsString ? '?' + paramsString : ''
-    console.log(97, 'get url', url)
     return url
   }
 
-  // getRemainingUrl(item) {
-  //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
+  // remainingUrl(item) {
+  //   return `${item.url || ''}/api/v1/${path.restString}?${paramsString}`
   // },
 }
 
 /**
- * Make a query object manually
- * @param parts {Object} eg { base: 'http://localhost:4000/api/v1', path: 'bookmarks', ... }
+ * Make a query object from the given parts,
+ * eg make({ base: 'http://localhost:4000/api/v1', path: 'bookmarks', ... })
+ * @param parts {Object}
  * @returns {CQuery}
  */
 function make(parts) {
