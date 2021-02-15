@@ -1,4 +1,4 @@
-const { Http } = require('./http')
+const { Http } = require('./protocols/http')
 const { Path } = require('./path')
 const { Projection } = require('./projection')
 const { Query } = require('./query')

@@ -22,7 +22,7 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
-  if (query.depth === 0) {
+  if (Number(query.depth) === 0) {
     return Projection.make(start, query.fields) // get ONE item
   }
 

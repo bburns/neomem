@@ -31,15 +31,20 @@ function make(parts) {
   return query
 }
 
+/**
+ * Query class
+ */
 class CQuery {
   constructor(parts) {
     this.update(parts)
+    return this
   }
 
   update(parts = {}) {
     for (const key of Object.keys(parts)) {
       this[key] = parts[key]
     }
+    return this
   }
 
   get parts() {
@@ -79,16 +84,28 @@ class CQuery {
    */
   view(view) {
     const query = new CQuery(this.parts)
-    const search = view.columns
+    const fields = view.columns
       ? 'fields=' + view.columns.map(column => column.key).join(',')
       : ''
-    query.update({ search })
+    query.update({ fields })
+    // query.update({ search })
     return query
+  }
+
+  get search() {
+    const skeys = []
+    for (const key of Object.keys(this)) {
+      const skey = key + '=' + this[key]
+      skeys.push(skey)
+    }
+    const s = skeys.join('&')
+    return s
   }
 
   get url() {
     //. use node's url lib to construct url?
     const url = `${this.base}/${this.path}?${this.search}`
+    console.log(97, 'get url', url)
     return url
   }
 

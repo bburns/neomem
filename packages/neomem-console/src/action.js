@@ -103,10 +103,9 @@ async function look(options) {
   const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
   const query = Query.make({ base: context.base, path: pathobj.str })
   const view = await Data.get(query.meta('views/console/look'))
-  // const view = { fields: [{ name: 'name' }, { name: 'url' }] }
   console.log(106, view)
-  const q2 = query.view(view)
-  console.log(109, q2)
+  const q2 = query.view(view).update({ depth: 0 })
+  console.log(q2)
   const item = await Data.get(q2)
   console.log(108, item)
 
