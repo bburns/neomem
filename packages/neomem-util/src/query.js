@@ -64,15 +64,18 @@ class CQuery {
    */
   view(view) {
     const query = new CQuery(this.parts)
-    //. update search, not fields
-    const fields = view.fields
-    query.update({ fields })
+    const search = view.fields
+      ? 'fields=' + view.fields.map(field => field.name).join(',')
+      : ''
+    query.update({ search })
+    console.log(71, query)
     return query
   }
 
   get url() {
     //. use node's url lib to construct url?
     const url = `${this.base}/${this.path}?${this.search}`
+    console.log(78, url)
     return url
   }
 
