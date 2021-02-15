@@ -43,6 +43,14 @@ test(`Query.make and .view`, async t => {
   t.deepEqual(q2.paramsString, 'fields=name,url')
 })
 
+test(`Query.make and set params`, async t => {
+  const query = Query.make()
+  t.deepEqual(query.base, '')
+  query.set('fields', 'name,url')
+  t.deepEqual(query.paramsString, 'fields=name,url')
+  t.deepEqual(query.url, '?fields=name,url')
+})
+
 // -------
 
 // test(`Query.parseUrlObj()`, async t => {

@@ -32,6 +32,7 @@ class CQuery {
   /**
    * Update the query with the given parts,
    * e.g. query.update({ path: 'pokpok', hash: 'kjnkjn' })
+   * @returns {CQuery} this query, for chaining
    */
   update(parts = {}) {
     for (const key of Object.keys(parts)) {
@@ -42,11 +43,27 @@ class CQuery {
 
   /**
    * Get the enumerable parts of the query { base, path, params, hash }
+   * @returns {Object}
    */
   get parts() {
     return { ...this }
   }
 
+  /**
+   * Set a param value, e.g. query.set('fields', 'name,url')
+   * @param key {string}
+   * @param value {any}
+   * @return {CQuery} this query, for chaining
+   */
+  set(key, value) {
+    this.params[key] = value
+    return this
+  }
+
+  /**
+   * Get the first part of the path
+   * @returns {string}
+   */
   get first() {
     const first = this.path ? this.path.split('/')[0] : ''
     return first
@@ -54,6 +71,7 @@ class CQuery {
 
   /**
    * Get a new query that requests the metadata assoc with the location.
+   * @returns {CQuery}
    */
   meta(metapath = '') {
     const query = new CQuery(this.parts)
@@ -61,6 +79,10 @@ class CQuery {
     return query
   }
 
+  /**
+   * Is the current query a metaquery?
+   * @returns {boolean}
+   */
   get isMeta() {
     return this.path && this.path.startsWith('.neomem')
   }
@@ -85,19 +107,31 @@ class CQuery {
   get paramsString() {
     const skeys = []
     for (const key of Object.keys(this.params)) {
-      const skey = key + '=' + this.params[key]
+      // const skey = key + '=' + this.params[key]
+      const value = this.params[key]
+      const svalue = Array.isArray(value) ? value.join(',') : value
+      const skey = key + '=' + svalue
       skeys.push(skey)
     }
     const s = skeys.join('&')
     return s
   }
 
+  /**
+   * Get the url string representation of this query.
+   * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
+   */
   get url() {
-    //. use node's url lib to construct url
     const paramsString = this.paramsString
     let url = this.base
     url += this.path ? '/' + this.path : ''
     url += paramsString ? '?' + paramsString : ''
+    url += this.hash ? '#' + this.hash : ''
+    // // use node's url lib to construct url?
+    // const urlobj = new URL(this.path || '', this.base)
+    // urlobj.search = this.paramsString
+    // urlobj.hash = this.hash
+    // const url = urlobj.href
     return url
   }
 
