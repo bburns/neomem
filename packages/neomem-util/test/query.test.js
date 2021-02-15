@@ -4,26 +4,24 @@ const { Query } = require('../src')
 const base = 'http://localhost:4000/api/v1'
 
 test(`Query.make() - an empty query`, async t => {
-  const query = Query.make()
-  t.deepEqual(query.base, '')
-  t.deepEqual(query.path, '')
-  t.deepEqual(query.fields, '')
-  t.deepEqual(query.depth, '')
-  t.deepEqual(query.url, '/')
-})
-
-test(`Query.make({base}) and update`, async t => {
   const query = Query.make({ base })
   t.deepEqual(query.base, base)
-  query.update({ path: 'bookmarks' })
-  t.deepEqual(query.path, 'bookmarks')
-  t.deepEqual(query.url, base + '/bookmarks')
+  t.deepEqual(query.path, undefined)
+  t.deepEqual(query.url, base)
 })
 
-test(`Query.parseUrl()`, async t => {
-  const query = Query.parseUrl(base)
-  t.deepEqual(query.base, base)
-})
+// test(`Query.make({base}) and update`, async t => {
+//   const query = Query.make({ base })
+//   t.deepEqual(query.base, base)
+//   query.update({ path: 'bookmarks' })
+//   t.deepEqual(query.path, 'bookmarks')
+//   t.deepEqual(query.url, base + '/bookmarks')
+// })
+
+// test(`Query.parseUrl()`, async t => {
+//   const query = Query.parseUrlObj(base)
+//   t.deepEqual(query.base, base)
+// })
 
 // test('Query.makeFromRequest(request) - make from request', t => {
 //   // const baseUrl = 'http://localhost:4000/api/v1'
