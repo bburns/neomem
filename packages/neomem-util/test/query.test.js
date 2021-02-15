@@ -27,8 +27,8 @@ test(`Query.make and .meta`, async t => {
   const path = 'bookmarks'
   const query = Query.make({ base, path })
   t.deepEqual(query.path, path)
-  const q2 = query.meta()
-  t.deepEqual(q2.path, path + '/.neomem')
+  const metaquery = query.meta()
+  t.deepEqual(metaquery.path, path + '/.neomem')
 })
 
 test(`Query.make and .view`, async t => {
@@ -37,10 +37,9 @@ test(`Query.make and .view`, async t => {
   const query = Query.make({ base, path })
   t.deepEqual(query.path, path)
   const view = { columns: [{ key: 'name' }, { key: 'url' }] }
-  const q2 = query.view(view)
-  console.log(q2)
-  t.deepEqual(q2.path, path)
-  t.deepEqual(q2.paramsString, 'fields=name,url')
+  const viewquery = query.view(view)
+  t.deepEqual(viewquery.path, path)
+  t.deepEqual(viewquery.paramsString, 'fields=name,url')
 })
 
 test(`Query.make and set params`, async t => {
