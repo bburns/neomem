@@ -101,13 +101,13 @@ async function look(options) {
 
   // get data
   const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  // const query = Query.make({ base: context.base, path: pathobj.str })
-  const query = Query.make({
-    base: context.base,
-    path: pathobj.str,
-    search: 'fields=name,url&sortby=name',
-  })
-  console.log(query.url)
+  const query = Query.make({ base: context.base, path: pathobj.str })
+  // const query = Query.make({
+  //   base: context.base,
+  //   path: pathobj.str,
+  //   search: 'fields=name,url&sortby=name',
+  // })
+  // console.log(query.url)
   const view = await Data.get(query.meta('views/console/look'))
   console.log(view)
   const item = await Data.get(query.view(view))

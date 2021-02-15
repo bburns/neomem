@@ -81,80 +81,24 @@ class CQuery {
   // },
 }
 
-// /**
-//  * Parse a url object to a CQuery object.
-//  * eg url = 'http://localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
-//  * => urlobj = { protocol: 'http', host: 'localhost', ... }
-//  * => query = { base: 'http://localhost:4003/api/v1', path: 'books/scifi', ... }
-//  * @param urlobj {Object}
-//  * @returns {CQuery}
-//  */
-// function parseUrlObj(urlobj, apiversion = '') {
-//   console.log(93, urlobj, apiversion)
-//   console.log(94, urlobj.format()) // http://localhost:4003/api/v1/books/scifi?fields=...
-//   console.log(95, urlobj.href)
-//   // console.log(urlobj.resolve('pokpok')) // http://localhost:4003/pokpok
-//   // const urlobj = new URL(url)
-//   // console.log(urlobj.searchParams) // undefined
-
-//   const url = urlobj.format() // the url string
-//   console.log(100, url)
-//   const u = new URL(url)
-//   console.log(102, u)
-//   const { origin, pathname, search, hash } = u
-//   const base = origin + apiversion
-
-//   // const { protocol, host, port, pathname } = urlobj
-//   // const base =
-//   //   protocol + '://' + host + port
-//   //     ? ':' + port
-//   //     : '' + apiversion
-//   //     ? '/' + apiversion
-//   //     : ''
-
-//   // console.log(urlobj.context)
-//   // const { scheme, host, port, fragment } = urlobj.context
-//   // const pathname = urlobj.pathname
-//   // const search = urlobj.context.query
-
-//   // const base = scheme + '//' + host + port ? ':' + port : '' + apiversion
-//   const path = pathname.startsWith(apiversion)
-//     ? pathname.slice(apiversion.length)
-//     : pathname
-//   // const hash = fragment
-
-//   // const search = urlobj.search
-//   // const hash = urlobj.hash
-
-//   const parts = { base, path, search, hash }
-//   console.log(parts)
-//   const query = new CQuery(parts)
-//   console.log(query)
-//   return query
-// }
-
 /**
  * Parse a Hapi request into a query object
  * @param request {Object}
  * @returns {CQuery}
  */
 function parseRequest(request, apiversion = '') {
-  // console.log(143, request)
   const { protocol, host, port } = request.server.info
-  // const apiversion = request.path // eg '/api/v1'
   const base = protocol + '://' + host + (port ? ':' + port : '') + apiversion
   const path = request.params.path // eg 'bookmarks/books'
   // const search = request.query // parsed query object
   const search = request.raw.req.url.split('?')[1] // eg 'fields=name,url&sortby=name'
   const hash = request.hash
   const query = make({ base, path, search, hash })
-  console.log(query)
   return query
 }
 
 const Query = {
   make,
-  // parseUrlObj,
   parseRequest,
 }
 

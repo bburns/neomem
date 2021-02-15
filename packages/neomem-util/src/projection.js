@@ -3,7 +3,7 @@
  * @param item {Object}
  * @param fields {string[]}
  */
-function make(item, fields) {
+function make(item, fields = []) {
   const projection = {}
   fields.forEach(field => (projection[field] = item[field]))
   return projection
