@@ -1,4 +1,4 @@
-// build query objects
+// build query objects and url representations
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const URL = require('url').URL // node lib https://nodejs.org/api/url.html
@@ -6,45 +6,43 @@ const pathlib = require('path') // node lib
 const { Path } = require('./path')
 
 /**
- * Query objects are kind of like sql - they specify what you want to
+ * Query objects are like sql - they specify what you want to
  * get from a datasource.
  * First the ui builds one up and we convert it to a url to fetch the data,
  * then the backend parses the url back into a query object, which it
  * traverses to find the data to return.
- * @typedef {Object} TQuery
+ * @typedef {Object} CQuery
  * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
- * @property {TPath} path - path to item, eg { str: 'bookmarks', ... }
- * @property {string[]} fields - list of fields to retrieve
- * @property {boolean} meta - asking for metadata about item
- * @property {integer} depth - depth to pursue related items
- * @property {function} url - represents query as a url
- * @property {function} remainingUrl - url but cuts out first part of path
+ * @property {string} path - path to item, eg 'bookmarks/books'
+ * @property {string} fields - list of fields to retrieve
+ * @property {string} depth - depth to pursue related items
+ * @property {string} url - represents query as a url
+ * @property {string} remainingUrl - url but cuts out first part of path
  */
 
 /**
- * Parse a url string to a TQuery object.
+ * Parse a url string to a CQuery object.
  * eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
  * @param url {string}
  * @returns {CQuery}
  */
 function parseUrl(url) {
   const urlobj = new URL(url)
-  // const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
-  // note: querystring lib returns a string if one value, an array if >1
-  // const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
-  // return make({ base, path, params })
-  // return urlobj
   const parts = {
     base: urlobj.origin, //. better name than base? but it excludes /api/v1
   }
   const query = new CQuery()
   query.update(parts)
   return query
+  // const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
+  // note: querystring lib returns a string if one value, an array if >1
+  // const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
+  // return make({ base, path, params })
 }
 
 /**
  * Make a query object
- * @param parts {Object} could be { base: 'http://localhost:4000', path: 'bookmarks', ... } etc
+ * @param parts {Object} eg { base: 'http://localhost:4000', path: 'bookmarks', ... }
  * @returns {CQuery}
  */
 function make(parts) {
@@ -98,16 +96,13 @@ class CQuery {
 
   get url() {
     //. use node's url lib to construct url
-    const url = `${this.base}/${this.path}`
-    // const queryString = querystring.stringify(queryDict).replace(/%2C/g, ',')
-    // const s = `${query.path.str}?${query.paramsString}`
-    //. ugh
-    // getRemainingUrl(item) {
-    //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
-    // },
-    console.log(101, url)
+    const url = `${this.base}/${this.path}` //. and queryString
     return url
   }
+
+  // getRemainingUrl(item) {
+  //   return `${item.url || ''}/api/v1/${path.restString}?${queryString}`
+  // },
 }
 
 const Query = {
