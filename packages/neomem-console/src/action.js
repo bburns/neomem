@@ -64,7 +64,6 @@ async function list(options) {
   const query = Query.make({ base: context.base, pathobj })
   const view = await Data.get(query.meta('views/console/list'))
   const items = await Data.get(query.view(view))
-  console.log(67, items)
 
   //. recurse and build depth values for treelist
   //. handle tree indentation with item.depth
@@ -104,7 +103,9 @@ async function look(options) {
   const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
   const query = Query.make({ base: context.base, path: pathobj.str })
   const view = await Data.get(query.meta('views/console/look'))
+  console.log(view)
   const item = await Data.get(query.view(view))
+  console.log(item)
 
   // print location and table with item properties
   await location(options)
