@@ -43,11 +43,13 @@ test(`Query.make and .view`, async t => {
 })
 
 test(`Query.make and set params`, async t => {
+  // should make a query and let you set searchparams on it
   const query = Query.make()
   t.deepEqual(query.base, '')
   query.set('fields', 'name,url')
-  t.deepEqual(query.paramsString, 'fields=name,url')
-  t.deepEqual(query.url, '?fields=name,url')
+  query.set('sortby', 'name')
+  t.deepEqual(query.paramsString, 'fields=name,url&sortby=name')
+  t.deepEqual(query.url, '?fields=name,url&sortby=name')
 })
 
 // -------
