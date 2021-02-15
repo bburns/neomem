@@ -4,19 +4,40 @@ const { Query } = require('../src')
 const base = 'http://localhost:4000/api/v1'
 
 test(`Query.make() - an empty query`, async t => {
-  const query = Query.make({ base })
-  t.deepEqual(query.base, base)
-  t.deepEqual(query.path, undefined)
-  t.deepEqual(query.url, base)
+  const query = Query.make()
+  t.deepEqual(query.base, '')
+  t.deepEqual(query.path, '')
+  t.deepEqual(query.url, '')
 })
 
-// test(`Query.make({base}) and update`, async t => {
-//   const query = Query.make({ base })
-//   t.deepEqual(query.base, base)
-//   query.update({ path: 'bookmarks' })
-//   t.deepEqual(query.path, 'bookmarks')
-//   t.deepEqual(query.url, base + '/bookmarks')
-// })
+test(`Query.make({base}) and update`, async t => {
+  const query = Query.make({ base })
+  t.deepEqual(query.base, base)
+  query.update({ path: 'bookmarks' })
+  t.deepEqual(query.path, 'bookmarks')
+  t.deepEqual(query.url, base + '/bookmarks')
+})
+
+test(`Query.make and .meta`, async t => {
+  const path = 'bookmarks'
+  const query = Query.make({ base, path })
+  t.deepEqual(query.path, path)
+  const q2 = query.meta()
+  t.deepEqual(q2.path, path + '/.neomem')
+})
+
+test(`Query.make and .view`, async t => {
+  const path = 'bookmarks'
+  const query = Query.make({ base, path })
+  t.deepEqual(query.path, path)
+  const view = { columns: [{ key: 'name' }, { key: 'url' }] }
+  const q2 = query.view(view)
+  console.log(q2)
+  t.deepEqual(q2.path, path)
+  t.deepEqual(q2.paramsString, 'fields=name,url')
+})
+
+// -------
 
 // test(`Query.parseUrl()`, async t => {
 //   const query = Query.parseUrlObj(base)

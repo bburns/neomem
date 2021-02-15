@@ -21,6 +21,10 @@ const querystring = require('querystring') // node lib https://nodejs.org/api/qu
  */
 class CQuery {
   constructor(parts) {
+    this.base = ''
+    this.path = ''
+    this.params = {}
+    this.hash = ''
     this.update(parts)
     return this
   }
@@ -56,7 +60,7 @@ class CQuery {
    */
   meta(metapath = '') {
     const query = new CQuery(this.parts)
-    query.path += '.neomem' + (metapath ? '/' + metapath : '')
+    query.path += '/.neomem' + (metapath ? '/' + metapath : '')
     return query
   }
 
@@ -80,8 +84,8 @@ class CQuery {
 
   get paramsString() {
     const skeys = []
-    for (const key of Object.keys(this.params || {})) {
-      const skey = key + '=' + this[key]
+    for (const key of Object.keys(this.params)) {
+      const skey = key + '=' + this.params[key]
       skeys.push(skey)
     }
     const s = skeys.join('&')
