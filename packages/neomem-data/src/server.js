@@ -21,9 +21,9 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
-      // const query = Query.makeFromRequest(request)
-      const url = HapiUrl(request).href
-      const query = Query.parseUrl(url)
+      const urlobj = HapiUrl(request)
+      const query = Query.parseUrl(urlobj, '/api/v1/')
+      // const query = Query.parseRequest(request)
       const json = await Data.get(query)
       return json
     },

@@ -1,4 +1,4 @@
-// build query objects and url representations
+// build query objects and urls
 
 const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 const URL = require('url').URL // node lib https://nodejs.org/api/url.html
@@ -11,38 +11,18 @@ const { Path } = require('./path')
  * First the ui builds one up and we convert it to a url to fetch the data,
  * then the backend parses the url back into a query object, which it
  * traverses to find the data to return.
- * @typedef {Object} CQuery
- * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
- * @property {string} path - path to item, eg 'bookmarks/books'
- * @property {string} fields - list of fields to retrieve
- * @property {string} depth - depth to pursue related items
- * @property {string} url - represents query as a url
- * @property {string} remainingUrl - url but cuts out first part of path
+//  * @typedef {Object} CQuery
+//  * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
+//  * @property {string} path - path to item, eg 'bookmarks/books'
+//  * @property {string} fields - list of fields to retrieve
+//  * @property {string} depth - depth to pursue related items
+//  * @property {string} url - represents query as a url
+//  * @property {string} remainingUrl - url but cuts out first part of path
  */
-
-/**
- * Parse a url string to a CQuery object.
- * eg url = 'localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
- * @param url {string}
- * @returns {CQuery}
- */
-function parseUrl(url) {
-  const urlobj = new URL(url)
-  const parts = {
-    base: urlobj.origin, //. better name than base? but it excludes /api/v1
-  }
-  const query = new CQuery()
-  query.update(parts)
-  return query
-  // const path = Path.make(request.params.path) // eg { string: 'books/scifi', ... }
-  // note: querystring lib returns a string if one value, an array if >1
-  // const requestQuery = querystring.parse(request.query) // eg { fields: 'name,type', sortby: 'name' }
-  // return make({ base, path, params })
-}
 
 /**
  * Make a query object
- * @param parts {Object} eg { base: 'http://localhost:4000', path: 'bookmarks', ... }
+ * @param parts {Object} eg { base: 'http://localhost:4000/api/v1', path: 'bookmarks', ... }
  * @returns {CQuery}
  */
 function make(parts) {
@@ -52,11 +32,8 @@ function make(parts) {
 }
 
 class CQuery {
-  constructor() {
-    this.base = ''
-    this.path = ''
-    this.fields = ''
-    this.depth = ''
+  constructor(parts) {
+    this.update(parts)
   }
 
   update(parts = {}) {
@@ -77,8 +54,7 @@ class CQuery {
    * returns a new query that requests the metadata assoc with the location
    */
   meta(metapath = '') {
-    const query = new CQuery()
-    query.update(this.parts)
+    const query = new CQuery(this.parts)
     query.path += '.neomem' + (metapath ? '/' + metapath : '')
     return query
   }
@@ -87,8 +63,7 @@ class CQuery {
    * returns a new query that requests the fields assoc with the given view obj
    */
   view(view) {
-    const query = new CQuery()
-    query.update(this.parts)
+    const query = new CQuery(this.parts)
     const fields = view.fields
     query.update({ fields })
     return query
@@ -105,9 +80,49 @@ class CQuery {
   // },
 }
 
+/**
+ * Parse a url object to a CQuery object.
+ * eg url = 'http://localhost:4003/api/v1/books/scifi?fields=name,type&sortby=name'
+ * => urlobj = { protocol: 'http', host: 'localhost', ... }
+ * => query = { base: 'http://localhost:4003/api/v1', path: 'books/scifi', ... }
+ * @param url {string}
+ * @returns {CQuery}
+ */
+function parseUrl(urlobj, apiversion = '') {
+  console.log(urlobj, apiversion)
+  // const urlobj = new URL(url)
+  const parts = {
+    base: urlobj.origin + apiversion,
+    path: urlobj.path,
+    search: urlobj.search,
+    hash: urlobj.hash,
+  }
+  const query = new CQuery(parts)
+  console.log(query)
+  return query
+}
+
+// /**
+//  * Parse a Hapi request into a query object
+//  * @param request {Object}
+//  * @returns {CQuery}
+//  */
+// function parseRequest(request) {
+//   // console.log(request)
+//   const { protocol, host, port } = request.server.info
+//   const apiversion = request.path // eg '/api/v1'
+//   const base = protocol + '://' + host + port ? ':' + port : '' + apiversion
+//   const path = request.params.path // eg 'bookmarks/books'
+//   const search = request.query // eg 'fields=name,url&sortby=name'
+//   const query = make({ base, path, search })
+//   console.log(query)
+//   return query
+// }
+
 const Query = {
-  parseUrl,
   make,
+  parseUrl,
+  // parseRequest,
 }
 
 module.exports = { Query }
