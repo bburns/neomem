@@ -1,7 +1,7 @@
 // run a webserver to respond to get/post etc requests
 
 const Hapi = require('@hapi/hapi')
-const HapiUrl = require('hapi-url')
+// const HapiUrl = require('hapi-url')
 const { Query } = require('neomem-util')
 const { Data } = require('./data')
 
@@ -21,9 +21,9 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
-      const urlobj = HapiUrl(request)
-      const query = Query.parseUrl(urlobj, '/api/v1/')
-      // const query = Query.parseRequest(request)
+      // const urlobj = HapiUrl(request)
+      // const query = Query.parseUrlObj(urlobj, '/api/v1/')
+      const query = Query.parseRequest(request, '/api/v1')
       const json = await Data.get(query)
       return json
     },

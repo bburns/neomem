@@ -11,12 +11,12 @@ async function exists({ path }) {
 
 /**
  * Get json from the given query
- * @param query {TQuery}
- * @returns {Object} json data
+ * @param query {CQuery}
+ * @returns {Promise<Object>} json data
  */
 async function get(query) {
   const url = query.url
-  const json = await Http.get({ url })
+  const json = await Http.get(url)
   return json
 }
 

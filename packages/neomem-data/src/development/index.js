@@ -14,9 +14,9 @@ const { Types } = require('./types')
 // get an item or items
 //. recurse or loop with stack to handle folders etc
 async function get(query, start = undefined) {
-  if (query.meta) {
-    return Meta.get()
-  }
+  // if (query.meta) {
+  //   return Meta.get()
+  // }
 
   if (start === undefined) {
     start = await Root.get() // memoized fn
