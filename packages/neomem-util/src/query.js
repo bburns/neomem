@@ -14,7 +14,7 @@ const { Path } = require('./path')
 //  * @typedef {Object} CQuery
 //  * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
 //  * @property {string} path - path to item, eg 'bookmarks/books'
-//  * @property {string} fields - list of fields to retrieve
+//  * @property {string} fields - list of field names to retrieve
 //  * @property {string} depth - depth to pursue related items
 //  * @property {string} url - represents query as a url
 //  * @property {string} remainingUrl - url but cuts out first part of path
@@ -48,6 +48,18 @@ class CQuery {
 
   get(property) {
     return this[property]
+  }
+
+  get first() {
+    const first = this.path ? this.path.split('/')[0] : ''
+    return first
+  }
+
+  get fields() {
+    const q = querystring.parse(this.search)
+    const fields = q.fields.split(',')
+    console.log(61, q, fields)
+    return fields
   }
 
   /**

@@ -1,7 +1,7 @@
 /**
  * Make a projection from an item and a list of fieldnames.
  * @param item {Object}
- * @param fields {string[]}
+ * @param fields {string[]} list of field names eg ['name', 'url']
  */
 function make(item, fields = []) {
   const projection = {}
