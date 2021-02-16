@@ -119,6 +119,10 @@ class CQuery {
     return s
   }
 
+  /**
+   * Set the string representation of the search parameters
+   * @param s {string}
+   */
   set paramsString(s) {
     const params = {}
     const pairs = s.split('&')
