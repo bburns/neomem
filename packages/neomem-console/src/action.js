@@ -63,6 +63,7 @@ async function list(options) {
   const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
   const query = Query.make({ base: context.base, pathobj })
   const view = await Data.get(query.meta('views/console/list'))
+  console.log(66, view)
   const items = await Data.get(query.view(view))
 
   //. recurse and build depth values for treelist

@@ -75,7 +75,7 @@ class CQuery {
    */
   meta(metapath = '') {
     const query = new CQuery(this.parts)
-    query.path += '/.neomem' + (metapath ? '/' + metapath : '')
+    query.path += '.neomem' + (metapath ? '/' + metapath : '')
     query.set('meta', 1)
     return query
   }
