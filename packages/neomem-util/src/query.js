@@ -119,6 +119,16 @@ class CQuery {
     return s
   }
 
+  set paramsString(s) {
+    const params = {}
+    const pairs = s.split('&')
+    for (const pair of pairs) {
+      const [key, value] = pair.split('=')
+      params[key] = value
+    }
+    this.params = params
+  }
+
   /**
    * Get the url string representation of this query.
    * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
@@ -166,7 +176,7 @@ function parseRequest(request, apiversion = '') {
   // const search = request.query // parsed query object
   const search = request.raw.req.url.split('?')[1] // eg 'fields=name,url&sortby=name'
   const hash = request.hash
-  const query = make({ base, path, search, hash })
+  const query = make({ base, path, paramsString: search, hash })
   return query
 }
 
