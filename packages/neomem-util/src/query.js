@@ -46,7 +46,13 @@ class CQuery {
    * @returns {Object}
    */
   get parts() {
-    return { ...this }
+    // return { ...this }
+    return {
+      base: this.base + '',
+      path: this.path + '',
+      params: JSON.parse(JSON.stringify(this.params)),
+      hash: this.hash + '',
+    }
   }
 
   /**
@@ -74,9 +80,11 @@ class CQuery {
    * @returns {CQuery}
    */
   meta(metapath = '') {
+    console.log(77, this)
     const query = new CQuery(this.parts)
     query.path += '.neomem' + (metapath ? '/' + metapath : '')
     query.set('meta', 1)
+    console.log(80, this.params, query.params, this.params === query.params)
     return query
   }
 

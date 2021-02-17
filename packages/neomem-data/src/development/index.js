@@ -19,6 +19,7 @@ const { Types } = require('./types')
 async function get(query, start = undefined) {
   console.log('nmdata.get', query, start)
   if (query.isMeta) {
+    console.log('meta query - ', query.path)
     return Meta.get()
   }
 
