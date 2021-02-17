@@ -42,17 +42,12 @@ class CQuery {
   }
 
   /**
-   * Get the enumerable parts of the query { base, path, params, hash }
+   * Get the basic parts of the query { base, path, params, hash }.
+   * Note: this is just a shallow copy of this query - use .copy for deep copy.
    * @returns {Object}
    */
   get parts() {
-    // return { ...this }
-    return {
-      base: this.base + '',
-      path: this.path + '',
-      params: JSON.parse(JSON.stringify(this.params)),
-      hash: this.hash + '',
-    }
+    return { ...this } // bug: only does a shallow copy
   }
 
   /**
@@ -76,15 +71,27 @@ class CQuery {
   }
 
   /**
+   * Make a deep copy of this query object
+   */
+  copy() {
+    const parts = {
+      base: this.base + '',
+      path: this.path + '',
+      params: JSON.parse(JSON.stringify(this.params)),
+      hash: this.hash + '',
+    }
+    const query = new CQuery(parts)
+    return query
+  }
+
+  /**
    * Get a new query that requests the metadata assoc with the location.
    * @returns {CQuery}
    */
   meta(metapath = '') {
-    console.log(77, this)
-    const query = new CQuery(this.parts)
+    const query = this.copy()
     query.path += '.neomem' + (metapath ? '/' + metapath : '')
     query.set('meta', 1)
-    console.log(80, this.params, query.params, this.params === query.params)
     return query
   }
 
@@ -103,7 +110,7 @@ class CQuery {
    * this would update query.params.fields to ['name', 'url'].
    */
   view(view) {
-    const query = new CQuery(this.parts)
+    const query = this.copy()
     query.params.fields = view.columns.map(column => column.key)
     return query
   }
