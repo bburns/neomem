@@ -3,7 +3,26 @@
 // const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
 // const URL = require('url').URL // node lib https://nodejs.org/api/url.html
 // const pathlib = require('path') // node lib
-// const { Path } = require('./path')
+const { Path } = require('./path')
+// const { Params } = require('./params')
+
+class Base {
+  constructor(base = '') {
+    this.base = base
+  }
+  get str() {
+    return this.base
+  }
+}
+
+class Hash {
+  constructor(hash = '') {
+    this.hash = hash
+  }
+  get str() {
+    return this.hash
+  }
+}
 
 /**
  * Query objects are like sql - they specify what you want to
@@ -11,21 +30,21 @@
  * First the ui builds one up and we convert it to a url to fetch the data,
  * then the backend parses the url back into a query object, which it
  * will traverse to find the data to return.
- * @class CQuery
- * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
- * @property {string} path - path to item, eg 'bookmarks/books'
- * @property {Object} params - dict of params and their js representations
- * @property {string} hash - the hashtag at the end of the url, eg #foo
- * @property {string} url - represents query as a url
- * @property {string} remainingUrl - url but cuts out first part of path
+//  * @class CQuery
+//  * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
+//  * @property {string} path - path to item, eg 'bookmarks/books'
+//  * @property {Object} params - dict of params and their js representations
+//  * @property {string} hash - the hashtag at the end of the url, eg #foo
+//  * @property {string} url - represents query as a url
+//  * @property {string} remainingUrl - url but cuts out first part of path
  */
-class CQuery {
+class Query {
   constructor(parts) {
-    this.base = ''
-    this.path = ''
-    this.params = {}
-    this.hash = ''
-    this.update(parts)
+    this.base = new Base()
+    this.path = new Path()
+    // this.params = new Params()
+    this.hash = new Hash()
+    // this.update(parts)
     return this
   }
 
@@ -65,6 +84,7 @@ class CQuery {
    * Get the first part of the path
    * @returns {string}
    */
+  //. delegate to path, or make user say query.path.first - better
   get first() {
     const first = this.path ? this.path.split('/')[0] : ''
     return first
@@ -154,15 +174,16 @@ class CQuery {
    */
   get url() {
     const paramsString = this.paramsString
-    let url = this.base
-    url += this.path ? '/' + this.path : ''
-    url += paramsString ? '?' + paramsString : ''
-    url += this.hash ? '#' + this.hash : ''
+    // let url = this.base
+    // url += this.path ? '/' + this.path : ''
+    // url += paramsString ? '?' + paramsString : ''
+    // url += this.hash ? '#' + this.hash.str : ''
     // // use node's url lib to construct url?
     // const urlobj = new URL(this.path || '', this.base)
     // urlobj.search = this.paramsString
     // urlobj.hash = this.hash
     // const url = urlobj.href
+    const url = this.base.str + this.path.str + this.params.str + this.hash.str
     return url
   }
 
@@ -199,9 +220,9 @@ function parseRequest(request, apiversion = '') {
   return query
 }
 
-const Query = {
-  make,
-  parseRequest,
-}
+// const Query = {
+//   make,
+//   parseRequest,
+// }
 
 module.exports = { Query }

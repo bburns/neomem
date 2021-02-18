@@ -1,60 +1,70 @@
 // path objects
 
-/**
- * A path object breaks down a path like '/bookmarks/books/scifi'
- * into its component parts.
- * The components are dictated by what the app needs...
- * @typedef {Object} TPath
- * @property {string} str
- * @property {string[]} array
- * @property {string} first
- * @property {string[]} rest
- * @property {string} restString
- */
-
 const pathlib = require('path') // node lib https://nodejs.org/api/path.html
 
 /**
- * Get an absolute path object by joining parts.
- * eg make('/bookmarks', 'books/scif') => { str: '/bookmarks/books/scifi', ... }
- * eg make('/bookmarks', '/fishes') => { str: '/fishes', ... }
- * eg make('/bookmarks', '') => { str: '/bookmarks', ... }
- * @param parts {string[]}
- * @returns {TPath}
+ * A path object lets you break down a path like '/bookmarks/books/scifi'
+ * into its component parts when needed.
  */
-function make(...parts) {
-  // see https://nodejs.org/api/path.html#path_path_resolve_paths
-  const str = pathlib.resolve('/', ...parts).slice(1) // remove leading '/'
-  const array = str.split('/') // eg ['bookmarks', 'books']
-  const first = array[0] // eg 'bookmarks'
-  const rest = array.slice(1) // eg ['books']
-  const restString = rest.join('/') // eg 'books'
-  const path = {
-    str,
-    array,
-    first,
-    rest,
-    restString,
-    add: suffix => make(...parts, suffix),
+class Path {
+  constructor(str = '') {
+    // throw new Error(`Use Path.make or Path.join`)
+    this._str = str
   }
-  return path
-}
 
-/**
- * Join parts into an absolute path
- * @param parts {string[]}
- */
-function join(...parts) {
-  const hasAbsolute = parts.some(part => part.startsWith('/'))
-  const str = hasAbsolute
-    ? pathlib.resolve(...parts)
-    : pathlib.join('/', ...parts).slice(1)
-  return str
-}
+  /**
+   * Make a path object
+   * @param str {string} a path string eg '/bookmarks/books'
+   */
+  static make(str = '') {
+    const path = new Path(str)
+    return path
+  }
 
-const Path = {
-  make,
-  join,
+  /**
+   * Get an absolute path object by joining parts.
+   * e.g. join('/foo', 'bar') == join('/foo/bar')
+   * eg make('/bookmarks', 'books/scif') => { str: '/bookmarks/books/scifi', ... }
+   * eg make('/bookmarks', '/fishes') => { str: '/fishes', ... }
+   * eg make('/bookmarks', '') => { str: '/bookmarks', ... }
+   * @param parts {string[]}
+   */
+  static join(...parts) {
+    // see https://nodejs.org/api/path.html#path_path_resolve_paths
+    // const str = pathlib.resolve('/', ...parts).slice(1) // remove leading '/'
+    const hasAbsolute = parts.some(part => part.startsWith('/'))
+    const str = hasAbsolute
+      ? pathlib.resolve(...parts)
+      : pathlib.join('/', ...parts).slice(1)
+    const path = Path.make(str)
+    return path
+  }
+
+  /**
+   * Return first part of path up to slash
+   */
+  get first() {
+    const i = this._str.indexOf('/')
+    if (i !== -1) {
+      return this._str.slice(0, i)
+    }
+    return this._str
+  }
+
+  /**
+   * Return rest of path past slash
+   */
+  get rest() {
+    const i = this._str.indexOf('/')
+    if (i !== -1) {
+      return this._str.slice(i + 1)
+    }
+    return ''
+  }
+
+  get str() {
+    return this._str
+  }
 }
 
 module.exports = { Path }
