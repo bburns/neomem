@@ -3,38 +3,37 @@ const { Query } = require('../src')
 
 const base = 'http://localhost:4000/api/v1'
 
-test(`Query.make() - an empty query`, async t => {
+test(`Query.make() - should let you make an empty query`, async t => {
   const query = Query.make()
   t.deepEqual(query.base, '')
   t.deepEqual(query.path, '')
-  t.deepEqual(query.url, '')
+  t.deepEqual(query.params, '')
+  t.deepEqual(query.hash, '')
+  t.deepEqual(query.str, '')
 })
 
-test(`Query.make({base}) and update`, async t => {
-  // should make a query that is updateable
-  const query = Query.make({ base })
+test(`Query.make({base}) - should make a query that is updateable`, async t => {
+  const query = Query.make(base)
   t.deepEqual(query.base, base)
-  query.update({ path: 'bookmarks' })
+  // query.update({ path: 'bookmarks' })
   t.deepEqual(query.path, 'bookmarks')
-  t.deepEqual(query.url, base + '/bookmarks')
+  t.deepEqual(query.str, base + '/bookmarks')
   query.path = 'pokpok'
   t.deepEqual(query.path, 'pokpok')
-  t.deepEqual(query.url, base + '/pokpok')
+  t.deepEqual(query.str, base + '/pokpok')
 })
 
-test(`Query.make and .meta`, async t => {
-  // should make a new query with path + /.neomem
+test(`Query.make and .meta - should make a new query with path + /.neomem`, async t => {
   const path = 'bookmarks'
-  const query = Query.make({ base, path })
+  const query = Query.make(base, path)
   t.deepEqual(query.path, path)
   const metaquery = query.meta()
   t.deepEqual(metaquery.path, path + '/.neomem')
 })
 
-test(`Query.make and .view`, async t => {
-  // should make a new query with fields given by the view metadata
+test(`Query.make and .view - should make a new query with fields given by the view metadata`, async t => {
   const path = 'bookmarks'
-  const query = Query.make({ base, path })
+  const query = Query.make(base, path)
   t.deepEqual(query.path, path)
   const view = { columns: [{ key: 'name' }, { key: 'url' }] }
   const viewquery = query.view(view)
@@ -42,14 +41,13 @@ test(`Query.make and .view`, async t => {
   t.deepEqual(viewquery.paramsString, 'fields=name,url')
 })
 
-test(`Query.make and set params`, async t => {
-  // should make a query and let you set searchparams on it
+test(`Query.make and set params - should make a query and let you set searchparams on it`, async t => {
   const query = Query.make()
   t.deepEqual(query.base, '')
   query.set('fields', 'name,url')
   query.set('sortby', 'name')
   t.deepEqual(query.paramsString, 'fields=name,url&sortby=name')
-  t.deepEqual(query.url, '?fields=name,url&sortby=name')
+  t.deepEqual(query.str, '?fields=name,url&sortby=name')
 })
 
 // -------

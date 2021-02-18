@@ -62,8 +62,12 @@ class Path {
     return ''
   }
 
-  get str() {
+  toString() {
     return this._str
+  }
+
+  get str() {
+    return this.toString()
   }
 }
 
