@@ -1,11 +1,8 @@
 // build query objects and urls
 
-// const querystring = require('querystring') // node lib https://nodejs.org/api/querystring.html
-// const URL = require('url').URL // node lib https://nodejs.org/api/url.html
 const { URLSearchParams } = require('url') // node lib https://nodejs.org/api/url.html
 // const pathlib = require('path') // node lib
 const { Path } = require('./path')
-// const { Params } = require('./params')
 
 /**
  * Query objects are like sql - they specify what you want to
@@ -87,13 +84,26 @@ class Query {
   get base() {
     return this._base.toString()
   }
+  set base(s) {
+    this._base = new Base(s)
+  }
 
   get path() {
     return this._path.toString()
   }
+  set path(s) {
+    this._path = new Path(s)
+  }
 
   get params() {
     return this._params.toString()
+  }
+  set params(s) {
+    this._params = new URLSearchParams(s)
+  }
+
+  get paramsObj() {
+    return this._params
   }
 
   get hash() {
