@@ -102,10 +102,16 @@ async function look(options) {
   const target = tokens[1] || '' // eg 'books/scifi' or ''
 
   // get data
-  const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  const query = Query.make({ base: context.base, path: pathobj.str })
+  // const pathobj = Path.make(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
+  // const query = Query.make({ base: context.base, path: pathobj.str })
+  // const view = await Data.get(query.meta('views/console/look'))
+  // const item = await Data.get(query.view(view).set('depth', 0))
+
+  const path = Path.join(context.location, target)
+  const query = Query.make(context.base, path)
   const view = await Data.get(query.meta('views/console/look'))
   const item = await Data.get(query.view(view).set('depth', 0))
+  // const item = await Data.get(query.view(view).depth(0))
 
   // print location and table with item properties
   await location(options)

@@ -11,7 +11,7 @@
  * First the ui builds one up and we convert it to a url to fetch the data,
  * then the backend parses the url back into a query object, which it
  * will traverse to find the data to return.
- * @typedef {Object} TQuery
+ * @class CQuery
  * @property {string} base - base of url, eg 'http://localhost:4000/api/v1'
  * @property {string} path - path to item, eg 'bookmarks/books'
  * @property {Object} params - dict of params and their js representations
@@ -91,7 +91,7 @@ class CQuery {
   meta(metapath = '') {
     const query = this.copy()
     query.path += '.neomem' + (metapath ? '/' + metapath : '')
-    query.set('meta', 1)
+    query.set('meta', 1) //. can't you just check for .neomem in path?
     return query
   }
 

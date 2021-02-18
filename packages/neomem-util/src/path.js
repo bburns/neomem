@@ -40,8 +40,21 @@ function make(...parts) {
   return path
 }
 
+/**
+ * Join parts into an absolute path
+ * @param parts {string[]}
+ */
+function join(...parts) {
+  const hasAbsolute = parts.some(part => part.startsWith('/'))
+  const str = hasAbsolute
+    ? pathlib.resolve(...parts)
+    : pathlib.join('/', ...parts).slice(1)
+  return str
+}
+
 const Path = {
   make,
+  join,
 }
 
 module.exports = { Path }
