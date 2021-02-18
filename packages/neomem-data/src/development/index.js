@@ -17,9 +17,7 @@ const { Types } = require('./types')
  * //. recurse or loop with stack to handle folders etc
  */
 async function get(query, start = undefined) {
-  console.log('nmdata.get', query, start)
   if (query.isMeta) {
-    console.log('meta query - ', query.path)
     return Meta.get()
   }
 
@@ -27,8 +25,8 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
-  if (Number(query.depth) === 0) {
-    return Projection.make(start, query.fields) // get ONE item
+  if (Number(query.params.depth) === 0) {
+    return Projection.make(start, query.get('fields')) // get ONE item
   }
 
   const items = start.children
