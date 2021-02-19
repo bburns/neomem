@@ -29,7 +29,7 @@ test(`Query.make and set params - should make a query and let you set searchpara
   query.paramsObj.set('fields', 'name,url')
   query.paramsObj.set('sortby', 'name')
   t.deepEqual(query.params, 'fields=name,url&sortby=name')
-  t.deepEqual(query.str, 'fields=name,url&sortby=name')
+  t.deepEqual(query.str, '?fields=name,url&sortby=name')
 })
 
 test(`Query.make and .meta - should make a new query with path + /.neomem`, async t => {
@@ -53,28 +53,28 @@ test(`Query.make and .view - should make a new query with fields given by the vi
 
 // -------
 
-// test(`Query.parseUrlObj()`, async t => {
-//   const query = Query.parseUrlObj(base)
-//   t.deepEqual(query.base, base)
-// })
-
-// test('Query.makeFromRequest(request) - make from request', t => {
-//   // const baseUrl = 'http://localhost:4000/api/v1'
-//   const pathStr = '/bookmarks/books/scifi'
-//   const queryString = 'fields=name,type,url&sortby=name&depth=1'
-//   // const url = baseUrl + pathStr + '?' + queryString
-//   const request = {
-//     params: { path: pathStr },
-//     query: queryString,
-//   }
-//   // const path = Path.make(pathStr)
-//   // const params = querystring.parse(queryString)
-//   // params.depth = 1 // add depth
-//   const query = Query.makeFromRequest(request)
-//   // t.deepEqual(query.path, path)
-//   // t.deepEqual(query.url, url)
-//   // t.deepEqual(query.params, params)
-//   // t.deepEqual(query.queryString, 'fields=name,type,url&depth=1&sortby=name')
-//   t.deepEqual(query.depth, 1)
-//   t.deepEqual(query.fields, 'name,type,url'.split(','))
-// })
+test('Query.makeFromRequest - should make from hapi request object', t => {
+  // const base = 'http://localhost:4000/api/v1'
+  const protocol = 'http'
+  const host = 'localhost'
+  const port = '4000'
+  const apiversion = 'api/v1/'
+  const path = '/bookmarks/books/scifi'
+  const fullpath = apiversion + path
+  const params = 'fields=name,type,url&depth=1&sortby=name'
+  const url = protocol + '://' + host + ':' + port + fullpath + '?' + params
+  const request = {
+    server: {
+      info: { protocol, host, port },
+    },
+    params: { path },
+    raw: { req: { url } },
+  }
+  const query = Query.makeFromRequest(request, apiversion)
+  t.deepEqual(query.path, path)
+  t.deepEqual(query.params, params)
+  t.deepEqual(query.params, 'fields=name,type,url&depth=1&sortby=name')
+  t.deepEqual(query.paramsObj.get('depth'), '1')
+  t.deepEqual(query.paramsObj.get('fields'), 'name,type,url')
+  t.deepEqual(query.str, url)
+})

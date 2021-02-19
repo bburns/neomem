@@ -1,7 +1,6 @@
 // build query objects and urls
 
 const { URLSearchParams } = require('url') // node lib https://nodejs.org/api/url.html
-// const pathlib = require('path') // node lib
 const { Path } = require('./path')
 
 /**
@@ -20,8 +19,6 @@ class Query {
     return this
   }
 
-  //. remainingUrl() - url but cuts out first part of path
-
   /**
    * Make a query object from the given parts,
    * eg make('http://localhost:4000/api/v1', 'bookmarks', ...)
@@ -38,7 +35,7 @@ class Query {
    * @param apiversion? {string} - eg '/api/v1'
    * @returns {Query}
    */
-  static parseRequest(request, apiversion = '') {
+  static makeFromRequest(request, apiversion = '') {
     const { protocol, host, port } = request.server.info
     const base = protocol + '://' + host + (port ? ':' + port : '') + apiversion
     const path = request.params.path // eg 'bookmarks/books'
@@ -195,24 +192,17 @@ class Query {
    * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
    */
   toString() {
-    // const paramsString = this.paramsString
-    // let url = this.base
-    // url += this.path ? '/' + this.path : ''
-    // url += paramsString ? '?' + paramsString : ''
-    // url += this.hash ? '#' + this.hash.str : ''
-    // // use node's url lib to construct url?
-    // const urlobj = new URL(this.path || '', this.base)
-    // urlobj.search = this.paramsString
-    // urlobj.hash = this.hash
-    // const url = urlobj.href
-    const str = this.base + this.path + this.params + this.hash
+    const str =
+      this.base + this.path + (this.params ? '?' + this.params : '') + this.hash
     return str
   }
 
   get str() {
     return this.toString()
   }
-  // remainingUrl(item) {
+
+  //. url but cuts out first part of path
+  //. remainingUrl(item) {
   //   return `${item.url || ''}/api/v1/${path.restString}?${paramsString}`
   // },
 }
