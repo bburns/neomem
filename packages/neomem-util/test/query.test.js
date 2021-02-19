@@ -59,7 +59,7 @@ test('Query.makeFromRequest - should make from hapi request object', t => {
   const host = 'localhost'
   const port = '4000'
   const apiversion = 'api/v1/'
-  const path = '/bookmarks/books/scifi'
+  const path = 'bookmarks/books/scifi'
   const fullpath = apiversion + path
   const params = 'fields=name,type,url&depth=1&sortby=name'
   const url = protocol + '://' + host + ':' + port + fullpath + '?' + params
