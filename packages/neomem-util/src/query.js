@@ -144,16 +144,18 @@ class Query {
     return this._paramsObj.get('meta') === '1'
   }
 
-  // /**
-  //  * Get a new query that requests the fields assoc with the given view object.
-  //  * e.g. if view is { columns: [{key:'name'}, {key:'url'}]} then
-  //  * this would update query.params.fields to ['name', 'url'].
-  //  */
-  // view(view) {
-  //   const query = this.copy()
-  //   query.params.fields = view.columns.map(column => column.key)
-  //   return query
-  // }
+  /**
+   * Get a new query that requests the fields assoc with the given view object.
+   * e.g. if view is { columns: [{key:'name'}, {key:'url'}]} then
+   * this would update query.params.fields to ['name', 'url'].
+   */
+  view(view) {
+    // const query = this.copy()
+    const query = new Query(this.base, this.path, this.params, this.hash)
+    const fields = view.columns.map(column => column.key).join(',')
+    query.paramsObj.set('fields', fields)
+    return query
+  }
 
   // /**
   //  * Get a string representation of the params object.
