@@ -54,7 +54,6 @@ test(`Query.make and .view - should make a new query with fields given by the vi
 // -------
 
 test('Query.makeFromRequest - should make from hapi request object', t => {
-  // const base = 'http://localhost:4000/api/v1'
   const protocol = 'http'
   const host = 'localhost'
   const port = '4000'
@@ -73,8 +72,7 @@ test('Query.makeFromRequest - should make from hapi request object', t => {
   const query = Query.makeFromRequest(request, apiversion)
   t.deepEqual(query.path, path)
   t.deepEqual(query.params, params)
-  t.deepEqual(query.params, 'fields=name,type,url&depth=1&sortby=name')
-  t.deepEqual(query.paramsObj.get('depth'), '1')
   t.deepEqual(query.paramsObj.get('fields'), 'name,type,url')
+  t.deepEqual(query.paramsObj.get('depth'), '1')
   t.deepEqual(query.str, url)
 })
