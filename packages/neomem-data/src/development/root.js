@@ -7,13 +7,24 @@ const root = {
   created: '2021-02-01',
   url: 'http://localhost:4000',
   children: [
-    { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
-    { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
+    {
+      name: 'neo4j',
+      type: 'datasource',
+      url: 'http://localhost:4001',
+      description: 'a neo4j graph database',
+    },
+    {
+      name: 'filesys',
+      type: 'datasource',
+      url: 'http://localhost:4002',
+      description: 'local filesystem',
+    },
     {
       name: 'bookmarks',
       type: 'datasource',
       url: 'http://localhost:4003',
       created: '2021-02-02',
+      description: 'chrome bookmarks (read-only)',
     },
   ],
 }
