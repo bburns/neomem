@@ -125,10 +125,9 @@ class Query {
    * @returns {Query}
    */
   meta(metapath = '') {
-    // const query = this.copy()
     const query = new Query(this.base, this.path, this.params, this.hash)
-    query.path += '/.neomem' + (metapath ? '/' + metapath : '')
-    query.paramsObj.set('meta', '1') //. can't you just check for .neomem in path?
+    query.path += '.neomem' + (metapath ? '/' + metapath : '')
+    query.paramsObj.set('meta', '1') //. or just check for .neomem in path?
     return query
   }
 
@@ -145,9 +144,9 @@ class Query {
    * Get a new query that requests the fields assoc with the given view object.
    * e.g. if view is { columns: [{key:'name'}, {key:'url'}]} then
    * this would update query.params.fields to ['name', 'url'].
+   * @returns {Query}
    */
-  view(view) {
-    // const query = this.copy()
+  view(view = { columns: [] }) {
     const query = new Query(this.base, this.path, this.params, this.hash)
     const fields = view.columns.map(column => column.key).join(',')
     query.paramsObj.set('fields', fields)
@@ -209,19 +208,19 @@ class Query {
 
 class Base {
   constructor(base = '') {
-    this._base = base
+    this._str = base
   }
   toString() {
-    return this._base
+    return this._str
   }
 }
 
 class Hash {
   constructor(hash = '') {
-    this._hash = hash
+    this._str = hash
   }
   toString() {
-    return this._hash
+    return this._str
   }
 }
 

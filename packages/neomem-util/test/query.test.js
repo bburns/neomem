@@ -1,4 +1,5 @@
 const test = require('ava').default
+const pathlib = require('path') // node lib
 const { Query } = require('../src')
 
 const base = 'http://localhost:4000/api/v1/'
@@ -32,12 +33,12 @@ test(`Query.make and set params - should make a query and let you set searchpara
   t.deepEqual(query.str, '?fields=name,url&sortby=name')
 })
 
-test(`Query.make and .meta - should make a new query with path + /.neomem`, async t => {
+test(`Query.make and .meta - should make a new query with path + .neomem`, async t => {
   const path = 'bookmarks'
   const query = Query.make(base, path)
   t.deepEqual(query.path, path)
   const metaquery = query.meta('pokpok')
-  t.deepEqual(metaquery.path, path + '/.neomem/pokpok')
+  t.deepEqual(metaquery.path, pathlib.join(path, '.neomem/pokpok'))
   t.is(metaquery.isMeta, true)
 })
 

@@ -17,8 +17,8 @@ class Path {
    * @param str {string} a path string eg '/bookmarks/books'
    */
   static make(str = '') {
-    const path = new Path(str)
-    return path
+    const pathObj = new Path(str)
+    return pathObj
   }
 
   /**
@@ -28,6 +28,7 @@ class Path {
    * eg make('/bookmarks', '/fishes') => { str: '/fishes', ... }
    * eg make('/bookmarks', '') => { str: '/bookmarks', ... }
    * @param parts {string[]}
+   * @returns {Path}
    */
   static join(...parts) {
     // see https://nodejs.org/api/path.html#path_path_resolve_paths
@@ -36,8 +37,8 @@ class Path {
     const str = hasAbsolute
       ? pathlib.resolve(...parts)
       : pathlib.join('/', ...parts).slice(1)
-    const path = Path.make(str)
-    return path
+    const pathObj = Path.make(str)
+    return pathObj
   }
 
   /**
