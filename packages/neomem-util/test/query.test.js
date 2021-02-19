@@ -49,7 +49,7 @@ test(`Query.make and set params - should make a query and let you set searchpara
   query.paramsObj.set('fields', 'name,url')
   query.paramsObj.set('sortby', 'name')
   t.deepEqual(query.params, 'fields=name,url&sortby=name')
-  t.deepEqual(query.str, '?fields=name,url&sortby=name')
+  t.deepEqual(query.str, 'fields=name,url&sortby=name')
 })
 
 // -------
