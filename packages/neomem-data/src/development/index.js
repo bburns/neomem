@@ -36,9 +36,11 @@ async function get(query, start = undefined) {
 
   // pass query along to other datasource if needed
   if (item && item.type === 'datasource') {
-    const url = query.getUrlRemaining(item)
+    const url = query.getRemainingUrl(item)
+    console.log(40, url)
     const response = await fetch(url)
     const json = await response.json()
+    console.log(43, json)
     return json
   }
 

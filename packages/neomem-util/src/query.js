@@ -214,9 +214,9 @@ class Query {
   }
 
   //. url but cuts out first part of path
-  //. remainingUrl(item) {
-  //   return `${item.url || ''}/api/v1/${path.restString}?${paramsString}`
-  // },
+  getRemainingUrl(item) {
+    return `${item.url || ''}${this._pathObj.rest}?${this.params}`
+  }
 }
 
 class Base {

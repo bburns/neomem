@@ -17,11 +17,14 @@ let bookmarks
 const root = {
   name: 'bookmarks',
   type: 'datasource',
-  description: 'Datasource for Chrome bookmarks. Read-only for now.',
+  description: 'Datasource for Chrome bookmarks (read-only)', //. duplicate of nmdata def
   // children: Object.values(bookmarks.roots),
 }
 
-// given an item and a query object, return related items.
+/**
+ * Get items related to the given item using the query object.
+ * @params query {Query}
+ */
 async function get(query, start = root) {
   // memoize the bookmarks file
   if (!root.children) {
@@ -29,11 +32,13 @@ async function get(query, start = root) {
     root.children = Object.values(bookmarks.roots)
   }
   // cdr down the path
-  const first = query.pathArray[0] // eg 'books'
-  const rest = query.pathArray.slice(1) // eg ['scifi']
+  // const first = query.pathArray[0] // eg 'books'
+  // const rest = query.pathArray.slice(1) // eg ['scifi']
+  const first = query.paramsObj.first
+  const rest = query.paramsObj.rest
   // check if reached the end of recursion
   if (!first) {
-    if (Number(query.depth) === 0) {
+    if (Number(query.paramsObj.get('depth') === '0')) {
       return getProjection(start, query) // return ONE item
     }
     const items = start.children
@@ -49,7 +54,8 @@ async function get(query, start = root) {
 // project an item's data into the query's required fields.
 function getProjection(item, query) {
   const projection = {}
-  query.params.fields.forEach(field => {
+  const fields = query.paramsObj.get('fields')
+  fields.split(',').forEach(field => {
     const datatype = metadata.view.fields[field].datatype || 'string'
     const sourcefield = metadata.view.fields[field].sourcefield
     const converter = util.datatypes[datatype]
