@@ -96,7 +96,7 @@ class Query {
   }
 
   get params() {
-    return this._params.toString()
+    return this._params.toString().replace(/%2C/g, ',')
   }
   set params(s) {
     this._params = new URLSearchParams(s)
@@ -213,11 +213,7 @@ class Query {
     // urlobj.search = this.paramsString
     // urlobj.hash = this.hash
     // const url = urlobj.href
-    const str =
-      this._base.toString() +
-      this._path.toString() +
-      this._params.toString() +
-      this._hash.toString()
+    const str = this.base + this.path + this.params + this.hash
     return str
   }
 
