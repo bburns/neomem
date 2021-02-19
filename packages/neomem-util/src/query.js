@@ -124,7 +124,7 @@ class Query {
    * Get a new query that requests the metadata assoc with the location.
    * @returns {Query}
    */
-  meta(metapath = '') {
+  getMetaQuery(metapath = '') {
     const query = new Query(this.base, this.path, this.params, this.hash)
     query.path += '.neomem' + (metapath ? '/' + metapath : '')
     query.paramsObj.set('meta', '1') //. or just check for .neomem in path?
@@ -146,11 +146,16 @@ class Query {
    * this would update query.params.fields to ['name', 'url'].
    * @returns {Query}
    */
-  view(view = { columns: [] }) {
+  getViewQuery(view = { columns: [] }) {
     const query = new Query(this.base, this.path, this.params, this.hash)
     const fields = view.columns.map(column => column.key).join(',')
     query.paramsObj.set('fields', fields)
     return query
+  }
+
+  set(key, value) {
+    this._paramsObj.set(key, value)
+    return this
   }
 
   // /**

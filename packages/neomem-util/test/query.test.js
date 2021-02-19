@@ -37,7 +37,7 @@ test(`Query.make and .meta - should make a new query with path + .neomem`, async
   const path = 'bookmarks'
   const query = Query.make(base, path)
   t.deepEqual(query.path, path)
-  const metaquery = query.meta('pokpok')
+  const metaquery = query.getMetaQuery('pokpok')
   t.deepEqual(metaquery.path, pathlib.join(path, '.neomem/pokpok'))
   t.is(metaquery.isMeta, true)
 })
@@ -47,9 +47,9 @@ test(`Query.make and .view - should make a new query with fields given by the vi
   const query = Query.make(base, path)
   t.deepEqual(query.path, path)
   const view = { columns: [{ key: 'name' }, { key: 'url' }] }
-  const viewquery = query.view(view)
+  const viewquery = query.getViewQuery(view).set('depth', '0')
   t.deepEqual(viewquery.path, path)
-  t.deepEqual(viewquery.params, 'fields=name,url')
+  t.deepEqual(viewquery.params, 'fields=name,url&depth=0')
 })
 
 // -------

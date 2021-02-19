@@ -109,13 +109,8 @@ async function look(options) {
   const pathObj = Path.join(context.location, target)
   const query = Query.make(context.base, pathObj.str)
   console.log(query.str)
-  const view = await Data.get(query.meta('views/console/look'))
-  console.log(view)
-  const q2 = query.view(view)
-  q2.paramsObj.set('depth', '0')
-  console.log('q2', q2)
-  const item = await Data.get(q2)
-  // const item = await Data.get(query.view(view).depth(0))
+  const view = await Data.get(query.getMetaQuery('views/console/look'))
+  const item = await Data.get(query.getViewQuery(view).set('depth', '0'))
 
   // print location and table with item properties
   await location(options)
