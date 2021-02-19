@@ -12,7 +12,7 @@ const { Types } = require('./types')
 // const emptyQuery = Query.makeFromRequest()
 
 /** get an item or items
- * @param query {CQuery}
+ * @param query {Query}
  * @param start? {Object}
  * //. recurse or loop with stack to handle folders etc
  */
@@ -25,8 +25,8 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
-  if (Number(query.params.depth) === 0) {
-    return Projection.make(start, query.get('fields')) // get ONE item
+  if (!Number(query.paramsObj.get('depth')==='1') {
+    return Projection.make(start, query.paramsObj.get('fields')) // get ONE item
   }
 
   const items = start.children

@@ -108,7 +108,6 @@ async function look(options) {
 
   const pathObj = Path.join(context.location, target)
   const query = Query.make(context.base, pathObj.str)
-  console.log(query.str)
   const view = await Data.get(query.getMetaQuery('views/console/look'))
   const item = await Data.get(query.getViewQuery(view).set('depth', '0'))
 
@@ -119,7 +118,7 @@ async function look(options) {
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
-  const fields = view.fields || 'name,type,description'.split(',')
+  const fields = view.columns.map(column => column.key)
   const rows = fields.map(field => ({ name: field, value: item[field] }))
   const t = new Table(tableColumns, rows)
   const s = t.toString()

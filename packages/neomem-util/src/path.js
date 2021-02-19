@@ -43,6 +43,7 @@ class Path {
 
   /**
    * Return first part of path up to slash
+   * @returns {string}
    */
   get first() {
     const i = this._str.indexOf('/')
@@ -54,6 +55,7 @@ class Path {
 
   /**
    * Return rest of path past slash
+   * @returns {string}
    */
   get rest() {
     const i = this._str.indexOf('/')
@@ -68,7 +70,7 @@ class Path {
   }
 
   get str() {
-    return this.toString()
+    return this._str
   }
 }
 
