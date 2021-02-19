@@ -23,6 +23,15 @@ test(`Query.make(base) - should make a query that is updateable`, async t => {
   t.deepEqual(query.str, base + 'pokpok')
 })
 
+test(`Query.make and set params - should make a query and let you set searchparams on it`, async t => {
+  const query = Query.make()
+  t.deepEqual(query.base, '')
+  query.paramsObj.set('fields', 'name,url')
+  query.paramsObj.set('sortby', 'name')
+  t.deepEqual(query.params, 'fields=name,url&sortby=name')
+  t.deepEqual(query.str, 'fields=name,url&sortby=name')
+})
+
 // test(`Query.make and .meta - should make a new query with path + /.neomem`, async t => {
 //   const path = 'bookmarks'
 //   const query = Query.make(base, path)
@@ -40,17 +49,6 @@ test(`Query.make(base) - should make a query that is updateable`, async t => {
 //   t.deepEqual(viewquery.path, path)
 //   t.deepEqual(viewquery.paramsString, 'fields=name,url')
 // })
-
-test(`Query.make and set params - should make a query and let you set searchparams on it`, async t => {
-  const query = Query.make()
-  t.deepEqual(query.base, '')
-  // query.set('fields', 'name,url')
-  // query.set('sortby', 'name')
-  query.paramsObj.set('fields', 'name,url')
-  query.paramsObj.set('sortby', 'name')
-  t.deepEqual(query.params, 'fields=name,url&sortby=name')
-  t.deepEqual(query.str, 'fields=name,url&sortby=name')
-})
 
 // -------
 
