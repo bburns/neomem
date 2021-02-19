@@ -5,6 +5,7 @@ const root = {
   type: 'datasource',
   description: 'a federated data source',
   created: '2021-02-01',
+  url: 'http://localhost:4000',
   children: [
     { name: 'neo4j', type: 'datasource', url: 'http://localhost:4001' },
     { name: 'filesys', type: 'datasource', url: 'http://localhost:4002' },
