@@ -1,5 +1,6 @@
 // build query objects and urls
 
+const pathlib = require('path') // node lib
 const { URLSearchParams } = require('url') // node lib https://nodejs.org/api/url.html
 const { Path } = require('./path')
 
@@ -79,6 +80,9 @@ class Query {
   set path(s) {
     this._pathObj = new Path(s)
   }
+  get pathObj() {
+    return this._pathObj
+  }
 
   get params() {
     return this._paramsObj.toString().replace(/%2C/g, ',')
@@ -126,7 +130,11 @@ class Query {
    */
   getMetaQuery(metapath = '') {
     const query = new Query(this.base, this.path, this.params, this.hash)
-    query.path += '.neomem' + (metapath ? '/' + metapath : '')
+    // query.path += '.neomem' + (metapath ? '/' + metapath : '')
+    query.path = pathlib.join(
+      query.path,
+      '.neomem' + (metapath ? '/' + metapath : '')
+    )
     query.paramsObj.set('meta', '1') //. or just check for .neomem in path?
     return query
   }

@@ -20,7 +20,7 @@ const init = async () => {
     path: '/api/v1/{path*}',
     method: 'GET',
     handler: async (request, h) => {
-      const query = Query.parseRequest(request, '/api/v1')
+      const query = Query.makeFromRequest(request, '/api/v1')
       const json = await Data.get(query)
       return json
     },

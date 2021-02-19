@@ -25,16 +25,16 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
-  if (!Number(query.paramsObj.get('depth')==='1') {
+  if (!Number(query.paramsObj.get('depth') === '1')) {
     return Projection.make(start, query.paramsObj.get('fields')) // get ONE item
   }
 
   const items = start.children
-  const item = items.find(item => item.name === query.first)
+  const item = items.find(item => item.name === query.pathObj.first)
 
   // pass query along to other datasource if needed
   if (item && item.type === 'datasource') {
-    const url = query.urlRemaining(item)
+    const url = query.getUrlRemaining(item)
     const response = await fetch(url)
     const json = await response.json()
     return json
