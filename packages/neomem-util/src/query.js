@@ -13,14 +13,14 @@ const { Path } = require('./path')
  */
 class Query {
   constructor(base = '', path = '', params = '', hash = '') {
-    this._base = new Base(base) // base of url eg 'http://localhost:4000/api/v1'
-    this._path = new Path(path) // path to item, eg '/bookmarks/books'
-    this._params = new URLSearchParams(params) // dict of params and js representations
-    this._hash = new Hash(hash) // hashtag at end of url eg #foo
+    this._baseObj = new Base(base) // base of url eg 'http://localhost:4000/api/v1'
+    this._pathObj = new Path(path) // path to item, eg '/bookmarks/books'
+    this._paramsObj = new URLSearchParams(params) // dict of params and js representations
+    this._hashObj = new Hash(hash) // hashtag at end of url eg #foo
     return this
   }
 
-  // remainingUrl - url but cuts out first part of path
+  //. remainingUrl() - url but cuts out first part of path
 
   /**
    * Make a query object from the given parts,
@@ -42,7 +42,6 @@ class Query {
     const { protocol, host, port } = request.server.info
     const base = protocol + '://' + host + (port ? ':' + port : '') + apiversion
     const path = request.params.path // eg 'bookmarks/books'
-    // const params = request.query // parsed query object
     const params = request.raw.req.url.split('?')[1] // eg 'fields=name,url&sortby=name'
     const hash = request.hash
     const query = Query.make(base, path, params, hash)
@@ -70,55 +69,45 @@ class Query {
   //   return { ...this } // bug: only does a shallow copy
   // }
 
-  /**
-   * Set a param value, e.g. query.set('fields', 'name,url')
-   * @param key {string}
-   * @param value {any}
-   * @return {Query} this query, for chaining
-   */
-  set(key, value) {
-    this.params[key] = value
-    return this
-  }
-
   get base() {
-    return this._base.toString()
+    return this._baseObj.toString()
   }
   set base(s) {
-    this._base = new Base(s)
+    this._baseObj = new Base(s)
   }
 
   get path() {
-    return this._path.toString()
+    return this._pathObj.toString()
   }
   set path(s) {
-    this._path = new Path(s)
+    this._pathObj = new Path(s)
   }
 
   get params() {
-    return this._params.toString().replace(/%2C/g, ',')
+    return this._paramsObj.toString().replace(/%2C/g, ',')
   }
   set params(s) {
-    this._params = new URLSearchParams(s)
+    this._paramsObj = new URLSearchParams(s)
   }
 
   get paramsObj() {
-    return this._params
+    return this._paramsObj
   }
 
   get hash() {
-    return this._hash.toString()
+    return this._hashObj.toString()
   }
 
-  /**
-   * Get the first part of the path
-   * @returns {string}
-   */
-  //. delegate to path, or make user say query.path.first - better
-  get first() {
-    const first = this.path ? this.path.split('/')[0] : ''
-    return first
-  }
+  // /**
+  //  * Get the first part of the path
+  //  * @returns {string}
+  //  */
+  // //. delegate to path, or make user say query.pathObj.first
+  // get first() {
+  //   // const first = this._path ? this._path.split('/')[0] : ''
+  //   const first = this._pathObj.first
+  //   return first
+  // }
 
   // /**
   //  * Make a deep copy of this query object
@@ -134,16 +123,17 @@ class Query {
   //   return query
   // }
 
-  // /**
-  //  * Get a new query that requests the metadata assoc with the location.
-  //  * @returns {Query}
-  //  */
-  // meta(metapath = '') {
-  //   const query = this.copy()
-  //   query.path += '.neomem' + (metapath ? '/' + metapath : '')
-  //   query.set('meta', 1) //. can't you just check for .neomem in path?
-  //   return query
-  // }
+  /**
+   * Get a new query that requests the metadata assoc with the location.
+   * @returns {Query}
+   */
+  meta(metapath = '') {
+    // const query = this.copy()
+    const query = new Query(this.base, this.path, this.params, this.hash)
+    query.path += '/.neomem' + (metapath ? '/' + metapath : '')
+    // query.set('meta', 1) //. can't you just check for .neomem in path?
+    return query
+  }
 
   // /**
   //  * Is the current query a metaquery?
