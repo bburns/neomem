@@ -131,18 +131,18 @@ class Query {
     // const query = this.copy()
     const query = new Query(this.base, this.path, this.params, this.hash)
     query.path += '/.neomem' + (metapath ? '/' + metapath : '')
-    // query.set('meta', 1) //. can't you just check for .neomem in path?
+    query.paramsObj.set('meta', '1') //. can't you just check for .neomem in path?
     return query
   }
 
-  // /**
-  //  * Is the current query a metaquery?
-  //  * @returns {boolean}
-  //  */
-  // get isMeta() {
-  //   // return this.path && this.path.startsWith('.neomem')
-  //   return this.params.meta
-  // }
+  /**
+   * Is the current query a metaquery?
+   * @returns {boolean}
+   */
+  get isMeta() {
+    // return this.path && this.path.startsWith('/.neomem')
+    return this._paramsObj.get('meta') === '1'
+  }
 
   // /**
   //  * Get a new query that requests the fields assoc with the given view object.

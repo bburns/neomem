@@ -38,6 +38,7 @@ test(`Query.make and .meta - should make a new query with path + /.neomem`, asyn
   t.deepEqual(query.path, path)
   const metaquery = query.meta('pokpok')
   t.deepEqual(metaquery.path, path + '/.neomem/pokpok')
+  t.is(metaquery.isMeta, true)
 })
 
 // test(`Query.make and .view - should make a new query with fields given by the view metadata`, async t => {
