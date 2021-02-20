@@ -1,5 +1,7 @@
 // build a command object from input string
 
+//. make a Command class/namespace
+
 /**
  * @typedef {Object} TCommand
  * @property {string} str

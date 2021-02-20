@@ -31,6 +31,31 @@ function make(item, fields = [], AdditionalTypes = {}) {
   return translation
 }
 
+// /**
+//  * Project an item's data into the query's required fields. [and translate oops]
+//  * @param item {Object}
+//  * @param query {Query}
+//  */
+// function getProjection(item, query) {
+//   const projection = {}
+//   const fields = query.paramsObj.get('fields')
+//   fields.split(',').forEach(field => {
+//     const datatype = metadata.view.fields[field].datatype || 'string'
+//     const sourcefield = metadata.view.fields[field].sourcefield
+//     const converter = util.datatypes[datatype]
+//     projection[field] = converter.parse(item[sourcefield])
+//     // convert chrome dates to iso dates here
+//     if (field === 'created') {
+//       projection[field] = util.datatypes.date1601.getISODate(item.date_added)
+//     } else if (field === 'modified') {
+//       projection[field] = util.datatypes.date1601.getISODate(item.date_modified)
+//     } else {
+//       projection[field] = item[field]
+//     }
+//   })
+//   return projection
+// }
+
 const Translation = {
   make,
 }

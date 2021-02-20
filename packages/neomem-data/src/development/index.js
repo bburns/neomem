@@ -14,8 +14,8 @@ const { Types } = require('./types')
 /** get an item or items
  * @param query {Query}
  * @param start? {Object}
- * //. recurse or loop with stack to handle folders etc
  */
+//. recurse or loop with stack to handle folders etc
 async function get(query, start = undefined) {
   if (query.isMeta) {
     return Meta.get()
@@ -25,7 +25,6 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
-  // const depth = query.paramsObj.get('depth')
   if (query.paramsObj.get('depth') === '0') {
     return Projection.make(start, query.paramsObj.get('fields')) // get ONE item
   }

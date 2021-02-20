@@ -1,75 +1,37 @@
-const fs = require('fs') // node lib
-const util = require('neomem-util')
+const { Projection } = require('neomem-util')
+const { Root } = require('./root')
 
-//. get user's folder - need node lib
-// const chromePath = '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks'
-
-// note: can read and parse json file directly using require,
-// but only works for files with .json extension -
-// otherwise it thinks it's javascript.
-// see https://stackoverflow.com/a/36591002/243392
-// const examplePath = __dirname + '/../test/fixtures/example.json'
-// const path = options.use === 'chrome' ? chromePath : examplePath
-// console.log(`Reading ${path}...`)
-const path = __dirname + '/sample.json' // a smaller example file
-let bookmarks
-
-const root = {
-  name: 'bookmarks',
-  type: 'datasource',
-  description: 'Datasource for Chrome bookmarks (read-only)', //. duplicate of nmdata def
-  // children: Object.values(bookmarks.roots),
-}
+/** @typedef {import('../../neomem-util').Query} Query */
 
 /**
  * Get items related to the given item using the query object.
- * @params query {Query}
+ * @param query {Query}
+ * @param start {Object} //. an Item
  */
-async function get(query, start = root) {
-  // memoize the bookmarks file
-  if (!root.children) {
-    bookmarks = JSON.parse(fs.readFileSync(path, 'utf-8'))
-    root.children = Object.values(bookmarks.roots)
+async function get(query, start = undefined) {
+  if (start === undefined) {
+    start = await Root.get() // memoized bookmarks file
   }
   // cdr down the path
-  // const first = query.pathArray[0] // eg 'books'
-  // const rest = query.pathArray.slice(1) // eg ['scifi']
-  const first = query.paramsObj.first
-  const rest = query.paramsObj.rest
+  const first = query.pathObj.first
+  // const rest = query.pathObj.rest
+  const fields = query.paramsObj.get('fields')
   // check if reached the end of recursion
   if (!first) {
-    if (Number(query.paramsObj.get('depth') === '0')) {
-      return getProjection(start, query) // return ONE item
+    if (query.paramsObj.get('depth') === '0') {
+      // return getProjection(start, query) // return ONE item
+      const projection = Projection.make(start, fields)
+      return projection
     }
     const items = start.children
       // .slice(query.offset, query.offset + query.limit)
       // .filter(item => item.name.includes(query.q) || item.url.includes(query.q))
-      .map(item => getProjection(item, query))
+      // .map(item => getProjection(item, query))
+      .map(item => Projection.make(item, fields))
     return items
   }
   const item2 = start.children.find(child => child.name === first)
-  return get({ ...query, pathArray: rest }, item2) // recurse
-}
-
-// project an item's data into the query's required fields.
-function getProjection(item, query) {
-  const projection = {}
-  const fields = query.paramsObj.get('fields')
-  fields.split(',').forEach(field => {
-    const datatype = metadata.view.fields[field].datatype || 'string'
-    const sourcefield = metadata.view.fields[field].sourcefield
-    const converter = util.datatypes[datatype]
-    projection[field] = converter.parse(item[sourcefield])
-    // convert chrome dates to iso dates here
-    if (field === 'created') {
-      projection[field] = util.datatypes.date1601.getISODate(item.date_added)
-    } else if (field === 'modified') {
-      projection[field] = util.datatypes.date1601.getISODate(item.date_modified)
-    } else {
-      projection[field] = item[field]
-    }
-  })
-  return projection
+  return get(query.getReducedQuery(), item2) // recurse
 }
 
 module.exports = { get }

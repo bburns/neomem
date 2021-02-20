@@ -217,8 +217,21 @@ class Query {
   getRemainingUrl(item) {
     return `${item.url || ''}${this._pathObj.rest}?${this.params}`
   }
+
+  getReducedQuery() {
+    const query = new Query(
+      this.base,
+      this._pathObj.rest,
+      this.params,
+      this.hash
+    )
+    return query
+  }
 }
 
+/**
+ * Base of a url, e.g. 'http://localhost:4000/api/v1'
+ */
 class Base {
   constructor(base = '') {
     this._str = base
@@ -228,6 +241,9 @@ class Base {
   }
 }
 
+/**
+ * Hash of a url, eg 'foo'
+ */
 class Hash {
   constructor(hash = '') {
     this._str = hash
