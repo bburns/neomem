@@ -8,14 +8,13 @@ const { Root } = require('./root')
 const { Meta } = require('./meta')
 const { Types } = require('./types')
 
-// // used as default query for all fns
-// const emptyQuery = Query.makeFromRequest()
-
 /** get an item or items
  * @param query {Query}
  * @param start? {Object}
  */
 //. recurse or loop with stack to handle folders etc
+//. and extract this code and nmdata-bookmarks to a functional,
+// ie pass in points of difference, get a 'get' function out.
 async function get(query, start = undefined) {
   if (query.isMeta) {
     return Meta.get()
@@ -25,8 +24,10 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
+  const fields = query.paramsObj.get('fields')
+
   if (query.paramsObj.get('depth') === '0') {
-    return Projection.make(start, query.paramsObj.get('fields')) // get ONE item
+    return Projection.make(start, fields) // get ONE item
   }
 
   const items = start.children
@@ -46,7 +47,7 @@ async function get(query, start = undefined) {
   // return items
 
   // return projection of items
-  return items.map(item => Projection.make(item, query.paramsObj.get('fields')))
+  return items.map(item => Projection.make(item, fields))
 }
 
 async function post(query) {}

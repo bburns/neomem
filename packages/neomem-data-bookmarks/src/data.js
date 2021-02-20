@@ -1,5 +1,6 @@
 const { Projection } = require('neomem-util')
 const { Root } = require('./root')
+const { Meta } = require('./meta')
 
 /** @typedef {import('../../neomem-util').Query} Query */
 
@@ -9,13 +10,18 @@ const { Root } = require('./root')
  * @param start {Object} //. an Item
  */
 async function get(query, start = undefined) {
+  if (query.isMeta) {
+    return Meta.get().view
+  }
+
   if (start === undefined) {
     start = await Root.get() // memoized bookmarks file
   }
-  // cdr down the path
+
   const first = query.pathObj.first
-  // const rest = query.pathObj.rest
+
   const fields = query.paramsObj.get('fields')
+
   // check if reached the end of recursion
   if (!first) {
     if (query.paramsObj.get('depth') === '0') {

@@ -22,8 +22,12 @@ const metadata = {
   },
 }
 
-function get() {
+async function get() {
   return metadata
 }
 
-module.exports = { get }
+const Meta = {
+  get,
+}
+
+module.exports = { Meta }
