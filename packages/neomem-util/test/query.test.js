@@ -10,7 +10,7 @@ test(`Query.make() - should let you make an empty query`, async t => {
   t.deepEqual(query.path, '')
   t.deepEqual(query.params, '')
   t.deepEqual(query.hash, '')
-  t.deepEqual(query.str, '')
+  t.deepEqual(query.str, '/')
 })
 
 test(`Query.make(base) - should make a query that is updateable`, async t => {
@@ -30,7 +30,7 @@ test(`Query.make and set params - should make a query and let you set searchpara
   query.paramsObj.set('fields', 'name,url')
   query.paramsObj.set('sortby', 'name')
   t.deepEqual(query.params, 'fields=name,url&sortby=name')
-  t.deepEqual(query.str, '?fields=name,url&sortby=name')
+  t.deepEqual(query.str, '/?fields=name,url&sortby=name')
 })
 
 test(`Query.make and .meta - should make a new query with path + .neomem`, async t => {
@@ -39,7 +39,7 @@ test(`Query.make and .meta - should make a new query with path + .neomem`, async
   t.deepEqual(query.path, path)
   const metaquery = query.getMetaQuery('pokpok')
   t.deepEqual(metaquery.path, pathlib.join(path, '.neomem/pokpok'))
-  t.is(metaquery.isMeta, true)
+  t.is(metaquery.isMeta, false)
 })
 
 test(`Query.make and .view - should make a new query with fields given by the view metadata`, async t => {

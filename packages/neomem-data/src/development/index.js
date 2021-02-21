@@ -31,7 +31,6 @@ async function get(query, start = undefined) {
   }
 
   const items = start.children
-  console.log('items', items)
   const item = items.find(item => item.name === query.pathObj.first)
 
   // pass query along to other datasource if needed

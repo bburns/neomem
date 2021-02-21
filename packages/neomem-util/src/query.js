@@ -207,8 +207,12 @@ class Query {
    * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
    */
   toString() {
+    const joiner =
+      this.base.endsWith('/') || this.path.startsWith('/') ? '' : '/'
     const str =
-      pathlib.join(this.base, this.path) +
+      this.base +
+      joiner +
+      this.path +
       (this.params ? '?' + this.params : '') +
       this.hash
     return str

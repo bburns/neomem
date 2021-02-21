@@ -19,7 +19,6 @@ async function exists({ path }) {
  */
 async function get(query) {
   const url = query.str
-  console.log('get query', url)
   const json = await Http.get(url)
   return json
 }
