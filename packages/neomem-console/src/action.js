@@ -71,18 +71,13 @@ async function list(options) {
   // get data
   const path = Path.join(context.location, target)
   const query = Query.make(context.base, { path })
-  console.log(78, query)
   const metadata = await Data.get(query.getMetaQuery('views/console/list'))
-  console.log(79, metadata)
   const items = await Data.get(query.getViewQuery(metadata))
-  console.log(81, items)
 
   //. recurse and build depth values for treelist
   //. handle tree indentation with item.depth
   // accessor: item => ' '.repeat(item.depth) + item.name,
-  // const tableColumns = metadata.view.columns.map(column => ({
-  const columns = metadata.view.columns //. || 'name,type,description'.split(',')
-  const tableColumns = columns.map(column => ({
+  const tableColumns = metadata.view.columns.map(column => ({
     name: column.key,
     accessor: column.key,
     width: column.width || 10,
@@ -135,10 +130,10 @@ async function look(options) {
 
 const l = look
 
-//. will require processor to leave items in history tree, move a pointer on undo
 /**
  * redo
  */
+//. will require processor to leave items in history tree, move a pointer on undo
 async function redo(options) {
   const { Processor } = options
   await Processor.redo(options)

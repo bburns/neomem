@@ -4,8 +4,10 @@ const { Http } = require('neomem-util')
 
 /** @typedef {import('../../neomem-util').Query} Query */
 
-//. ask a datasource if the given path exists
-//. better - make an exists query - Query.makeExists(base, path) then use get(query)?
+/**
+ * Ask a datasource if the given path exists
+ */
+//. should be able to just get 200 or 404 from a header fetch?
 async function exists({ path }) {
   // const query = { path, limit: 0 }
   // const json = await get(query)
@@ -18,7 +20,6 @@ async function exists({ path }) {
  * @returns {Promise<Object>} json data
  */
 async function get(query) {
-  console.log(21, query, query.url)
   const json = await Http.get(query.url)
   return json
 }

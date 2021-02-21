@@ -45,8 +45,9 @@ test(`Query.make and .view - should make a new query with fields given by the vi
   const params = { path: 'bookmarks' }
   const query = Query.make(base, params)
   const view = { columns: [{ key: 'name' }, { key: 'url' }] }
-  const viewquery = query.getViewQuery(view).set('depth', 0)
-  const params2 = { ...params, depth: 0 }
+  const metadata = { view }
+  const viewquery = query.getViewQuery(metadata).set('depth', 0)
+  const params2 = { ...params, fields: 'name,url', depth: 0 }
   t.deepEqual(viewquery.params, params2)
   t.deepEqual(viewquery.str, base + '?' + encode(params2))
 })
