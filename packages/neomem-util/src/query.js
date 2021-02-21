@@ -98,9 +98,9 @@ class Query {
    * this would update query.params.fields to ['name', 'url'].
    * @returns {Query}
    */
-  getViewQuery(view = { columns: [] }) {
+  getViewQuery(metadata = { view: { columns: [] } }) {
     const query = new Query(this.base, this.params)
-    const fields = view.columns.map(column => column.key).join(',') // eg 'name,url'
+    const fields = metadata.view.columns.map(column => column.key).join(',') // eg 'name,url'
     query._params.fields = fields
     return query
   }
@@ -116,6 +116,10 @@ class Query {
   }
 
   get str() {
+    return this.toString()
+  }
+
+  get url() {
     return this.toString()
   }
 

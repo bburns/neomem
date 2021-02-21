@@ -1,4 +1,4 @@
-// path objects
+// path functions
 
 const pathlib = require('path') // node lib https://nodejs.org/api/path.html
 
@@ -8,7 +8,6 @@ const pathlib = require('path') // node lib https://nodejs.org/api/path.html
  */
 class Path {
   constructor(str = '') {
-    // throw new Error(`Use Path.make or Path.join`)
     this._str = str
   }
 
@@ -24,11 +23,11 @@ class Path {
   /**
    * Get an absolute path object by joining parts.
    * e.g. join('/foo', 'bar') == join('/foo/bar')
-   * eg make('/bookmarks', 'books/scif') => { str: '/bookmarks/books/scifi', ... }
-   * eg make('/bookmarks', '/fishes') => { str: '/fishes', ... }
-   * eg make('/bookmarks', '') => { str: '/bookmarks', ... }
+   * eg join('/bookmarks', 'books/scif') => '/bookmarks/books/scifi'
+   * eg join('/bookmarks', '/fishes') => '/fishes'
+   * eg join('/bookmarks', '') => '/bookmarks'
    * @param parts {string[]}
-   * @returns {Path}
+   * @returns {string}
    */
   static join(...parts) {
     // see https://nodejs.org/api/path.html#path_path_resolve_paths
@@ -37,8 +36,9 @@ class Path {
     const str = hasAbsolute
       ? pathlib.resolve(...parts)
       : pathlib.join('/', ...parts).slice(1)
-    const pathObj = Path.make(str)
-    return pathObj
+    // const pathObj = Path.make(str)
+    // return pathObj
+    return str
   }
 
   /**
@@ -51,6 +51,14 @@ class Path {
       return this._str.slice(0, i)
     }
     return this._str
+  }
+
+  static getFirst(path = '') {
+    const i = path.indexOf('/')
+    if (i !== -1) {
+      return path.slice(0, i)
+    }
+    return path
   }
 
   /**

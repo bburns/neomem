@@ -18,9 +18,8 @@ async function exists({ path }) {
  * @returns {Promise<Object>} json data
  */
 async function get(query) {
-  const url = query.str
-  console.log('Data.get(query)', query)
-  const json = await Http.get(url)
+  console.log('query url 21', query.url)
+  const json = await Http.get(query.url)
   return json
 }
 

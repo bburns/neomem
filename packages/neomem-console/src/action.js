@@ -110,11 +110,12 @@ async function look(options) {
   const target = tokens[1] || '' // eg 'books/scifi' or ''
 
   // get data
-  const pathObj = Path.join(context.location, target)
-  const query = Query.make(context.base, pathObj.str)
-  console.log('query', query)
-  const view = await Data.get(query.getMetaQuery('views/console/look'))
-  const item = await Data.get(query.getViewQuery(view).set('depth', '0'))
+  const path = Path.join(context.location, target)
+  const query = Query.make(context.base, { path })
+  console.log('query 115', query, query.url)
+  const metadata = await Data.get(query.getMetaQuery('views/console/look'))
+  console.log(metadata)
+  const item = await Data.get(query.getViewQuery(metadata).set('depth', '0'))
 
   // print location and table with item properties
   await location(options)
@@ -123,7 +124,7 @@ async function look(options) {
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
-  const fields = view.columns.map(column => column.key)
+  const fields = metadata.view.columns.map(column => column.key)
   const rows = fields.map(field => ({ name: field, value: item[field] }))
   const t = new Table(tableColumns, rows)
   const s = t.toString()

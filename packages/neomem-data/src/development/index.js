@@ -3,18 +3,18 @@
 //. handle datasource registry also - put/post/delete datasources.
 
 const fetch = require('node-fetch').default
-const { Query, Projection } = require('neomem-util')
+const { Query, Projection, Path } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
 const { Types } = require('./types')
 
 /** get an item or items
  * @param query {Query}
- * @param start? {Object}
+ * @param start? {Object} //. Item
  */
 //. recurse or loop with stack to handle folders etc
-//. and extract this code and nmdata-bookmarks to a functional,
-// ie pass in points of difference, get a 'get' function out.
+//. extract this code and nmdata-bookmarks to a functional,
+//  ie pass in points of difference, get a 'get' function out.
 async function get(query, start = undefined) {
   if (query.isMeta) {
     return Meta.get()
@@ -24,14 +24,15 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
-  const fields = query.paramsObj.get('fields') || '' //.
+  const fields = query.params.fields || ''
 
-  if (query.paramsObj.get('depth') === '0') {
+  if (query.params.depth === 0) {
     return Projection.make(start, fields) // get ONE item
   }
 
   const items = start.children
-  const item = items.find(item => item.name === query.pathObj.first)
+  const first = Path.getFirst(query.params.path)
+  const item = items.find(item => item.name === first)
 
   // pass query along to other datasource if needed
   if (item && item.type === 'datasource') {
