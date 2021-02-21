@@ -12,21 +12,22 @@ const { Path } = require('./path')
  * will traverse to find the data to return.
  */
 class Query {
-  constructor(base = '', path = '', params = '', hash = '') {
-    this._baseObj = new Base(base) // base of url eg 'http://localhost:4000/api/v1'
-    this._pathObj = new Path(path) // path to item, eg '/bookmarks/books'
-    this._paramsObj = new URLSearchParams(params) // dict of params and js representations
-    this._hashObj = new Hash(hash) // hashtag at end of url eg #foo
+  constructor(base = '', params = {}) {
+    this._base = base
+    this._params = params
+    // this._paramsObj = new URLSearchParams(params) // dict of params and js representations
     return this
   }
 
   /**
    * Make a query object from the given parts,
    * eg make('http://localhost:4000/api/v1', 'bookmarks', ...)
+   * @param base {string} eg 'http://localhost:4000/api/v1'
+   * @param params {Object} eg { fields: 'name,url', sortby: 'name' }
    * @returns {Query}
    */
-  static make(base = '', path = '', params = '', hash = '') {
-    const query = new Query(base, path, params, hash)
+  static make(base = '', params = {}) {
+    const query = new Query(base, params)
     return query
   }
 
@@ -39,103 +40,47 @@ class Query {
   static makeFromRequest(request, apiversion = '') {
     const { protocol, host, port } = request.server.info
     const base = protocol + '://' + host + (port ? ':' + port : '') + apiversion
-    const path = request.params.path // eg 'bookmarks/books'
-    const params = request.raw.req.url.split('?')[1] // eg 'fields=name,url&sortby=name'
-    const hash = request.hash
-    const query = Query.make(base, path, params, hash)
+    const paramsString = request.raw.req.url.split('?')[1] || ''
+    const params = JSON.parse(decodeURIComponent(paramsString))
+    params.path = request.params.path || ''
+    const query = Query.make(base, params)
     return query
   }
 
-  // /**
-  //  * Update the query with the given parts,
-  //  * e.g. query.update({ path: 'pokpok', hash: 'kjnkjn' })
-  //  * @returns {Query} this query, for chaining
-  //  */
-  // update(parts = {}) {
-  //   for (const key of Object.keys(parts)) {
-  //     this[key] = parts[key]
-  //   }
-  //   return this
-  // }
-
-  // /**
-  //  * Get the basic parts of the query { base, path, params, hash }.
-  //  * Note: this is just a shallow copy of this query - use .copy for deep copy.
-  //  * @returns {Object}
-  //  */
-  // get parts() {
-  //   return { ...this } // bug: only does a shallow copy
-  // }
-
   get base() {
-    return this._baseObj.toString()
+    return this._base
   }
   set base(s) {
-    this._baseObj = new Base(s)
+    this._base = s
   }
 
   get path() {
-    return this._pathObj.toString()
+    return this._params.path
   }
   set path(s) {
-    this._pathObj = new Path(s)
-  }
-  get pathObj() {
-    return this._pathObj
+    this._params.path = s
   }
 
   get params() {
-    return this._paramsObj.toString().replace(/%2C/g, ',')
+    return this._params
   }
-  set params(s) {
-    this._paramsObj = new URLSearchParams(s)
-  }
-
-  get paramsObj() {
-    return this._paramsObj
+  set params(obj) {
+    this._params = obj
   }
 
-  get hash() {
-    return this._hashObj.toString()
+  set(key, value) {
+    this._params[key] = value
+    return this
   }
-
-  // /**
-  //  * Get the first part of the path
-  //  * @returns {string}
-  //  */
-  // //. delegate to path, or make user say query.pathObj.first
-  // get first() {
-  //   // const first = this._path ? this._path.split('/')[0] : ''
-  //   const first = this._pathObj.first
-  //   return first
-  // }
-
-  // /**
-  //  * Make a deep copy of this query object
-  //  */
-  // copy() {
-  //   const parts = {
-  //     base: this.base + '',
-  //     path: this.path + '',
-  //     params: JSON.parse(JSON.stringify(this.params)),
-  //     hash: this.hash + '',
-  //   }
-  //   const query = new Query(parts)
-  //   return query
-  // }
 
   /**
-   * Get a new query that requests the metadata assoc with the location.
+   * Get a new query that requests the metadata assoc with the item.
+   * @param metapath {string} - need this?
    * @returns {Query}
    */
   getMetaQuery(metapath = '') {
-    const query = new Query(this.base, this.path, this.params, this.hash)
-    // query.path += '.neomem' + (metapath ? '/' + metapath : '')
-    query.path = pathlib.join(
-      query.path,
-      '.neomem' + (metapath ? '/' + metapath : '')
-    )
-    query.paramsObj.set('meta', '1') //. or just check for .neomem in path?
+    const query = new Query(this.base, this.params)
+    query.params.meta = 1
     return query
   }
 
@@ -144,11 +89,7 @@ class Query {
    * @returns {boolean}
    */
   get isMeta() {
-    // return this.path && this.path.startsWith('/.neomem')
-    // return this._paramsObj.get('meta') === '1'
-    const isMeta =
-      this.path.startsWith('/.neomem') && this._paramsObj.get('meta') === '1'
-    return isMeta
+    return this._params.meta === 1
   }
 
   /**
@@ -158,64 +99,19 @@ class Query {
    * @returns {Query}
    */
   getViewQuery(view = { columns: [] }) {
-    console.log('getViewQuery', view)
-    const query = new Query(this.base, this.path, this.params, this.hash)
-    const fields = view.columns.map(column => column.key).join(',')
-    query.paramsObj.set('fields', fields)
+    const query = new Query(this.base, this.params)
+    const fields = view.columns.map(column => column.key).join(',') // eg 'name,url'
+    query._params.fields = fields
     return query
   }
-
-  set(key, value) {
-    this._paramsObj.set(key, value)
-    return this
-  }
-
-  // /**
-  //  * Get a string representation of the params object.
-  //  * e.g. "fields=name,url&sortby=name"
-  //  */
-  // //. oh, will fail if fields is an array -
-  // //. use URL's parser etc
-  // get paramsString() {
-  //   const skeys = []
-  //   for (const key of Object.keys(this.params)) {
-  //     // const skey = key + '=' + this.params[key]
-  //     const value = this.params[key]
-  //     const svalue = Array.isArray(value) ? value.join(',') : value
-  //     const skey = key + '=' + svalue
-  //     skeys.push(skey)
-  //   }
-  //   const s = skeys.join('&')
-  //   return s
-  // }
-
-  // /**
-  //  * Set the string representation of the search parameters
-  //  * @param s {string}
-  //  */
-  // set paramsString(s) {
-  //   const params = {}
-  //   const pairs = s.split('&')
-  //   for (const pair of pairs) {
-  //     const [key, value] = pair.split('=')
-  //     params[key] = value
-  //   }
-  //   this.params = params
-  // }
 
   /**
    * Get the url string representation of this query.
    * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
    */
   toString() {
-    const joiner =
-      this.base.endsWith('/') || this.path.startsWith('/') ? '' : '/'
     const str =
-      this.base +
-      joiner +
-      this.path +
-      (this.params ? '?' + this.params : '') +
-      this.hash
+      this.base + '?' + encodeURIComponent(JSON.stringify(this.params))
     return str
   }
 
@@ -223,44 +119,20 @@ class Query {
     return this.toString()
   }
 
-  //. url but cuts out first part of path
-  getRemainingUrl(item) {
-    return `${item.url || ''}${this._pathObj.rest}?${this.params}`
-  }
+  // //. url but cuts out first part of path
+  // getRemainingUrl(item) {
+  //   return `${item.url || ''}${this._pathObj.rest}?${this.params}`
+  // }
 
-  getReducedQuery() {
-    const query = new Query(
-      this.base,
-      this._pathObj.rest,
-      this.params,
-      this.hash
-    )
-    return query
-  }
-}
-
-/**
- * Base of a url, e.g. 'http://localhost:4000/api/v1'
- */
-class Base {
-  constructor(base = '') {
-    this._str = base
-  }
-  toString() {
-    return this._str
-  }
-}
-
-/**
- * Hash of a url, eg 'foo'
- */
-class Hash {
-  constructor(hash = '') {
-    this._str = hash
-  }
-  toString() {
-    return this._str
-  }
+  // getReducedQuery() {
+  //   const query = new Query(
+  //     this.base,
+  //     this._pathObj.rest,
+  //     this.params,
+  //     this.hash
+  //   )
+  //   return query
+  // }
 }
 
 module.exports = { Query }
