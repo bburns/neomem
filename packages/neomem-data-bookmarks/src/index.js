@@ -1,9 +1,6 @@
-'use strict'
-
 const Hapi = require('@hapi/hapi') // rest api lib
-const meta = require('./meta')
-const data = require('./data')
 const { Query } = require('neomem-util')
+const { Data } = require('./data')
 
 //. use lib to find open port, then register it with nmdata registry.
 const port = process.env.PORT || 4003
@@ -15,15 +12,6 @@ const init = async () => {
     port,
   })
 
-  // note: this handles both localhost:<port> and localhost:<port>/
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: (request, h) => {
-      return `Try ${apiversion1}`
-    },
-  })
-
   /**
    * Get contents of this datasource or meta item.
    * @returns {Promise<Object>}
@@ -33,18 +21,12 @@ const init = async () => {
     path: `${apiversion1}/{path*}`,
     handler: async (request, h) => {
       const query = Query.makeFromRequest(request, apiversion1)
-      //. if (query.meta) return getMetadata() // ?
-      // if (query.path.endsWith('.neomem')) {
-      if (query.isMeta) {
-        const metadata = await meta.get()
-        return metadata.view //. ok?
-      }
-      const items = await data.get(query, undefined)
+      const items = await Data.get(query)
       return items
     },
   })
 
-  // start the api server
+  // start the server
   await server.start()
   console.log('Server running on %s', server.info.uri)
 }

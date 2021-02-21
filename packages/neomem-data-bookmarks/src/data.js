@@ -1,3 +1,5 @@
+// data get, post, put, delete handlers
+
 const { Projection } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
@@ -10,8 +12,11 @@ const { Meta } = require('./meta')
  * @param start {Object} //. an Item
  */
 async function get(query, start = undefined) {
+  console.log(15, query)
   if (query.isMeta) {
-    return Meta.get().view
+    const metadata = Meta.get()
+    console.log(17, metadata)
+    return metadata
   }
 
   if (start === undefined) {
@@ -40,4 +45,8 @@ async function get(query, start = undefined) {
   return get(query.getReducedQuery(), item2) // recurse
 }
 
-module.exports = { get }
+const Data = {
+  get,
+}
+
+module.exports = { Data }

@@ -145,7 +145,10 @@ class Query {
    */
   get isMeta() {
     // return this.path && this.path.startsWith('/.neomem')
-    return this._paramsObj.get('meta') === '1'
+    // return this._paramsObj.get('meta') === '1'
+    const isMeta =
+      this.path.startsWith('/.neomem') && this._paramsObj.get('meta') === '1'
+    return isMeta
   }
 
   /**
@@ -205,7 +208,9 @@ class Query {
    */
   toString() {
     const str =
-      this.base + this.path + (this.params ? '?' + this.params : '') + this.hash
+      pathlib.join(this.base, this.path) +
+      (this.params ? '?' + this.params : '') +
+      this.hash
     return str
   }
 

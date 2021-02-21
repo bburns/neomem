@@ -63,6 +63,7 @@ async function list(options) {
   const pathObj = Path.join(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
   const query = Query.make(context.base, pathObj.str)
   const view = await Data.get(query.getMetaQuery('views/console/list'))
+  console.log(65, view)
   const items = await Data.get(query.getViewQuery(view))
 
   //. recurse and build depth values for treelist
@@ -103,6 +104,7 @@ async function look(options) {
   const pathObj = Path.join(context.location, target)
   const query = Query.make(context.base, pathObj.str)
   const view = await Data.get(query.getMetaQuery('views/console/look'))
+  console.log(106, view)
   const item = await Data.get(query.getViewQuery(view).set('depth', '0'))
 
   // print location and table with item properties

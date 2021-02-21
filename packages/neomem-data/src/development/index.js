@@ -44,8 +44,6 @@ async function get(query, start = undefined) {
     return json
   }
 
-  // return items
-
   // return projection of items
   return items.map(item => Projection.make(item, fields))
 }
