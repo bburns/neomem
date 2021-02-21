@@ -19,6 +19,7 @@ async function exists({ path }) {
  */
 async function get(query) {
   const url = query.str
+  console.log('Data.get(query)', query)
   const json = await Http.get(url)
   return json
 }

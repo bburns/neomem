@@ -6,7 +6,16 @@ const { Metadata } = require('./metadata')
 const { Table } = require('./table') // wrapper around a table library
 
 /**
+ * @typedef Options {Object}
+ * @property {string[]} tokens
+ * @property {Object} context
+ * @property {Object} ui
+ * @property {Object} Processor
+ */
+
+/**
  * go [target]
+ * @param options {Options}
  */
 async function go(options) {
   const { tokens, context, ui } = options
@@ -20,12 +29,12 @@ async function go(options) {
   }
 
   // get absolute path object
-  const path = Path.make(context.location, target)
+  const pathObj = Path.join(context.location, target)
 
   // move to target if it exists
-  if (await Data.exists({ path })) {
-    context.location = path.str
-    ui.print('Moved to', path.str + '.')
+  if (await Data.exists({ path: pathObj.str })) {
+    context.location = pathObj.str
+    ui.print('Moved to', pathObj.str + '.')
   } else {
     ui.print('Invalid location.')
   }
@@ -63,7 +72,6 @@ async function list(options) {
   const pathObj = Path.join(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
   const query = Query.make(context.base, pathObj.str)
   const view = await Data.get(query.getMetaQuery('views/console/list'))
-  console.log(65, view)
   const items = await Data.get(query.getViewQuery(view))
 
   //. recurse and build depth values for treelist
@@ -93,6 +101,7 @@ const loc = location
 
 /**
  * look [target]
+ * @param options {Options}
  */
 async function look(options) {
   const { tokens, context, ui } = options
@@ -103,8 +112,8 @@ async function look(options) {
   // get data
   const pathObj = Path.join(context.location, target)
   const query = Query.make(context.base, pathObj.str)
+  console.log('query', query)
   const view = await Data.get(query.getMetaQuery('views/console/look'))
-  console.log(106, view)
   const item = await Data.get(query.getViewQuery(view).set('depth', '0'))
 
   // print location and table with item properties

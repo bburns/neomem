@@ -158,6 +158,7 @@ class Query {
    * @returns {Query}
    */
   getViewQuery(view = { columns: [] }) {
+    console.log('getViewQuery', view)
     const query = new Query(this.base, this.path, this.params, this.hash)
     const fields = view.columns.map(column => column.key).join(',')
     query.paramsObj.set('fields', fields)

@@ -24,7 +24,7 @@ async function get(query, start = undefined) {
     start = await Root.get() // memoized fn
   }
 
-  const fields = query.paramsObj.get('fields')
+  const fields = query.paramsObj.get('fields') || '' //.
 
   if (query.paramsObj.get('depth') === '0') {
     return Projection.make(start, fields) // get ONE item
