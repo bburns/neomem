@@ -28,13 +28,13 @@ async function go(options) {
     return
   }
 
-  // get absolute path object
-  const pathObj = Path.join(context.location, target)
+  // get absolute path
+  const path = Path.join(context.location, target)
 
   // move to target if it exists
-  if (await Data.exists({ path: pathObj.str })) {
-    context.location = pathObj.str
-    ui.print('Moved to', pathObj.str + '.')
+  if (await Data.exists({ path })) {
+    context.location = path
+    ui.print('Moved to', path + '.')
   } else {
     ui.print('Invalid location.')
   }
@@ -69,16 +69,19 @@ async function list(options) {
   const target = tokens[1] || '' // eg 'books'
 
   // get data
-  const pathObj = Path.join(context.location, target) // eg { str: '/bookmarks/books/scifi', ... }
-  const query = Query.make(context.base, pathObj.str)
-  const view = await Data.get(query.getMetaQuery('views/console/list'))
-  const items = await Data.get(query.getViewQuery(view))
+  const path = Path.join(context.location, target)
+  const query = Query.make(context.base, { path })
+  console.log(78, query)
+  const metadata = await Data.get(query.getMetaQuery('views/console/list'))
+  console.log(79, metadata)
+  const items = await Data.get(query.getViewQuery(metadata))
+  console.log(81, items)
 
   //. recurse and build depth values for treelist
   //. handle tree indentation with item.depth
   // accessor: item => ' '.repeat(item.depth) + item.name,
   // const tableColumns = metadata.view.columns.map(column => ({
-  const columns = view.columns || 'name,type,description'.split(',')
+  const columns = metadata.view.columns //. || 'name,type,description'.split(',')
   const tableColumns = columns.map(column => ({
     name: column.key,
     accessor: column.key,
@@ -112,9 +115,7 @@ async function look(options) {
   // get data
   const path = Path.join(context.location, target)
   const query = Query.make(context.base, { path })
-  console.log('query 115', query, query.url)
   const metadata = await Data.get(query.getMetaQuery('views/console/look'))
-  console.log(metadata)
   const item = await Data.get(query.getViewQuery(metadata).set('depth', '0'))
 
   // print location and table with item properties

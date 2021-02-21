@@ -79,7 +79,8 @@ class Query {
    * @returns {Query}
    */
   getMetaQuery(metapath = '') {
-    const query = new Query(this.base, this.params)
+    // const query = new Query(this.base, this.params)
+    const query = this.copy()
     query.params.meta = 1
     return query
   }
@@ -99,9 +100,15 @@ class Query {
    * @returns {Query}
    */
   getViewQuery(metadata = { view: { columns: [] } }) {
-    const query = new Query(this.base, this.params)
+    // const query = new Query(this.base, this.params)
+    const query = this.copy()
     const fields = metadata.view.columns.map(column => column.key).join(',') // eg 'name,url'
     query._params.fields = fields
+    return query
+  }
+
+  copy() {
+    const query = new Query(this.base, JSON.parse(JSON.stringify(this.params)))
     return query
   }
 
