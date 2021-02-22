@@ -12,6 +12,9 @@ const { Path } = require('./path')
  * will traverse to find the data to return.
  */
 class Query {
+  /**
+   * Don't call this directly - call make
+   */
   constructor(base = '', params = {}) {
     this._base = base
     this._params = params
@@ -21,8 +24,8 @@ class Query {
 
   /**
    * Make a query object from the given parts,
-   * eg make('http://localhost:4000/api/v1', 'bookmarks', ...)
-   * @param base {string} eg 'http://localhost:4000/api/v1'
+   * eg make('http://localhost:4000/api/v1/', 'bookmarks', ...)
+   * @param base {string} eg 'http://localhost:4000/api/v1/'
    * @param params {Object} eg { fields: 'name,url', sortby: 'name' }
    * @returns {Query}
    */
@@ -54,13 +57,6 @@ class Query {
     this._base = s
   }
 
-  get path() {
-    return this._params.path
-  }
-  set path(s) {
-    this._params.path = s
-  }
-
   get params() {
     return this._params
   }
@@ -79,7 +75,6 @@ class Query {
    * @returns {Query}
    */
   getMetaQuery(metapath = '') {
-    // const query = new Query(this.base, this.params)
     const query = this.copy()
     query.params.meta = 1
     return query
@@ -90,7 +85,7 @@ class Query {
    * @returns {boolean}
    */
   get isMeta() {
-    return this._params.meta === 1
+    return this.params.meta === 1
   }
 
   /**
@@ -100,27 +95,18 @@ class Query {
    * @returns {Query}
    */
   getViewQuery(metadata = { view: { columns: [] } }) {
-    // const query = new Query(this.base, this.params)
     const query = this.copy()
     const fields = metadata.view.columns.map(column => column.key).join(',') // eg 'name,url'
     query._params.fields = fields
     return query
   }
 
+  /**
+   * Create and return a copy of this query.
+   */
   copy() {
     const query = new Query(this.base, JSON.parse(JSON.stringify(this.params)))
     return query
-  }
-
-  toString() {
-    // const str =
-    //   this.base + '?' + encodeURIComponent(JSON.stringify(this.params))
-    // return str
-    return decodeURIComponent(this.url)
-  }
-
-  get str() {
-    return this.toString()
   }
 
   /**
@@ -134,8 +120,17 @@ class Query {
   }
 
   /**
-   *
+   * Get a string representation of this query
+   * @returns {string}
    */
+  toString() {
+    return decodeURIComponent(this.url)
+  }
+
+  get str() {
+    return this.toString()
+  }
+
   //. url but cuts out first part of path
   getRemainingUrl(item) {
     const query = this.copy()
