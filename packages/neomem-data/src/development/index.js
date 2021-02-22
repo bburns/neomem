@@ -11,6 +11,7 @@ const { Types } = require('./types')
 /** get an item or items
  * @param query {Query}
  * @param start? {Object} //. Item
+ * @returns {Promise<Object>}
  */
 //. recurse or loop with stack to handle folders etc
 //. extract this code and nmdata-bookmarks to a functional,
@@ -27,6 +28,7 @@ async function get(query, start = undefined) {
   const fields = query.params.fields || ''
 
   if (query.params.depth === 0) {
+    console.log(31, start, fields)
     return Projection.make(start, fields) // get ONE item
   }
 
