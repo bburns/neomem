@@ -73,6 +73,14 @@ class Path {
     return ''
   }
 
+  static getRest(path = '') {
+    const i = path.indexOf('/')
+    if (i !== -1) {
+      return path.slice(i + 1)
+    }
+    return ''
+  }
+
   toString() {
     return this._str
   }

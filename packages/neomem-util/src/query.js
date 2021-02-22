@@ -133,10 +133,14 @@ class Query {
     return url
   }
 
-  // //. url but cuts out first part of path
-  // getRemainingUrl(item) {
-  //   return `${item.url || ''}${this._pathObj.rest}?${this.params}`
-  // }
+  //. url but cuts out first part of path
+  getRemainingUrl(item) {
+    const path = Path.getRest(this.params.path)
+    const query = this.copy()
+    query.base = item.url
+    query.params.path = path
+    return query.url
+  }
 
   // getReducedQuery() {
   //   const query = new Query(

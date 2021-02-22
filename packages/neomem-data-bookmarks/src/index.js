@@ -4,7 +4,7 @@ const { Data } = require('./data')
 
 //. use lib to find open port, then register it with nmdata registry.
 const port = process.env.PORT || 4003
-const apiversion1 = '/api/v1'
+const apiversion1 = '/api/v1/'
 
 const init = async () => {
   const server = Hapi.server({
@@ -18,7 +18,7 @@ const init = async () => {
    */
   server.route({
     method: 'GET',
-    path: `${apiversion1}/{path*}`,
+    path: `${apiversion1}{path*}`,
     handler: async (request, h) => {
       const query = Query.makeFromRequest(request, apiversion1)
       const items = await Data.get(query)
