@@ -17,7 +17,7 @@ async function get(url) {
       'Accept-Encoding': 'gzip',
     },
   }
-  console.log(chalk.gray(url))
+  // console.log(chalk.gray(url))
   const response = await fetch(url, options)
   const json = await response.json()
   return json

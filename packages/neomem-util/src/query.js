@@ -112,22 +112,25 @@ class Query {
     return query
   }
 
-  /**
-   * Get the url string representation of this query.
-   * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
-   */
   toString() {
-    const str =
-      this.base + '?' + encodeURIComponent(JSON.stringify(this.params))
-    return str
+    // const str =
+    //   this.base + '?' + encodeURIComponent(JSON.stringify(this.params))
+    // return str
+    return decodeURIComponent(this.url)
   }
 
   get str() {
     return this.toString()
   }
 
+  /**
+   * Get the url string representation of this query.
+   * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
+   */
   get url() {
-    return this.toString()
+    const url =
+      this.base + '?' + encodeURIComponent(JSON.stringify(this.params))
+    return url
   }
 
   // //. url but cuts out first part of path

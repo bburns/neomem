@@ -5,7 +5,7 @@ const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const chalk = require('chalk') // color text
 const { Command } = require('./command')
 const { Processor } = require('./processor')
-const package = require('../package')
+const package = require('../package.json')
 
 // ui callbacks
 const ui = {

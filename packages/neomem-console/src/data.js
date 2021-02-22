@@ -1,6 +1,7 @@
 // get, post, put, delete handlers
 
 const { Http } = require('neomem-util')
+const chalk = require('chalk')
 
 /** @typedef {import('../../neomem-util').Query} Query */
 
@@ -20,6 +21,7 @@ async function exists({ path }) {
  * @returns {Promise<Object>} json data
  */
 async function get(query) {
+  console.log(chalk.gray(query.str))
   const json = await Http.get(query.url)
   return json
 }
