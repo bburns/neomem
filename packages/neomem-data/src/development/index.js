@@ -8,7 +8,8 @@ const { Root } = require('./root')
 const { Meta } = require('./meta')
 const { Types } = require('./types')
 
-/** get an item or items
+/**
+ * Get an item or items.
  * @param query {Query}
  * @param start? {Object} //. Item
  * @returns {Promise<Object>}
@@ -35,6 +36,7 @@ async function get(query, start = undefined) {
 
   const items = start.children
   const first = Path.getFirst(query.params.path)
+  console.log(38, 'first', first)
   const item = items.find(item => item.name === first)
 
   // pass query along to other datasource if needed

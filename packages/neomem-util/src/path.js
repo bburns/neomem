@@ -54,7 +54,7 @@ class Path {
   }
 
   static getFirst(path = '') {
-    const i = path.indexOf('/')
+    const i = path.indexOf('/', 1) //.
     if (i !== -1) {
       return path.slice(0, i)
     }

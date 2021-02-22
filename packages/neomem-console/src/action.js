@@ -115,8 +115,8 @@ async function look(options) {
   const query = Query.make(context.base, { path })
   const metadata = await Data.get(query.getMetaQuery('views/console/look'))
   const q2 = query.getViewQuery(metadata).set('depth', 0)
-  console.log(118, q2, q2.str)
-  const item = await Data.get(q2) // calls Http.get(q2.url)
+  console.log(118, q2, q2.str) // has eg path='/bookmarks'
+  const item = await Data.get(q2) // calls Http.get(q2.url), nmdata server gets it
 
   // print location and table with item properties
   await location(options)

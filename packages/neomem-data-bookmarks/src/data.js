@@ -12,7 +12,7 @@ const { Meta } = require('./meta')
  * @param start {Object} //. an Item
  */
 async function get(query, start = undefined) {
-  console.log(15, 'databookmarks.get', query)
+  console.log(15, 'bookmarks.get', query)
   if (query.isMeta) {
     const metadata = Meta.get()
     console.log(17, metadata)

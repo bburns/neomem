@@ -43,9 +43,8 @@ class Query {
   static makeFromRequest(request, apiversion = '') {
     const { protocol, host, port } = request.server.info
     const base = protocol + '://' + host + (port ? ':' + port : '') + apiversion
-    const paramsString = request.raw.req.url.split('?')[1] || ''
+    const paramsString = request.raw.req.url.split('?')[1] || '{}'
     const params = JSON.parse(decodeURIComponent(paramsString))
-    params.path = request.params.path || ''
     const query = Query.make(base, params)
     return query
   }

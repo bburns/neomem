@@ -49,3 +49,7 @@ test(`Path.join - should handle relative path`, async t => {
   const path = Path.join('lkm')
   t.deepEqual(path, 'lkm')
 })
+
+test(`Path.getRest() - should `, async t => {
+  t.deepEqual(1, 1)
+})
