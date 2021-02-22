@@ -34,7 +34,7 @@ class Query {
   /**
    * Parse a Hapi request into a query object
    * @param request {Object}
-   * @param apiversion? {string} - eg '/api/v1'
+   * @param apiversion? {string} - eg '/api/v1/'
    * @returns {Query}
    */
   static makeFromRequest(request, apiversion = '') {
@@ -133,24 +133,25 @@ class Query {
     return url
   }
 
+  /**
+   *
+   */
   //. url but cuts out first part of path
   getRemainingUrl(item) {
-    const path = Path.getRest(this.params.path)
     const query = this.copy()
+    const path = Path.getRest(this.params.path)
     query.base = item.url
     query.params.path = path
     return query.url
   }
 
-  // getReducedQuery() {
-  //   const query = new Query(
-  //     this.base,
-  //     this._pathObj.rest,
-  //     this.params,
-  //     this.hash
-  //   )
-  //   return query
-  // }
+  //. merge with above
+  getReducedQuery() {
+    const query = this.copy()
+    const path = Path.getRest(this.params.path)
+    query.params.path = path
+    return query
+  }
 }
 
 module.exports = { Query }

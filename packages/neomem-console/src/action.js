@@ -50,6 +50,7 @@ go.undo = async options => {
 
 /**
  * history
+ * @param options {Options}
  */
 async function history(options) {
   const { Processor, ui } = options
@@ -61,6 +62,7 @@ const h = history
 
 /**
  * list [target]
+ * @param options {Options}
  */
 async function list(options) {
   const { tokens, context, ui } = options
@@ -89,6 +91,7 @@ async function list(options) {
 
 /**
  * location
+ * @param options {Options}
  */
 async function location(options) {
   const { ui, context } = options
@@ -111,7 +114,9 @@ async function look(options) {
   const path = Path.join(context.location, target)
   const query = Query.make(context.base, { path })
   const metadata = await Data.get(query.getMetaQuery('views/console/look'))
-  const item = await Data.get(query.getViewQuery(metadata).set('depth', 0))
+  const q2 = query.getViewQuery(metadata).set('depth', 0)
+  console.log(118, q2, q2.str)
+  const item = await Data.get(q2) // calls Http.get(q2.url)
 
   // print location and table with item properties
   await location(options)
@@ -132,6 +137,7 @@ const l = look
 
 /**
  * redo
+ * @param options {Options}
  */
 //. will require processor to leave items in history tree, move a pointer on undo
 async function redo(options) {
@@ -141,6 +147,7 @@ async function redo(options) {
 
 /**
  * undo
+ * @param options {Options}
  */
 async function undo(options) {
   const { Processor } = options
@@ -149,6 +156,7 @@ async function undo(options) {
 
 /**
  * unknown
+ * @param options {Options}
  */
 async function unknown(options) {
   const { tokens, context, ui } = options

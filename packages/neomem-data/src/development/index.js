@@ -17,6 +17,7 @@ const { Types } = require('./types')
 //. extract this code and nmdata-bookmarks to a functional,
 //  ie pass in points of difference, get a 'get' function out.
 async function get(query, start = undefined) {
+  console.log(20, 'nmdata.get', query)
   if (query.isMeta) {
     return Meta.get()
   }

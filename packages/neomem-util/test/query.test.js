@@ -15,7 +15,7 @@ test(`Query.make() - should let you make an empty query`, async t => {
   const query = Query.make()
   t.deepEqual(query.base, '')
   t.deepEqual(query.params, {})
-  t.deepEqual(query.str, '?' + encode({}))
+  t.deepEqual(query.url, '?' + encode({}))
 })
 
 test(`Query.make(base) - should make a query that is updateable`, async t => {
@@ -23,7 +23,7 @@ test(`Query.make(base) - should make a query that is updateable`, async t => {
   t.deepEqual(query.base, base)
   query.params.path = 'bookmarks'
   t.deepEqual(query.params.path, 'bookmarks')
-  t.deepEqual(query.str, base + '?' + encode({ path: 'bookmarks' }))
+  t.deepEqual(query.url, base + '?' + encode({ path: 'bookmarks' }))
 })
 
 test(`Query.make and set params - should make a query and let you set searchparams on it`, async t => {
@@ -31,7 +31,7 @@ test(`Query.make and set params - should make a query and let you set searchpara
   const params = { fields: 'name,url', sortby: 'name' }
   query.params = params
   t.deepEqual(query.params, params)
-  t.deepEqual(query.str, '?' + encode(params))
+  t.deepEqual(query.url, '?' + encode(params))
 })
 
 test(`Query.make and .meta - should make a new query with path + .neomem`, async t => {
@@ -49,31 +49,31 @@ test(`Query.make and .view - should make a new query with fields given by the vi
   const viewquery = query.getViewQuery(metadata).set('depth', 0)
   const params2 = { ...params, fields: 'name,url', depth: 0 }
   t.deepEqual(viewquery.params, params2)
-  t.deepEqual(viewquery.str, base + '?' + encode(params2))
+  t.deepEqual(viewquery.url, base + '?' + encode(params2))
 })
 
 // // -------
 
-// test('Query.makeFromRequest - should make from hapi request object', t => {
-//   const protocol = 'http'
-//   const host = 'localhost'
-//   const port = '4000'
-//   const apiversion = 'api/v1/'
-//   const path = 'bookmarks/books/scifi'
-//   const fullpath = apiversion + path
-//   const params = 'fields=name,type,url&depth=1&sortby=name'
-//   const url = protocol + '://' + host + ':' + port + fullpath + '?' + params
-//   const request = {
-//     server: {
-//       info: { protocol, host, port },
-//     },
-//     params: { path },
-//     raw: { req: { url } },
-//   }
-//   const query = Query.makeFromRequest(request, apiversion)
-//   t.deepEqual(query.path, path)
-//   t.deepEqual(query.params, params)
-//   t.deepEqual(query.paramsObj.get('fields'), 'name,type,url')
-//   t.deepEqual(query.paramsObj.get('depth'), '1')
-//   t.deepEqual(query.str, url)
-// })
+test('Query.makeFromRequest - should make from hapi request object', t => {
+  const protocol = 'http'
+  const host = 'localhost'
+  const port = '4000'
+  const base = protocol + '://' + host + ':' + port
+  const apiversion = '/api/v1/'
+  const path = 'bookmarks/books/scifi'
+  const params = { path, fields: 'name,type', depth: 1 }
+  const url = base + apiversion + '?' + encode(params)
+  const request = {
+    server: {
+      info: { protocol, host, port },
+    },
+    params: { path },
+    raw: { req: { url } },
+  }
+  const query = Query.makeFromRequest(request, apiversion)
+  t.deepEqual(query.params, params)
+  t.deepEqual(query.params.path, path)
+  t.deepEqual(query.params.fields, 'name,type')
+  t.deepEqual(query.params.depth, 1)
+  t.deepEqual(query.url, url)
+})
