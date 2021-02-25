@@ -130,10 +130,6 @@ async function look(options) {
   // const query = Query.make(context.base, { path, depth: 0, fields })
   // const item = await Data.get(query)
 
-  // don't want this as would need getputpostdelete for each
-  // const metadata = await Data.getMetadata(query)
-  // const item = await Data.getData(query, metadata)
-
   // print location and table with item properties
   await location(options)
   //. where store this?
