@@ -18,33 +18,32 @@ const { Types } = require('./types')
 //. extract this code and nmdata-bookmarks to a functional,
 //  ie pass in points of difference, get a 'get' function out.
 async function get(query, start = undefined) {
+  // get metadata
   if (query.params.meta) {
     return Meta.get()
   }
 
+  // get root item, memoized
   if (start === undefined) {
-    start = await Root.get() // memoized fn
+    start = await Root.get()
   }
 
   const fields = query.params.fields || ''
 
+  // get ONE item
   if (query.params.depth === 0) {
-    console.log(31, start, fields)
-    return Projection.make(start, fields) // get ONE item
+    return Projection.make(start, fields)
   }
 
   const items = start.children
   const first = Path.getFirst(query.params.path)
-  console.log(38, 'first', first)
   const item = items.find(item => item.name === first)
 
   // pass query along to other datasource if needed
   if (item && item.type === 'datasource') {
     const url = query.getRemainingUrl(item)
-    console.log(40, url)
     const response = await fetch(url)
     const json = await response.json()
-    console.log(43, json)
     return json
   }
 

@@ -116,14 +116,15 @@ async function look(options) {
   const fields = Metadata.getFields(metadata) // eg 'name,url'
   const item = await Data.get(query.with({ fields, depth: 0 }))
 
-  // print location and table with item properties
+  // print location
   await location(options)
+
+  // print table with item properties
   //. where store/get this?
   const tableColumns = [
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
-  // const keys = metadata.view.columns.map(column => column.key)
   const keys = Metadata.getKeys(metadata)
   const rows = keys.map(key => ({ name: key, value: item[key] }))
   const table = new Table(tableColumns, rows)
