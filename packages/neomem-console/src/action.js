@@ -1,8 +1,7 @@
 // define console ui commands - look, list, etc
 
-const { Path, Query } = require('neomem-util')
+const { Path, Query, Metadata } = require('neomem-util')
 const { Data } = require('./data')
-const { Metadata } = require('./metadata')
 const { Table } = require('./table') // wrapper around a table library
 
 /**
@@ -106,39 +105,26 @@ const loc = location
  */
 async function look(options) {
   const { tokens, context, ui } = options
-  const { base, location } = context
 
   // parse input
   const target = tokens[1] || '' // eg 'books/scifi' or ''
 
   // get data
-  const path = Path.join(location, target)
-  const query = Query.make(base, { path })
-  // const metaquery = query.getMetaQuery('views/console/look')
-  // const metadata = await Data.get(metaquery)
-  // const dataquery = query.getViewQuery(metadata).set('depth', 0)
-  // // console.log(118, dataquery, dataquery.str) // has eg path='/bookmarks'
-  // const item = await Data.get(dataquery) // calls Http.get(q2.url), nmdata server gets it
-
-  const metadata = await Data.get(query.with({ meta: 1, depth: 0 }))
-  const fields = Metadata.getFields(metadata)
-  const item = await Data.get(query.with({ fields }))
-
-  // const metaquery = Query.make(context.base, { path, meta: 1 })
-  // const metadata = await Data.get(metaquery)
-  // const fields = metadata.views.console.look.fields
-  // const query = Query.make(context.base, { path, depth: 0, fields })
-  // const item = await Data.get(query)
+  const path = Path.join(context.location, target) // eg '/bookmarks/books/scifi'
+  const query = Query.make(context.base, { path })
+  const metadata = await Data.get(query.with({ meta: 1 }))
+  const fields = Metadata.getFields(metadata) // eg 'name,url'
+  const item = await Data.get(query.with({ fields, depth: 0 }))
 
   // print location and table with item properties
   await location(options)
-  //. where store this?
+  //. where store/get this?
   const tableColumns = [
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
-  const fields = metadata.view.columns.map(column => column.key)
-  const rows = fields.map(field => ({ name: field, value: item[field] }))
+  const keys = metadata.view.columns.map(column => column.key)
+  const rows = keys.map(key => ({ name: key, value: item[key] }))
   const table = new Table(tableColumns, rows)
   const s = table.toString()
   ui.print(s)
