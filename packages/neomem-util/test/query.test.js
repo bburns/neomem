@@ -34,11 +34,14 @@ test(`Query.make and set params - should make a query and let you set searchpara
   t.deepEqual(query.url, '?' + encode(params))
 })
 
-test(`Query.make and .meta - should make a new query with path + .neomem`, async t => {
+test(`Query.make and .meta - should make a new query`, async t => {
   const params = { path: 'bookmarks' }
   const query = Query.make(base, params)
-  const metaquery = query.getMetaQuery('pokpok')
-  t.deepEqual(metaquery.isMeta, true)
+  // const metaquery = query.getMetaQuery('pokpok')
+  const metaquery = query.with({ meta: 1 })
+  t.assert(query !== metaquery)
+  t.deepEqual(metaquery.params.meta, 1)
+  // t.deepEqual(metaquery.isMeta, true)
 })
 
 test(`Query.make and .view - should make a new query with fields given by the view metadata`, async t => {
@@ -46,7 +49,8 @@ test(`Query.make and .view - should make a new query with fields given by the vi
   const query = Query.make(base, params)
   const view = { columns: [{ key: 'name' }, { key: 'url' }] }
   const metadata = { view }
-  const viewquery = query.getViewQuery(metadata).set('depth', 0)
+  // const viewquery = query.getViewQuery(metadata).set('depth', 0)
+  const viewquery = query.with({ depth: 0 })
   const params2 = { ...params, fields: 'name,url', depth: 0 }
   t.deepEqual(viewquery.params, params2)
   t.deepEqual(viewquery.url, base + '?' + encode(params2))

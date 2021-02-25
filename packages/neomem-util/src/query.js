@@ -1,7 +1,5 @@
 // build query objects and urls
 
-const pathlib = require('path') // node lib
-const { URLSearchParams } = require('url') // node lib https://nodejs.org/api/url.html
 const { Path } = require('./path')
 
 /**
@@ -12,25 +10,22 @@ const { Path } = require('./path')
  * will traverse to find the data to return.
  */
 class Query {
-  /**
-   * Don't call this directly - call make
-   */
-  constructor(base = '', params = {}) {
-    this._base = base
-    this._params = params
-    // this._paramsObj = new URLSearchParams(params) // dict of params and js representations
-    return this
+  // Don't call this directly - call make
+  constructor() {
+    this.base = null
+    this.params = null
   }
 
   /**
    * Make a query object from the given parts,
-   * eg make('http://localhost:4000/api/v1/', 'bookmarks', ...)
    * @param base {string} eg 'http://localhost:4000/api/v1/'
    * @param params {Object} eg { fields: 'name,url', sortby: 'name' }
    * @returns {Query}
    */
   static make(base = '', params = {}) {
-    const query = new Query(base, params)
+    const query = new Query()
+    query.base = base
+    query.params = params
     return query
   }
 
@@ -49,67 +44,49 @@ class Query {
     return query
   }
 
-  get base() {
-    return this._base
-  }
-  set base(s) {
-    this._base = s
-  }
+  // /**
+  //  * Is the current query a metaquery?
+  //  * @returns {boolean}
+  //  */
+  // get isMeta() {
+  //   return this.params.meta === 1
+  // }
 
-  get params() {
-    return this._params
-  }
-  set params(obj) {
-    this._params = obj
-  }
-
-  set(key, value) {
-    this._params[key] = value
-    return this
-  }
+  // /**
+  //  * Get a new query that requests the fields assoc with the given view object.
+  //  * e.g. if view is { columns: [{key:'name'}, {key:'url'}]} then
+  //  * this would update query.params.fields to 'name,url'.
+  //  * @returns {Query}
+  //  */
+  // getViewQuery(metadata = { view: { columns: [] } }) {
+  //   const query = this.copy()
+  //   const fields = metadata.view.columns.map(column => column.key).join(',') // eg 'name,url'
+  //   query.params.fields = fields
+  //   return query
+  // }
 
   /**
-   * Get a new query that requests the metadata assoc with the item.
-   * @param metapath {string} - need this?
+   * Make a copy of this query with the given param modifications.
    * @returns {Query}
    */
-  getMetaQuery(metapath = '') {
+  with(params) {
     const query = this.copy()
-    query.params.meta = 1
-    return query
-  }
-
-  /**
-   * Is the current query a metaquery?
-   * @returns {boolean}
-   */
-  get isMeta() {
-    return this.params.meta === 1
-  }
-
-  /**
-   * Get a new query that requests the fields assoc with the given view object.
-   * e.g. if view is { columns: [{key:'name'}, {key:'url'}]} then
-   * this would update query.params.fields to ['name', 'url'].
-   * @returns {Query}
-   */
-  getViewQuery(metadata = { view: { columns: [] } }) {
-    const query = this.copy()
-    const fields = metadata.view.columns.map(column => column.key).join(',') // eg 'name,url'
-    query._params.fields = fields
+    query.params = { ...query.params, ...params }
+    const fields = metadata.view.columns.map(col => col.key).join(',')
     return query
   }
 
   /**
    * Create and return a copy of this query.
+   * @returns {Query}
    */
   copy() {
-    const query = new Query(this.base, JSON.parse(JSON.stringify(this.params)))
+    const query = Query.make(this.base, JSON.parse(JSON.stringify(this.params)))
     return query
   }
 
   /**
-   * Get the url string representation of this query.
+   * Get the url representation of this query.
    * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
    */
   get url() {
@@ -125,7 +102,6 @@ class Query {
   toString() {
     return decodeURIComponent(this.url)
   }
-
   get str() {
     return this.toString()
   }
