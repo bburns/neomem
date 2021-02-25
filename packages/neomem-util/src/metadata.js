@@ -8,8 +8,14 @@ function getFields(metadata) {
   return fields
 }
 
+function getKeys(metadata) {
+  const keys = metadata.views.console.look.columns.map(column => column.key)
+  return keys
+}
+
 const Metadata = {
   getFields,
+  getKeys,
 }
 
 module.exports = { Metadata }

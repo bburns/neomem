@@ -123,7 +123,8 @@ async function look(options) {
     { name: 'name', accessor: 'name', width: 12 },
     { name: 'value', accessor: 'value', width: 50 },
   ]
-  const keys = metadata.view.columns.map(column => column.key)
+  // const keys = metadata.view.columns.map(column => column.key)
+  const keys = Metadata.getKeys(metadata)
   const rows = keys.map(key => ({ name: key, value: item[key] }))
   const table = new Table(tableColumns, rows)
   const s = table.toString()

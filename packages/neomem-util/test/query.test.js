@@ -1,6 +1,6 @@
 const test = require('ava').default
-const pathlib = require('path') // node lib
-const { Query } = require('../src')
+// const pathlib = require('path') // node lib
+const { Query, Metadata } = require('../src')
 
 const base = 'http://localhost:4000/api/v1/'
 
@@ -50,7 +50,8 @@ test(`Query.make and .view - should make a new query with fields given by the vi
   const metadata = { view }
   // const viewquery = query.getViewQuery(metadata).set('depth', 0)
   const viewquery = query.with({ depth: 0 })
-  const params2 = { ...params, fields: 'name,url', depth: 0 }
+  const fields = Metadata.getFields(metadata)
+  const params2 = { ...params, fields, depth: 0 }
   t.deepEqual(viewquery.params, params2)
   t.deepEqual(viewquery.url, base + '?' + encode(params2))
 })
