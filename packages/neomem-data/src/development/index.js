@@ -19,7 +19,7 @@ const { Types } = require('./types')
 //  ie pass in points of difference, get a 'get' function out.
 async function get(query, start = undefined) {
   // get metadata
-  if (query.params.meta) {
+  if (query.params.meta === 1) {
     return Meta.get()
   }
 
@@ -28,27 +28,34 @@ async function get(query, start = undefined) {
     start = await Root.get()
   }
 
+  //. combine these
+  const first = Path.getFirst(query.params.path)
+  const rest = Path.getRest(query.params.path)
+  console.log('nmdata 32', { first, rest })
   const fields = query.params.fields || ''
 
   // get ONE item
-  if (query.params.depth === 0) {
+  if (start.name === first && rest === '' && query.params.depth === 0) {
     return Projection.make(start, fields)
   }
 
+  // look for path in child items
   const items = start.children
-  const first = Path.getFirst(query.params.path)
-  const item = items.find(item => item.name === first)
+  const item = items.find(i => i.name === first)
 
   // pass query along to other datasource if needed
   if (item && item.type === 'datasource') {
     const url = query.getRemainingUrl(item)
+    console.log(49, { url })
     const response = await fetch(url)
     const json = await response.json()
+    console.log(52, { json })
     return json
   }
 
   // return projection of items
-  return items.map(item => Projection.make(item, fields))
+  const projection = items.map(i => Projection.make(i, fields))
+  return projection
 }
 
 async function post(query) {}

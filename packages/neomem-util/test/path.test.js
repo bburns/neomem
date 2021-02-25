@@ -36,6 +36,7 @@ test(`Path.join - should handle relative path`, async t => {
   t.deepEqual(path, 'lkm')
 })
 
-// test(`Path.getRest() - should `, async t => {
-//   t.deepEqual(1, 1)
-// })
+test(`Path.getFirst() - should get first of path`, async t => {
+  const first = Path.getFirst('/bookmarks')
+  t.deepEqual(first, 'bookmarks')
+})

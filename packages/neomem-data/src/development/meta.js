@@ -6,7 +6,7 @@ const metadata = {
     console: {
       look: {
         columns: [
-          { key: 'name', width: 10 },
+          { key: 'name', width: 14 },
           { key: 'type', width: 16 },
           { key: 'url', width: 30 },
           { key: 'description', width: 40 },

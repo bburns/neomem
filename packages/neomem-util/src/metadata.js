@@ -13,9 +13,15 @@ function getKeys(metadata) {
   return keys
 }
 
+function getColumns(metadata) {
+  const columns = metadata.views.console.look.columns
+  return columns
+}
+
 const Metadata = {
   getFields,
   getKeys,
+  getColumns,
 }
 
 module.exports = { Metadata }

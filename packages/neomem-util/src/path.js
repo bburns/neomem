@@ -41,40 +41,41 @@ class Path {
     return str
   }
 
-  /**
-   * Return first part of path up to slash
-   * @returns {string}
-   */
-  get first() {
-    const i = this._str.indexOf('/')
-    if (i !== -1) {
-      return this._str.slice(0, i)
-    }
-    return this._str
-  }
+  // /**
+  //  * Return first part of path up to slash
+  //  * @returns {string}
+  //  */
+  // get first() {
+  //   const i = this._str.indexOf('/')
+  //   if (i !== -1) {
+  //     return this._str.slice(0, i)
+  //   }
+  //   return this._str
+  // }
 
   static getFirst(path = '') {
-    const i = path.indexOf('/', 1) //.
+    const i = path.indexOf('/', 1) //. skip first /
     if (i !== -1) {
-      return path.slice(0, i)
+      // found
+      return path.slice(1, i) //. 1
     }
-    return path
+    return path.slice(1)
   }
 
-  /**
-   * Return rest of path past slash
-   * @returns {string}
-   */
-  get rest() {
-    const i = this._str.indexOf('/')
-    if (i !== -1) {
-      return this._str.slice(i + 1)
-    }
-    return ''
-  }
+  // /**
+  //  * Return rest of path past slash
+  //  * @returns {string}
+  //  */
+  // get rest() {
+  //   const i = this._str.indexOf('/', 1)
+  //   if (i !== -1) {
+  //     return this._str.slice(i + 1)
+  //   }
+  //   return ''
+  // }
 
   static getRest(path = '') {
-    const i = path.indexOf('/')
+    const i = path.indexOf('/', 1)
     if (i !== -1) {
       return path.slice(i + 1)
     }
@@ -84,7 +85,6 @@ class Path {
   toString() {
     return this._str
   }
-
   get str() {
     return this._str
   }

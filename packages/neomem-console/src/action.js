@@ -70,21 +70,23 @@ async function list(options) {
   const target = tokens[1] || '' // eg 'books'
 
   // get data
-  const path = Path.join(context.location, target)
+  const path = Path.join(context.location, target) // eg '/bookmarks/books/scifi'
   const query = Query.make(context.base, { path })
-  const metadata = await Data.get(query.getMetaQuery('views/console/list'))
-  const items = await Data.get(query.getViewQuery(metadata))
+  const metadata = await Data.get(query.with({ meta: 1 }))
+  const fields = Metadata.getFields(metadata) // eg 'name,url'
+  const items = await Data.get(query.with({ fields }))
 
   //. recurse and build depth values for treelist
   //. handle tree indentation with item.depth
   // accessor: item => ' '.repeat(item.depth) + item.name,
-  const tableColumns = metadata.view.columns.map(column => ({
+  const columns = Metadata.getColumns(metadata)
+  const tableColumns = columns.map(column => ({
     name: column.key,
     accessor: column.key,
     width: column.width || 10,
   }))
-  const t = new Table(tableColumns, items)
-  const s = t.toString()
+  const table = new Table(tableColumns, items)
+  const s = table.toString()
   ui.print(s)
 }
 
