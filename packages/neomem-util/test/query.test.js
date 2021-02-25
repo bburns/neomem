@@ -41,7 +41,6 @@ test(`Query.make and .meta - should make a new query`, async t => {
   const metaquery = query.with({ meta: 1 })
   t.assert(query !== metaquery)
   t.deepEqual(metaquery.params.meta, 1)
-  // t.deepEqual(metaquery.isMeta, true)
 })
 
 test(`Query.make and .view - should make a new query with fields given by the view metadata`, async t => {

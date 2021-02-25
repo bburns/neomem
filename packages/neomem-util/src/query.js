@@ -44,27 +44,6 @@ class Query {
     return query
   }
 
-  // /**
-  //  * Is the current query a metaquery?
-  //  * @returns {boolean}
-  //  */
-  // get isMeta() {
-  //   return this.params.meta === 1
-  // }
-
-  // /**
-  //  * Get a new query that requests the fields assoc with the given view object.
-  //  * e.g. if view is { columns: [{key:'name'}, {key:'url'}]} then
-  //  * this would update query.params.fields to 'name,url'.
-  //  * @returns {Query}
-  //  */
-  // getViewQuery(metadata = { view: { columns: [] } }) {
-  //   const query = this.copy()
-  //   const fields = metadata.view.columns.map(column => column.key).join(',') // eg 'name,url'
-  //   query.params.fields = fields
-  //   return query
-  // }
-
   /**
    * Make a copy of this query with the given param modifications.
    * @returns {Query}
@@ -72,7 +51,7 @@ class Query {
   with(params) {
     const query = this.copy()
     query.params = { ...query.params, ...params }
-    const fields = metadata.view.columns.map(col => col.key).join(',')
+    // const fields = metadata.view.columns.map(col => col.key).join(',')
     return query
   }
 
