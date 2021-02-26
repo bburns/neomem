@@ -18,7 +18,7 @@ async function get(url) {
     },
   }
   // console.log(chalk.gray(url))
-  console.log(21, 'http.get url:', url)
+  // console.log(21, 'http.get url:', url)
   const response = await fetch(url, options)
   const json = await response.json()
   return json

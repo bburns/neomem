@@ -53,8 +53,9 @@ go.undo = async options => {
  */
 async function history(options) {
   const { Processor, ui } = options
-  const history = Processor.getHistory()
-  ui.print(history)
+  const cmds = Processor.getHistory()
+  const strs = cmds.map(cmd => cmd.str)
+  ui.print(strs)
 }
 
 const h = history
