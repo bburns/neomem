@@ -34,24 +34,25 @@ test(`Query.make and set params - should make a query and let you set searchpara
   t.deepEqual(query.url, '?' + encode(params))
 })
 
-test(`Query.make and .meta - should make a new query`, async t => {
+test(`Query.make and .with - should make a new query`, async t => {
   const params = { path: 'bookmarks' }
   const query = Query.make(base, params)
-  // const metaquery = query.getMetaQuery('pokpok')
   const metaquery = query.with({ meta: 1 })
   t.assert(query !== metaquery)
   t.deepEqual(metaquery.params.meta, 1)
 })
 
-test(`Query.make and .view - should make a new query with fields given by the view metadata`, async t => {
+test(`Query.make and .with - should make a new query with fields given by the view metadata`, async t => {
   const params = { path: 'bookmarks' }
   const query = Query.make(base, params)
-  const view = { columns: [{ key: 'name' }, { key: 'url' }] }
-  const metadata = { view }
-  // const viewquery = query.getViewQuery(metadata).set('depth', 0)
-  const viewquery = query.with({ depth: 0 })
+  const metadata = {
+    views: {
+      console: { look: { columns: [{ key: 'name' }, { key: 'url' }] } },
+    },
+  }
   const fields = Metadata.getFields(metadata)
-  const params2 = { ...params, fields, depth: 0 }
+  const viewquery = query.with({ depth: 0, fields })
+  const params2 = { ...params, depth: 0, fields }
   t.deepEqual(viewquery.params, params2)
   t.deepEqual(viewquery.url, base + '?' + encode(params2))
 })
@@ -62,11 +63,11 @@ test('Query.makeFromRequest - should make from hapi request object', t => {
   const protocol = 'http'
   const host = 'localhost'
   const port = '4000'
-  const base = protocol + '://' + host + ':' + port
+  const base2 = protocol + '://' + host + ':' + port
   const apiversion = '/api/v1/'
   const path = 'bookmarks/books/scifi'
   const params = { path, fields: 'name,type', depth: 1 }
-  const url = base + apiversion + '?' + encode(params)
+  const url = base2 + apiversion + '?' + encode(params)
   const request = {
     server: {
       info: { protocol, host, port },
