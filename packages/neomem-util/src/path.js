@@ -2,27 +2,10 @@
 
 const pathlib = require('path') // node lib https://nodejs.org/api/path.html
 
-/**
- * A path object lets you break down a path like '/bookmarks/books/scifi'
- * into its component parts when needed.
- */
+//. currently Path class is just used as a namespace, but could use for objects also
 class Path {
-  constructor(str = '') {
-    this._str = str
-  }
-
-  /**
-   * Make a path object
-   * @param str {string} a path string eg '/bookmarks/books'
-   */
-  static make(str = '') {
-    const pathObj = new Path(str)
-    return pathObj
-  }
-
   /**
    * Get an absolute path object by joining parts.
-   * e.g. join('/foo', 'bar') == join('/foo/bar')
    * eg join('/bookmarks', 'books/scif') => '/bookmarks/books/scifi'
    * eg join('/bookmarks', '/fishes') => '/fishes'
    * eg join('/bookmarks', '') => '/bookmarks'
@@ -36,57 +19,43 @@ class Path {
     const str = hasAbsolute
       ? pathlib.resolve(...parts)
       : pathlib.join('/', ...parts).slice(1)
-    // const pathObj = Path.make(str)
-    // return pathObj
     return str
   }
 
-  // /**
-  //  * Return first part of path up to slash
-  //  * @returns {string}
-  //  */
-  // get first() {
-  //   const i = this._str.indexOf('/')
+  // static getFirst(path = '') {
+  //   const i = path.indexOf('/', 1) //. skip first /
   //   if (i !== -1) {
-  //     return this._str.slice(0, i)
+  //     return path.slice(1, i) //. 1
   //   }
-  //   return this._str
+  //   return path.slice(1)
   // }
 
-  static getFirst(path = '') {
-    const i = path.indexOf('/', 1) //. skip first /
-    if (i !== -1) {
-      // found
-      return path.slice(1, i) //. 1
-    }
-    return path.slice(1)
-  }
-
-  // /**
-  //  * Return rest of path past slash
-  //  * @returns {string}
-  //  */
-  // get rest() {
-  //   const i = this._str.indexOf('/', 1)
+  // static getRest(path = '') {
+  //   const i = path.indexOf('/', 1)
   //   if (i !== -1) {
-  //     return this._str.slice(i + 1)
+  //     return path.slice(i)
   //   }
   //   return ''
   // }
 
-  static getRest(path = '') {
+  /**
+   * Get first and rest of path
+   * @param path {string}
+   * @returns {Object}
+   */
+  static split(path = '') {
+    let first
+    let rest
     const i = path.indexOf('/', 1)
-    if (i !== -1) {
-      return path.slice(i)
+    if (i === -1) {
+      first = path.slice(1)
+      rest = ''
+    } else {
+      first = path.slice(1, i)
+      rest = path.slice(i)
     }
-    return ''
-  }
-
-  toString() {
-    return this._str
-  }
-  get str() {
-    return this._str
+    const parts = { first, rest }
+    return parts
   }
 }
 
