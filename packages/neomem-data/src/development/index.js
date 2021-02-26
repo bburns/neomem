@@ -6,7 +6,6 @@ const fetch = require('node-fetch').default
 const { Query, Projection, Path } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
-const { Types } = require('./types')
 
 /**
  * Get an item or items.
@@ -20,7 +19,8 @@ const { Types } = require('./types')
 async function get(query, start = undefined) {
   // get metadata
   if (query.params.meta === 1) {
-    return Meta.get()
+    const metadata = Meta.get()
+    return metadata
   }
 
   // get root item, memoized
@@ -36,7 +36,8 @@ async function get(query, start = undefined) {
 
   // get ONE item
   if (start.name === first && rest === '' && query.params.depth === 0) {
-    return Projection.make(start, fields)
+    const projection = Projection.make(start, fields)
+    return projection
   }
 
   // look for path in child items
@@ -46,10 +47,8 @@ async function get(query, start = undefined) {
   // pass query along to other datasource if needed
   if (item && item.type === 'datasource') {
     const url = query.getRemainingUrl(item)
-    console.log(49, { url })
     const response = await fetch(url)
     const json = await response.json()
-    console.log(52, { json })
     return json
   }
 

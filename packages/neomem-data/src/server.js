@@ -22,7 +22,6 @@ const init = async () => {
     method: 'GET',
     handler: async (request, h) => {
       const query = Query.makeFromRequest(request, apiversion1)
-      console.log('nmdata.server 25', { query })
       const json = await Data.get(query)
       return json
     },

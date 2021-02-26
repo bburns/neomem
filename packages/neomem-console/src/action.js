@@ -43,7 +43,7 @@ async function go(options) {
 }
 
 go.undo = async options => {
-  const { ui, context } = options
+  const { context } = options
   context.location = options.preservedLocation
 }
 
