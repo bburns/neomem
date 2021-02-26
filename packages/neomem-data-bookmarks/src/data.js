@@ -28,11 +28,12 @@ async function get(query, item = bookmarks) {
   }
 
   // get parts of query
-  const first = Path.getFirst(query.params.path)
-  const rest = Path.getRest(query.params.path)
+  // const first = Path.getFirst(query.params.path)
+  // const rest = Path.getRest(query.params.path)
   //. combine those?
   // const { first, rest } = Path.getParts(query.params.path)
   // const { first, rest, fields } = query.getParts() //?
+  const { first, rest } = Path.split(query.params.path)
   console.log({ first, rest })
 
   const fields = query.params.fields || ''

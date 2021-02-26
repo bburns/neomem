@@ -29,8 +29,9 @@ async function get(query, start = undefined) {
   }
 
   //. combine these
-  const first = Path.getFirst(query.params.path)
-  const rest = Path.getRest(query.params.path)
+  // const first = Path.getFirst(query.params.path)
+  // const rest = Path.getRest(query.params.path)
+  const { first, rest } = Path.split(query.params.path)
   console.log('nmdata 32', { first, rest })
   const fields = query.params.fields || ''
 

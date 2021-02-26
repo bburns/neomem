@@ -88,17 +88,19 @@ class Query {
   //. url but cuts out first part of path
   getRemainingUrl(item) {
     const query = this.copy()
-    const path = Path.getRest(this.params.path)
+    // const path = Path.getRest(this.params.path)
+    const { rest } = Path.split(this.params.path)
     query.base = item.url
-    query.params.path = path
+    query.params.path = rest
     return query.url
   }
 
   //. merge with above
   getReducedQuery() {
     const query = this.copy()
-    const path = Path.getRest(this.params.path)
-    query.params.path = path
+    // const path = Path.getRest(this.params.path)
+    const { rest } = Path.split(this.params.path)
+    query.params.path = rest
     return query
   }
 }
