@@ -57,7 +57,7 @@ test(`Query.make and .with - should make a new query with fields given by the vi
   t.deepEqual(viewquery.url, base + '?' + encode(params2))
 })
 
-// // -------
+// -------
 
 test('Query.makeFromRequest - should make from hapi request object', t => {
   const protocol = 'http'

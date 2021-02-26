@@ -35,7 +35,7 @@ class Query {
    * @param apiversion? {string} - eg '/api/v1/'
    * @returns {Query}
    */
-  static makeFromRequest(request, apiversion = '') {
+  static makeFromRequest(request, apiversion = '/') {
     const { protocol, host, port } = request.server.info
     const base = protocol + '://' + host + (port ? ':' + port : '') + apiversion
     const paramsString = request.raw.req.url.split('?')[1] || '{}'
