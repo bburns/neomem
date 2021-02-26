@@ -31,7 +31,7 @@ class Query {
 
   /**
    * Parse a Hapi request into a query object
-   * @param request {Object}
+   * @param request {{ server: { info: { protocol: string, host: string, port: string } }, raw: { req: { url: string }} }}
    * @param apiversion? {string} - eg '/api/v1/'
    * @returns {Query}
    */
@@ -51,7 +51,6 @@ class Query {
   with(params) {
     const query = this.copy()
     query.params = { ...query.params, ...params }
-    // const fields = metadata.view.columns.map(col => col.key).join(',')
     return query
   }
 
@@ -88,7 +87,6 @@ class Query {
   //. url but cuts out first part of path
   getRemainingUrl(item) {
     const query = this.copy()
-    // const path = Path.getRest(this.params.path)
     const { rest } = Path.split(this.params.path)
     query.base = item.url
     query.params.path = rest
@@ -98,7 +96,6 @@ class Query {
   //. merge with above
   getReducedQuery() {
     const query = this.copy()
-    // const path = Path.getRest(this.params.path)
     const { rest } = Path.split(this.params.path)
     query.params.path = rest
     return query
