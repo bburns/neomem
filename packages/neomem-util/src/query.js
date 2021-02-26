@@ -31,7 +31,7 @@ class Query {
 
   /**
    * Parse a Hapi request into a query object
-   * @param request {{ server: { info: { protocol: string, host: string, port: string } }, raw: { req: { url: string }} }}
+   * @param request {{ server: { info: { protocol: string, host: string, port: string|number } }, raw: { req: { url: string }} }}
    * @param apiversion? {string} - eg '/api/v1/'
    * @returns {Query}
    */

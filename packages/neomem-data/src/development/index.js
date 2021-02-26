@@ -7,6 +7,8 @@ const { Query, Projection, Path } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
 
+let nmdata = null
+
 /**
  * Get an item or items.
  * @param query {Query}
@@ -16,7 +18,7 @@ const { Meta } = require('./meta')
 //. recurse or loop with stack to handle folders etc
 //. extract this code and nmdata-bookmarks to a functional,
 //  ie pass in points of difference, get a 'get' function out.
-async function get(query, start = undefined) {
+async function get(query, start = nmdata) {
   // get metadata
   if (query.params.meta === 1) {
     const metadata = Meta.get()
@@ -24,38 +26,38 @@ async function get(query, start = undefined) {
   }
 
   // get root item, memoized
-  if (start === undefined) {
-    start = await Root.get()
+  if (nmdata === null) {
+    nmdata = await Root.get()
+    start = nmdata
   }
 
-  //. combine these
-  // const first = Path.getFirst(query.params.path)
-  // const rest = Path.getRest(query.params.path)
+  // get query parts
   const { first, rest } = Path.split(query.params.path)
-  console.log('nmdata 32', { first, rest })
   const fields = query.params.fields || ''
 
   // get ONE item
   if (start.name === first && rest === '' && query.params.depth === 0) {
-    const projection = Projection.make(start, fields)
-    return projection
+    return Projection.make(start, fields)
   }
 
   // look for path in child items
-  const items = start.children
-  const item = items.find(i => i.name === first)
+  const child = start.children.find(i => i.name === first)
+
+  // get root item
+  if (!child && first === '' && rest === '' && query.params.depth === 0) {
+    return Projection.make(start, fields)
+  }
 
   // pass query along to other datasource if needed
-  if (item && item.type === 'datasource') {
-    const url = query.getRemainingUrl(item)
+  if (child && child.type === 'datasource') {
+    const url = query.getRemainingUrl(child)
     const response = await fetch(url)
     const json = await response.json()
     return json
   }
 
-  // return projection of items
-  const projection = items.map(i => Projection.make(i, fields))
-  return projection
+  // return projection of child items
+  return start.children.map(i => Projection.make(i, fields))
 }
 
 async function post(query) {}
