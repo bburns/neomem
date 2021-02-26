@@ -11,14 +11,18 @@ const metadata = {
     { key: 'created', datatype: 'date1601' },
     { key: 'modified', datatype: 'date1601' },
   ],
-  view: {
-    columns: [
-      { key: 'name', width: 20 },
-      { key: 'type', width: 12 },
-      { key: 'url', width: 30 },
-      { key: 'created', width: 13 },
-      { key: 'modified', width: 13 },
-    ],
+  views: {
+    console: {
+      list: {
+        columns: [
+          { key: 'name', width: 20 },
+          { key: 'type', width: 12 },
+          { key: 'url', width: 30 },
+          { key: 'created', width: 13 },
+          { key: 'modified', width: 13 },
+        ],
+      },
+    },
   },
 }
 

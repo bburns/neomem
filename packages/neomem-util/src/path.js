@@ -77,7 +77,7 @@ class Path {
   static getRest(path = '') {
     const i = path.indexOf('/', 1)
     if (i !== -1) {
-      return path.slice(i + 1)
+      return path.slice(i)
     }
     return ''
   }
