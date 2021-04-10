@@ -9,7 +9,7 @@ class Path {
    * eg join('/bookmarks', 'books/scif') => '/bookmarks/books/scifi'
    * eg join('/bookmarks', '/fishes') => '/fishes'
    * eg join('/bookmarks', '') => '/bookmarks'
-   * @param parts {string[]}
+   * @param {string[]} parts
    * @returns {string}
    */
   static join(...parts) {
@@ -40,7 +40,7 @@ class Path {
 
   /**
    * Get first and rest of path
-   * @param path {string}
+   * @param {string} path
    * @returns {Object}
    */
   static split(path = '') {
@@ -56,6 +56,16 @@ class Path {
     }
     const parts = { first, rest }
     return parts
+  }
+
+  /**
+   * up
+   * move up along path tree
+   * @param {string} path
+   */
+  static up(path) {
+    const str = pathlib.resolve(path, '..')
+    return str
   }
 }
 

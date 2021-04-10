@@ -195,6 +195,30 @@ async function unknown(options) {
   ui.print(`Unknown command: ${tokens[0]}.`)
 }
 
+/**
+ * up
+ * @param {Options} options
+ */
+async function up(options) {
+  const { context, ui } = options
+
+  // get absolute path
+  // const path = Path.join(context.location, target)
+  const path = Path.up(context.location)
+
+  // move to target if it exists
+  if (await Data.exists({ path })) {
+    context.location = path
+    ui.print('Moved to', path + '.')
+  } else {
+    ui.print(`Can't go up from here.`)
+  }
+
+  // if verbose
+  //. await look({ tokens: [], context, ui }) // don't pass tokens here
+}
+up.description = `Go up in the path hierarchy.`
+
 const Action = {
   go,
   help,
@@ -208,6 +232,7 @@ const Action = {
   redo,
   undo,
   unknown,
+  up,
 }
 
 module.exports = { Action }
