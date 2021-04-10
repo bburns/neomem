@@ -218,6 +218,10 @@ async function up(options) {
   //. await look({ tokens: [], context, ui }) // don't pass tokens here
 }
 up.description = `Go up in the path hierarchy.`
+up.undo = async options => {
+  const { context } = options
+  context.location = options.preservedLocation
+}
 
 const Action = {
   go,
