@@ -128,13 +128,17 @@ Install dependencies
 
 ## Running
 
-In one terminal,
+In one terminal, start all the data services - 
 
     just data
 
-in another,
+in another, start the console ui - 
 
     just console
+
+<!-- in another, start the gui - 
+
+    just gui -->
 
 
 ## Links
