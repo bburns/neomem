@@ -5,6 +5,7 @@
 help:
     @just --list
 
+# "backend": "COMMAND=start npm-run-all --parallel --print-label --race data data-bookmarks", 
 data:
     yarn backend
 
