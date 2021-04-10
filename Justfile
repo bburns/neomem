@@ -10,5 +10,4 @@ data:
     yarn backend
 
 console:
-    cd packages/neomem-console && \
-    yarn start
+    cd packages/neomem-console && yarn start
