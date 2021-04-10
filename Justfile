@@ -6,8 +6,7 @@ help:
     @just --list
 
 data:
-    cd packages/neomem-data && \
-    yarn start
+    yarn backend
 
 console:
     cd packages/neomem-console && \
