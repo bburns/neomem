@@ -105,11 +105,12 @@ Some use cases to test the app and database structure -
 
 ## Packages
 
-- neomem-data - datasource manager
-- neomem-data-neo4j - plugin for neo4j graph databases
-- neomem-data-filesys - plugin for file system access
 - neomem-console - console interface
 - neomem-web - web interface
+- neomem-gateway - datasource manager
+- neomem-driver-neo4j - plugin for neo4j graph databases
+- neomem-driver-filesys - plugin for file system access
+- neomem-driver-bookmarks - plugin for chrome bookmark access
 
 
 ## Installation
