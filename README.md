@@ -128,7 +128,7 @@ Install dependencies
 
 ## Running
 
-In one terminal, start all the data services - 
+In one terminal, start the data services - 
 
     just data
 
