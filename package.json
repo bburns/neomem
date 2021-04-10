@@ -4,12 +4,12 @@
   "version": "0.1.0",
   "scripts": {
     "console": "npm run --prefix packages/neomem-console start",
-    "backend": "COMMAND=start npm-run-all --parallel --print-label --race data data-bookmarks",
+    "backend": "COMMAND=start npm-run-all --parallel --print-label --race data data-bookmarks data-filesys",
     "data": "npm run --prefix packages/neomem-data ${COMMAND}",
     "data-bookmarks": "npm run --prefix packages/neomem-data-bookmarks ${COMMAND}",
+    "data-filesys": "npm run --prefix packages/neomem-data-filesys ${COMMAND}",
     "util": "npm run --prefix packages/neomem-util ${COMMAND}",
     "test-util": "COMMAND=test npm run util",
-    "//data-filesys": "npm run --prefix packages/neomem-data-filesys ${COMMAND}",
     "//data-neo4j": "npm run --prefix packages/neomem-data-neo4j ${COMMAND}"
   },
   "devDependencies": {
