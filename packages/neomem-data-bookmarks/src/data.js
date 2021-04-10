@@ -4,7 +4,9 @@ const { Projection, Path } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
 
-/****************************************************** @typedef {import('../../neomem-util').Query} Query *****************************************************/
+/**
+ * @typedef {import('../../neomem-util').Query} Query
+ */
 
 let bookmarks = null
 
