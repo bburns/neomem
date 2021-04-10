@@ -1,16 +1,16 @@
 data:
   - path: neo4j
     driver: neo4j
-    source: home
+    start: home
 
   - path: desktop
     driver: filesys
-    source: /Users/bburns/Desktop
+    start: /Users/bburns/Desktop
 
   - path: dropbox
     driver: filesys
-    source: /Users/bburns/Dropbox
+    start: /Users/bburns/Dropbox
 
   - path: chrome
     driver: bookmarks
-    source: /
+    start: /
