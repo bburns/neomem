@@ -41,11 +41,24 @@ async function go(options) {
   // if verbose
   //. await look({ tokens: [], context, ui }) // don't pass tokens here
 }
-
+go.description = `Go to a new location.`
 go.undo = async options => {
   const { context } = options
   context.location = options.preservedLocation
 }
+
+/**
+ * help
+ * @param {Options} options
+ */
+async function help(options) {
+  // console.log(Action)
+  for (const key of Object.keys(Action)) {
+    const action = Action[key]
+    console.log({ key, description: action.description })
+  }
+}
+help.description = `Show list of available commands.`
 
 /**
  * history
@@ -57,6 +70,7 @@ async function history(options) {
   const strs = cmds.map(cmd => cmd.str)
   ui.print(strs)
 }
+history.description = `Show command history.`
 
 const h = history
 
@@ -90,6 +104,7 @@ async function list(options) {
   const s = table.toString()
   ui.print(s)
 }
+list.description = `List contents of current location in a table.`
 
 /**
  * location
@@ -99,6 +114,7 @@ async function location(options) {
   const { ui, context } = options
   ui.print(context.location)
 }
+location.description = `Show current location/path.`
 
 const loc = location
 
@@ -135,6 +151,7 @@ async function look(options) {
   ui.print(s)
   ui.print('and print number of items, types, etc')
 }
+look.description = `Look at and describe current location.`
 
 const l = look
 
@@ -147,6 +164,7 @@ async function redo(options) {
   const { Processor } = options
   await Processor.redo(options)
 }
+redo.description = `Redo the last undone command.`
 
 /**
  * undo
@@ -156,6 +174,7 @@ async function undo(options) {
   const { Processor } = options
   await Processor.undo(options)
 }
+undo.description = `Undo the previous command.`
 
 /**
  * unknown
@@ -168,6 +187,7 @@ async function unknown(options) {
 
 const Action = {
   go,
+  help,
   history,
   h,
   list,

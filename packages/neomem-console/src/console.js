@@ -5,7 +5,7 @@ const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const chalk = require('chalk') // color text
 const { Command } = require('./command')
 const { Processor } = require('./processor')
-const package = require('../package.json')
+const pkg = require('../package.json')
 
 // ui callbacks
 const ui = {
@@ -15,7 +15,7 @@ const ui = {
 function printWelcome() {
   ui.print()
   ui.print('Welcome to Neomem')
-  ui.print(`Version ${package.version}`)
+  ui.print(`Version ${pkg.version}`)
   ui.print(
     '--------------------------------------------------------------------------'
   )
@@ -54,7 +54,7 @@ function make(config) {
     printWelcome()
     printLocation(context)
     const replServer = repl.start({ prompt: config.prompt, eval: evalCommand })
-    replServer.context = context // this is how you pass context to the repl
+    replServer.context = context // this is how you pass context to the repl?
   }
   return {
     start,

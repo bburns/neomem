@@ -16,7 +16,7 @@ const { Action } = require('./action')
 /**
  * Make a command object from the given input string and options.
  * The command object has an execute fn and optional undo function.
- * @param str { string } the user's input, eg "list books/scifi"
+ * @param { string } str - the user's input, eg "list books/scifi"
  * @returns {TCommand}
  */
 function make(str, options = {}) {
