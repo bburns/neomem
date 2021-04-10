@@ -8,29 +8,29 @@ graph "neomem" {
   // nodes
   console [ fillcolor=lightyellow ];
   browser [ fillcolor=lightyellow ];
-  neomemView [ label="neomem-view\n(svelte)"; fillcolor=greenyellow ];
-  neomemConsole [label="neomem-console\n(node)"; fillcolor=greenyellow ];
-  // neomemCommands [label="neomem-commands\n(js lib)"; fillcolor=yellow ];
-  neomemData [label="neomem-data\n(federated\nrest endpoint)"];
-  neomemDataNeo4j [label="neomem-data-neo4j\n(rest endpoint)"];
-  neomemDataFilesys1 [label="neomem-data-filesys 1\n(rest endpoint)"];
-  neomemDataFilesys2 [label="neomem-data-filesys 2\n(rest endpoint)"];
-  neo4j [ fillcolor=lavender ];
-  filesys1 [ fillcolor=lavender ];
-  filesys2 [ fillcolor=lavender ];
+  nmgui [ label="neomem-web\n(svelte)"; fillcolor=greenyellow ];
+  nmconsole [label="neomem-console\n(node)"; fillcolor=greenyellow ];
+  nmgateway [label="neomem-gateway\n(federated\nrest endpoint)"];
+  driverNeo4j [label="driver-neo4j\n(/neo4j)"];
+  driverBookmarks [label="driver-bookmarks\n(/bookmarks)"];
+  driverFilesys1 [label="driver-filesys\n(/dropbox)"];
+  driverFilesys2 [label="driver-filesys\n(/desktop)"];
+  neo4j [ label="neo4j\ngraph db", fillcolor=lavender ];
+  bookmarks [ label="bookmarks\njson file", fillcolor=lavender ];
+  filesys1 [ label="filesystem\n/Dropbox", fillcolor=lavender ];
+  filesys2 [ label="filesystem\n/Desktop", fillcolor=lavender ];
 
   // edges
-  browser -- neomemView;
-  console -- neomemConsole;
-  // neomemView -- neomemCommands;
-  // neomemConsole -- neomemCommands;
-  // neomemCommands -- neomemData [ label=" http" ];
-  neomemConsole -- neomemData [ label="  http" ];
-  neomemView -- neomemData [ label="  http" ];
-  neomemData -- neomemDataNeo4j [ label="  http" ];
-  neomemData -- neomemDataFilesys1 [  label="  http" ];
-  neomemData -- neomemDataFilesys2 [  label="  http" ];
-  neomemDataNeo4j -- neo4j;
-  neomemDataFilesys1 -- filesys1;
-  neomemDataFilesys2 -- filesys2;
+  browser -- nmgui;
+  console -- nmconsole;
+  nmconsole -- nmgateway [ label="  http" ];
+  nmgui -- nmgateway [ label="  http" ];
+  nmgateway -- driverNeo4j [ label="  http" ];
+  nmgateway -- driverBookmarks [ label="  http" ];
+  nmgateway -- driverFilesys1 [  label="  http" ];
+  nmgateway -- driverFilesys2 [  label="  http" ];
+  driverNeo4j -- neo4j;
+  driverBookmarks -- bookmarks;
+  driverFilesys1 -- filesys1;
+  driverFilesys2 -- filesys2;
 }
