@@ -52,11 +52,21 @@ go.undo = async options => {
  * @param {Options} options
  */
 async function help(options) {
-  // console.log(Action)
+  const { ui } = options
+  const items = []
   for (const key of Object.keys(Action)) {
     const action = Action[key]
-    console.log({ key, description: action.description })
+    if (action.description) {
+      items.push({ name: key, description: action.description })
+    }
   }
+  const tableColumns = [
+    { name: 'name', accessor: 'name', width: 10 },
+    { name: 'description', accessor: 'description', width: 70 },
+  ]
+  const table = new Table(tableColumns, items)
+  const s = table.toString()
+  ui.print(s)
 }
 help.description = `Show list of available commands.`
 
@@ -181,7 +191,7 @@ undo.description = `Undo the previous command.`
  * @param {Options} options
  */
 async function unknown(options) {
-  const { tokens, context, ui } = options
+  const { tokens, ui } = options
   ui.print(`Unknown command: ${tokens[0]}.`)
 }
 
