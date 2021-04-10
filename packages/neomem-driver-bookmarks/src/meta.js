@@ -1,6 +1,7 @@
 // metadata for this datasource includes types, default view (columns etc).
 //. save column layout to json file
 //. have a meta.js/on for diff datasources in home/<user>/.config/neomem?
+
 const metadata = {
   types: [
     { key: 'folder', fields: 'name,type,created,modified'.split(',') },

@@ -2,7 +2,8 @@ const Hapi = require('@hapi/hapi') // rest api lib
 const { Query } = require('neomem-util')
 const { Data } = require('./data')
 
-//. use lib to find open port, then register it with nmdata registry.
+//. use lib to find open port, then register it with nm registry.
+// or ask gateway for an open port and register it.
 const port = process.env.PORT || 4003
 const apiversion1 = '/api/v1/'
 
@@ -12,10 +13,10 @@ const init = async () => {
     port,
   })
 
-  /******************************************************
+  /**
    * Get contents of this datasource or meta item.
    * @returns {Promise<Object>}
-   *****************************************************/
+   */
   server.route({
     method: 'GET',
     path: `${apiversion1}{path*}`,

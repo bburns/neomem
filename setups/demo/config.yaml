@@ -1,16 +1,20 @@
-data:
+sources:
   - path: neo4j
     driver: neo4j
     start: home
+    port: 4001
 
   - path: desktop
     driver: filesys
     start: /Users/bburns/Desktop
+    port: 4002
 
   - path: dropbox
     driver: filesys
     start: /Users/bburns/Dropbox
+    port: 4003
 
   - path: chrome
     driver: bookmarks
     start: /
+    port: 4004

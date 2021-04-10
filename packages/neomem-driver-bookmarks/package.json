@@ -1,7 +1,7 @@
 {
-  "name": "neomem-data-bookmarks",
+  "name": "neomem-driver-bookmarks",
   "version": "0.1.0",
-  "description": "datasource for chrome bookmarks",
+  "description": "driver for chrome bookmarks",
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.js"
