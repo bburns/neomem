@@ -129,13 +129,11 @@ Install dependencies
 
 In one terminal,
 
-    cd packages/neomem-data
-    yarn start
+    just data
 
 in another,
 
-    cd packages/neomem-console
-    yarn start
+    just console
 
 
 ## Links
