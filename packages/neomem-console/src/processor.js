@@ -1,24 +1,24 @@
-// command processor with execute, undo, redo, and history
+// action processor with execute, undo, redo, and history
 
 const history = []
 
 /**
- * Execute the given command object.
- * @param command {TCommand}
+ * Execute the given action object.
+ * @param action {TAction}
  */
-async function execute(command) {
-  await command.execute() // print to console, may update context
-  if (command.undo) {
-    history.push(command)
+async function execute(action) {
+  await action.execute() // print to console, may update context
+  if (action.undo) {
+    history.push(action)
   }
 }
 
 async function undo(options) {
   //. will want to keep the item in history but move a pointer,
   // so can run redo also.
-  const command = history.pop()
-  if (command) {
-    await command.undo(options)
+  const action = history.pop()
+  if (action) {
+    await action.undo(options)
   } else {
     options.ui.print(`No more history to undo.`)
   }

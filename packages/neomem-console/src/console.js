@@ -3,7 +3,7 @@
 
 const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
 const chalk = require('chalk') // color text
-const { Command } = require('./command')
+const { Action } = require('./action')
 const { Processor } = require('./processor')
 const pkg = require('../package.json')
 
@@ -33,10 +33,10 @@ async function evalCommand(str, context, filename, callback) {
     ui,
     Processor,
   }
-  // build a command object from the user's input string
-  const command = Command.make(str.trim(), options)
+  // build an action object from the user's input string
+  const action = Action.make(str.trim(), options)
   try {
-    await Processor.execute(command) // execute the command object
+    await Processor.execute(action) // execute the action object
   } catch (error) {
     return callback(error)
   }
