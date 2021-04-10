@@ -8,9 +8,9 @@
     "gateway": "npm run --prefix packages/neomem-gateway ${COMMAND}",
     "driver-bookmarks": "npm run --prefix packages/neomem-driver-bookmarks ${COMMAND}",
     "driver-filesys": "npm run --prefix packages/neomem-driver-filesys ${COMMAND}",
+    "driver-neo4j": "npm run --prefix packages/neomem-driver-neo4j ${COMMAND}",
     "util": "npm run --prefix packages/neomem-util ${COMMAND}",
-    "test-util": "COMMAND=test npm run util",
-    "//driver-neo4j": "npm run --prefix packages/neomem-driver-neo4j ${COMMAND}"
+    "test-util": "COMMAND=test npm run util"
   },
   "devDependencies": {
     "lerna": "^3.22.1",

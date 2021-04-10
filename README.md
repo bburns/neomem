@@ -129,7 +129,7 @@ Install dependencies
 
 ## Running
 
-In one terminal, start the data services - 
+In one terminal, start the gateway and data sources - 
 
     just data
 
