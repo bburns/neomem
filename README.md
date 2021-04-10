@@ -144,7 +144,7 @@ Follow along on Twitter - https://twitter.com/neomem_io.
 
 ## Support
 
-You can support me through ko-fi here - https://ko-fi.com/bburns. Thank you! ❤︎
+You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you! ❤︎
 
 
 ## License
