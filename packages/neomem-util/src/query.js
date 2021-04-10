@@ -2,13 +2,13 @@
 
 const { Path } = require('./path')
 
-/**
+/******************************************************
  * Query objects are like sql - they specify what you want to
  * get from a datasource.
  * First the ui builds one up and we convert it to a url to fetch the data,
  * then the backend parses the url back into a query object, which it
  * will traverse to find the data to return.
- */
+ *****************************************************/
 class Query {
   // Don't call this directly - call make
   constructor() {
@@ -16,12 +16,12 @@ class Query {
     this.params = null
   }
 
-  /**
+  /******************************************************
    * Make a query object from the given parts,
    * @param base {string} eg 'http://localhost:4000/api/v1/'
    * @param params {Object} eg { fields: 'name,url', sortby: 'name' }
    * @returns {Query}
-   */
+   *****************************************************/
   static make(base = '', params = {}) {
     const query = new Query()
     query.base = base
@@ -29,12 +29,12 @@ class Query {
     return query
   }
 
-  /**
+  /******************************************************
    * Parse a Hapi request into a query object
    * @param request {{ server: { info: { protocol: string, host: string, port: string|number } }, raw: { req: { url: string }} }}
    * @param apiversion? {string} - eg '/api/v1/'
    * @returns {Query}
-   */
+   *****************************************************/
   static makeFromRequest(request, apiversion = '/') {
     const { protocol, host, port } = request.server.info
     const base = protocol + '://' + host + (port ? ':' + port : '') + apiversion
@@ -44,39 +44,39 @@ class Query {
     return query
   }
 
-  /**
+  /******************************************************
    * Make a copy of this query with the given param modifications.
    * @returns {Query}
-   */
+   *****************************************************/
   with(params) {
     const query = this.copy()
     query.params = { ...query.params, ...params }
     return query
   }
 
-  /**
+  /******************************************************
    * Create and return a copy of this query.
    * @returns {Query}
-   */
+   *****************************************************/
   copy() {
     const query = Query.make(this.base, JSON.parse(JSON.stringify(this.params)))
     return query
   }
 
-  /**
+  /******************************************************
    * Get the url representation of this query.
    * @returns {string} eg "http://localhost:4000/api/v1/bookmarks?fields=name,url"
-   */
+   *****************************************************/
   get url() {
     const url =
       this.base + '?' + encodeURIComponent(JSON.stringify(this.params))
     return url
   }
 
-  /**
+  /******************************************************
    * Get a string representation of this query
    * @returns {string}
-   */
+   *****************************************************/
   toString() {
     return decodeURIComponent(this.url)
   }

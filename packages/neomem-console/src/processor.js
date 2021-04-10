@@ -2,10 +2,10 @@
 
 const history = []
 
-/**
+/******************************************************
  * Execute the given action object.
  * @param action {TAction}
- */
+ *****************************************************/
 async function execute(action) {
   await action.execute() // print to console, may update context
   if (action.undo) {

@@ -4,16 +4,16 @@ const { Projection, Path } = require('neomem-util')
 const { Root } = require('./root')
 const { Meta } = require('./meta')
 
-/** @typedef {import('../../neomem-util').Query} Query */
+/****************************************************** @typedef {import('../../neomem-util').Query} Query *****************************************************/
 
 let bookmarks = null
 
-/**
+/******************************************************
  * Get items related to the given item using the query object.
  * @param query {Query}
  * @param item {Object} //. {Item}
  * @returns {Promise<Array|Object>}
- */
+ *****************************************************/
 async function get(query, item = bookmarks) {
   // get metadata
   if (query.params.meta === 1) {

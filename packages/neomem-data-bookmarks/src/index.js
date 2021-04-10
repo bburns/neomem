@@ -12,10 +12,10 @@ const init = async () => {
     port,
   })
 
-  /**
+  /******************************************************
    * Get contents of this datasource or meta item.
    * @returns {Promise<Object>}
-   */
+   *****************************************************/
   server.route({
     method: 'GET',
     path: `${apiversion1}{path*}`,

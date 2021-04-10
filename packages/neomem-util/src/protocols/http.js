@@ -3,12 +3,12 @@
 const fetch = require('node-fetch').default // mimics browser's fetch
 const chalk = require('chalk').default // color text
 
-/**
+/******************************************************
  * Get json from the given url.
  * //. could pass desired datatype - json/html/text - and handle appropriately
  * @param url {string} a string like 'http://localhost:4000/bookmarks?fields=name'
  * @returns {Promise<Object>} json data
- */
+ *****************************************************/
 async function get(url) {
   const options = {
     method: 'GET',

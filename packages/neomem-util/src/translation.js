@@ -5,7 +5,7 @@ const { Types } = require('./types')
 
 // const emptyQuery = Query.makeFromRequest()
 
-/**
+/******************************************************
  * Translate an item's data into the given list of fields.
  * eg Translation.make(
  *   { date_added: '13818259345' },
@@ -14,7 +14,7 @@ const { Types } = require('./types')
  * } => { created: '2021-02-01' }
  * @param item {Object}
  * @param fields {Object[]}
- */
+ *****************************************************/
 function make(item, fields = [], AdditionalTypes = {}) {
   // function make(item, query = emptyQuery, AdditionalTypes = {}) {
   // const fields = query.fields
@@ -31,11 +31,11 @@ function make(item, fields = [], AdditionalTypes = {}) {
   return translation
 }
 
-// /**
+// /******************************************************
 //  * Project an item's data into the query's required fields. [and translate oops]
 //  * @param item {Object}
 //  * @param query {Query}
-//  */
+//  *****************************************************/
 // function getProjection(item, query) {
 //   const projection = {}
 //   const fields = query.paramsObj.get('fields')
