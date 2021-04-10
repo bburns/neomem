@@ -152,7 +152,7 @@ async function look(options) {
   //. where store/get this?
   const tableColumns = [
     { name: 'name', accessor: 'name', width: 12 },
-    { name: 'value', accessor: 'value', width: 50 },
+    { name: 'value', accessor: 'value', width: 70 },
   ]
   const keys = Metadata.getKeys(metadata)
   const rows = keys.map(key => ({ name: key, value: item[key] }))
