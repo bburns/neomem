@@ -12,6 +12,22 @@ const { Table } = require('./table') // wrapper around a table library
  * @property {Object} Processor
  */
 
+// /******************************************************
+//  * back
+//  * @param {Options} options
+//  ******************************************************/
+// async function back(options) {
+//   const { context } = options
+//   context.location = options.preservedLocation
+//   // if verbose
+//   //. await look({ tokens: [], context, ui }) // don't pass tokens here
+// }
+// back.description = `Go to previous location.`
+// back.undo = async options => {
+//   const { context } = options
+//   context.location = options.preservedLocation
+// }
+
 /**
  * go [target]
  * @param {Options} options
@@ -224,6 +240,7 @@ up.undo = async options => {
 }
 
 const Action = {
+  // back,
   go,
   help,
   history,

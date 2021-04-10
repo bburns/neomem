@@ -1,6 +1,7 @@
 // build a command object from input string
 
 //. make a Command class/namespace
+//. maybe rename this to Action - swap with that?
 
 /**
  * @typedef {Object} TCommand
@@ -25,6 +26,7 @@ function make(str, options = {}) {
   const execute = Action[verb] || Action.unknown // eg list fn
   options.tokens = tokens
   // save for undo go cmd
+  //. where put location history?
   options.preservedLocation = options.context ? options.context.location : ''
   const command = {
     str,
