@@ -1,7 +1,7 @@
 //. could also query each item for description, nitems, etc, if requested?
 
 const root = {
-  name: 'neomem-data',
+  name: 'neomem-gateway',
   type: 'datasource',
   description: 'a federated data source',
   created: '2021-02-01',
@@ -14,9 +14,15 @@ const root = {
       description: 'a neo4j graph database',
     },
     {
-      name: 'filesys',
+      name: 'desktop',
       type: 'datasource',
       url: 'http://localhost:4002/api/v1/',
+      description: 'local filesystem',
+    },
+    {
+      name: 'dropbox',
+      type: 'datasource',
+      url: 'http://localhost:4004/api/v1/',
       description: 'local filesystem',
     },
     {
