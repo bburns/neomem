@@ -114,7 +114,7 @@ Some use cases to test the app and database structure -
 
 ## Installation
 
-Install [yarn](https://yarnpkg.com/), [just](https://github.com/casey/just#packages).
+Install [yarn](https://yarnpkg.com/) and [just](https://github.com/casey/just#packages).
 
 Clone this repo
 
@@ -122,6 +122,7 @@ Clone this repo
 
 Install dependencies
 
+    cd neomem
     yarn
 
 
