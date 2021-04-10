@@ -18,6 +18,7 @@ async function get(query, item = bookmarks) {
   // get metadata
   if (query.params.meta === 1) {
     const metadata = Meta.get()
+    console.log({ metadata })
     return metadata
   }
 

@@ -21,7 +21,6 @@ const init = async () => {
     path: `${apiversion1}{path*}`,
     handler: async (request, h) => {
       const query = Query.makeFromRequest(request, apiversion1)
-      console.log(24, 'nmbkmk.get', { query })
       const items = await Data.get(query)
       return items
     },

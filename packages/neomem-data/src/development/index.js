@@ -11,14 +11,14 @@ let nmdata = null
 
 /**
  * Get an item or items.
- * @param query {Query}
- * @param start? {Object} //. Item
- * @returns {Promise<Object>}
+ * @param {Query} query
+ * @param {Object} item?  //. {Item}
+ * @returns {Promise<Object>} //. {Item|Item[]}
  */
 //. recurse or loop with stack to handle folders etc
-//. extract this code and nmdata-bookmarks to a functional,
+//. extract this code and nmdata-bookmarks / filesys to a functional,
 //  ie pass in points of difference, get a 'get' function out.
-async function get(query, start = nmdata) {
+async function get(query, item = nmdata) {
   // get metadata
   if (query.params.meta === 1) {
     const metadata = Meta.get()
@@ -28,7 +28,7 @@ async function get(query, start = nmdata) {
   // get root item, memoized
   if (nmdata === null) {
     nmdata = await Root.get()
-    start = nmdata
+    item = nmdata
   }
 
   // get query parts
@@ -36,16 +36,16 @@ async function get(query, start = nmdata) {
   const fields = query.params.fields || ''
 
   // get ONE item
-  if (start.name === first && rest === '' && query.params.depth === 0) {
-    return Projection.make(start, fields)
+  if (item.name === first && rest === '' && query.params.depth === 0) {
+    return Projection.make(item, fields)
   }
 
   // look for path in child items
-  const child = start.children.find(i => i.name === first)
+  const child = item.children.find(i => i.name === first)
 
   // get root item
   if (!child && first === '' && rest === '' && query.params.depth === 0) {
-    return Projection.make(start, fields)
+    return Projection.make(item, fields)
   }
 
   // pass query along to other datasource if needed
@@ -57,7 +57,7 @@ async function get(query, start = nmdata) {
   }
 
   // return projection of child items
-  return start.children.map(i => Projection.make(i, fields))
+  return item.children.map(i => Projection.make(i, fields))
 }
 
 async function post(query) {}
