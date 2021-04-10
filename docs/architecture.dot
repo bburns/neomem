@@ -1,0 +1,36 @@
+graph "neomem" {
+
+  // styles
+  // rankdir=LR; // left-to-right
+  node [ color=lightgray; fillcolor=lightblue; style=filled ]; // default
+  edge [ color=gray, fontcolor=gray ]; // default
+
+  // nodes
+  console [ fillcolor=lightyellow ];
+  browser [ fillcolor=lightyellow ];
+  neomemView [ label="neomem-view\n(svelte)"; fillcolor=greenyellow ];
+  neomemConsole [label="neomem-console\n(node)"; fillcolor=greenyellow ];
+  // neomemCommands [label="neomem-commands\n(js lib)"; fillcolor=yellow ];
+  neomemData [label="neomem-data\n(federated\nrest endpoint)"];
+  neomemDataNeo4j [label="neomem-data-neo4j\n(rest endpoint)"];
+  neomemDataFilesys1 [label="neomem-data-filesys 1\n(rest endpoint)"];
+  neomemDataFilesys2 [label="neomem-data-filesys 2\n(rest endpoint)"];
+  neo4j [ fillcolor=lavender ];
+  filesys1 [ fillcolor=lavender ];
+  filesys2 [ fillcolor=lavender ];
+
+  // edges
+  browser -- neomemView;
+  console -- neomemConsole;
+  // neomemView -- neomemCommands;
+  // neomemConsole -- neomemCommands;
+  // neomemCommands -- neomemData [ label=" http" ];
+  neomemConsole -- neomemData [ label="  http" ];
+  neomemView -- neomemData [ label="  http" ];
+  neomemData -- neomemDataNeo4j [ label="  http" ];
+  neomemData -- neomemDataFilesys1 [  label="  http" ];
+  neomemData -- neomemDataFilesys2 [  label="  http" ];
+  neomemDataNeo4j -- neo4j;
+  neomemDataFilesys1 -- filesys1;
+  neomemDataFilesys2 -- filesys2;
+}

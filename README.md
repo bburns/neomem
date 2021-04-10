@@ -91,7 +91,7 @@ Some use cases to test the app and database structure -
 
 ## Architecture
 
-![arch](https://raw.githubusercontent.com/bburns/Neomem/main/docs/architecture2021-01-08.dot.svg)
+![arch](docs/architecture.dot.svg)
 
 
 ## Features
