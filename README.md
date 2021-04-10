@@ -26,6 +26,7 @@ An open-source information manager - with plugins for different views and dataso
   - [Features](#features)
   - [Packages](#packages)
   - [Installation](#installation)
+  - [Running](#running)
   - [Links](#links)
   - [Support](#support)
   - [License](#license)
@@ -113,6 +114,8 @@ Some use cases to test the app and database structure -
 
 ## Installation
 
+Install [yarn](https://yarnpkg.com/), [just](https://github.com/casey/just#packages).
+
 Clone this repo
 
     git clone https://github.com/bburns/neomem
@@ -120,6 +123,19 @@ Clone this repo
 Install dependencies
 
     yarn
+
+
+## Running
+
+In one terminal,
+
+    cd packages/neomem-data
+    yarn start
+
+in another,
+
+    cd packages/neomem-console
+    yarn start
 
 
 ## Links
