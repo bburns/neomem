@@ -14,7 +14,7 @@ const { Table } = require('./table') // wrapper around a table library
 
 /**
  * go [target]
- * @param options {Options}
+ * @param {Options} options
  */
 async function go(options) {
   const { tokens, context, ui } = options
@@ -49,7 +49,7 @@ go.undo = async options => {
 
 /**
  * history
- * @param options {Options}
+ * @param {Options} options
  */
 async function history(options) {
   const { Processor, ui } = options
@@ -62,7 +62,7 @@ const h = history
 
 /**
  * list [target]
- * @param options {Options}
+ * @param {Options} options
  */
 async function list(options) {
   const { tokens, context, ui } = options
@@ -93,7 +93,7 @@ async function list(options) {
 
 /**
  * location
- * @param options {Options}
+ * @param {Options} options
  */
 async function location(options) {
   const { ui, context } = options
@@ -104,7 +104,7 @@ const loc = location
 
 /**
  * look [target]
- * @param options {Options}
+ * @param {Options} options
  */
 async function look(options) {
   const { tokens, context, ui } = options
@@ -140,7 +140,7 @@ const l = look
 
 /**
  * redo
- * @param options {Options}
+ * @param {Options} options
  */
 //. will require processor to leave items in history tree, move a pointer on undo
 async function redo(options) {
@@ -150,7 +150,7 @@ async function redo(options) {
 
 /**
  * undo
- * @param options {Options}
+ * @param {Options} options
  */
 async function undo(options) {
   const { Processor } = options
@@ -159,7 +159,7 @@ async function undo(options) {
 
 /**
  * unknown
- * @param options {Options}
+ * @param {Options} options
  */
 async function unknown(options) {
   const { tokens, context, ui } = options
