@@ -1,4 +1,4 @@
-const test = require('ava')
+const test = require('ava').default
 const { Data } = require('../src')
 const { Query } = require('neomem-util')
 
