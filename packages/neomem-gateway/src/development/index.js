@@ -2,10 +2,6 @@
 
 //. handle datasource registry also - put/post/delete datasources.
 
-// const fetch from 'node-fetch').default
-// const { Query, Projection, Path } from 'neomem-util')
-// const { Root } from './root')
-// const { Meta } from './meta')
 import fetch from 'node-fetch'
 import { Query, Projection, Path } from 'neomem-util'
 import { Root } from './root.js'

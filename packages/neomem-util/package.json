@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "utility functions used by different neomem packages",
   "type": "module",
+  "main": "src/index.js",
   "scripts": {
     "//test": "NODE_ENV=test nodemon test/index.js",
     "test": "ava --watch --verbose"
