@@ -1,31 +1,31 @@
 root:
-  - name: neomem-gateway
-    type: datasource
-    description: a federated data source
-    created: '2021-02-01'
-    url: http://localhost:4000/api/v1/
+  name: neomem-gateway
+  type: datasource
+  description: a federated data source
+  created: '2021-02-01'
+  url: http://localhost:4000/api/v1/
 
-    children:
-      - name: neo4j
-        type: datasource
-        driver: neo4j
-        url: http://localhost:4001/api/v1/
-        start:
+  children:
+    - name: neo4j
+      type: datasource
+      driver: neo4j
+      url: http://localhost:4001/api/v1/
+      start:
 
-      - name: desktop
-        type: datasource
-        driver: filesys
-        url: http://localhost:4002/api/v1/
-        start: /Users/bburns/Desktop
+    - name: desktop
+      type: datasource
+      driver: filesys
+      url: http://localhost:4002/api/v1/
+      start: /Users/bburns/Desktop
 
-      - name: dropbox
-        type: datasource
-        driver: filesys
-        url: http://localhost:4004/api/v1/
-        start: /Users/bburns/Dropbox
+    - name: dropbox
+      type: datasource
+      driver: filesys
+      url: http://localhost:4004/api/v1/
+      start: /Users/bburns/Dropbox
 
-      - name: chrome
-        type: datasource
-        driver: bookmarks
-        url: http://localhost:4003/api/v1/
-        start:
+    - name: chrome
+      type: datasource
+      driver: bookmarks
+      url: http://localhost:4003/api/v1/
+      start:
