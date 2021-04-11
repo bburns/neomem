@@ -35,4 +35,4 @@ const Meta = {
   get,
 }
 
-module.exports = { Meta }
+export { Meta }

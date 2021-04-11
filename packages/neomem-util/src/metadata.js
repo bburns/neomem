@@ -24,4 +24,4 @@ const Metadata = {
   getColumns,
 }
 
-module.exports = { Metadata }
+export { Metadata }

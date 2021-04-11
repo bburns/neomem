@@ -1,6 +1,6 @@
 // build query objects and urls
 
-const { Path } = require('./path')
+const { Path } from './path')
 
 /******************************************************
  * Query objects are like sql - they specify what you want to
@@ -102,4 +102,4 @@ class Query {
   }
 }
 
-module.exports = { Query }
+export { Query }

@@ -1,4 +1,4 @@
-const fs = require('fs') // node lib
+const fs from 'fs') // node lib
 
 //. get user's folder - need node lib
 // const chromePath = '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks'
@@ -33,4 +33,4 @@ async function del() {}
 
 const Root = { get, post, put, del }
 
-module.exports = { Root }
+export { Root }

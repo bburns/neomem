@@ -1,4 +1,4 @@
-const assert = require('assert').strict // node lib - https://nodejs.org/api/assert.html
-const datasource = require('../src')
+const assert from 'assert').strict // node lib - https://nodejs.org/api/assert.html
+const datasource from '../src')
 
 assert.deepEqual(datasource, {})

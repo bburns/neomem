@@ -1,8 +1,11 @@
 // define console ui commands - look, list, etc
 
-const { Path, Query, Metadata } = require('neomem-util')
-const { Data } = require('./data')
-const { Table } = require('./table') // wrapper around a table library
+// const { Path, Query, Metadata } from 'neomem-util')
+// const { Data } from './data')
+// const { Table } from './table') // wrapper around a table library
+import { Path, Query, Metadata } from 'neomem-util'
+import { Data } from './data.js'
+import { Table } from './table.js' // wrapper around a table library
 
 /**
  * @typedef Options {Object}
@@ -256,4 +259,5 @@ const Command = {
   up,
 }
 
-module.exports = { Command }
+// export { Command }
+export { Command }

@@ -1,6 +1,6 @@
-const test = require('ava').default
-// const pathlib = require('path') // node lib
-const { Query, Metadata } = require('../src')
+const test from 'ava').default
+// const pathlib from 'path') // node lib
+const { Query, Metadata } from '../src')
 
 const base = 'http://localhost:4000/api/v1/'
 

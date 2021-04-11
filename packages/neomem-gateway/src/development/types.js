@@ -28,5 +28,4 @@ const Types = {
   // del,
 }
 
-// module.exports = { Types }
-export default { Types }
+export { Types }

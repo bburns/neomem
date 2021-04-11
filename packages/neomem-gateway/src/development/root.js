@@ -2,8 +2,6 @@
 
 import fs from 'fs' // node lib for filesys
 import libyaml from 'js-yaml' // https://github.com/nodeca/js-yaml
-// const fs = require('fs')
-// const libyaml = require('js-yaml')
 
 // load config.yaml
 const configfile = process.env.CONFIG_FILE
@@ -26,6 +24,4 @@ async function del() {}
 
 const Root = { get, post, put, del }
 
-// module.exports = { Root }
-
-export default { Root }
+export { Root }

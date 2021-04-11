@@ -19,4 +19,4 @@ function get() {
   return types
 }
 
-module.exports = { get }
+export { get }

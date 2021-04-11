@@ -2,7 +2,7 @@
   "name": "neomem-console",
   "version": "0.1.0",
   "description": "console interface for neomem",
-  "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "//start": "note: need '--no-stdin' to prevent echo of command at repl",
     "//start2": "nodemon --no-stdin src/index.js",

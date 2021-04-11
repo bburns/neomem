@@ -1,11 +1,16 @@
 // this repl (read-eval-print-loop) translates english-like language commands
 // to rest api queries, and formats the results.
 
-const repl = require('repl') // node lib - https://nodejs.org/api/repl.html
-const chalk = require('chalk') // color text
-const { Action } = require('./action')
-const { Processor } = require('./processor')
-const pkg = require('../package.json')
+// const repl from 'repl') // node lib - https://nodejs.org/api/repl.html
+// const chalk from 'chalk') // color text
+// const { Action } from './action')
+// const { Processor } from './processor')
+// const pkg from '../package.json')
+import repl from 'repl' // node lib - https://nodejs.org/api/repl.html
+import chalk from 'chalk' // color text
+import { Action } from './action.js'
+import { Processor } from './processor.js'
+import pkg from '../package.json'
 
 // ui callbacks
 const ui = {
@@ -63,4 +68,5 @@ const Console = {
   make,
 }
 
-module.exports = { Console }
+// export { Console }
+export { Console }

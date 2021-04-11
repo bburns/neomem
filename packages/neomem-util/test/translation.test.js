@@ -1,5 +1,5 @@
-const test = require('ava').default
-const { Translation } = require('../src')
+const test from 'ava').default
+const { Translation } from '../src')
 
 test('date1601', t => {
   const item = { date_added: '0' }

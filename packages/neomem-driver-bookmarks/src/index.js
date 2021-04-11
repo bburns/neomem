@@ -1,6 +1,6 @@
-const Hapi = require('@hapi/hapi') // rest api lib
-const { Query } = require('neomem-util')
-const { Data } = require('./data')
+const Hapi from '@hapi/hapi') // rest api lib
+const { Query } from 'neomem-util')
+const { Data } from './data')
 
 //. use lib to find open port, then register it with nm registry.
 // or ask gateway for an open port and register it.

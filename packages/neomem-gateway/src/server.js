@@ -2,12 +2,9 @@
 
 //. could convert to es6 module so can do top-level await
 
-// const Hapi = require('@hapi/hapi')
-// const { Query } = require('neomem-util')
-// const { Data } = require('./data')
 import Hapi from '@hapi/hapi'
 import { Query } from 'neomem-util'
-import { Data } from './data'
+import { Data } from './data.js'
 
 const port = process.env.PORT || 4000
 const apiversion1 = '/api/v1/'

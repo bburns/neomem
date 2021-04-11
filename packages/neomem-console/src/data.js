@@ -1,7 +1,9 @@
 // get, post, put, delete handlers
 
-const { Http } = require('neomem-util')
-const chalk = require('chalk')
+// const { Http } from 'neomem-util')
+// const chalk from 'chalk')
+import { Http } from 'neomem-util'
+import chalk from 'chalk'
 
 /** @typedef {import('../../neomem-util').Query} Query */
 
@@ -31,4 +33,5 @@ const Data = {
   get,
 }
 
-module.exports = { Data }
+// export { Data }
+export default { Data }

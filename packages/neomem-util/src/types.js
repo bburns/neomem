@@ -32,4 +32,4 @@ const Types = {
   get: typename => dict[typename],
 }
 
-module.exports = { Types }
+export { Types }

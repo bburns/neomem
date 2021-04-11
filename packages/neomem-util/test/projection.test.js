@@ -1,5 +1,5 @@
-const test = require('ava').default
-const { Projection } = require('../src')
+const test from 'ava').default
+const { Projection } from '../src')
 
 test(`Projection.make - should make empty projection`, async t => {
   const item = { name: 'pok', description: 'lkmlkm' }

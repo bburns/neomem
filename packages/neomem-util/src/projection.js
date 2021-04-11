@@ -13,4 +13,4 @@ const Projection = {
   make,
 }
 
-module.exports = { Projection }
+export { Projection }

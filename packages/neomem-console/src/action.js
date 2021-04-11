@@ -11,8 +11,8 @@
  * @property {function} undo?
  */
 
-const { Tokenizer } = require('./tokenizer')
-const { Command } = require('./command')
+import { Tokenizer } from './tokenizer.js'
+import { Command } from './command.js'
 
 /**
  * Make an action object from the given input string and options.
@@ -41,4 +41,5 @@ const Action = {
   make,
 }
 
-module.exports = { Action }
+// export { Action }
+export default { Action }

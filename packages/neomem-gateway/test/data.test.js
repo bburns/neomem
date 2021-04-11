@@ -1,6 +1,6 @@
-const test = require('ava').default
-const { Data } = require('../src')
-const { Query } = require('neomem-util')
+const test from 'ava').default
+const { Data } from '../src')
+const { Query } from 'neomem-util')
 
 // default to name,type,description and depth=0, so get root item.
 test('get()', async t => {

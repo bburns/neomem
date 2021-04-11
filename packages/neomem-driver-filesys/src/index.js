@@ -2,9 +2,9 @@
 // // eg mount point / root directory, eg /Users/bburns/Desktop
 // // similar for neo4j
 
-// const Hapi = require('@hapi/hapi') // rest api lib
-// const { Query } = require('neomem-util')
-// const { Data } = require('./data')
+// const Hapi from '@hapi/hapi') // rest api lib
+// const { Query } from 'neomem-util')
+// const { Data } from './data')
 
 // //. use lib to find open port, then register it with nmdata registry.
 // const port = process.env.PORT || 4002

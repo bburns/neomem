@@ -1,8 +1,8 @@
 // data get, post, put, delete handlers
 
-const { Projection, Path } = require('neomem-util')
-const { Root } = require('./root')
-const { Meta } = require('./meta')
+const { Projection, Path } from 'neomem-util')
+const { Root } from './root')
+const { Meta } from './meta')
 
 /**
  * @typedef {import('../../neomem-util').Query} Query
@@ -68,4 +68,4 @@ const Data = {
   get,
 }
 
-module.exports = { Data }
+export { Data }

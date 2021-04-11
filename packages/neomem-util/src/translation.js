@@ -1,7 +1,7 @@
 // translate an item's data into a given list of fields.
 
-const { Types } = require('./types')
-// const { Query } = require('./query')
+const { Types } from './types')
+// const { Query } from './query')
 
 // const emptyQuery = Query.makeFromRequest()
 
@@ -60,4 +60,4 @@ const Translation = {
   make,
 }
 
-module.exports = { Translation }
+export { Translation }

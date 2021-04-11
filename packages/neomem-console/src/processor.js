@@ -37,4 +37,5 @@ const Processor = {
   getHistory,
 }
 
-module.exports = { Processor }
+// export { Processor }
+export default { Processor }

@@ -1,5 +1,5 @@
-const test = require('ava').default
-const { Http } = require('../src')
+const test from 'ava').default
+const { Http } from '../src')
 
 test(`get()`, async t => {
   // const html = await Http.get('https://google.com')

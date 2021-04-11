@@ -1,6 +1,6 @@
-const fs = require('fs') // node lib - https://nodejs.org/api/fs.html
-const util = require('neomem-util')
-const sample = require('./sample')
+import fs from 'fs' // node lib - https://nodejs.org/api/fs.html
+import util from 'neomem-util'
+import sample from './sample.js'
 
 const datasource = {}
 
@@ -32,4 +32,4 @@ async function get(query, start = root) {
   return get({ ...query, pathArray: rest }, item2) // recurse
 }
 
-module.exports = datasource
+export default datasource

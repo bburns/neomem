@@ -1,5 +1,5 @@
-const test = require('ava').default
-const { Path } = require('../src')
+const test from 'ava').default
+const { Path } from '../src')
 
 test(`Path.join - should join two rel paths`, async t => {
   const path = Path.join('pok', 'lkm')

@@ -1,6 +1,6 @@
 // path functions
 
-const pathlib = require('path') // node lib https://nodejs.org/api/path.html
+const pathlib from 'path') // node lib https://nodejs.org/api/path.html
 
 //. currently Path class is just used as a namespace, but could use for objects also
 class Path {
@@ -69,4 +69,4 @@ class Path {
   }
 }
 
-module.exports = { Path }
+export { Path }
