@@ -28,4 +28,5 @@ const Types = {
   // del,
 }
 
-module.exports = { Types }
+// module.exports = { Types }
+export default { Types }

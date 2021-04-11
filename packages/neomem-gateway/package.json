@@ -2,7 +2,7 @@
   "name": "neomem-gateway",
   "version": "0.1.0",
   "description": "neomem federated data server",
-  "//main": "src/server.js",
+  "type": "module",
   "scripts": {
     "start": "cross-env PORT=4000 nodemon src/server.js",
     "test": "ava --watch test/*.test.js"

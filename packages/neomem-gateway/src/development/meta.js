@@ -26,4 +26,5 @@ async function del() {}
 
 const Meta = { get, post, put, del }
 
-module.exports = { Meta }
+// module.exports = { Meta }
+export { Meta }

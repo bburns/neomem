@@ -2,10 +2,14 @@
 
 //. handle datasource registry also - put/post/delete datasources.
 
-const fetch = require('node-fetch').default
-const { Query, Projection, Path } = require('neomem-util')
-const { Root } = require('./root')
-const { Meta } = require('./meta')
+// const fetch = require('node-fetch').default
+// const { Query, Projection, Path } = require('neomem-util')
+// const { Root } = require('./root')
+// const { Meta } = require('./meta')
+import fetch from 'node-fetch'
+import { Query, Projection, Path } from 'neomem-util'
+import { Root } from './root.js'
+import { Meta } from './meta.js'
 
 let nmdata = null
 
@@ -66,4 +70,5 @@ async function del(query) {}
 
 const Data = { get, post, put, del }
 
-module.exports = { Data }
+// module.exports = { Data }
+export { Data }
