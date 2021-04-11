@@ -1,4 +1,4 @@
-const fs from 'fs') // node lib
+import fs from 'fs' // node filesys lib
 
 //. get user's folder - need node lib
 // const chromePath = '/Users/bburns/Library/Application Support/Google/Chrome/Default/Bookmarks'
@@ -10,7 +10,8 @@ const fs from 'fs') // node lib
 // const examplePath = __dirname + '/../test/fixtures/example.json'
 // const path = options.use === 'chrome' ? chromePath : examplePath
 // console.log(`Reading ${path}...`)
-const path = __dirname + '/sample.json' // a smaller example file
+// const path = __dirname + '/sample.json' // a smaller example file
+const path = './sample.json' // a smaller example file
 let bookmarks
 
 const root = {

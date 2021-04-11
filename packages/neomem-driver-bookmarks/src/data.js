@@ -1,8 +1,8 @@
 // data get, post, put, delete handlers
 
-const { Projection, Path } from 'neomem-util')
-const { Root } from './root')
-const { Meta } from './meta')
+import { Projection, Path } from 'neomem-util'
+import { Root } from './root.js'
+import { Meta } from './meta.js'
 
 /**
  * @typedef {import('../../neomem-util').Query} Query

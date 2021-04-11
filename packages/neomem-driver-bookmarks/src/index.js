@@ -1,6 +1,6 @@
-const Hapi from '@hapi/hapi') // rest api lib
-const { Query } from 'neomem-util')
-const { Data } from './data')
+import Hapi from '@hapi/hapi' // rest api lib
+import { Query } from 'neomem-util'
+import { Data } from './data.js'
 
 //. use lib to find open port, then register it with nm registry.
 // or ask gateway for an open port and register it.

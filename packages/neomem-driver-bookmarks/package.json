@@ -2,6 +2,7 @@
   "name": "neomem-driver-bookmarks",
   "version": "0.1.0",
   "description": "driver for chrome bookmarks",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.js"
