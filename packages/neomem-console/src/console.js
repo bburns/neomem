@@ -16,9 +16,7 @@ function printWelcome() {
   ui.print()
   ui.print('Welcome to Neomem')
   ui.print(`Version ${pkg.version}`)
-  ui.print(
-    '--------------------------------------------------------------------------'
-  )
+  ui.print('------------------------------------------------------------------')
 }
 
 function printLocation(context) {

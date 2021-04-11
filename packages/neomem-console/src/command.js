@@ -4,15 +4,15 @@ const { Path, Query, Metadata } = require('neomem-util')
 const { Data } = require('./data')
 const { Table } = require('./table') // wrapper around a table library
 
-/******************************************************
+/**
  * @typedef Options {Object}
  * @property {string[]} tokens
  * @property {Object} context
  * @property {Object} ui
  * @property {Object} Processor
- *****************************************************/
+ */
 
-// /**********************************************************************************************************
+// /******************************************************
 //  * back
 //  * @param {Options} options
 //  ******************************************************/
