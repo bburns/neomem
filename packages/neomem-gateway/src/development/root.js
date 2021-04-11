@@ -6,8 +6,9 @@ const fs = require('fs')
 const libyaml = require('js-yaml')
 
 // load config.yaml
-const yamlfile = process.env.CONFIG_FILE
-const yaml = fs.readFileSync(yamlfile, 'utf8')
+const configfile = process.env.CONFIG_FILE
+console.log({ configfile })
+const yaml = fs.readFileSync(configfile, 'utf8')
 const yamltree = libyaml.load(yaml)
 // @ts-ignore
 const root = yamltree.root

@@ -12,7 +12,8 @@ data:
 console:
     cd packages/neomem-console && yarn start
 
+# npm run --prefix packages/neomem-gateway start
 # start a setup with all services, e.g. `just run` or `just run demo`
 run SETUP='demo':
-    CONFIG_FILE=setups/{{SETUP}}/config.yaml && \
-    npm run --prefix packages/neomem-gateway 
+    cd packages/neomem-gateway && \
+    CONFIG_FILE=../../setups/{{SETUP}}/config.yaml npm run start
