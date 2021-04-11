@@ -1,24 +1,24 @@
 // path functions
 
-const pathlib from 'path') // node lib https://nodejs.org/api/path.html
+import libpath from 'path' // node lib https://nodejs.org/api/path.html
 
 //. currently Path class is just used as a namespace, but could use for objects also
 class Path {
-  /******************************************************
+  /**
    * Get an absolute path object by joining parts.
    * eg join('/bookmarks', 'books/scif') => '/bookmarks/books/scifi'
    * eg join('/bookmarks', '/fishes') => '/fishes'
    * eg join('/bookmarks', '') => '/bookmarks'
    * @param {string[]} parts
    * @returns {string}
-   *****************************************************/
+   */
   static join(...parts) {
     // see https://nodejs.org/api/path.html#path_path_resolve_paths
-    // const str = pathlib.resolve('/', ...parts).slice(1) // remove leading '/'
+    // const str = libpath.resolve('/', ...parts).slice(1) // remove leading '/'
     const hasAbsolute = parts.some(part => part.startsWith('/'))
     const str = hasAbsolute
-      ? pathlib.resolve(...parts)
-      : pathlib.join('/', ...parts).slice(1)
+      ? libpath.resolve(...parts)
+      : libpath.join('/', ...parts).slice(1)
     return str
   }
 
@@ -38,11 +38,11 @@ class Path {
   //   return ''
   // }
 
-  /******************************************************
+  /**
    * Get first and rest of path
    * @param {string} path
    * @returns {Object}
-   *****************************************************/
+   */
   static split(path = '') {
     let first
     let rest
@@ -58,13 +58,13 @@ class Path {
     return parts
   }
 
-  /******************************************************
+  /**
    * up
    * move up along path tree
    * @param {string} path
-   *****************************************************/
+   */
   static up(path) {
-    const str = pathlib.resolve(path, '..')
+    const str = libpath.resolve(path, '..')
     return str
   }
 }
