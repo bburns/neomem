@@ -1,4 +1,4 @@
-//. could also query each item for description, nitems, etc, if requested?
+//. should query each item for description, nitems, etc, when requested
 
 const root = {
   name: 'neomem-gateway',

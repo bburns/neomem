@@ -1,20 +1,31 @@
-sources:
-  - path: neo4j
-    driver: neo4j
-    start: home
-    port: 4001
+root:
+  - name: neomem-gateway
+    type: datasource
+    description: a federated data source
+    created: '2021-02-01'
+    url: http://localhost:4000/api/v1/
 
-  - path: desktop
-    driver: filesys
-    start: /Users/bburns/Desktop
-    port: 4002
+    children:
+      - name: neo4j
+        type: datasource
+        driver: neo4j
+        url: http://localhost:4001/api/v1/
+        start:
 
-  - path: dropbox
-    driver: filesys
-    start: /Users/bburns/Dropbox
-    port: 4003
+      - name: desktop
+        type: datasource
+        driver: filesys
+        url: http://localhost:4002/api/v1/
+        start: /Users/bburns/Desktop
 
-  - path: chrome
-    driver: bookmarks
-    start: /
-    port: 4004
+      - name: dropbox
+        type: datasource
+        driver: filesys
+        url: http://localhost:4004/api/v1/
+        start: /Users/bburns/Dropbox
+
+      - name: chrome
+        type: datasource
+        driver: bookmarks
+        url: http://localhost:4003/api/v1/
+        start:

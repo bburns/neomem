@@ -9,12 +9,12 @@ const { Meta } = require('./meta')
 
 let nmdata = null
 
-/******************************************************
+/**
  * Get an item or items.
  * @param {Query} query
  * @param {Object} item?  //. {Item}
  * @returns {Promise<Object>} //. {Item|Item[]}
- *****************************************************/
+ */
 //. recurse or loop with stack to handle folders etc
 //. extract this code and nmdata-bookmarks / filesys to a functional,
 //  ie pass in points of difference, get a 'get' function out.
