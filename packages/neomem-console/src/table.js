@@ -1,7 +1,6 @@
 // wrapper around a console table display library
 
 // see https://github.com/gajus/table
-// const { table, getBorderCharacters } from 'table')
 import { table, getBorderCharacters } from 'table'
 
 class Table {
@@ -44,5 +43,4 @@ class Table {
   }
 }
 
-// export { Table }
-export default { Table }
+export { Table }

@@ -33,5 +33,4 @@ const Data = {
   get,
 }
 
-// export { Data }
-export default { Data }
+export { Data }
