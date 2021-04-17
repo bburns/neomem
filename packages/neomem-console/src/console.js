@@ -5,7 +5,6 @@ import repl from 'repl' // node lib - https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text
 import { Action } from './action.js'
 import { Processor } from './processor.js'
-// import pkg from '../package.json' // node module doesn't know .json?
 
 // ui callbacks
 const ui = {
@@ -15,7 +14,6 @@ const ui = {
 function printWelcome() {
   ui.print()
   ui.print('Welcome to Neomem')
-  // ui.print(`Version ${pkg.version}`)
   ui.print('------------------------------------------------------------------')
 }
 
@@ -24,7 +22,7 @@ function printLocation(context) {
 }
 
 // parse command string into a fn and execute it.
-// parameters are specified by node's repl library.
+// note: these parameters are specified by node's repl library.
 async function evalCommand(str, context, filename, callback) {
   const options = {
     context,
