@@ -41,5 +41,4 @@ const Action = {
   make,
 }
 
-// export { Action }
-export default { Action }
+export { Action }
