@@ -1,8 +1,5 @@
 // define console ui commands - look, list, etc
 
-// const { Path, Query, Metadata } from 'neomem-util')
-// const { Data } from './data')
-// const { Table } from './table') // wrapper around a table library
 import { Path, Query, Metadata } from 'neomem-util'
 import { Data } from './data.js'
 import { Table } from './table.js' // wrapper around a table library
@@ -15,10 +12,12 @@ import { Table } from './table.js' // wrapper around a table library
  * @property {Object} Processor
  */
 
-// /******************************************************
+// /**
+//  * -----------------------------------------------------------------------------
 //  * back
 //  * @param {Options} options
-//  ******************************************************/
+//  * -----------------------------------------------------------------------------
+//  */
 // async function back(options) {
 //   const { context } = options
 //   context.location = options.preservedLocation
@@ -31,10 +30,12 @@ import { Table } from './table.js' // wrapper around a table library
 //   context.location = options.preservedLocation
 // }
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * go [target]
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function go(options) {
   const { tokens, context, ui } = options
 
@@ -66,10 +67,12 @@ go.undo = async options => {
   context.location = options.preservedLocation
 }
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * help
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function help(options) {
   const { ui } = options
   const items = []
@@ -89,10 +92,12 @@ async function help(options) {
 }
 help.description = `Show list of available commands.`
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * history
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function history(options) {
   const { Processor, ui } = options
   const actions = Processor.getHistory()
@@ -103,10 +108,12 @@ history.description = `Show command history.`
 
 const h = history
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * list [target]
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function list(options) {
   const { tokens, context, ui } = options
 
@@ -135,10 +142,12 @@ async function list(options) {
 }
 list.description = `List contents of current location in a table.`
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * location
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function location(options) {
   const { ui, context } = options
   ui.print(context.location)
@@ -147,10 +156,12 @@ location.description = `Show current location/path.`
 
 const loc = location
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * look [target]
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function look(options) {
   const { tokens, context, ui } = options
 
@@ -184,10 +195,12 @@ look.description = `Look at and describe current location.`
 
 const l = look
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * redo
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 //. will require processor to leave items in history tree, move a pointer on undo
 async function redo(options) {
   const { Processor } = options
@@ -195,29 +208,35 @@ async function redo(options) {
 }
 redo.description = `Redo the last undone command.`
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * undo
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function undo(options) {
   const { Processor } = options
   await Processor.undo(options)
 }
 undo.description = `Undo the previous command.`
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * unknown
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function unknown(options) {
   const { tokens, ui } = options
   ui.print(`Unknown command: ${tokens[0]}.`)
 }
 
-/******************************************************
+/**
+ * -----------------------------------------------------------------------------
  * up
  * @param {Options} options
- *****************************************************/
+ * -----------------------------------------------------------------------------
+ */
 async function up(options) {
   const { context, ui } = options
 
@@ -259,5 +278,4 @@ const Command = {
   up,
 }
 
-// export { Command }
 export { Command }
