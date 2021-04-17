@@ -1,7 +1,10 @@
 // build an action object from input string
 // an action object can be executed, put on a stack, optionally undone etc.
 
-//. make an Action class/namespace
+//. make an Action class/namespace?
+
+import { Tokenizer } from './tokenizer.js'
+import { Command } from './command.js'
 
 /**
  * @typedef {Object} TAction
@@ -10,9 +13,6 @@
  * @property {function} execute
  * @property {function} undo?
  */
-
-import { Tokenizer } from './tokenizer.js'
-import { Command } from './command.js'
 
 /**
  * Make an action object from the given input string and options.
