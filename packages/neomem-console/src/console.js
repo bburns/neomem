@@ -1,16 +1,11 @@
 // this repl (read-eval-print-loop) translates english-like language commands
 // to rest api queries, and formats the results.
 
-// const repl from 'repl') // node lib - https://nodejs.org/api/repl.html
-// const chalk from 'chalk') // color text
-// const { Action } from './action')
-// const { Processor } from './processor')
-// const pkg from '../package.json')
 import repl from 'repl' // node lib - https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text
 import { Action } from './action.js'
 import { Processor } from './processor.js'
-import pkg from '../package.json'
+// import pkg from '../package.json' // node module doesn't know .json?
 
 // ui callbacks
 const ui = {
@@ -20,7 +15,7 @@ const ui = {
 function printWelcome() {
   ui.print()
   ui.print('Welcome to Neomem')
-  ui.print(`Version ${pkg.version}`)
+  // ui.print(`Version ${pkg.version}`)
   ui.print('------------------------------------------------------------------')
 }
 
@@ -68,5 +63,4 @@ const Console = {
   make,
 }
 
-// export { Console }
 export { Console }

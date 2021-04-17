@@ -1,7 +1,5 @@
-// const { Console } from './console')
-// const config from './config')
-import { Console } from './console'
-import config from './config'
+import { Console } from './console.js'
+import config from './config.js'
 
 const console = Console.make(config)
 console.start()
