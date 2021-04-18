@@ -7,7 +7,7 @@ import { Tokenizer } from './tokenizer.js'
 import { Command } from './command.js'
 
 /**
- * @typedef {Object} TAction
+ * @typedef {object} TAction
  * @property {string} str
  * @property {string[]} tokens
  * @property {function} execute
