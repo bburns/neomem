@@ -1,4 +1,4 @@
-graph "neomem" {
+graph architecture {
 
   // styles
   // rankdir=LR; // left-to-right
