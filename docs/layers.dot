@@ -3,15 +3,16 @@ graph layers {
   //-------------------------------------------------------------------------
   // styles
   //-------------------------------------------------------------------------
-  rankdir=TB; // top to bottom
-  nodesep=0.1;
-  ranksep=0.1;
+
+  graph [ rankdir=TB, nodesep=0.1, ranksep=0.1];
   node [ shape=box, color=lightgray, fillcolor=lightblue, style=filled, fontname=Arial, width=6, height=0.5 ];
   edge [ style=invis ];
+
 
   //-------------------------------------------------------------------------
   // nodes
   //-------------------------------------------------------------------------
+  
   ui [ label="UI", fillcolor=greenyellow, width=5 ];
   membrane [ label="Apache Membrane", width=4.5 ];
   metamodel [ label="Apache MetaModel", width=4.5 ];
@@ -22,9 +23,11 @@ graph layers {
   commands [ label="Commands", fillcolor=antiquewhite, width=4 ];
   language [ label="JavaScript", fillcolor=thistle, width=4 ];
 
+
   //-------------------------------------------------------------------------
   // edges
   //-------------------------------------------------------------------------
+  
   ui -- commands;
   commands -- language;
   ui -- membrane;
@@ -34,8 +37,11 @@ graph layers {
   metamodel -- filesys;
   metamodel -- etc;
 
+
   //-------------------------------------------------------------------------
   // ranks
   //-------------------------------------------------------------------------
+
   // { rank=same; };
+
 }
