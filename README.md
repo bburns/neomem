@@ -91,7 +91,9 @@ Some use cases to test the app and database structure -
 
 ## Architecture
 
-![arch](docs/architecture.dot.svg)
+We'll be using an Onion Architecture, in which an interaction layer coordinates the database and domain layers -
+
+![arch](docs/layers.dot.svg)
 
 
 ## Features
