@@ -10,9 +10,9 @@ graph layers {
   // nodes
   consoleui [ label="ConsoleUI", fillcolor=greenyellow, width=3 ];
   webui [ label="WebUI", fillcolor=greenyellow, width=3 ];
-  commands [ label="Commands" ];
-  cache [ label="Cache" ];
-  sql [ label="?" ];
+  commands [ label="Commands", fillcolor=antiquewhite ];
+  // cache [ label="Cache" ];
+  // sql [ label="?" ];
   membrane [ label="Apache Membrane" ];
   metamodel [ label="Apache MetaModel" ];
   neo4j [ label="Neo4j", fillcolor=lavender, width=1.5 ];
@@ -23,9 +23,10 @@ graph layers {
   // edges
   consoleui -- commands;
   webui -- commands;
-  commands -- cache;
-  cache -- sql;
-  sql -- membrane;
+  // commands -- cache;
+  // cache -- sql;
+  // sql -- membrane;
+  commands -- membrane;
   membrane -- metamodel;
   metamodel -- neo4j;
   metamodel -- bookmarks;
