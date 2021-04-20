@@ -1,0 +1,35 @@
+graph layers {
+
+  // styles
+  rankdir=TB; // top to bottom
+  nodesep=0.1;
+  ranksep=0.1;
+  node [ shape=box, color=lightgray, fillcolor=lightblue, style=filled, fontname=Arial, width=6, height=0.5 ]; // default
+  edge [ color=white, fontcolor=white ]; // default
+
+  // nodes
+  consoleui [ label="ConsoleUI", fillcolor=greenyellow, width=3 ];
+  webui [ label="WebUI", fillcolor=greenyellow, width=3 ];
+  commands [ label="Commands", fillcolor=antiquewhite ];
+  // cache [ label="Cache" ];
+  // sql [ label="?" ];
+  membrane [ label="Apache Membrane" ];
+  metamodel [ label="Apache MetaModel" ];
+  neo4j [ label="Neo4j", fillcolor=lavender, width=1.5 ];
+  bookmarks [ label="Chrome", fillcolor=lavender, width=1.5 ];
+  filesys [ label="Filesystem", fillcolor=lavender, width=1.5 ];
+  etc [ label="etc", fillcolor=lavender, width=1.5 ];
+
+  // edges
+  consoleui -- commands;
+  webui -- commands;
+  // commands -- cache;
+  // cache -- sql;
+  // sql -- membrane;
+  commands -- membrane;
+  membrane -- metamodel;
+  metamodel -- neo4j;
+  metamodel -- bookmarks;
+  metamodel -- filesys;
+  metamodel -- etc;
+}
