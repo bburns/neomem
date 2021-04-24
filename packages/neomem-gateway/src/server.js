@@ -4,7 +4,7 @@
 
 import Hapi from '@hapi/hapi'
 import { Query } from 'neomem-util'
-import { Data } from './data.js'
+import { Data } from './index.js'
 
 const port = process.env.PORT || 4000
 const apiversion1 = '/api/v1/'
