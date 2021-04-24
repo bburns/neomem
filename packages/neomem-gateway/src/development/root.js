@@ -4,7 +4,6 @@ import fs from 'fs' // node lib for filesys
 import libyaml from 'js-yaml' // https://github.com/nodeca/js-yaml
 
 // load config.yaml
-console.log(process.env)
 const configfile = process.env.NEOMEM_CONFIG_FILE
 console.log({ configfile })
 const yaml = fs.readFileSync(configfile, 'utf8')

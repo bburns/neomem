@@ -5,12 +5,18 @@
 help:
     @just --list
 
+# install all dependencies
+#. use lerna?
+install:
+    echo hi
+
 #. currently,
 # yarn backend
 # "backend": "COMMAND=start CONFIG_FILE=../../setups/demo/config.yaml npm-run-all --parallel --print-label --race gateway driver-bookmarks driver-filesys",
+# node packages/neomem-gateway/src/index.js
 data SETUP='demo':
     NEOMEM_CONFIG_FILE=setups/{{SETUP}}/config.yaml \
-    node packages/neomem-gateway/src/index.js
+    PORT=4000 node_modules/.bin/nodemon packages/neomem-gateway/src/server.js
 
 console:
     cd packages/neomem-console && yarn start
