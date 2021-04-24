@@ -124,6 +124,12 @@ GET http://localhost:8080/neomem/pojo/s/Schema/t/foo
 
 ###
 
+GET http://localhost:8080/neomem/pojo/s/Schema/t/foo/c/bar
+
+
+
+###
+
 POST http://localhost:8080/neomem/pojo/s/Schema/t/foo/d
 Content-Type: application/json
 
@@ -156,7 +162,13 @@ GET http://localhost:8080/neomem/pojo/s/Schema/t/foo/d
 
 ###
 
+GET http://localhost:8080/neomem/pojo/q?sql=SELECT%20*%20FROM%20foo
+
+
+###
+
 GET http://localhost:8080/neomem/datasources
+
 
 # {
 #   "type":"datasource",
