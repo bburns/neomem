@@ -117,6 +117,8 @@ We'll be using an Onion Architecture, in which an interaction layer coordinates 
 
 ## Installation
 
+Note: Neomem is under heavy development - i.e. it barely works at the moment...
+
 Install [yarn](https://yarnpkg.com/) and [just](https://github.com/casey/just#packages).
 
 Clone this repo
