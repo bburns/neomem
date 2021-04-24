@@ -1,0 +1,15 @@
+GET http://localhost:8080
+
+###
+
+PUT http://localhost:8080/neomem
+content-type: application/json
+
+{
+  "mode": "raw",
+  "raw": "{}"
+}
+
+###
+
+GET http://localhost:8080/neomem
