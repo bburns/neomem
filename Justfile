@@ -5,15 +5,18 @@
 help:
     @just --list
 
-# "backend": "COMMAND=start npm-run-all --parallel --print-label --race data data-bookmarks", 
-data:
-    yarn backend
+#. currently,
+# yarn backend
+# "backend": "COMMAND=start CONFIG_FILE=../../setups/demo/config.yaml npm-run-all --parallel --print-label --race gateway driver-bookmarks driver-filesys",
+data SETUP='demo':
+    NEOMEM_CONFIG_FILE=setups/{{SETUP}}/config.yaml \
+    node packages/neomem-gateway/src/index.js
 
 console:
     cd packages/neomem-console && yarn start
 
-# npm run --prefix packages/neomem-gateway start
-# start a setup with all services, e.g. `just run` or `just run demo`
-run SETUP='demo':
-    cd packages/neomem-gateway && \
-    CONFIG_FILE=../../setups/{{SETUP}}/config.yaml npm run start
+# # npm run --prefix packages/neomem-gateway start
+# # start a setup with all services, e.g. `just run` or `just run demo`
+# run SETUP='demo':
+#     cd packages/neomem-gateway && \
+#     CONFIG_FILE=../../setups/{{SETUP}}/config.yaml npm run start
