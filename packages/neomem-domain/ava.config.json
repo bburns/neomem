@@ -2,7 +2,8 @@
   "typescript": {
     "//rewritePaths": "Both keys and values must end with a /",
     "rewritePaths": {
-      "src/": "build/"
+      "src/": "build/",
+      "test/": "build/test/"
     },
     "compile": false
   }
