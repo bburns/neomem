@@ -6,7 +6,7 @@ graph layers {
 
   graph [ rankdir=TB, nodesep=0.1, ranksep=0.1];
   node [ shape=box, color=lightgray, fillcolor=lightblue, style=filled, fontname=Arial, width=4, height=0.5 ];
-  edge [ style=invis ];
+  // edge [ style=invis ];
 
 
   //-------------------------------------------------------------------------
@@ -14,16 +14,18 @@ graph layers {
   //-------------------------------------------------------------------------
   
   ui [ label="UI (console and web)", fillcolor=greenyellow, width=4 ];
-  commands [ label="Commands", fillcolor=greenyellow, width=4 ];
+  commands [ label="Commands (list, look, go)", fillcolor=greenyellow, width=4 ];
 
-  membrane [ label="Apache Membrane", width=4.4 ];
-  metamodel [ label="Apache MetaModel", width=4.4 ];
-  neo4j [ label="Neo4j", fillcolor=lavender, width=1 ];
+  // membrane [ label="Apache Membrane", width=4.4 ];
+  // metamodel [ label="Apache MetaModel", width=4.4 ];
+  rest [ label="REST API", width=4.4 ];
+  // neo4j [ label="Neo4j", fillcolor=lavender, width=1 ];
+  arangodb [ label="ArangoDb", fillcolor=lavender, width=1 ];
   bookmarks [ label="Chrome", fillcolor=lavender, width=1 ];
   filesys [ label="Filesystem", fillcolor=lavender, width=1 ];
   etc [ label="etc", fillcolor=lavender, width=1 ];
 
-  domain [ label="Domain", fillcolor=thistle, width=4 ];
+  domain [ label="Domain (nodes, props, relations)", fillcolor=thistle, width=4 ];
   language [ label="JavaScript", fillcolor=thistle, width=4 ];
 
 
@@ -32,14 +34,13 @@ graph layers {
   //-------------------------------------------------------------------------
   
   ui -- commands;
-  commands -- membrane;
+  // commands -- membrane;
+  commands -- rest;
   commands -- domain;
   domain -- language;
-  membrane -- metamodel;
-  metamodel -- neo4j;
-  metamodel -- bookmarks;
-  metamodel -- filesys;
-  metamodel -- etc;
+  // membrane -- metamodel;
+  // metamodel -- { arangodb, bookmarks, filesys, etc };
+  rest -- { arangodb, bookmarks, filesys, etc };
 
 
   //-------------------------------------------------------------------------
