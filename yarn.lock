@@ -5630,6 +5630,11 @@ quick-lru@^4.0.1:
   resolved "https://registry.npmjs.org/quick-lru/-/quick-lru-4.0.1.tgz"
   integrity sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==
 
+rambda@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/rambda/-/rambda-6.7.0.tgz#50322efdd23a108b61eb6ac4e0868d10dd95b4aa"
+  integrity sha512-qg2atEwhAS4ipYoNfggkIP7qBUbY2OqdW17n25VqZIz5YC1MIwSpIToQ7XacvqSCZz16efM8Y8QKLx+Js1Sybg==
+
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz"

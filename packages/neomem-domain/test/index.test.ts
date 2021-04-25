@@ -13,4 +13,10 @@ test(`domain`, async t => {
   node = domain.getNode(1, nodes)
   t.deepEqual(node, plecy)
 
+  const prop = 'description'
+  const value = 'plecostomus'
+  nodes = domain.updateNode(1, prop, value, nodes)
+  const plecy2 = { ...plecy, [prop]: value}
+  t.deepEqual(nodes, { 1: plecy2})
+
 })

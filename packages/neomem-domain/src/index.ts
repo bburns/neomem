@@ -13,12 +13,17 @@ export function addNode(node, nodes) {
   return copy
 }
 
-export function updateNode(node, nodes) {
-
+export function updateNode(id, prop, value, nodes) {
+  const copy = { ...nodes }
+  const node = nodes[id]
+  copy[nodes._id] = { ...node, [prop]: value }
+  return copy
 }
 
-export function getNode(_id, nodes) {
-  return nodes[_id]
+export function getNode(id, nodes) {
+  // return nodes[id]
+  const copy = { ...nodes[id] }
+  return copy
 }
 
 export function deleteNode() { }
