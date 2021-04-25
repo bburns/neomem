@@ -83,6 +83,7 @@ export default {
       _id: 11,
       type: 'blog',
       name: 'neoblog',
+      public: true,
       created: '2021-04-25T10:25:00',
       modified: null,
     },
