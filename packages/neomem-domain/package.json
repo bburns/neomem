@@ -2,9 +2,10 @@
   "name": "neomem-domain",
   "version": "0.1.0",
   "description": "domain model for neomem",
-  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "//start": "node src/index.js",
+    "start": "tsc && node dist/index.js",
     "test": "ava --watch --verbose"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
