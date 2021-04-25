@@ -1,1 +1,1 @@
-export function getNodes(filter) {}
+export function getNodes(filter) { console.log(filter); return false;}
