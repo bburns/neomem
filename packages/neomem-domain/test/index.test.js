@@ -1,5 +1,5 @@
 import test from 'ava'
-import { Domain } from '../src/index.js'
+import { Domain } from '../dist/index.js'
 
 test(`look`, async t => {
   Domain.getNodes()
