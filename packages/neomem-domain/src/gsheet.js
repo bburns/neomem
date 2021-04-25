@@ -2,8 +2,12 @@ import fs from 'fs'
 import readline from 'readline'
 import { google } from 'googleapis'
 
-// If modifying these scopes, delete token.json.
+// neomem blog spreadsheet
+const spreadsheetId = '1Y77DG2XAFijDGVQ3K72yY1EaaP_IlzXCmNnwXGDUCKM'
+
+// If modify these scopes, delete token.json file.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
@@ -77,20 +81,13 @@ function getNodes(auth) {
   const sheets = google.sheets({ version: 'v4', auth })
   sheets.spreadsheets.values.get(
     {
-      spreadsheetId: '1Y77DG2XAFijDGVQ3K72yY1EaaP_IlzXCmNnwXGDUCKM',
+      spreadsheetId,
       range: 'nodes!A2:E',
     },
     (err, res) => {
       if (err) return console.log('The API returned an error: ' + err)
       const rows = res.data.values
-      if (rows.length) {
-        console.log('Name, Major:')
-        rows.map(row => {
-          console.log(`${row[0]}, ${row[4]}`)
-        })
-      } else {
-        console.log('No data found.')
-      }
+      console.log(rows)
     }
   )
 }
