@@ -1,10 +1,16 @@
 import test from 'ava'
 import * as domain from '../src/index'
 
-let nodes = []
+let nodes = {}
+let node
+const plecy = Object.freeze({ _id: 1, name: 'plecy' })
 
-test(`pok`, async t => {
-  nodes = domain.addNode({ name: 'pok' }, nodes)
-  // domain.getNode()
-  t.deepEqual(nodes, [])
+test(`domain`, async t => {
+
+  nodes = domain.addNode(plecy, nodes)
+  t.deepEqual(nodes, { 1: plecy } )
+
+  node = domain.getNode(1, nodes)
+  t.deepEqual(node, plecy)
+
 })

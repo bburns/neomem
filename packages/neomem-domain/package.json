@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "//start": "node src/index.js",
-    "start": "tsc && node build/index.js",
+    "start": "tsc --watch && node build/index.js",
     "test": "ava --watch --verbose"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
