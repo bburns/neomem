@@ -1,4 +1,4 @@
-// build an action object from input string
+// build an action object from input string.
 // an action object can be executed, put on a stack, optionally undone etc.
 
 //. make an Action class/namespace?
@@ -6,12 +6,14 @@
 import { Tokenizer } from './tokenizer.js'
 import { Command } from './command.js'
 
+//. would rather do typescript if have to have these ugly comments with *'s.
+
 /**
  * @typedef {object} TAction
- * @property {string} str
- * @property {string[]} tokens
- * @property {function} execute
- * @property {function} undo?
+ * @property {string} str - the user's input, eg "list books/scifi"
+ * @property {string[]} tokens - the input broken into tokens
+ * @property {function} execute - fn to execute the action
+ * @property {function} undo? - optional fn to undo the action
  */
 
 /**

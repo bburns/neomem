@@ -8,6 +8,7 @@ export default {
       alias: 'plecostomus',
       description: 'a catfish',
       type: 'fish',
+      public: true,
       created: '2021-04-25T04:25:00',
       modified: null,
     },
