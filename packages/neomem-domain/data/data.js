@@ -1,5 +1,9 @@
 // use this to experiment with datamodel - use for testing also
+
 //. call these items and relations, as the ui will use?
+
+//. use arrays? consider this the serialized form - the db would read them
+// and instantiate the indexes, or store those separately?
 
 export default {
   nodes: {

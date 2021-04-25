@@ -4,6 +4,8 @@ import data from '../data/data.js'
 
 let { nodes, edges } = data
 
+//. we should do some kind of query with pagination
+
 const publicNodes = R.filter(node => node.public, R.values(nodes))
 
 function outputText(node) {
