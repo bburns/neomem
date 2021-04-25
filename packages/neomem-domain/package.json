@@ -1,0 +1,23 @@
+{
+  "name": "neomem-domain",
+  "version": "0.1.0",
+  "description": "domain model for neomem",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "ava --watch --verbose"
+  },
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "neomem-util": "^0.1.0",
+    "node-fetch": "^2.6.1",
+    "table": "^6.0.7"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.7"
+  }
+}
