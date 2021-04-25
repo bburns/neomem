@@ -6,7 +6,7 @@ graph layers {
 
   graph [ rankdir=TB, nodesep=0.1, ranksep=0.1];
   node [ shape=box, color=lightgray, fillcolor=lightblue, style=filled, fontname=Arial, width=4, height=0.5 ];
-  // edge [ style=invis ];
+  edge [ style=invis ];
 
 
   //-------------------------------------------------------------------------
