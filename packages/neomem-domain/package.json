@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "description": "domain model for neomem",
   "main": "build/index.js",
+  "type": "module",
   "scripts": {
-    "//start": "node src/index.js",
-    "start": "tsc --watch && node build/index.js",
+    "start": "nodemon src/index.js",
+    "//start": "tsc --watch && node build/index.js",
+    "//blog": "tsc && node build/blog.js",
+    "blog": "nodemon src/blog.js",
     "test": "ava --watch --verbose"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
@@ -16,6 +19,7 @@
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
     "ava": "^3.15.0",
+    "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "tslint": "5.12.1",
     "typescript": "3.3.3"

@@ -13,15 +13,16 @@ export function add(node, nodes) {
   return copy
 }
 
+export function get(id, nodes) {
+  //. if id is an array, return array of nodes
+  const copy = { ...nodes[id] }
+  return copy
+}
+
 export function update(id, prop, value, nodes) {
   const copy = { ...nodes }
   const node = nodes[id]
   copy[nodes._id] = { ...node, [prop]: value }
-  return copy
-}
-
-export function get(id, nodes) {
-  const copy = { ...nodes[id] }
   return copy
 }
 
