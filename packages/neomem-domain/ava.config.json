@@ -1,10 +1,12 @@
 {
+  "//": "ava is a test runner - see package.json",
   "typescript": {
-    "//rewritePaths": "Both keys and values must end with a /",
+    "//": "Both keys and values here must end with a /",
     "rewritePaths": {
       "src/": "build/",
       "test/": "build/test/"
     },
-    "compile": false
+    "//compile": "compile before each run?",
+    "compile": true
   }
 }
