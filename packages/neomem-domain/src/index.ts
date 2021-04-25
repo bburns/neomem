@@ -1,5 +1,1 @@
-function getNodes(filter) {}
-
-const Domain = { getNodes }
-
-export { Domain }
+export function getNodes(filter) {}

@@ -1,7 +1,7 @@
 import test from 'ava'
-import { Domain } from '../dist/index.js'
+import * as Domain from '../src/index'
 
 test(`look`, async t => {
-  Domain.getNodes()
+  Domain.getNodes('pok')
   t.deepEqual(1, 1)
 })
