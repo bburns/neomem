@@ -39,15 +39,21 @@ const tokenize = str => {
 const parse = tokens => {
   const command = tokens[0]
   if (command === 'look') {
-    return context => 'i see a cardinal'
+    // return context => 'i see a cardinal'
+    return look
   } else if (command === 'go') {
-    return context => (context.location = tokens[1])
+    // return context => (context.location = tokens[1])
+    return goFactory(tokens)
   }
 }
 
-const run = (cmd, context) => {
+const run = (cmd, context, tokens) => {
   if (typeof cmd === 'function') {
-    return cmd(context)
+    return cmd(context, tokens)
   }
   return 'huh?'
 }
+
+const look = context => 'i see a cardinal'
+
+const goFactory = tokens => context => (context.location = tokens[1])
