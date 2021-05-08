@@ -13,13 +13,13 @@ let location = '/'
 
 // @ts-ignore
 const print = console.log
-const printLocation = location => print(chalk.bold(`\n[${location}]`))
+const decorateLocation = location => chalk.bold(`\n[${location}]`)
 
 export const makeConsole = () => runner
 
 export const runConsole = runner => {
   print(welcome)
-  printLocation(location)
+  print(decorateLocation(location))
   const server = repl.start({ prompt, eval: evalString })
   server.context.location = location // context gets passed to eval fn
 }
@@ -28,21 +28,20 @@ export const runConsole = runner => {
 // note: these parameters are specified by node's repl library.
 const evalString = async (str, context, filename, callback) => {
   print(runner(str, context))
-  printLocation(context.location)
+  print(decorateLocation(location))
   callback() // so knows to print prompt again
 }
 
 const runner = (str, context = {}) => run(parse(tokenize(str)), context)
 
-// const tokenize = str => str.trim().split(' ')
 const tokenize = R.pipe(R.trim, R.split(' '))
 
-const parse = tokens => {
-  const verb = tokens[0]
-  const command = commands[verb] || commands.unknown
-  return command(tokens)
-}
+// const parse = tokens => {
+//   const verb = tokens[0]
+//   const command = commands[verb] || commands.unknown
+//   return command(tokens)
+// }
 
-// const parse = R.pipe()
+const parse = tokens => (commands[tokens[0]] || commands.unknown)(tokens)
 
 const run = (cmd, context) => cmd(context)
