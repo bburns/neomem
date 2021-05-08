@@ -4,10 +4,7 @@
 
 const go = tokens => context => {
   const noun = tokens[1]
-  // context.location = noun
-  // return 'Went to ' + noun
-  const contextCopy = { ...context }
-  contextCopy.location = noun
+  const contextCopy = { ...context, location: noun }
   return { output: 'Went to ' + noun, context: contextCopy }
 }
 go.description = `Go to a new item.`

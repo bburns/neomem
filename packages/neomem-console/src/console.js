@@ -26,11 +26,11 @@ export const runConsole = runner => {
 
 // parse command string into a fn and execute it.
 // note: these parameters are specified by node's repl library.
-const evalString = async (strIn, contextInOut, filename, callback) => {
-  const { str, context } = runner(strIn, contextInOut)
-  print(str)
-  contextInOut.location = context.location
-  print(decorateLocation(location))
+const evalString = async (str, context, filename, callback) => {
+  const { output, context: newContext } = runner(str, context)
+  print(output)
+  context.location = newContext.location
+  print(decorateLocation(context.location))
   callback() // so knows to print prompt again
 }
 
