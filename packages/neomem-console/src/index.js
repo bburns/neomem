@@ -1,0 +1,3 @@
+// console ui
+
+function look() {}
