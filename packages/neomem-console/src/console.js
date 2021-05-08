@@ -16,11 +16,12 @@ const printLocation = location => print(chalk.bold(`\n[${location}]`))
 // make and return a console object. run it with console.start()
 export function makeConsole() {
   // return api => {
-  print(welcome)
-  printLocation(location)
-  const server = repl.start({ prompt, eval: evalString })
-  server.context.location = location // context gets passed to eval fn
+  // print(welcome)
+  // printLocation(location)
+  // const server = repl.start({ prompt, eval: evalString })
+  // server.context.location = location // context gets passed to eval fn
   // }
+  return runner
 }
 
 export const runConsole = console => {
