@@ -1,0 +1,20 @@
+{
+  "name": "neomem-driver-json",
+  "version": "0.1.0",
+  "description": "neomem json data driver",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "ava --watch --verbose"
+  },
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "rambda": "^6.7.0"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "nodemon": "^2.0.7"
+  }
+}
