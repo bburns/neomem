@@ -1,7 +1,7 @@
 // console ui
 
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
-// import R from 'rambda' // functional programming lib https://ramdajs.com/
+import R from 'rambda' // functional programming lib https://ramdajs.com/
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import * as commands from './commands.js'
 
@@ -11,12 +11,13 @@ Welcome to Neomem
 const prompt = '=> '
 let location = '/'
 
+// @ts-ignore
 const print = console.log
 const printLocation = location => print(chalk.bold(`\n[${location}]`))
 
-export const makeRunner = () => runner
+export const makeConsole = () => runner
 
-export const runRunner = runner => {
+export const runConsole = runner => {
   print(welcome)
   printLocation(location)
   const server = repl.start({ prompt, eval: evalString })
@@ -33,7 +34,8 @@ const evalString = async (str, context, filename, callback) => {
 
 const runner = (str, context = {}) => run(parse(tokenize(str)), context)
 
-const tokenize = str => str.trim().split(' ')
+// const tokenize = str => str.trim().split(' ')
+const tokenize = R.pipe(R.trim, R.split(' '))
 
 const parse = tokens => {
   const verb = tokens[0]

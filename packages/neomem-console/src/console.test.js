@@ -1,8 +1,8 @@
 import test from 'ava'
-import { makeRunner } from './console.js'
+import { makeConsole } from './console.js'
 
 const print = console.log
-const runner = makeRunner()
+const runner = makeConsole()
 
 test(`look`, async t => {
   const output = runner('look')
