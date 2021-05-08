@@ -11,28 +11,22 @@ const prompt = '=> '
 let location = '/'
 
 const print = console.log
+const printLocation = location => print(chalk.bold(`\n[${location}]`))
 
 // make and return a console object. run it with console.start()
-export function makeConsole() {
-  function start(api) {
-    printWelcome(welcome)
-    printLocation(location)
-    const server = repl.start({ prompt, eval: evalString })
-    server.context.location = location
-  }
-  return {
-    start,
-  }
+export function makeConsole(api) {
+  print(welcome)
+  printLocation(location)
+  const server = repl.start({ prompt, eval: evalString })
+  server.context.location = location // pass location to eval fn
 }
-
-const printWelcome = welcome => print(welcome)
-const printLocation = location => print(chalk.bold(`\n[${location}]`))
 
 // parse command string into a fn and execute it.
 // note: these parameters are specified by node's repl library.
 async function evalString(str, context, filename, callback) {
   // @ts-ignore
-  const output = R.pipe(tokenize, parse, run)(str)
+  // const output = R.pipe(tokenize, parse, run)(str)
+  const output = run(parse(tokenize(str)), context)
   print(output)
   printLocation(context.location)
   callback() // so knows to print prompt again
@@ -45,13 +39,15 @@ const tokenize = str => {
 const parse = tokens => {
   const command = tokens[0]
   if (command === 'look') {
-    return () => 'i see a cardinal'
+    return context => 'i see a cardinal'
+  } else if (command === 'go') {
+    return context => (context.location = tokens[1])
   }
 }
 
-const run = cmd => {
+const run = (cmd, context) => {
   if (typeof cmd === 'function') {
-    return cmd()
+    return cmd(context)
   }
   return 'huh?'
 }
