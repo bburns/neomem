@@ -6,8 +6,7 @@ const defaultConfig = {
   prompt: '=> ',
   welcome: `
 Welcome to Neomem
------------------------------------------------------
-`,
+-----------------------------------------------------`,
 }
 
 function printLocation(context) {
@@ -15,7 +14,8 @@ function printLocation(context) {
 }
 
 // make and return a console object. run it with console.start()
-export function makeConsole(config = defaultConfig) {
+export function makeConsole(config) {
+  config = { ...defaultConfig, ...config }
   const context = {
     base: config.base,
     location: config.location,
