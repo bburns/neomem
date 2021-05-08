@@ -85,8 +85,8 @@ Some use cases to test the app and database structure -
 ## Implementation
 
 - react frontend ui with view plugins
-- native data stored to neo4j in google cloud - access data anywhere
-- graphql api with plugins for different data sources
+- native data stored to arangodb in google cloud - access data anywhere
+- rest api with plugins for different data sources
 
 
 ## Architecture
@@ -153,7 +153,7 @@ Follow along on Twitter - https://twitter.com/neomem_io.
 
 ## Support
 
-You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you! ❤︎
+You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you!
 
 
 ## License

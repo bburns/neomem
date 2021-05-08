@@ -4,6 +4,7 @@
 
 //. use arrays? consider this the serialized form - the db would read them
 // and instantiate the indexes, or store those separately?
+// yah
 
 export default {
   nodes: {
