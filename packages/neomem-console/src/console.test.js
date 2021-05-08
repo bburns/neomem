@@ -1,5 +1,5 @@
 import test from 'ava'
-import { makeConsole } from './index.js'
+import { makeConsole } from './console.js'
 
 const config = {}
 
