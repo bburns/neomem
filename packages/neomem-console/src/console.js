@@ -43,4 +43,6 @@ const parse = tokens => {
   return command(tokens)
 }
 
+// const parse = R.pipe()
+
 const run = (cmd, context) => cmd(context)

@@ -3,6 +3,7 @@ import { makeConsole } from './console.js'
 
 const print = console.log
 const runner = makeConsole()
+const runner2 = makeConsole()
 
 test(`look`, async t => {
   const output = runner('look')
@@ -14,7 +15,10 @@ test(`pok`, async t => {
   t.deepEqual(output, 'huh?')
 })
 
-test(`go chrome`, async t => {
+// make sure can handle two consoles at once (no singleton)
+test(`go chrome + books`, async t => {
   const output = runner('go chrome')
+  const output2 = runner2('go books')
   t.deepEqual(output, 'Went to chrome')
+  t.deepEqual(output2, 'Went to books')
 })
