@@ -16,10 +16,13 @@ const help = tokens => async context => ({
 })
 help.description = `Show list of available commands.`
 
-const look = tokens => async context => ({
-  output: 'i see a cardinal',
-  context,
-})
+const look = tokens => async context => {
+  const noun = tokens && tokens[1]
+  if (!noun) {
+    return { output: 'i see ' + context.location, context }
+  }
+  return { output: 'i see ' + noun, context }
+}
 look.description = `Look at current location or other item.`
 
 const unknown = tokens => async context => ({ output: 'huh?', context })

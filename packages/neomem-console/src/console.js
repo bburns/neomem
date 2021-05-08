@@ -11,7 +11,8 @@ const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
 const prompt = '=> '
-let location = '/'
+const location = '/'
+const defaultContext = { location }
 
 // calculations
 
@@ -20,7 +21,7 @@ const decorateLocation = location => chalk.bold(`\n[${location}]`)
 
 export const makeConsole = () => evaluate
 
-const evaluate = async (str, context = {}) =>
+const evaluate = async (str, context = defaultContext) =>
   await run(parse(tokenize(str)), context)
 
 const tokenize = R.pipe(R.trim, R.split(' '))
@@ -35,19 +36,20 @@ const run = (cmd, context) => cmd(context)
 
 // actions
 
-// parse command string into a fn and execute it.
-// note: these parameters are specified by node's repl library.
-const runStep = async (str, oldContext, filename, callback) => {
-  const { output, context } = await evaluate(str, oldContext)
-  print(output)
-  oldContext.location = context.location
-  print(decorateLocation(context.location))
-  callback() // so knows to print prompt again
-}
-
 export const runConsole = evaluate => {
   print(welcome)
   print(decorateLocation(location))
+
+  // parse command string into a fn and execute it.
+  // note: these parameters are specified by node's repl library.
+  const runStep = async (str, oldContext, filename, callback) => {
+    const { output, context } = await evaluate(str, oldContext)
+    print(output)
+    oldContext.location = context.location
+    print(decorateLocation(context.location))
+    callback() // so knows to print prompt again
+  }
+
   const server = repl.start({ prompt, eval: runStep })
-  server.context.location = location // context gets passed to eval fn
+  server.context.location = location // pass context to eval fn
 }
