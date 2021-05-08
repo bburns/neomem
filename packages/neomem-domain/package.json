@@ -6,9 +6,6 @@
   "type": "module",
   "scripts": {
     "start": "nodemon src/index.js",
-    "//start": "tsc --watch && node build/index.js",
-    "//blog": "tsc && node build/blog.js",
-    "blog": "nodemon src/blog.js",
     "test": "ava --watch --verbose"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
