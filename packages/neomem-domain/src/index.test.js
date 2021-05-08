@@ -1,15 +1,17 @@
+// run with `yarn test`
+
 import test from 'ava'
-import * as domain from '../src/index'
+import * as domain from '../src/index.js'
 
 let nodes = {}
 let node
 const plecy = Object.freeze({ _id: 1, name: 'plecy' })
 
-test(`domain`, async t => {
-
+// crud operations
+test(`domain CRUD`, async t => {
   // create
   nodes = domain.add(plecy, nodes)
-  t.deepEqual(nodes, { 1: plecy } )
+  t.deepEqual(nodes, { 1: plecy })
 
   // retrieve
   node = domain.get(1, nodes)
@@ -19,10 +21,10 @@ test(`domain`, async t => {
   const prop = 'description'
   const value = 'plecostomus'
   nodes = domain.update(1, prop, value, nodes)
-  const plecy2 = { ...plecy, [prop]: value}
-  t.deepEqual(nodes, { 1: plecy2})
+  const plecy2 = { ...plecy, [prop]: value }
+  t.deepEqual(nodes, { 1: plecy2 })
 
   // delete
   nodes = domain.remove(1, nodes)
-  t.deepEqual(nodes, {} )
+  t.deepEqual(nodes, {})
 })
