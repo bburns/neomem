@@ -93,7 +93,7 @@ Some use cases to test the app and database structure -
 
 We'll be using an Onion Architecture, in which an interaction layer coordinates the database and domain layers -
 
-![arch](docs/layers.dot.svg)
+![arch](design/layers.dot.svg)
 
 
 ## Features
