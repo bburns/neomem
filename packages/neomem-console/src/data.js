@@ -7,7 +7,7 @@
 // consider this the serialized form - the db would read them
 // and instantiate the indexes, or store those separately
 
-const data = {
+export const data = {
   nodes: [
     {
       _id: 1,
@@ -126,5 +126,3 @@ const data = {
     { _from: 7, _to: 10, type: 'shows' },
   ],
 }
-
-export default data
