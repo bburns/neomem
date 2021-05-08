@@ -9,13 +9,18 @@ const go = tokens => context => {
 }
 go.description = `Go to a new item.`
 
-const help = tokens => context => ({ output: commands, context })
+const help = tokens => context => ({
+  // @ts-ignore
+  output: Object.values(commands).filter(cmd => !cmd.hidden),
+  context,
+})
 help.description = `Show list of available commands.`
 
 const look = tokens => context => ({ output: 'i see a cardinal', context })
 look.description = `Look at and describe current or other item.`
 
 const unknown = tokens => context => ({ output: 'huh?', context })
+unknown.hidden = true
 
 // need this struct for help command
 const commands = {
