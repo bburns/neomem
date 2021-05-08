@@ -39,11 +39,11 @@ const evaluate = async (str, context = {}) =>
 
 const tokenize = R.pipe(R.trim, R.split(' '))
 
-// const parse = tokens => {
-//   const verb = tokens[0]
-//   const command = commands[verb] || commands.unknown
-//   return command(tokens)
-// }
-const parse = tokens => (commands[tokens[0]] || commands.unknown)(tokens)
+const parse = tokens => {
+  const verb = tokens[0]
+  const command = commands[verb] || commands.unknown
+  return command(tokens)
+}
+// const parse = tokens => (commands[tokens[0]] || commands.unknown)(tokens)
 
 const run = (cmd, context) => cmd(context)
