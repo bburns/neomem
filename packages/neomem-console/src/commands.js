@@ -7,7 +7,7 @@ const go = tokens => async context => {
   const contextCopy = { ...context, location: noun }
   return { output: 'Went to ' + noun, context: contextCopy }
 }
-go.description = `Go to a new item.`
+go.description = `Go to a new location.`
 
 const help = tokens => async context => ({
   // @ts-ignore
@@ -20,7 +20,7 @@ const look = tokens => async context => ({
   output: 'i see a cardinal',
   context,
 })
-look.description = `Look at and describe current or other item.`
+look.description = `Look at current location or other item.`
 
 const unknown = tokens => async context => ({ output: 'huh?', context })
 unknown.hidden = true

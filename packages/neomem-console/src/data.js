@@ -1,5 +1,7 @@
 // use this to experiment with datamodel - use for testing also
 
+// _id, _from, _to are from arangodb
+
 //. call these items and relations, as the ui will use?
 
 // consider this the serialized form - the db would read them
