@@ -1,19 +1,28 @@
 import repl from 'repl' // node lib - https://nodejs.org/api/repl.html
 import R from 'rambda' // functional programming lib
+import chalk from 'chalk' // color text
 
 const defaultConfig = {
   prompt: '=> ',
+  welcome: `
+Welcome to Neomem
+-----------------------------------------------------
+`,
+}
+
+function printLocation(context) {
+  console.log(chalk.bold(`\n[${context.location}]`))
 }
 
 // make and return a console object. run it with console.start()
 export function makeConsole(config = defaultConfig) {
-  // const context = {
-  //   base: config.base,
-  //   location: config.location,
-  // }
+  const context = {
+    base: config.base,
+    location: config.location,
+  }
   function start() {
-    // printWelcome()
-    // printLocation(context)
+    console.log(config.welcome)
+    printLocation(context)
     const replServer = repl.start({ prompt: config.prompt, eval: evalCommand })
     // replServer.context = context // this is how you pass context to the repl?
   }
@@ -28,7 +37,7 @@ export function makeConsole(config = defaultConfig) {
     // } catch (error) {
     //   return callback(error)
     // }
-    // printLocation(context)
+    printLocation(context)
     console.log(str)
     callback() // so knows to print prompt again
   }
