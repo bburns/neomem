@@ -14,11 +14,11 @@ const print = console.log
 
 // make and return a console object. run it with console.start()
 export function makeConsole() {
-  function start() {
+  function start(api) {
     printWelcome(welcome)
     printLocation(location)
-    const replServer = repl.start({ prompt, eval: evalString })
-    replServer.context.location = location
+    const server = repl.start({ prompt, eval: evalString })
+    server.context.location = location
   }
   return {
     start,
@@ -45,11 +45,13 @@ const tokenize = str => {
 const parse = tokens => {
   const command = tokens[0]
   if (command === 'look') {
-    return 'i see a cardinal'
+    return () => 'i see a cardinal'
   }
-  return tokens
 }
 
 const run = cmd => {
-  return cmd
+  if (typeof cmd === 'function') {
+    return cmd()
+  }
+  return 'huh?'
 }
