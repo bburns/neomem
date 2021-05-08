@@ -14,9 +14,9 @@ let location = '/'
 const print = console.log
 const printLocation = location => print(chalk.bold(`\n[${location}]`))
 
-export const makeConsole = () => runner
+export const makeRunner = () => runner
 
-export const runConsole = runner => {
+export const runRunner = runner => {
   print(welcome)
   printLocation(location)
   const server = repl.start({ prompt, eval: evalString })

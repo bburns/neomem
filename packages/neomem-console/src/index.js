@@ -1,5 +1,5 @@
-import { runConsole, makeConsole } from './console.js'
+import { runRunner, makeRunner } from './console.js'
 
 const api = 'http://localhost:4000/'
 
-runConsole(makeConsole())
+runRunner(makeRunner())
