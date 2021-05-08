@@ -1,7 +1,9 @@
 // run with `yarn test`
 
 import test from 'ava'
-import * as domain from '../src/index.js'
+import R from 'rambda'
+import * as domain from './index.js'
+import data from '../data/data.js'
 
 let nodes = {}
 let node
@@ -27,4 +29,11 @@ test(`domain CRUD`, async t => {
   // delete
   nodes = domain.remove(1, nodes)
   t.deepEqual(nodes, {})
+})
+
+test(`read from data.js`, async t => {
+  nodes = {}
+  R.forEach(item => (nodes[item._id] = item), data.nodes)
+  node = domain.get(1, nodes)
+  t.like(node, { _id: 1, name: 'plecy' })
 })

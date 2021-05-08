@@ -7,8 +7,8 @@ export function add(node, nodes) {
   return copy
 }
 
+//. if id is an array, return array of nodes?
 export function get(id, nodes) {
-  //. if id is an array, return array of nodes
   const copy = { ...nodes[id] }
   return copy
 }
