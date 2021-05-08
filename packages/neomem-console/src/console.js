@@ -15,16 +15,10 @@ const printLocation = location => print(chalk.bold(`\n[${location}]`))
 
 // make and return a console object. run it with console.start()
 export function makeConsole() {
-  // return api => {
-  // print(welcome)
-  // printLocation(location)
-  // const server = repl.start({ prompt, eval: evalString })
-  // server.context.location = location // context gets passed to eval fn
-  // }
   return runner
 }
 
-export const runConsole = console => {
+export const runConsole = runner => {
   print(welcome)
   printLocation(location)
   const server = repl.start({ prompt, eval: evalString })
@@ -45,13 +39,9 @@ const runner = (str, context) => run(parse(tokenize(str)), context)
 const tokenize = str => str.trim().split(' ')
 
 const parse = tokens => {
-  const command = tokens[0]
-  if (command === 'look') {
-    return lookFactory(tokens)
-  } else if (command === 'go') {
-    return goFactory(tokens)
-  }
-  return unknownFactory(tokens)
+  const verb = tokens[0]
+  const command = commands[verb] || commands.unknown
+  return command(tokens)
 }
 
 const run = (cmd, context) => cmd(context)
@@ -59,3 +49,9 @@ const run = (cmd, context) => cmd(context)
 const lookFactory = tokens => context => 'i see a cardinal'
 const goFactory = tokens => context => (context.location = tokens[1])
 const unknownFactory = tokens => context => 'huh?'
+
+const commands = {
+  look: lookFactory,
+  go: goFactory,
+  unknown: unknownFactory,
+}
