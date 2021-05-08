@@ -4,18 +4,21 @@
 
 const go = tokens => context => {
   const noun = tokens[1]
-  context.location = noun
-  return 'Went to ' + noun
+  // context.location = noun
+  // return 'Went to ' + noun
+  const contextCopy = { ...context }
+  contextCopy.location = noun
+  return { output: 'Went to ' + noun, context: contextCopy }
 }
 go.description = `Go to a new item.`
 
-const help = tokens => context => commands
+const help = tokens => context => ({ output: commands, context })
 help.description = `Show list of available commands.`
 
-const look = tokens => context => 'i see a cardinal'
+const look = tokens => context => ({ output: 'i see a cardinal', context })
 look.description = `Look at and describe current or other item.`
 
-const unknown = tokens => context => 'huh?'
+const unknown = tokens => context => ({ output: 'huh?', context })
 
 // need this struct for help command
 const commands = {
