@@ -28,7 +28,11 @@ export const runConsole = runner => {
 // note: these parameters are specified by node's repl library.
 const evalString = async (str, context, filename, callback) => {
   const { output, context: newContext } = runner(str, context)
-  print(output)
+  if (Array.isArray(output)) {
+    console.table(output)
+  } else {
+    print(output)
+  }
   context.location = newContext.location
   print(decorateLocation(context.location))
   callback() // so knows to print prompt again
@@ -43,7 +47,6 @@ const tokenize = R.pipe(R.trim, R.split(' '))
 //   const command = commands[verb] || commands.unknown
 //   return command(tokens)
 // }
-
 const parse = tokens => (commands[tokens[0]] || commands.unknown)(tokens)
 
 const run = (cmd, context) => cmd(context)
