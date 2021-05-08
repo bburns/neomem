@@ -15,7 +15,6 @@ import { Table } from './table.js' // wrapper around a table library
 // /**
 //  * -----------------------------------------------------------------------------
 //  * back
-//  * @param {Options} options
 //  * -----------------------------------------------------------------------------
 //  */
 // async function back(options) {
@@ -33,7 +32,6 @@ import { Table } from './table.js' // wrapper around a table library
 /**
  * -----------------------------------------------------------------------------
  * go [target]
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function go(options) {
@@ -70,7 +68,6 @@ go.undo = async options => {
 /**
  * -----------------------------------------------------------------------------
  * help
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function help(options) {
@@ -95,7 +92,6 @@ help.description = `Show list of available commands.`
 /**
  * -----------------------------------------------------------------------------
  * history
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function history(options) {
@@ -111,7 +107,6 @@ const h = history
 /**
  * -----------------------------------------------------------------------------
  * list [target]
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function list(options) {
@@ -145,7 +140,6 @@ list.description = `List contents of current location in a table.`
 /**
  * -----------------------------------------------------------------------------
  * location
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function location(options) {
@@ -159,7 +153,6 @@ const loc = location
 /**
  * -----------------------------------------------------------------------------
  * look [target]
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function look(options) {
@@ -198,7 +191,6 @@ const l = look
 /**
  * -----------------------------------------------------------------------------
  * redo
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 //. will require processor to leave items in history tree, move a pointer on undo
@@ -211,7 +203,6 @@ redo.description = `Redo the last undone command.`
 /**
  * -----------------------------------------------------------------------------
  * undo
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function undo(options) {
@@ -223,7 +214,6 @@ undo.description = `Undo the previous command.`
 /**
  * -----------------------------------------------------------------------------
  * unknown
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function unknown(options) {
@@ -234,7 +224,6 @@ async function unknown(options) {
 /**
  * -----------------------------------------------------------------------------
  * up
- * @param {Options} options
  * -----------------------------------------------------------------------------
  */
 async function up(options) {

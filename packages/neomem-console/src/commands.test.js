@@ -1,5 +1,5 @@
 import test from 'ava'
-import * as commands from './commands.js'
+import commands from './commands.js'
 
 test(`look`, async t => {
   const output = commands.look()()

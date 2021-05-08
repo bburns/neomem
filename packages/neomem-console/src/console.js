@@ -3,7 +3,7 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import R from 'rambda' // functional programming lib https://ramdajs.com/
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import * as commands from './commands.js'
+import commands from './commands.js'
 
 const welcome = `
 Welcome to Neomem
