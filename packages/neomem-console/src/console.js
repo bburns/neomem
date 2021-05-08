@@ -27,9 +27,8 @@ export function makeConsole(config) {
 
 const printWelcome = welcome => console.log(welcome)
 
-function printLocation(context) {
+const printLocation = context =>
   console.log(chalk.bold(`\n[${context.location}]`))
-}
 
 // parse command string into a fn and execute it.
 // note: these parameters are specified by node's repl library.
@@ -43,12 +42,12 @@ async function evalCommand(str, context, filename, callback) {
   //   return callback(error)
   // }
   // @ts-ignore
-  console.log(R.pipe(tokenize)(str))
+  const cmd = R.pipe(tokenize, parse)(str)
+  console.log(cmd)
   printLocation(context)
-  console.log(str)
   callback() // so knows to print prompt again
 }
 
-function tokenize(str) {
-  return str.trim().split(' ')
-}
+const tokenize = str => str.trim().split(' ')
+
+const parse = tokens => tokens
