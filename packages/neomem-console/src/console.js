@@ -13,10 +13,7 @@ let location = '/'
 const print = console.log
 const printLocation = location => print(chalk.bold(`\n[${location}]`))
 
-// make and return a console object. run it with console.start()
-export function makeConsole() {
-  return runner
-}
+export const makeConsole = () => runner
 
 export const runConsole = runner => {
   print(welcome)
@@ -34,7 +31,7 @@ const evalString = async (str, context, filename, callback) => {
   callback() // so knows to print prompt again
 }
 
-const runner = (str, context) => run(parse(tokenize(str)), context)
+const runner = (str, context = {}) => run(parse(tokenize(str)), context)
 
 const tokenize = str => str.trim().split(' ')
 
@@ -47,7 +44,11 @@ const parse = tokens => {
 const run = (cmd, context) => cmd(context)
 
 const lookFactory = tokens => context => 'i see a cardinal'
-const goFactory = tokens => context => (context.location = tokens[1])
+const goFactory = tokens => context => {
+  const noun = tokens[1]
+  context.location = noun
+  return 'Went to ' + noun
+}
 const unknownFactory = tokens => context => 'huh?'
 
 const commands = {
