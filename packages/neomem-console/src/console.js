@@ -14,8 +14,7 @@ Welcome to Neomem
 export function makeConsole(config) {
   config = { ...defaultConfig, ...config }
   function start() {
-    console.log(config.welcome)
-    // printLocation(context)
+    printWelcome(config.welcome)
     printLocation(config)
     const replServer = repl.start({ prompt: config.prompt, eval: evalCommand })
     // @ts-ignore
@@ -25,6 +24,8 @@ export function makeConsole(config) {
     start,
   }
 }
+
+const printWelcome = welcome => console.log(welcome)
 
 function printLocation(context) {
   console.log(chalk.bold(`\n[${context.location}]`))
@@ -41,12 +42,13 @@ async function evalCommand(str, context, filename, callback) {
   // } catch (error) {
   //   return callback(error)
   // }
-  function tokenize(str) {
-    return str.trim().split(' ')
-  }
   // @ts-ignore
   console.log(R.pipe(tokenize)(str))
   printLocation(context)
   console.log(str)
   callback() // so knows to print prompt again
+}
+
+function tokenize(str) {
+  return str.trim().split(' ')
 }
