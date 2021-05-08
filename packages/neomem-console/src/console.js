@@ -15,23 +15,31 @@ const printLocation = location => print(chalk.bold(`\n[${location}]`))
 
 // make and return a console object. run it with console.start()
 export function makeConsole() {
-  return api => {
-    print(welcome)
-    printLocation(location)
-    const server = repl.start({ prompt, eval: evalString })
-    server.context.location = location // context gets passed to eval fn
-  }
+  // return api => {
+  print(welcome)
+  printLocation(location)
+  const server = repl.start({ prompt, eval: evalString })
+  server.context.location = location // context gets passed to eval fn
+  // }
+}
+
+export const runConsole = console => {
+  print(welcome)
+  printLocation(location)
+  const server = repl.start({ prompt, eval: evalString })
+  server.context.location = location // context gets passed to eval fn
 }
 
 // parse command string into a fn and execute it.
 // note: these parameters are specified by node's repl library.
-async function evalString(str, context, filename, callback) {
-  print(getOutput(str, context))
+// async function evalString(str, context, filename, callback) {
+const evalString = async (str, context, filename, callback) => {
+  print(runner(str, context))
   printLocation(context.location)
   callback() // so knows to print prompt again
 }
 
-const getOutput = (str, context) => run(parse(tokenize(str)), context)
+const runner = (str, context) => run(parse(tokenize(str)), context)
 
 const tokenize = str => str.trim().split(' ')
 

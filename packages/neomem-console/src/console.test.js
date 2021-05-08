@@ -1,8 +1,10 @@
 import test from 'ava'
 import { makeConsole } from './console.js'
 
-test(`run`, async t => {
-  const cons = makeConsole()
-  const cmd = cons()
+const print = console.log
+
+test(`look`, async t => {
+  const console = makeConsole()
+  const cmd = console('look')
   t.deepEqual(cmd.name, 'look')
 })
