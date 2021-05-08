@@ -1,12 +1,12 @@
 import test from 'ava'
 import { makeConsole } from './console.js'
-import { driver } from './driver.js'
+import { connect } from './connect.js'
 import { data } from './data.js'
 
 const print = console.log
 const evaluate = makeConsole()
 const evaluate2 = makeConsole()
-const connection = driver(data)
+const connection = connect(data)
 
 test(`pok`, async t => {
   const { output } = await evaluate('pok')
