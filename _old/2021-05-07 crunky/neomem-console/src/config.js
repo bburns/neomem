@@ -4,6 +4,4 @@ const config = {
   location: '/',
 }
 
-// export config
-
 export default config

@@ -1,7 +1,5 @@
 // get, post, put, delete handlers
 
-// const { Http } from 'neomem-util')
-// const chalk from 'chalk')
 import { Http } from 'neomem-util'
 import chalk from 'chalk'
 

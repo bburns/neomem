@@ -8,7 +8,8 @@ help:
 # install all dependencies
 #. use lerna?
 install:
-    echo hi
+    brew install parallel # run cmds in parallel
+    brew install expect # includes unbuffer, which can restore color output
 
 #. currently,
 # yarn backend
