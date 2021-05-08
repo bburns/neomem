@@ -5,12 +5,12 @@ import R from 'rambda'
 import * as domain from './index.js'
 import data from '../data/data.js'
 
-let nodes = {}
-let node
-const plecy = Object.freeze({ _id: 1, name: 'plecy' })
-
-// crud operations
+// crud operations with a const item
 test(`domain CRUD`, async t => {
+  let nodes = {}
+  let node
+  const plecy = Object.freeze({ _id: 1, name: 'plecy' })
+
   // create
   nodes = domain.add(plecy, nodes)
   t.deepEqual(nodes, { 1: plecy })
@@ -32,8 +32,8 @@ test(`domain CRUD`, async t => {
 })
 
 test(`read from data.js`, async t => {
-  nodes = {}
+  const nodes = {}
   R.forEach(item => (nodes[item._id] = item), data.nodes)
-  node = domain.get(1, nodes)
+  const node = domain.get(1, nodes)
   t.like(node, { _id: 1, name: 'plecy' })
 })
