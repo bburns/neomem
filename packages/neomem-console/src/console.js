@@ -13,16 +13,12 @@ Welcome to Neomem
 // make and return a console object. run it with console.start()
 export function makeConsole(config) {
   config = { ...defaultConfig, ...config }
-  // const context = {
-  //   base: config.base,
-  //   location: config.location,
-  // }
   function start() {
     console.log(config.welcome)
     // printLocation(context)
     printLocation(config)
     const replServer = repl.start({ prompt: config.prompt, eval: evalCommand })
-    // replServer.context = context // this is how you pass context to the repl?
+    // @ts-ignore
     replServer.context = config // this is how you pass context to the repl?
   }
   return {
@@ -45,6 +41,11 @@ async function evalCommand(str, context, filename, callback) {
   // } catch (error) {
   //   return callback(error)
   // }
+  function tokenize(str) {
+    return str.trim().split(' ')
+  }
+  // @ts-ignore
+  console.log(R.pipe(tokenize)(str))
   printLocation(context)
   console.log(str)
   callback() // so knows to print prompt again
