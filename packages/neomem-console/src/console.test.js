@@ -1,9 +1,13 @@
 import test from 'ava'
 import { makeConsole } from './console.js'
-import { connect } from './connect.js' // driver
+import { connect } from './driver-json.js' // driver
 
 const data = {
-  nodes: [{ _id: 1, name: 'forest', notes: 'gloomy' }],
+  nodes: [
+    { _id: 1, name: 'forest', notes: 'gloomy' },
+    { _id: 2, name: 'field', notes: 'grassy' },
+    { _id: 3, name: 'pool', notes: 'sunny' },
+  ],
 }
 
 const print = console.log
@@ -27,15 +31,15 @@ test(`look`, async t => {
 
 test(`look field`, async t => {
   const { output } = await evaluate('look field', context)
-  t.deepEqual(output, 'field')
+  t.deepEqual(output, 'field\ngrassy')
 })
 
 // make sure can handle two consoles at once (no singleton)
-test(`go chrome + books`, async t => {
-  const { output } = await evaluate('go chrome', context)
-  const { output: output2 } = await evaluate2('go books', context)
-  t.deepEqual(output, 'Went to chrome')
-  t.deepEqual(output2, 'Went to books')
+test(`go field + pool`, async t => {
+  const { output } = await evaluate('go field', context)
+  const { output: output2 } = await evaluate2('go pool', context)
+  t.deepEqual(output, 'Went to field')
+  t.deepEqual(output2, 'Went to pool')
 })
 
 // test(`go + look`, async t => {

@@ -3,7 +3,7 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { makeConsole } from './console.js'
-import { connect } from './connect.js' // driver
+import { connect } from './driver-json.js' // driver
 import { data } from './data.js'
 
 const welcome = `
