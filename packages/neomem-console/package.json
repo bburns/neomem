@@ -4,6 +4,8 @@
   "description": "neomem console ui",
   "main": "src/index.js",
   "type": "module",
+  "module": "esnext",
+  "target": "es2017",
   "scripts": {
     "start": "node src/console.js",
     "test": "ava --watch --verbose"

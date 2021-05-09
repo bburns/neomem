@@ -15,11 +15,10 @@ const print = console.log
 const decorateLocation = location => chalk.bold(`\n[${location.name}]`)
 
 const connection = connect(data)
-// @ts-ignore
 const location = await connection.get(locationId)
 
 print(welcome)
-print(decorateLocation(location.name))
+print(decorateLocation(location))
 
 // parse command string into a fn and execute it.
 // note: these parameters are specified by node's repl library.
@@ -28,7 +27,7 @@ const runStep = async (str, oldContext, filename, callback) => {
   print(output)
   oldContext.locationId = context.locationId
   const location = await context.connection.get(context.locationId)
-  print(decorateLocation(location.name))
+  print(decorateLocation(location))
   callback() // so knows to print prompt again
 }
 

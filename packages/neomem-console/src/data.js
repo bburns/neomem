@@ -127,6 +127,18 @@ export const data = {
       created: '2021-05-08T14:25:00',
       modified: null,
     },
+    {
+      id: 16,
+      name: 'trees',
+      created: '2021-05-08T14:25:00',
+      modified: null,
+    },
+    {
+      id: 17,
+      name: 'leaves',
+      created: '2021-05-08T14:25:00',
+      modified: null,
+    },
   ],
 
   edges: [
@@ -140,5 +152,7 @@ export const data = {
     { from: 5, to: 8, type: 'shows' },
     { from: 6, to: 9, type: 'shows' },
     { from: 7, to: 10, type: 'shows' },
+    { from: 14, to: 16, type: 'contains' },
+    { from: 14, to: 17, type: 'contains' },
   ],
 }
