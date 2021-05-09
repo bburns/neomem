@@ -10,14 +10,11 @@ const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
 const prompt = '=> '
-// const location = '/'
 const location = { id: 1, name: 'lkmlkm' }
-
-const connection = connect(data)
-
 const print = console.log
 const decorateLocation = location => chalk.bold(`\n[${location.name}]`)
 
+const connection = connect(data)
 const evaluate = makeConsole()
 
 print(welcome)
@@ -33,8 +30,7 @@ const runStep = async (str, oldContext, filename, callback) => {
   callback() // so knows to print prompt again
 }
 
+// start repl and pass context to eval fn
 const server = repl.start({ prompt, eval: runStep })
-
-// pass context to eval fn
 server.context.location = location
 server.context.connection = connection
