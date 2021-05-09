@@ -26,9 +26,7 @@ print(decorateLocation(location.name))
 const runStep = async (str, oldContext, filename, callback) => {
   const { output, context } = await evaluate(str, oldContext)
   print(output)
-  // oldContext.location = context.location
   oldContext.locationId = context.locationId
-  // print(decorateLocation(context.location))
   const location = context.connection.get(context.locationId)
   print(decorateLocation(location.name))
   callback() // so knows to print prompt again
