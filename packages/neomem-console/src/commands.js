@@ -7,10 +7,14 @@
 //------------------------------------------------------------------------
 const go = tokens => async context => {
   const noun = tokens[1]
-  // const location = { id: 2, name: noun } //.
-  const locationId = 1 //.
-  const contextCopy = { ...context, locationId }
-  return { output: 'Went to ' + noun, context: contextCopy }
+  const { connection } = context
+  const location = connection.get({ name: noun })
+  if (location) {
+    const locationId = 1 //. lookup in connection
+    const contextCopy = { ...context, locationId }
+    return { output: 'Went to ' + noun, context: contextCopy }
+  }
+  return { output: `Don't know that place.` }
 }
 go.description = `Go to a new location.`
 

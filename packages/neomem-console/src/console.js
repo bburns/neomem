@@ -1,4 +1,4 @@
-// console parser
+// console command evaluator
 
 import R from 'rambda' // functional programming lib https://ramdajs.com/
 import commands from './commands.js'
