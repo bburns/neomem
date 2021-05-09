@@ -1,5 +1,5 @@
 import test from 'ava'
-import { makeConsole } from './console.js'
+import { evaluate } from './console.js'
 import { connect } from './driver-json.js' // driver
 
 const data = {
@@ -11,13 +11,14 @@ const data = {
 }
 
 const print = console.log
-const evaluate = makeConsole()
-const evaluate2 = makeConsole()
+// const evaluate = makeConsole()
+// const evaluate2 = makeConsole()
 const connection = connect(data)
 // const context = { location: 'forest', connection }
 // const location = { id: 1, name: 'forest' } //. duplication - better to store id and look it up
 const locationId = 1
 const context = { locationId, connection }
+const context2 = { locationId, connection }
 
 test(`pok`, async t => {
   const { output } = await evaluate('pok', context)
@@ -37,7 +38,7 @@ test(`look field`, async t => {
 // make sure can handle two consoles at once (no singleton)
 test(`go field + pool`, async t => {
   const { output } = await evaluate('go field', context)
-  const { output: output2 } = await evaluate2('go pool', context)
+  const { output: output2 } = await evaluate('go pool', context2)
   t.deepEqual(output, 'Went to field')
   t.deepEqual(output2, 'Went to pool')
 })

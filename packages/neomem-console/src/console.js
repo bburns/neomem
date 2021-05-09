@@ -3,9 +3,7 @@
 import R from 'rambda' // functional programming lib https://ramdajs.com/
 import commands from './commands.js'
 
-export const makeConsole = () => evaluate
-
-const evaluate = (str, context) => parse(tokenize(str))(context)
+export const evaluate = (str, context) => parse(tokenize(str))(context)
 
 const tokenize = R.pipe(R.trim, R.split(' '))
 

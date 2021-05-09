@@ -2,7 +2,7 @@
 
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { makeConsole } from './console.js'
+import { evaluate } from './console.js'
 import { connect } from './driver-json.js' // driver
 import { data } from './data.js'
 
@@ -15,7 +15,6 @@ const print = console.log
 const decorateLocation = location => chalk.bold(`\n[${location.name}]`)
 
 const connection = connect(data)
-const evaluate = makeConsole()
 // @ts-ignore
 const location = await connection.get(locationId)
 
@@ -28,7 +27,7 @@ const runStep = async (str, oldContext, filename, callback) => {
   const { output, context } = await evaluate(str, oldContext)
   print(output)
   oldContext.locationId = context.locationId
-  const location = context.connection.get(context.locationId)
+  const location = await context.connection.get(context.locationId)
   print(decorateLocation(location.name))
   callback() // so knows to print prompt again
 }
