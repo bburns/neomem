@@ -7,8 +7,7 @@ export const connect = data => {
   const nodeIndex = {}
   data.nodes.forEach(node => (nodeIndex[node._id] = node))
 
-  // const get = id => nodeIndex[id]
-  const get = spec => {
+  const get = async spec => {
     if (typeof spec === 'object') {
       if (spec.id) {
         return nodeIndex[spec.id]
@@ -19,9 +18,12 @@ export const connect = data => {
     }
     return nodeIndex[spec]
   }
-  const set = (id, node) => 2
-  const update = (id, field, value) => 3
-  const del = id => 4
+
+  const set = async (id, node) => 2
+
+  const update = async (id, field, value) => 3
+
+  const del = async id => 4
 
   const connection = { get, set, update, del }
   return connection

@@ -33,7 +33,7 @@ help.description = `Show list of available commands.`
 const look = tokens => async context => {
   const noun = tokens && tokens[1]
   const spec = noun ? { name: noun } : context.locationId
-  const location = context.connection.get(spec)
+  const location = await context.connection.get(spec)
   return { output: location.name + '\n' + location.notes, context }
 }
 look.description = `Look at current location or other item.`
