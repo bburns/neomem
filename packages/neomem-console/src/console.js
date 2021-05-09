@@ -4,8 +4,9 @@ import R from 'rambda' // functional programming lib https://ramdajs.com/
 import commands from './commands.js'
 
 // const location = '/'
-const location = { id: 1, name: 'foo' }
-const defaultContext = { location }
+// const location = { id: 1, name: 'foo' }
+const locationId = 1
+const defaultContext = { locationId }
 
 export const makeConsole = () => evaluate
 
