@@ -1,5 +1,5 @@
 import test from 'ava'
-import { evaluate } from './console.js'
+import { evaluate } from './evaluate.js'
 import { connect } from './driver-json.js' // driver
 
 const data = {
