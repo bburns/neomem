@@ -1,9 +1,10 @@
-// console ui
+// console parser
 
 import R from 'rambda' // functional programming lib https://ramdajs.com/
 import commands from './commands.js'
 
-const location = '/'
+// const location = '/'
+const location = { id: 1, name: 'foo' }
 const defaultContext = { location }
 
 export const makeConsole = () => evaluate

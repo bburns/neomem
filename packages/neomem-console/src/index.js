@@ -1,3 +1,5 @@
+// console ui
+
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { makeConsole } from './console.js'
@@ -8,12 +10,13 @@ const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
 const prompt = '=> '
-const location = '/'
+// const location = '/'
+const location = { id: 1, name: 'lkmlkm' }
 
 const connection = connect(data)
 
 const print = console.log
-const decorateLocation = location => chalk.bold(`\n[${location}]`)
+const decorateLocation = location => chalk.bold(`\n[${location.name}]`)
 
 const evaluate = makeConsole()
 

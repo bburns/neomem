@@ -4,7 +4,8 @@
 
 const go = tokens => async context => {
   const noun = tokens[1]
-  const contextCopy = { ...context, location: noun }
+  const location = { id: 2, name: noun } //.
+  const contextCopy = { ...context, location }
   return { output: 'Went to ' + noun, context: contextCopy }
 }
 go.description = `Go to a new location.`
@@ -17,7 +18,7 @@ const help = tokens => async context => ({
 help.description = `Show list of available commands.`
 
 const look = tokens => async context => {
-  const noun = (tokens && tokens[1]) || context.location
+  const noun = (tokens && tokens[1]) || context.location.name
   const notes = context.connection.get(1).notes
   return { output: noun + '\n' + notes, context }
 }

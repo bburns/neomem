@@ -11,7 +11,8 @@ const evaluate = makeConsole()
 const evaluate2 = makeConsole()
 const connection = connect(data)
 // const context = { location: 'forest', connection }
-const context = { locationId: 1, connection }
+const location = { id: 1, name: 'forest' } //. duplication - better to store id and look it up
+const context = { location, connection }
 
 test(`pok`, async t => {
   const { output } = await evaluate('pok', context)
