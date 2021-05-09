@@ -1,5 +1,4 @@
 // json data driver
-//. driver.js ?
 
 // get a connection, which has crud fns
 export const connect = data => {
@@ -7,6 +6,7 @@ export const connect = data => {
   const nodeIndex = {}
   data.nodes.forEach(node => (nodeIndex[node._id] = node))
 
+  // do query by example or get direct from id
   const get = async spec => {
     if (typeof spec === 'object') {
       if (spec.id) {

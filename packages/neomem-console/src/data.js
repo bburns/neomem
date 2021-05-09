@@ -21,7 +21,7 @@ export const data = {
     },
     {
       _id: 2,
-      name: 'fishes',
+      name: 'fish',
       type: 'folder',
       created: '2021-04-25T04:25:00',
       modified: null,
@@ -116,6 +116,14 @@ export const data = {
       type: 'place',
       name: 'forest',
       notes: 'a dreary forest with faint light filtering from above',
+      created: '2021-05-08T14:25:00',
+      modified: null,
+    },
+    {
+      _id: 15,
+      type: 'place',
+      name: 'field',
+      notes: 'a grassy field stretches out, covered in wildflowers',
       created: '2021-05-08T14:25:00',
       modified: null,
     },

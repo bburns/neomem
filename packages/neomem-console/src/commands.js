@@ -38,6 +38,19 @@ const look = tokens => async context => {
 look.description = `Look at current location or other item.`
 
 //------------------------------------------------------------------------
+// list
+//------------------------------------------------------------------------
+const list = tokens => async context => {
+  const noun = tokens[1]
+  const spec = noun ? { name: noun } : context.locationId
+  const location = await context.connection.get(spec)
+  const spec2 = { from: location.id } //. uhh
+  const items = await context.connection.get(spec2)
+  return { output: location.name + '\n' + items, context }
+}
+list.description = `List items at current or other location.`
+
+//------------------------------------------------------------------------
 // unknown
 //------------------------------------------------------------------------
 const unknown = tokens => async context => ({ output: 'huh?', context })
@@ -50,6 +63,7 @@ const commands = {
   go,
   help,
   look,
+  list,
   unknown,
 }
 
