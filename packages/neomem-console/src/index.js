@@ -10,14 +10,12 @@ const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
 const prompt = '=> '
-// const location = { id: 1, name: 'lkmlkm' }
 const locationId = 1
 const print = console.log
 const decorateLocation = location => chalk.bold(`\n[${location.name}]`)
 
 const connection = connect(data)
 const evaluate = makeConsole()
-
 const location = connection.get(locationId)
 
 print(welcome)
