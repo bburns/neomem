@@ -9,5 +9,4 @@ const Tokenizer = {
   tokenize,
 }
 
-// export { Tokenizer }
 export { Tokenizer }
