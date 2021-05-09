@@ -107,8 +107,16 @@ export const data = {
     {
       _id: 13,
       type: 'column',
-      note: 'notes',
+      notes: 'notes',
       created: '2021-04-25T14:25:00',
+      modified: null,
+    },
+    {
+      _id: 14,
+      type: 'place',
+      name: 'forest',
+      notes: 'a dreary forest with faint light filtering from above',
+      created: '2021-05-08T14:25:00',
       modified: null,
     },
   ],

@@ -1,7 +1,11 @@
 import test from 'ava'
 import { makeConsole } from './console.js'
-import { connect } from './connect.js'
-import { data } from './data.js'
+import { connect } from './connect.js' // driver
+// import { data } from './data.js'
+
+const data = {
+  nodes: [{ _id: 1, name: 'forest' }],
+}
 
 const print = console.log
 const evaluate = makeConsole()
@@ -17,6 +21,11 @@ test(`pok`, async t => {
 test(`look`, async t => {
   const { output } = await evaluate('look', context)
   t.deepEqual(output, 'i see forest')
+})
+
+test(`look field`, async t => {
+  const { output } = await evaluate('look field', context)
+  t.deepEqual(output, 'i see field')
 })
 
 // make sure can handle two consoles at once (no singleton)
