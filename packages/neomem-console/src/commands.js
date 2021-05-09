@@ -2,6 +2,9 @@
 // commands are factories that take tokens and return
 // a function that evaluates with those tokens and a context.
 
+//------------------------------------------------------------------------
+// go
+//------------------------------------------------------------------------
 const go = tokens => async context => {
   const noun = tokens[1]
   const location = { id: 2, name: noun } //.
@@ -10,6 +13,9 @@ const go = tokens => async context => {
 }
 go.description = `Go to a new location.`
 
+//------------------------------------------------------------------------
+// help
+//------------------------------------------------------------------------
 const help = tokens => async context => ({
   // @ts-ignore
   output: Object.values(commands).filter(cmd => !cmd.hidden),
@@ -17,6 +23,9 @@ const help = tokens => async context => ({
 })
 help.description = `Show list of available commands.`
 
+//------------------------------------------------------------------------
+// look
+//------------------------------------------------------------------------
 const look = tokens => async context => {
   const noun = (tokens && tokens[1]) || context.location.name
   const notes = context.connection.get(1).notes
@@ -24,8 +33,13 @@ const look = tokens => async context => {
 }
 look.description = `Look at current location or other item.`
 
+//------------------------------------------------------------------------
+// unknown
+//------------------------------------------------------------------------
 const unknown = tokens => async context => ({ output: 'huh?', context })
 unknown.hidden = true
+
+//------------------------------------------------------------------------
 
 // need this struct for help command
 const commands = {
