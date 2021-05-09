@@ -16,7 +16,8 @@ const decorateLocation = location => chalk.bold(`\n[${location.name}]`)
 
 const connection = connect(data)
 const evaluate = makeConsole()
-const location = connection.get(locationId)
+// @ts-ignore
+const location = await connection.get(locationId)
 
 print(welcome)
 print(decorateLocation(location.name))

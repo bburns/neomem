@@ -7,8 +7,7 @@
 //------------------------------------------------------------------------
 const go = tokens => async context => {
   const noun = tokens[1]
-  const { connection } = context
-  const location = await connection.get({ name: noun })
+  const location = await context.connection.get({ name: noun })
   if (location) {
     const contextCopy = { ...context, locationId: location.id }
     return { output: 'Went to ' + noun, context: contextCopy }
@@ -31,7 +30,7 @@ help.description = `Show list of available commands.`
 // look
 //------------------------------------------------------------------------
 const look = tokens => async context => {
-  const noun = tokens && tokens[1]
+  const noun = tokens[1]
   const spec = noun ? { name: noun } : context.locationId
   const location = await context.connection.get(spec)
   return { output: location.name + '\n' + location.notes, context }
