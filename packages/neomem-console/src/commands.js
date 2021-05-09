@@ -46,7 +46,8 @@ const list = tokens => async context => {
   const location = await context.connection.get(spec)
   const spec2 = { from: location.id } //. uhh
   const items = await context.connection.get(spec2)
-  return { output: location.name + '\n' + items, context }
+  const strout = items.map(item => item.name).join(', ')
+  return { output: strout, context }
 }
 list.description = `List items at current or other location.`
 

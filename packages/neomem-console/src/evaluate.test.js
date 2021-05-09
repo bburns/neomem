@@ -4,18 +4,20 @@ import { connect } from './driver-json.js' // driver
 
 const data = {
   nodes: [
-    { _id: 1, name: 'forest', notes: 'gloomy' },
-    { _id: 2, name: 'field', notes: 'grassy' },
-    { _id: 3, name: 'pool', notes: 'sunny' },
+    { id: 1, name: 'forest', notes: 'gloomy' },
+    { id: 2, name: 'field', notes: 'grassy' },
+    { id: 3, name: 'pool', notes: 'sunny' },
+    { id: 4, name: 'trees' },
+    { id: 5, name: 'leaves' },
+  ],
+  edges: [
+    { from: 1, to: 4 },
+    { from: 1, to: 5 },
   ],
 }
 
 const print = console.log
-// const evaluate = makeConsole()
-// const evaluate2 = makeConsole()
 const connection = connect(data)
-// const context = { location: 'forest', connection }
-// const location = { id: 1, name: 'forest' } //. duplication - better to store id and look it up
 const locationId = 1
 const context = { locationId, connection }
 const context2 = { locationId, connection }
@@ -28,6 +30,11 @@ test(`pok`, async t => {
 test(`look`, async t => {
   const { output } = await evaluate('look', context)
   t.deepEqual(output, 'forest\ngloomy')
+})
+
+test(`list`, async t => {
+  const { output } = await evaluate('list', context)
+  t.deepEqual(output, 'trees, leaves')
 })
 
 test(`look field`, async t => {
