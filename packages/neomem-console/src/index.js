@@ -35,6 +35,5 @@ const runStep = async (str, oldContext, filename, callback) => {
 
 // start repl and pass context to eval fn
 const server = repl.start({ prompt, eval: runStep })
-// server.context.location = location
 server.context.locationId = locationId
 server.context.connection = connection
