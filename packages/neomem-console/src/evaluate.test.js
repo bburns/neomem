@@ -50,8 +50,8 @@ test(`go field + pool`, async t => {
   t.deepEqual(output2, 'Went to pool')
 })
 
-// test(`go + look`, async t => {
-//   let { context: context2 } = await evaluate('go chrome', context)
-//   let { output } = await evaluate('look', context2)
-//   t.deepEqual(output, 'chrome')
-// })
+test(`go + look`, async t => {
+  let { context: context2 } = await evaluate('go field', context)
+  let { output } = await evaluate('look', context2)
+  t.deepEqual(output, 'field\ngrassy')
+})
