@@ -3,7 +3,7 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { evaluate } from './evaluate.js'
-import { connect } from './driver-json.js' // driver
+import { connect } from './driver-json.js'
 import { data } from './data.js'
 
 const welcome = `
@@ -15,6 +15,7 @@ const print = console.log
 const decorateLocation = location => chalk.bold(`\n[${location.name}]`)
 
 const connection = connect(data)
+// @ts-ignore
 const location = await connection.get(locationId)
 
 print(welcome)
