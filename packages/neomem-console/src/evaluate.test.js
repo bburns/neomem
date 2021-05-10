@@ -43,11 +43,11 @@ test(`look field`, async t => {
 })
 
 // make sure can handle two consoles at once (no singleton)
-test(`go field + pool`, async t => {
+test(`go field / pool`, async t => {
   const { output } = await evaluate('go field', context)
-  const { output: output2 } = await evaluate('go pool', context2)
+  const { output: output2 } = await evaluate('look', context2)
   t.deepEqual(output, 'Went to field')
-  t.deepEqual(output2, 'Went to pool')
+  t.deepEqual(output2, 'forest\ngloomy')
 })
 
 test(`go + look`, async t => {
