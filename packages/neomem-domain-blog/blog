@@ -2,4 +2,4 @@
 # usage:
 #   ./blog
 
-node src/blog.js > blog.html
+node src/blog.js > public/index.html
