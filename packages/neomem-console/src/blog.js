@@ -13,7 +13,7 @@ const posts = R.filter(
 
 const output = console.log
 
-function outputText(node) {
+function outputPost(node) {
   output(`<div class="post">`)
   output(`<div class="name">${node.name}</div>`)
   output(`<div class="created">${node.created}</div>`)
@@ -22,5 +22,5 @@ function outputText(node) {
 }
 
 output(`<div class="blog">`)
-R.forEach(outputText, posts)
+R.forEach(outputPost, posts)
 output(`</div>`)
