@@ -28,7 +28,6 @@ An open-source information manager - with plugins for different views and dataso
   - [Installation](#installation)
   - [Running](#running)
   - [Links](#links)
-  - [Support](#support)
   - [License](#license)
 
 
@@ -148,12 +147,12 @@ in another, start the console ui -
 
 ## Links
 
-Follow along on Twitter - https://twitter.com/neomem_io.
+Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
 
 
-## Support
+<!-- ## Support
 
-You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you!
+You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you! -->
 
 
 ## License
