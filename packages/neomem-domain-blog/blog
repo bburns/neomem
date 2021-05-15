@@ -1,5 +1,5 @@
 #!/bin/bash
 # usage:
-#   ./blog > blog.html
+#   ./blog
 
-node src/blog.js
+node src/blog.js > blog.html
