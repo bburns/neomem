@@ -8,6 +8,7 @@
   "target": "es2017",
   "scripts": {
     "start": "node src/console.js",
+    "blog": "node src/blog.js",
     "test": "ava --watch --verbose"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
