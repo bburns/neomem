@@ -15,6 +15,19 @@ function outputPost(node) {
   output(`</div>`)
 }
 
+function getPost(post) {
+  return `<div class='post'>
+<div class='name'>${post.name}</div>
+<div class='created'>${post.created}</div>
+<div class='notes'>${post.notes || ''}</div>
+</div>`
+  // output(`<div class="post">`)
+  // output(`<div class="name">${post.name}</div>`)
+  // output(`<div class="created">${post.created}</div>`)
+  // output(`<div class="notes">${post.notes || ''}</div>`)
+  // output(`</div>`)
+}
+
 function outputBlog(nodes) {
   output(`<div class="blog">`)
   R.forEach(outputPost, posts)
@@ -27,7 +40,18 @@ function outputPage(nodes) {
   output(`</div>`)
 }
 
+function getPage(nodes) {
+  return `
+<div class='page'>
+<div class='blog'>
+${R.map(getPost, posts).join('\n')}
+</div>
+</div>
+`
+}
+
 // @ts-ignore
 const posts = R.filter(node => node.type === 'post' && node.public, nodes)
 
-outputPage(posts)
+// outputPage(posts)
+console.log(getPage(posts))
