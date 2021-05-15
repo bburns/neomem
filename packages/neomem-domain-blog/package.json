@@ -4,7 +4,7 @@
   "description": "blog domain for neomem",
   "type": "module",
   "scripts": {
-    "build": "./blog"
+    "build": "node src/blog.js"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
