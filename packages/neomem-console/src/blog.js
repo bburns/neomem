@@ -11,11 +11,16 @@ const posts = R.filter(
   nodes
 )
 
+const output = console.log
+
 function outputText(node) {
-  console.log(node.name)
-  console.log(node.created)
-  console.log(node.notes || '')
-  console.log()
+  output(`<div class="post">`)
+  output(`<div class="name">${node.name}</div>`)
+  output(`<div class="created">${node.created}</div>`)
+  output(`<div class="notes">${node.notes || ''}</div>`)
+  output(`</div>`)
 }
 
+output(`<div class="blog">`)
 R.forEach(outputText, posts)
+output(`</div>`)

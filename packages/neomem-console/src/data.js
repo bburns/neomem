@@ -97,15 +97,6 @@ export const data = {
       modified: null,
     },
     {
-      id: 12,
-      type: 'post',
-      name: `Blog n++`,
-      notes: `pok pok pokp okpok pok `,
-      public: true,
-      created: '2021-04-25T14:25:00',
-      modified: null,
-    },
-    {
       id: 13,
       type: 'column',
       notes: 'notes',
@@ -156,8 +147,7 @@ I've been spending weekends lately working on it, but every time I come back to 
 
 Last week I found ArangoDB, which is faster and uses less memory than Neo4j, and I like the query language a bit better. So I'm going to try that for the main storage.
 
-But for now, this is stored in a json file along with other test data. Keeping it as simple as possible for now.
-      `,
+But for now, this is stored in a json file along with other test data. Keeping it as simple as possible for now.`,
     },
   ],
 
