@@ -1,11 +1,10 @@
+// @ts-nocheck
 import R from 'rambda'
 import { data } from '../../neomem-console/src/data.js'
 
 const output = console.log
 
 const { nodes } = data
-
-//. later do some kind of query with pagination
 
 function getPost(post) {
   return `<div class='post'>
@@ -29,8 +28,7 @@ ${R.map(getPost, posts).join('\n')}
 `
 }
 
-// @ts-ignore
+//. later do some kind of query with pagination
 const posts = R.filter(node => node.type === 'post' && node.public, nodes)
 
-// outputPage(posts)
-console.log(getPage(posts))
+output(getPage(posts))
