@@ -1,17 +1,23 @@
 import R from 'rambda'
 import { data } from './data.js'
 
+const output = console.log
+
 const { nodes } = data
 
 //. later do some kind of query with pagination
 
-const posts = R.filter(
-  // @ts-ignore
-  node => node.type === 'post' && node.public,
-  nodes
-)
+function outputPage(nodes) {
+  output(`<div class="page">`)
+  outputBlog(nodes)
+  output(`</div>`)
+}
 
-const output = console.log
+function outputBlog(nodes) {
+  output(`<div class="blog">`)
+  R.forEach(outputPost, posts)
+  output(`</div>`)
+}
 
 function outputPost(node) {
   output(`<div class="post">`)
@@ -21,6 +27,10 @@ function outputPost(node) {
   output(`</div>`)
 }
 
-output(`<div class="blog">`)
-R.forEach(outputPost, posts)
-output(`</div>`)
+const posts = R.filter(
+  // @ts-ignore
+  node => node.type === 'post' && node.public,
+  nodes
+)
+
+outputPage(posts)

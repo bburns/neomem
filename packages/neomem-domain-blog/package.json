@@ -1,13 +1,9 @@
 {
-  "name": "neomem-domain",
+  "name": "neomem-domain-blog",
   "version": "0.1.0",
-  "description": "domain model for neomem",
-  "main": "src/index.js",
+  "description": "blog domain for neomem",
   "type": "module",
-  "scripts": {
-    "start": "nodemon src/index.js",
-    "test": "ava --watch --verbose"
-  },
+  "scripts": {},
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
   "dependencies": {
