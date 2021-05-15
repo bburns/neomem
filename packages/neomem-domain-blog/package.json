@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "blog domain for neomem",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "build": "./blog"
+  },
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
   "dependencies": {
