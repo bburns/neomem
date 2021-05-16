@@ -5,12 +5,12 @@ services:
     container_name: gateway
     build:
       context: ./packages/neomem-gateway
-    ports:
-      - '8080:8080'
+    # ports:
+    #   - '8080:8080'
     environment:
-      - INFLUXDB_DB=neomem
-      - INFLUXDB_USER=neomem
-      - INFLUXDB_PASSWORD=neomem
+      - DB_DB=neomem
+      - DB_USER=neomem
+      - DB_PASSWORD=neomem
     # volumes:
     #   - ../volumes/neomem/config:/etc/neomem
     networks:
