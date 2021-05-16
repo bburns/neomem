@@ -7,7 +7,6 @@ import { data } from './data.js'
 
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 4000
-// const apiversion1 = '/api/v1/'
 
 process.on('unhandledRejection', err => {
   console.log(err)

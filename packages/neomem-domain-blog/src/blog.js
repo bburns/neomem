@@ -1,7 +1,8 @@
 // simple blog generator
 // usage: (at top neomem folder)
-//   npm run blog
-// output in docs/index.md
+//   npm run gateway
+// (in another terminal)
+//   npm run blog && cat docs/index.md
 
 // @ts-nocheck
 import fetch from 'node-fetch'
