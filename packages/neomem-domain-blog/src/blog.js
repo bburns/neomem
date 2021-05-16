@@ -1,9 +1,10 @@
 // @ts-nocheck
 import R from 'rambda'
-import { data } from '../../neomem-console/src/data.js'
 
 const print = console.log
 
+const path = '../../neomem-console/src/data.js'
+const { data } = await import(path)
 const { nodes } = data
 
 function getPost(post) {
