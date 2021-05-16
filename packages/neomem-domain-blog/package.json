@@ -9,6 +9,7 @@
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "node-fetch": "^2.6.1",
     "rambda": "^6.7.0"
   },
   "devDependencies": {
