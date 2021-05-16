@@ -7,10 +7,8 @@ services:
       context: ./packages/neomem-gateway
     ports:
       - '4000:4000'
-    environment:
-      - DB_DB=neomem
-      - DB_USER=neomem
-      - DB_PASSWORD=neomem
+    # environment:
+    #   - HOST=neomem
     # volumes:
     #   - ../volumes/neomem/config:/etc/neomem
     networks:

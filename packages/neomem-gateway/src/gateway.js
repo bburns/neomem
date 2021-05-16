@@ -5,6 +5,7 @@ import Hapi from '@hapi/hapi' // web server https://hapi.dev/
 // import { Data } from './index.js'
 import { data } from './data.js'
 
+const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 4000
 // const apiversion1 = '/api/v1/'
 
@@ -14,7 +15,7 @@ process.on('unhandledRejection', err => {
 })
 
 const init = async () => {
-  const server = Hapi.server({ host: 'localhost', port })
+  const server = Hapi.server({ host, port })
 
   server.route({
     // path: '/{path*}',
