@@ -147,6 +147,8 @@ in another, start the console ui -
 
 ## Links
 
+Blog at https://bburns.github.io/Neomem.
+
 Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
 
 
