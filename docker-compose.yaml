@@ -3,7 +3,9 @@ version: '3.7'
 services:
   gateway:
     container_name: gateway
-    image: influxdb:2.0
+    # image: influxdb:2.0
+    build:
+      context: ./packages/neomem-gateway
     ports:
       - '8086:8086'
     environment:
