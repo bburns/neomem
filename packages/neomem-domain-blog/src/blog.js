@@ -3,8 +3,8 @@ import R from 'rambda'
 
 const print = console.log
 
-const path = '../../neomem-console/src/data.js'
-const { data } = await import(path)
+const path = process.env.DATA_PATH || '../../neomem-console/src/data.js'
+const { data } = await import('./' + path)
 const { nodes } = data
 
 function getPost(post) {
