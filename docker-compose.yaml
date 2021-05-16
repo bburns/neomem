@@ -3,20 +3,16 @@ version: '3.7'
 services:
   gateway:
     container_name: gateway
-    # image: influxdb:2.0
     build:
       context: ./packages/neomem-gateway
     ports:
-      - '8086:8086'
+      - '8080:8080'
     environment:
-      - INFLUXDB_DB=ladder99
-      - INFLUXDB_ADMIN_USER=admin
-      - INFLUXDB_ADMIN_PASSWORD=admin
-      - INFLUXDB_USER=ladder99
-      - INFLUXDB_PASSWORD=ladder99
-    volumes:
-      - ../volumes/influxdb/data:/var/lib/influxdb2
-      - ../volumes/influxdb/config:/etc/influxdb2
+      - INFLUXDB_DB=neomem
+      - INFLUXDB_USER=neomem
+      - INFLUXDB_PASSWORD=neomem
+    # volumes:
+    #   - ../volumes/neomem/config:/etc/neomem
     networks:
       - neomem
 
