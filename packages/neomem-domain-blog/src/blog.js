@@ -1,6 +1,9 @@
+// simple blog generator
+// usage: (at top neomem folder)
+//   npm run blog
+
 // @ts-nocheck
 import R from 'rambda'
-// import data from '../'
 
 const print = console.log
 
@@ -20,6 +23,7 @@ ${post.created}
 ${post.notes || ''}
 `
 
+// these are all equivalent - what's best?
 // const getPosts = posts => R.map(getPost, posts).join('\n')
 // const getPosts = posts => R.pipe(R.map(getPost), R.join('\n'))(posts)
 // const getPosts = R.pipe(R.map(getPost), R.join('\n'))

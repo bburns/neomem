@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  gateway:
+    container_name: gateway
+    image: influxdb:2.0
+    ports:
+      - '8086:8086'
+    environment:
+      - INFLUXDB_DB=ladder99
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin
+      - INFLUXDB_USER=ladder99
+      - INFLUXDB_PASSWORD=ladder99
+    volumes:
+      - ../volumes/influxdb/data:/var/lib/influxdb2
+      - ../volumes/influxdb/config:/etc/influxdb2
+    networks:
+      - neomem
+
+networks:
+  - neomem
+    name: ladder99
