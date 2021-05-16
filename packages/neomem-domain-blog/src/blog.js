@@ -7,19 +7,14 @@ const path = process.env.DATA_PATH || '../../neomem-console/src/data.js'
 const { data } = await import('./' + path)
 const { nodes } = data
 
-function getPost(post) {
-  return `
+const getPost = post => `
 ## ${post.name}
 
 ${post.created}
 
 ${post.notes || ''}
 `
-}
 
-// function getPosts(posts) {
-//   return R.map(getPost, posts).join('\n')
-// }
 // const getPosts = posts => R.map(getPost, posts).join('\n')
 // const getPosts = posts => R.pipe(R.map(getPost), R.join('\n'))(posts)
 // const getPosts = R.pipe(R.map(getPost), R.join('\n'))
