@@ -17,5 +17,5 @@ services:
       - neomem
 
 networks:
-  - neomem
+  neomem:
     name: ladder99

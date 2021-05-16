@@ -1,0 +1,39 @@
+/Users/bburns/Desktop/Workspace/neomem
+$ COMMAND=start npm run console
+
+> neomem@0.1.0 console
+> npm run --prefix packages/neomem-console ${COMMAND}
+> neomem-console@0.1.0 start
+> node src/console.js
+
+Welcome to Neomem
+-----------------------------------------------------
+
+[plecy]
+=> go forest
+Went to forest
+
+[forest]
+=> list
+trees, leaves
+
+[forest]
+=> look
+forest
+a dreary forest with faint light filtering from above
+
+[forest]
+=> help
+[
+  [Function: go] { description: 'Go to a new location.' },
+  [Function: help] { description: 'Show list of available commands.' },
+  [Function: look] {
+    description: 'Look at current location or other item.'
+  },
+  [Function: list] {
+    description: 'List items at current or other location.'
+  }
+]
+
+[forest]
+=>
