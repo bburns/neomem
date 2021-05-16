@@ -1,6 +1,7 @@
 // simple blog generator
 // usage: (at top neomem folder)
 //   npm run blog
+// output in docs/index.md
 
 // @ts-nocheck
 import R from 'rambda'
