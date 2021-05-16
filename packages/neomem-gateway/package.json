@@ -2,10 +2,10 @@
   "name": "neomem-gateway",
   "version": "0.1.0",
   "description": "neomem gateway consolidating data sources",
-  "main": "src/index.js",
+  "main": "src/gateway.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon src/gateway.js",
     "test": "ava --watch --verbose"
   },
   "author": "Brian Burns <bburns.km@gmail.com>",
