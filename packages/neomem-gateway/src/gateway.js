@@ -17,7 +17,8 @@ const init = async () => {
   const server = Hapi.server({ host: 'localhost', port })
 
   server.route({
-    path: '{path*}',
+    // path: '/{path*}',
+    path: '/',
     method: 'GET',
     handler: async (request, h) => {
       // const query = Query.makeFromRequest(request)
