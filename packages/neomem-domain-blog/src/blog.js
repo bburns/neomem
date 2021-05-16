@@ -7,7 +7,7 @@ import R from 'rambda'
 
 const print = console.log
 
-const path = process.env.DATA_PATH || '../../neomem-console/src/data.js'
+const path = process.env.DATA_PATH || '../../neomem-gateway/src/data.js'
 const { data } = await import('./' + path)
 const { nodes } = data
 
