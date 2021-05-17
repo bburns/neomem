@@ -14,3 +14,12 @@ Last week I found ArangoDB, which is faster and uses less memory than Neo4j, and
 
 But for now, this is stored in a json file along with other test data. Keeping it as simple as possible for now.
 
+
+## arangodb
+
+2021-05-16T23:14:00
+
+
+I'm trying out ArangoDB in another project - it took a while to figure out how to do a migration to initialize the database. But both of these projects will help with the design of the other. 
+
+
