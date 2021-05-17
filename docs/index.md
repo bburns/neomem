@@ -1,4 +1,4 @@
 Welcome to the Neomem blog...
 
-- [test1](test1.md)
-- [test2](test2.md)
+- [2021-05-15 a new blog](2021-05-15-a-new-blog.md)
+- [2021-05-16 arangodb](2021-05-16-arangodb.md)
