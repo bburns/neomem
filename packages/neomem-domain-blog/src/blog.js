@@ -36,6 +36,9 @@ ${post.notes || ''}
 // const getPosts = R.pipe(R.map(getPost), R.join('\n'))
 const getPosts = posts => posts.map(getPost).join('\n')
 
-const posts = R.filter(node => node.type === 'post' && node.public, nodes)
+const posts = R.sort(
+  (a, b) => -a.created.localeCompare(b.created),
+  R.filter(node => node.type === 'post' && node.public, nodes)
+)
 
 print(getPosts(posts))

@@ -1,4 +1,13 @@
 
+## arangodb
+
+2021-05-16T23:14:00
+
+
+I'm trying out ArangoDB in another project - it took a while to figure out how to do a migration to initialize the database. But both of these projects will help with the design of the other. 
+
+
+
 ## a new blog
 
 2021-05-15T14:25:00
@@ -13,13 +22,4 @@ I've been spending weekends lately working on it, but every time I come back to 
 Last week I found ArangoDB, which is faster and uses less memory than Neo4j, and I like the query language a bit better. So I'm going to try that for the main storage.
 
 But for now, this is stored in a json file along with other test data. Keeping it as simple as possible for now.
-
-
-## arangodb
-
-2021-05-16T23:14:00
-
-
-I'm trying out ArangoDB in another project - it took a while to figure out how to do a migration to initialize the database. But both of these projects will help with the design of the other. 
-
 
