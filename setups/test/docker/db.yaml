@@ -1,7 +1,8 @@
 services:
   timescaledb:
     container_name: timescaledb
-    image: timescale/timescaledb:latest-pg13
+    # image: timescale/timescaledb:latest-pg13
+    image: timescale/timescaledb:latest-pg11 # so can use AGE graphs
     # remap to 5433 so can run on mac with local db also
     ports:
       - '5433:5432/tcp'
