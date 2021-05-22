@@ -107,7 +107,7 @@ We'll be using an Onion Architecture, in which an interaction layer coordinates 
 
 Note: Neomem is under heavy development - i.e. it barely works at the moment...
 
-Install [yarn](https://yarnpkg.com/) and [just](https://github.com/casey/just#packages).
+Install nodejs, [yarn](https://yarnpkg.com/) and [just](https://github.com/casey/just#packages).
 
 Clone this repo
 
@@ -122,7 +122,7 @@ Install dependencies
 
 In one terminal, start the gateway and data sources -
 
-    just data
+    just gateway
 
 in another, start the console ui -
 
