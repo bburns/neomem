@@ -55,8 +55,13 @@ const posts = nodes
 
 // const getIndex = posts => posts.map(post => post.title)
 
+const getPostDate = post => post.created.slice(0, 10)
+
+// get rid of spaces and parens (mess up markdown rendering)
 const getFileTitle = post =>
-  post.created.slice(0, 10) + '-' + post.name.toLowerCase().replace(/ /g, '-')
+  getPostDate(post) +
+  '-' +
+  post.name.toLowerCase().replace(/ /g, '-').replace(/\(\)/g, '')
 
 let toc = `
 ## Welcome to the Neomem blog...
@@ -66,10 +71,7 @@ let toc = `
 for (const post of posts) {
   const str = getPost(post)
   const fileTitle = getFileTitle(post)
-  // const path = process.cwd() + '/' + outputFolder + '/' + fileTitle + '.md'
   const path = '../../' + outputFolder + '/' + fileTitle + '.md'
-  // const fd = fs.openSync(path, 'w')
-  // fs.writeStringSync(fd, str)
   fs.writeFileSync(path, str)
   toc += `- [${post.created.slice(0, 10)} ${post.name}](${fileTitle}.md)\n`
 }
