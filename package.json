@@ -14,7 +14,8 @@
     "test-util": "COMMAND=test npm run util",
     "//test": "(cd packages/neomem-driver-json && yarn test); (cd packages/neomem-console && yarn test)",
     "test": "COMMAND=test npm-run-all --parallel --print-name --race console gateway driver-json",
-    "blog": "npm run --silent --prefix packages/neomem-domain-blog build > docs/index.md"
+    "//blog": "npm run --silent --prefix packages/neomem-domain-blog build > docs/index.md",
+    "blog": "npm run --prefix packages/neomem-domain-blog build docs"
   },
   "devDependencies": {
     "lerna": "^3.22.1",

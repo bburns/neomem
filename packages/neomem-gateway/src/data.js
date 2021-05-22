@@ -155,7 +155,17 @@ But for now, this is stored in a json file along with other test data. Keeping i
       modified: null,
       type: 'post',
       public: true,
-      notes: `I'm trying out ArangoDB in another project - it took a while to figure out how to do a migration to initialize the database. But both of these projects will help with the design of the other. 
+      notes: `I'm trying out ArangoDB in another project - it took a while to figure out how to do a migration to initialize the database. But both of these projects will help with the design of the other.`,
+    },
+    {
+      id: 20,
+      name: `PostgreSQL and A Graph Extension (AGE)`,
+      created: '2021-05-22T06:18:53',
+      modified: null,
+      type: 'post',
+      public: true,
+      notes: `I think I'll try PostgreSQL for the main backend - there is a graph extension for it, a time-series extension, a GIS extension, and you can store JSON/JSONB data in fields. So it seems to have the best of everything.
+      
 `,
     },
   ],

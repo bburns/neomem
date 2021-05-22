@@ -23,6 +23,8 @@ const init = async () => {
     handler: async (request, h) => {
       // const query = Query.makeFromRequest(request)
       // const json = await Data.get(query)
+
+      //. just return data.js file for now
       const json = data
       return json
     },

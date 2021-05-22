@@ -10,6 +10,10 @@ import R from 'rambda'
 
 const print = console.log
 
+// print(process.argv)
+const outputFolder = process.argv[process.argv.length - 1]
+print(outputFolder)
+
 // const path = process.env.DATA_PATH || '../../neomem-gateway/src/data.js'
 // const { data } = await import('./' + path)
 // const { nodes } = data
@@ -34,11 +38,12 @@ ${post.notes || ''}
 // const getPosts = posts => R.map(getPost, posts).join('\n')
 // const getPosts = posts => R.pipe(R.map(getPost), R.join('\n'))(posts)
 // const getPosts = R.pipe(R.map(getPost), R.join('\n'))
-const getPosts = posts => posts.map(getPost).join('\n')
+// const getPosts = posts => posts.map(getPost).join('\n')
 
+// don't like functional - it's barely readable...
 const posts = R.sort(
   (a, b) => -a.created.localeCompare(b.created),
   R.filter(node => node.type === 'post' && node.public, nodes)
 )
 
-print(getPosts(posts))
+// print(getPosts(posts))
