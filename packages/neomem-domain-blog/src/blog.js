@@ -61,7 +61,10 @@ const getPostDate = post => post.created.slice(0, 10)
 const getFileTitle = post =>
   getPostDate(post) +
   '-' +
-  post.name.toLowerCase().replace(/ /g, '-').replace(/\(\)/g, '')
+  post.name
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[\(\)]/g, '')
 
 let toc = `
 ## Welcome to the Neomem blog...
