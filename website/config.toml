@@ -1,4 +1,5 @@
-baseURL = "https://neomem.io"
+# baseURL = "https://neomem.io"
+baseURL = "https://neomem.web.app"
 languageCode = "en-us"
 title = "Neomem.io"
 themesDir = "./themes"
