@@ -58,7 +58,12 @@ const posts = nodes
 const getFileTitle = post =>
   post.created.slice(0, 10) + '-' + post.name.toLowerCase().replace(/ /g, '-')
 
-posts.forEach(post => {
+let toc = `
+## Welcome to the Neomem blog...
+
+`
+// posts.forEach(post => {
+for (const post of posts) {
   const str = getPost(post)
   const fileTitle = getFileTitle(post)
   // const path = process.cwd() + '/' + outputFolder + '/' + fileTitle + '.md'
@@ -66,4 +71,8 @@ posts.forEach(post => {
   // const fd = fs.openSync(path, 'w')
   // fs.writeStringSync(fd, str)
   fs.writeFileSync(path, str)
-})
+  toc += `- [${post.name}](${fileTitle}.md)\n`
+}
+
+const path = '../../' + outputFolder + '/index.md'
+fs.writeFileSync(path, toc)
