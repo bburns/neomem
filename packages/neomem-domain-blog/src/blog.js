@@ -5,12 +5,14 @@
 //   npm run blog && cat docs/index.md
 
 // @ts-nocheck
+
+import fs from 'fs'
+// import libpath from 'path'
 import fetch from 'node-fetch'
-import R from 'rambda'
+// import R from 'rambda'
 
 const print = console.log
 
-// print(process.argv)
 const outputFolder = process.argv[process.argv.length - 1]
 print(outputFolder)
 
@@ -38,12 +40,30 @@ ${post.notes || ''}
 // const getPosts = posts => R.map(getPost, posts).join('\n')
 // const getPosts = posts => R.pipe(R.map(getPost), R.join('\n'))(posts)
 // const getPosts = R.pipe(R.map(getPost), R.join('\n'))
-// const getPosts = posts => posts.map(getPost).join('\n')
+const getPosts = posts => posts.map(getPost).join('\n')
 
-// don't like functional - it's barely readable...
-const posts = R.sort(
-  (a, b) => -a.created.localeCompare(b.created),
-  R.filter(node => node.type === 'post' && node.public, nodes)
-)
+// const posts = R.sort(
+//   (a, b) => -a.created.localeCompare(b.created),
+//   R.filter(node => node.type === 'post' && node.public, nodes)
+// )
+
+const posts = nodes
+  .filter(node => node.type === 'post' && node.public)
+  .sort((a, b) => -a.created.localeCompare(b.created))
 
 // print(getPosts(posts))
+
+// const getIndex = posts => posts.map(post => post.title)
+
+const getFileTitle = post =>
+  post.created.slice(0, 10) + '-' + post.name.toLowerCase().replace(/ /g, '-')
+
+posts.forEach(post => {
+  const str = getPost(post)
+  const fileTitle = getFileTitle(post)
+  // const path = process.cwd() + '/' + outputFolder + '/' + fileTitle + '.md'
+  const path = '../../' + outputFolder + '/' + fileTitle + '.md'
+  // const fd = fs.openSync(path, 'w')
+  // fs.writeStringSync(fd, str)
+  fs.writeFileSync(path, str)
+})
