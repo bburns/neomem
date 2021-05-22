@@ -71,7 +71,7 @@ for (const post of posts) {
   // const fd = fs.openSync(path, 'w')
   // fs.writeStringSync(fd, str)
   fs.writeFileSync(path, str)
-  toc += `- [${post.name}](${fileTitle}.md)\n`
+  toc += `- [${post.created.slice(0, 10)} ${post.name}](${fileTitle}.md)\n`
 }
 
 const path = '../../' + outputFolder + '/index.md'
