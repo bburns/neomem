@@ -2,7 +2,6 @@
 
 An open-source information manager - with plugins for different views and datasources
 
-
 [![Github Issues](https://img.shields.io/github/issues/bburns/Neomem.svg)](https://github.com/bburns/Neomem/issues)
 [![License](https://img.shields.io/github/license/bburns/Neomem.svg)]()
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
@@ -13,7 +12,6 @@ An open-source information manager - with plugins for different views and dataso
 <!-- <a href="https://codecov.io/gh/bburns/neomem"><img alt="Codecov Coverage Status" src="https://img.shields.io/Neomem/c/github/bburns/Neomem.svg?style=flat"></a> -->
 <!-- <a href="https://www.npmjs.com/package/neomem"><img alt="npm version" src="https://img.shields.io/npm/v/Neomem.svg?style=flat-square"></a> -->
 <!-- <a href="https://www.npmjs.com/package/neomem"><img alt="weekly downloads from npm" src="https://img.shields.io/npm/dw/Neomem.svg?style=flat-square"></a> -->
-
 
 - [Neomem](#neomem)
   - [About](#about)
@@ -30,24 +28,21 @@ An open-source information manager - with plugins for different views and dataso
   - [Links](#links)
   - [License](#license)
 
-
 ## About
 
-Spreadsheets are good for tabular information, while documents are good for free-form notes and outlines. Neomem makes it easy to switch between the two, allowing different views of the same information. 
+Spreadsheets are good for tabular information, while documents are good for free-form notes and outlines. Neomem makes it easy to switch between the two, allowing different views of the same information.
 
 For example, tasks can have short properties like name, timeframe, order, estimate, which fit well in a table - while also having longer properties like notes. Switching between table and document views allows you to focus on one or the other as needed.
 
-Data can be filtered, grouped, and sorted as required. 
+Data can be filtered, grouped, and sorted as required.
 
-Other views are possible for the same underlying information - chart, map, calendar, kanban, graph. Multiple views could be visible at the same time. A console view could allow exploration and manipulation of items in a text console. 
+Other views are possible for the same underlying information - chart, map, calendar, kanban, graph. Multiple views could be visible at the same time. A console view could allow exploration and manipulation of items in a text console.
 
-All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development of them all as npm packages. 
-
+All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development of them all as npm packages.
 
 ## Current Status
 
 See the list of issues in the current milestone [here](https://github.com/bburns/Neomem/milestone/1).
-
 
 ## Goals
 
@@ -60,7 +55,6 @@ See the list of issues in the current milestone [here](https://github.com/bburns
 - open source with paid hosting plans
 - online plugin ecosystem/marketplace for views, sources, domains, and ui's - free/paid
 
-
 ## Use Cases
 
 Some use cases to test the app and database structure -
@@ -72,7 +66,6 @@ Some use cases to test the app and database structure -
 - biographical timelines - subject, event, date, age, location - switch between table, document, map views
 - genealogy - add properties to relationships, e.g. marriage date and location
 
-
 ## Inspiration
 
 - Lotus Symphony (1990) - spreadsheet, chart, and document views of same information
@@ -80,20 +73,17 @@ Some use cases to test the app and database structure -
 - Airtable - advanced table editor
 - [The Inform Designer's Manual](https://www.amazon.com/Inform-Designers-Manual-Graham-Nelson/dp/0971311900) by Graham Nelson - the language and parser of Zork
 
-
 ## Implementation
 
 - react frontend ui with view plugins
 - native data stored to arangodb in google cloud - access data anywhere
 - rest api with plugins for different data sources
 
-
 ## Architecture
 
 We'll be using an Onion Architecture, in which an interaction layer coordinates the database and domain layers -
 
 ![arch](design/layers.dot.svg)
-
 
 ## Features
 
@@ -103,16 +93,15 @@ We'll be using an Onion Architecture, in which an interaction layer coordinates 
 - go to item quickly with alt-g command, start typing to filter list
 - clipboard monitor - paste contents when it changes
 
-
 ## Packages
 
 - neomem-console - console interface
 - neomem-web - web interface
 - neomem-gateway - datasource manager
-- neomem-driver-neo4j - plugin for neo4j graph databases
+- neomem-driver-pg - plugin for postgres databases
+<!-- - neomem-driver-neo4j - plugin for neo4j graph databases -->
 - neomem-driver-filesys - plugin for file system access
 - neomem-driver-bookmarks - plugin for chrome bookmark access
-
 
 ## Installation
 
@@ -122,28 +111,26 @@ Install [yarn](https://yarnpkg.com/) and [just](https://github.com/casey/just#pa
 
 Clone this repo
 
-    git clone https://github.com/bburns/neomem
+    git clone https://github.com/bburns/Neomem
 
 Install dependencies
 
-    cd neomem
+    cd Neomem
     yarn
-
 
 ## Running
 
-In one terminal, start the gateway and data sources - 
+In one terminal, start the gateway and data sources -
 
     just data
 
-in another, start the console ui - 
+in another, start the console ui -
 
     just console
 
-<!-- in another, start the gui - 
+<!-- in another, start the gui -
 
     just gui -->
-
 
 ## Links
 
@@ -151,11 +138,9 @@ Blog at https://bburns.github.io/Neomem.
 
 Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
 
-
 <!-- ## Support
 
 You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you! -->
-
 
 ## License
 
