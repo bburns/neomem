@@ -1,7 +1,8 @@
-
-## Types
-
-2021-02-08
+---
+title: Types
+date: 2021-02-08
+featured_image: images/landscape.jpg
+---
 
 I'm trying to figure out how to handle types - Neomem needs to understand a set of basic types, and to translate between those and each datasource's types.
 

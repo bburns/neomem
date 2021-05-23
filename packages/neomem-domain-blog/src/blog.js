@@ -19,10 +19,18 @@ const response = await fetch('http://localhost:4000')
 const data = await response.json()
 const { nodes } = data
 
-const getPost = post => `
-## ${post.name}
+// const getPost = post => `
+// ## ${post.name}
 
-${post.created}
+// ${post.created}
+
+// ${post.notes || ''}
+// `
+const getPost = post => `---
+title: ${post.name}
+date: ${post.created}
+featured_image: images/landscape.jpg
+---
 
 ${post.notes || ''}
 `

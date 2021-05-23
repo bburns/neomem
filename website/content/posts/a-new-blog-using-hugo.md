@@ -1,7 +1,8 @@
-
-## A new blog, using Hugo
-
-2021-02-07
+---
+title: A new blog, using Hugo
+date: 2021-02-07
+featured_image: images/landscape.jpg
+---
 
 Needing a new site, and wanting to have a blog on it, I looked at a few static site generators -
 

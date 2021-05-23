@@ -17,7 +17,7 @@ main {
   right: 0; */
 }
 
-main article {
+body main article {
   margin: 0;
   padding: 0;
   text-align: left !important;
