@@ -1,3 +1,5 @@
+\c neomem;
+
 -- create tables
 
 CREATE TABLE IF NOT EXISTS execution (
