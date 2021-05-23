@@ -6,6 +6,8 @@
 # YAMLS is a space-delim list of yamls to run
 # eg `shell/setups/docker start ccs-pa base db`
 
+# . write in nodejs - one less dependency then
+
 import sys
 import os
 
