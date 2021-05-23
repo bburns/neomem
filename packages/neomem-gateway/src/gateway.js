@@ -8,12 +8,12 @@ import { data } from './data.js'
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 4000
 
-process.on('unhandledRejection', err => {
-  console.log(err)
-  process.exit(1)
-})
+// process.on('unhandledRejection', err => {
+//   console.log(err)
+//   process.exit(1)
+// })
 
-const init = async () => {
+async function init() {
   const server = Hapi.server({ host, port })
 
   server.route({
