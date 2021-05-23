@@ -19,11 +19,6 @@ const response = await fetch('http://localhost:4000')
 const data = await response.json()
 const { nodes } = data
 
-let toc = `
-## Welcome to the Neomem blog...
-
-`
-
 const getPost = post => `
 ## ${post.name}
 
@@ -40,13 +35,21 @@ const getFileTitle = post =>
     .toLowerCase()
     .replace(/ /g, '-')
     .replace(/[\(\)]/g, '') // ditch parens (cancels md to html somehow)
+    .replace(/\//g, '-')
+    .replace(/[,.]/g, '')
 
-const getFileName = post => `${getFileDate(post)}-${getFileTitle(post)}.md`
+// const getFileName = post => `${getFileDate(post)}-${getFileTitle(post)}.md`
+const getFileName = post => getFileTitle(post) + '.md'
 
 // get public posts and sort
 const posts = nodes
   .filter(node => node.type === 'post' && node.public)
   .sort((a, b) => -a.created.localeCompare(b.created))
+
+// let toc = `
+// ## Welcome to the Neomem blog...
+//
+//`
 
 // write post files
 for (const post of posts) {
@@ -54,9 +57,9 @@ for (const post of posts) {
   const fileName = getFileName(post)
   const path = `../../${outputFolder}/${fileName}`
   fs.writeFileSync(path, str)
-  toc += `- [${getFileDate(post)} ${post.name}](${fileName})\n`
+  // toc += `- [${getFileDate(post)} ${post.name}](${fileName})\n`
 }
 
-// write index file
-const path = `../../${outputFolder}/index.md`
-fs.writeFileSync(path, toc)
+// // write index file
+// const path = `../../${outputFolder}/index.md`
+// fs.writeFileSync(path, toc)
