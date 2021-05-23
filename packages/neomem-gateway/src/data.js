@@ -164,8 +164,42 @@ But for now, this is stored in a json file along with other test data. Keeping i
       modified: null,
       type: 'post',
       public: true,
-      notes: `I think I'll try PostgreSQL for the main backend - there is a graph extension for it, a time-series extension, a GIS extension, and you can store JSON/JSONB data in fields. So it seems to have the best of everything.
-      
+      notes: `I think I'll try PostgreSQL for the main backend - there is a graph extension for it, a time-series extension, a GIS extension, and you can store JSON/JSONB data in fields. So it seems to have the best of everything.`,
+    },
+    {
+      id: 21,
+      name: `A new blog, using Hugo`,
+      created: '2021-02-07',
+      type: 'post',
+      public: true,
+      notes: `Needing a new site, and wanting to have a blog on it, I looked at a few static site generators -
+
+- Eleventy (11ty) - JavaScript
+- Gatsby - React/JavaScript/GraphQL
+- Hugo - Go
+
+Eleventy didn't seem to have a good architecture, and the documentation wasn't very encouraging. Gatsby seemed interesting and well-designed, but was terribly slow. Hugo is _fast_, and seems well planned out and organized.
+
+<!-- compare github stars, codebase size -->      
+`,
+    },
+    {
+      id: 22,
+      name: `Types`,
+      created: '2021-02-08',
+      type: 'post',
+      public: true,
+      notes: `I'm trying to figure out how to handle types - Neomem needs to understand a set of basic types, and to translate between those and each datasource's types.
+
+e.g. Chrome Bookmarks have a 'date_added' field, which is based on the year 1601. We'll need to translate that to the 'created' field, which is an ISO datestring like '2021-02-08', and vice-versa.
+
+We could store a library of these datatypes, usable by different datasources. e.g. 'date1601', in case some other datasource needed it also.
+
+Put this in neomem-util? neomem-types? neomem-data?
+
+Types need to be dynamic, as with neo4j - user will be able to define new types/labels as needed, and they can contain fields, or relations with other nodes.
+
+Should we start developing the neo4j datasource to exercise all this stuff? Should at least sketch out what it needs.
 `,
     },
   ],
