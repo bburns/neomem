@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# build and deploy blog
+# items -> .md -> .html -> cloud
+
+npm run --prefix packages/neomem-domain-blog build website/content/posts \
+  && hugo --source website --destination public \
+  && firebase deploy \
+  && echo Done - visit https://neomem.web.app
