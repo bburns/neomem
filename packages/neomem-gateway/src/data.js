@@ -202,6 +202,15 @@ Types need to be dynamic, as with neo4j - user will be able to define new types/
 Should we start developing the neo4j datasource to exercise all this stuff? Should at least sketch out what it needs.
 `,
     },
+    {
+      id: 23,
+      name: `Stardog Knowledge Graph`,
+      created: '2021-05-23T19:21:53',
+      modified: null,
+      type: 'post',
+      public: true,
+      notes: `Getting back to the Gateway, which needs to consolidate different datasources. I Googled around and wound up at Stardog Knowledge Graph - it's a free platform for building knowledge graphs on different datasources, which is just what we need!`,
+    },
   ],
 
   edges: [
