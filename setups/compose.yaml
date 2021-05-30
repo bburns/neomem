@@ -5,8 +5,8 @@ version: '3.8'
 services:
   timescaledb:
     container_name: timescaledb
-    image: timescale/timescaledb:latest-pg13
-    # image: timescale/timescaledb:latest-pg11 # pg11 so can use AGE graphs
+    image: timescale/timescaledb:2.3.0-pg13
+    # image: timescale/timescaledb:2.3.0-pg11 # pg11 so can use AGE graphs
     ports:
       - $PGPORT:5432/tcp
     environment:
@@ -14,12 +14,15 @@ services:
       POSTGRES_USERNAME: $PGUSER
       POSTGRES_PASSWORD: $PGPASSWORD
     volumes:
-      - ./volumes/timescaledb/data:/var/lib/postgresql/data
+      - ./$SETUP/volumes/timescaledb/data:/var/lib/postgresql/data
     deploy:
       restart_policy:
         condition: on-failure
     networks:
       - ladder99
+    logging:
+      options:
+        max-size: '1m'
 
   # gateway:
   #   container_name: gateway
