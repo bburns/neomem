@@ -1,18 +1,3 @@
-// mtconnect application
-// capture agent data and write to database
-
-import pg from 'pg' // postgres driver - import { Client } from 'pg' gives error
-const { Client } = pg
-import dotenv from 'dotenv'
-dotenv.config({ path: '../../.env' })
-;(async function () {
-  const client = new Client()
-  await client.connect() // uses envars PGHOST, PGPORT, etc
-  await setupTables(client)
-})()
-
-async function setupTables(client) {
-  const sql = `
 CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
 
 -- for experimenting
@@ -41,8 +26,3 @@ CREATE TABLE IF NOT EXISTS history (
 );
 
 SELECT create_hypertable('history', 'time', if_not_exists => TRUE);
-
-`
-  console.log(`Creating db structures if not there...`)
-  await client.query(sql)
-}
