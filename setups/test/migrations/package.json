@@ -1,0 +1,9 @@
+{
+  "name": "migrations",
+  "version": "0.1.0",
+  "scripts": {},
+  "private": true,
+  "dependencies": {
+    "pg": "^8.6.0"
+  }
+}
