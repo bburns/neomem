@@ -8,35 +8,26 @@
 // SERVICES is an optional space-delim list of services to start/stop
 // eg `shell/docker startd ccs-pa agent`
 
-import fs from 'fs'
-import { exec } from 'child_process'
+const fs = require('fs')
+const { exec } = require('child_process')
 
-const cmd = process.argv[1] // eg 'start', 'startd', 'stop'
-const setup = process.argv[2] // eg 'vmc'
-const services = process.argv.slice(3).join(' ') // eg 'agent timescaledb'
+const cmd = process.argv[2] // eg 'start', 'startd', 'stop'
+const setup = process.argv[3] // eg 'vmc'
+const services = process.argv.slice(4).join(' ') // eg 'agent timescaledb'
 
-// // get list of docker compose file paths
-// files = [f"setups/{setup}/docker/{part}.yaml" for part in parts]
-// args = ' '.join([f"--file {file}" for file in files])
-// composefile = f"setups/{setup}/compose.yaml"
-
-// add main compose file for main agent-viz pipeline
 const composefile = `setups/compose.yaml`
 let args = `--file ${composefile}`
 
-// add compose file for device-agent pipeline / overrides
 const composefile2 = `setups/${setup}/compose-${setup}.yaml`
 if (fs.existsSync(composefile2)) {
   args += ` --file ${composefile2}`
 }
 
-// add envfile
 const envfile = `setups/.env`
 if (fs.existsSync(envfile)) {
   args += ` --env-file ${envfile}`
 }
 
-// get flags
 let flags = ''
 if (cmd == 'startd') {
   flags = '--detach'
@@ -46,11 +37,9 @@ if (cmd === 'start' || cmd === 'startd') {
   // pull any required images in the docker-compose files and start services.
   const cmd = `SETUP=${setup} docker-compose ${args} pull ${services} && SETUP=${setup} docker-compose ${args} up --build ${flags} ${services}`
   console.log(cmd)
-  // os.system(cmd)
   exec(cmd)
 } else if (cmd === 'stop') {
   const cmd = `SETUP=${setup} docker-compose ${args} down ${services}`
   console.log(cmd)
-  // os.system(cmd)
   exec(cmd)
 }
