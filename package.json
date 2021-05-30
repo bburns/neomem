@@ -3,7 +3,7 @@
   "description": "an open source information manager",
   "version": "0.1.0",
   "scripts": {
-    "//": "move these into scripts",
+    "//.": "move these into scripts",
     "console": "npm run --prefix packages/neomem-console ${COMMAND}",
     "backend": "COMMAND=start CONFIG_FILE=../../setups/demo/config.yaml npm-run-all --parallel --print-label --race gateway driver-bookmarks driver-filesys",
     "gateway": "npm run --prefix packages/neomem-gateway ${COMMAND}",
