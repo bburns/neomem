@@ -3,7 +3,8 @@
 
 import pg from 'pg' // postgres driver - import { Client } from 'pg' gives error
 const { Client } = pg
-
+import dotenv from 'dotenv'
+dotenv.config({ path: '../../.env' })
 ;(async function () {
   const client = new Client()
   await client.connect() // uses envars PGHOST, PGPORT, etc
