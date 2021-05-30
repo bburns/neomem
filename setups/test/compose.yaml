@@ -1,20 +1,20 @@
 # docker-compose file
 
-version: '3.7'
+version: '3.8'
 
 services:
   timescaledb:
     container_name: timescaledb
-    image: timescale/timescaledb:latest-pg11 # pg11 so can use AGE graphs
-    # remap to 5433 so can run on mac with local db also
+    image: timescale/timescaledb:latest-pg13
+    # image: timescale/timescaledb:latest-pg11 # pg11 so can use AGE graphs
     ports:
-      - '5433:5432/tcp'
+      - $PGPORT:5432/tcp
     environment:
       POSTGRES_DB: $PGDATABASE
       POSTGRES_USERNAME: $PGUSER
       POSTGRES_PASSWORD: $PGPASSWORD
     volumes:
-      - ../volumes/timescaledb:/var/lib/postgresql/data
+      - ./volumes/timescaledb/data:/var/lib/postgresql/data
     deploy:
       restart_policy:
         condition: on-failure

@@ -1,3 +1,0 @@
-CREATE DATABASE neomem;
-\c neomem
-CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
