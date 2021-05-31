@@ -2,13 +2,21 @@
 
 // build and deploy site
 
+// note: must use require instead of import, else must add .js extension to file
 const shell = require('shelljs')
+
+const deploy = process.argv[2] === '-d' || process.argv[2] === '--deploy'
 
 const cmd = `
 npm run --silent --prefix packages/neomem-domain-site build \
   > site/public/index.html
 `
 shell.exec(cmd)
+
+if (deploy) {
+  const cmd2 = `firebase deploy`
+  shell.exec(cmd2)
+}
 
 // const composefile = `setups/compose.yaml`
 // let args = `--file ${composefile}`
