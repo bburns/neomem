@@ -6,7 +6,7 @@ const { nodes } = data
 
 function getPost(post) {
   return `<div class='post'>
-<div class='name'>${post.props.name}</div>
+<div class='name'><b>${post.props.name}</b></div>
 <div class='created'>${post.props.created}</div>
 <div class='notes'>${post.props.notes.replaceAll('\n', '<br/>')}</div>
 </div>`
@@ -14,6 +14,13 @@ function getPost(post) {
 
 function getPage(nodes) {
   return `<html>
+<head>
+<style>
+.post {
+  margin-bottom: 2em;
+}
+</style>
+</head>
 <body>
 <div class='page'>
 <div class='blog'>
