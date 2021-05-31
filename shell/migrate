@@ -10,7 +10,7 @@
 SETUP=$1   # eg test
 MIGRATION=$2   # eg 000-init.sql
 
-# this should match db.yaml docker-compose file
+# this should match docker-compose file
 CONTAINER=timescaledb
 
 ENV_FILE=setups/.env
