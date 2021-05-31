@@ -1,4 +1,3 @@
-// neomem domain
 // crud operations
 
 export function add(node, nodes) {
