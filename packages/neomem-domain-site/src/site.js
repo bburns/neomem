@@ -1,4 +1,6 @@
 import { data } from '../../neomem-driver-json/src/data.js'
+// const marked = require('marked')
+import marked from 'marked'
 
 const print = console.log
 
@@ -15,14 +17,12 @@ Development is ongoing, with a launch planned for August 2021.
 
 Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
 `
-  .trim()
-  .replaceAll('\n', '<br/>')
 
 function getPost(post) {
   return `<div class='post'>
 <div class='name'><b>${post.props.name}</b></div>
 <div class='created'>${post.props.created.slice(0, 10)}</div>
-<div class='notes'>${post.props.notes.trim().replaceAll('\n', '<br/>')}</div>
+<div class='notes'>${marked(post.props.notes)}</div>
 </div>`
 }
 
@@ -47,7 +47,7 @@ function getPage(nodes) {
 <div class='page'>
 <div class='title'>Neomem</div>
 <div class='about'>
-${about}
+${marked(about)}
 </div>
 <div class='blog'>
 ${posts.map(getPost).join('\n')}
