@@ -26,8 +26,7 @@ test(`update`, async t => {
   const prop = 'notes'
   const value = 'plecostomus'
   driver.update(1, prop, value)
-  //. yuck
-  const plecy2 = { ...plecy, props: { ...plecy.props, [prop]: value } }
+  const plecy2 = { ...plecy, props: { ...plecy.props, [prop]: value } } //. yuck
   t.deepEqual(driver.get(1), plecy2)
 })
 
@@ -38,10 +37,3 @@ test(`delete`, async t => {
   driver.remove(1)
   t.deepEqual(driver.get(1), undefined)
 })
-
-// test(`read from data.js`, async t => {
-//   const nodes = {}
-//   data.nodes.forEach(item => (nodes[item.id] = item))
-//   const node = driver.get(1, nodes)
-//   t.like(node, { id: 1, props: { name: 'plecy' } })
-// })
