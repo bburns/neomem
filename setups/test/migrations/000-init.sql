@@ -11,11 +11,11 @@ CREATE TABLE IF NOT EXISTS nodes (
 );
 
 CREATE TABLE IF NOT EXISTS edges (
-  from int NOT NULL,
-  to int NOT NULL,
+  src int NOT NULL,
+  dst int NOT NULL,
   props jsonb,
-  CONSTRAINT fk_from FOREIGN KEY(from) REFERENCES nodes(id),
-  CONSTRAINT fk_to FOREIGN KEY(to) REFERENCES nodes(id)
+  CONSTRAINT fk_src FOREIGN KEY(src) REFERENCES nodes(id),
+  CONSTRAINT fk_dst FOREIGN KEY(dst) REFERENCES nodes(id)
 );
 
 CREATE TABLE IF NOT EXISTS history (
