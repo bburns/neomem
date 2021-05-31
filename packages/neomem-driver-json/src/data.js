@@ -96,7 +96,7 @@ export const data = {
     },
     {
       _id: 11,
-      name: 'neoblog',
+      name: 'blog',
       created: '2021-04-25T10:25:00',
       props: {
         type: 'blog',
