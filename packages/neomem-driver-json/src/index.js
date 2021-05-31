@@ -1,7 +1,12 @@
-// crud operations
-// these are pure functions - take an array of nodes and return an updated copy.
-
 let nodes = []
+
+// load/save etc
+
+export function clear() {
+  nodes = []
+}
+
+// crud operations
 
 export function add(node) {
   nodes.push(node)
@@ -13,13 +18,14 @@ export function get(id) {
 }
 
 export function update(id, prop, value) {
-  const node = get(id) || {}
-  const props = node.props
+  const node = get(id) || { id }
+  const props = node.props || {}
   props[prop] = value
 }
 
-// export function remove(id, nodes) {
-//   const copy = R.clone(nodes)
-//   delete copy[id]
-//   return copy
-// }
+export function remove(id) {
+  const i = nodes.findIndex(node => node.id === id)
+  if (i !== -1) {
+    nodes.splice(i, 1)
+  }
+}
