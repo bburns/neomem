@@ -118,7 +118,6 @@ export const data = {
         type: 'place',
         name: 'forest',
         notes: 'a dreary forest with faint light filtering from above',
-
         created: '2021-05-08T14:25:00',
       },
     },

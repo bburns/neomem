@@ -13,8 +13,7 @@ function getPost(post) {
 }
 
 function getPage(nodes) {
-  return `
-<html>
+  return `<html>
 <body>
 <div class='page'>
 <div class='blog'>
@@ -22,12 +21,11 @@ ${posts.map(getPost).join('\n')}
 </div>
 </div>
 </body>
-</html>
-`
+</html>`
 }
 
-const posts = nodes.filter(
-  node => node.props.type === 'post' && node.props.public
-)
+const posts = nodes
+  .filter(node => node.props.type === 'post' && node.props.public)
+  .sort((a, b) => a.props.created.localeCompare(b.props.created))
 
 print(getPage(posts))
