@@ -1,4 +1,4 @@
-// json driver
+// federated driver
 
 function connect() {
   return new Connection()
@@ -22,7 +22,7 @@ class Connection {
   }
 
   get(id) {
-    const node = this.nodes.find(node => node._id === id)
+    const node = this.nodes.find(node => node.id === id)
     return node
   }
 
@@ -33,7 +33,7 @@ class Connection {
   }
 
   remove(id) {
-    const i = this.nodes.findIndex(node => node._id === id)
+    const i = this.nodes.findIndex(node => node.id === id)
     if (i !== -1) {
       this.nodes.splice(i, 1)
     }

@@ -7,7 +7,7 @@
 export const data = {
   nodes: [
     {
-      id: 1,
+      _id: 1,
       props: {
         name: 'plecy',
         alias: 'plecostomus',
@@ -19,7 +19,7 @@ export const data = {
       },
     },
     {
-      id: 2,
+      _id: 2,
       props: {
         name: 'fish',
         type: 'folder',
@@ -27,7 +27,7 @@ export const data = {
       },
     },
     {
-      id: 3,
+      _id: 3,
       props: {
         name: 'zoey',
         type: 'cat',
@@ -35,7 +35,7 @@ export const data = {
       },
     },
     {
-      id: 4,
+      _id: 4,
       props: {
         name: 'default view',
         type: 'view',
@@ -44,7 +44,7 @@ export const data = {
       },
     },
     {
-      id: 5,
+      _id: 5,
       props: {
         type: 'column',
         note: 'name',
@@ -52,7 +52,7 @@ export const data = {
       },
     },
     {
-      id: 6,
+      _id: 6,
       props: {
         type: 'column',
         note: 'type',
@@ -60,7 +60,7 @@ export const data = {
       },
     },
     {
-      id: 7,
+      _id: 7,
       props: {
         type: 'column',
         note: 'description',
@@ -68,7 +68,7 @@ export const data = {
       },
     },
     {
-      id: 8,
+      _id: 8,
       props: {
         type: 'field',
         name: 'name',
@@ -77,7 +77,7 @@ export const data = {
       },
     },
     {
-      id: 9,
+      _id: 9,
       props: {
         type: 'field',
         name: 'type',
@@ -86,7 +86,7 @@ export const data = {
       },
     },
     {
-      id: 10,
+      _id: 10,
       props: {
         type: 'field',
         name: 'description',
@@ -95,7 +95,7 @@ export const data = {
       },
     },
     {
-      id: 11,
+      _id: 11,
       props: {
         type: 'blog',
         name: 'neoblog',
@@ -105,7 +105,7 @@ export const data = {
       },
     },
     {
-      id: 13,
+      _id: 13,
       props: {
         type: 'column',
         notes: 'notes',
@@ -113,7 +113,7 @@ export const data = {
       },
     },
     {
-      id: 14,
+      _id: 14,
       props: {
         type: 'place',
         name: 'forest',
@@ -122,7 +122,7 @@ export const data = {
       },
     },
     {
-      id: 15,
+      _id: 15,
       props: {
         type: 'place',
         name: 'field',
@@ -131,21 +131,21 @@ export const data = {
       },
     },
     {
-      id: 16,
+      _id: 16,
       props: {
         name: 'trees',
         created: '2021-05-08T14:25:00',
       },
     },
     {
-      id: 17,
+      _id: 17,
       props: {
         name: 'leaves',
         created: '2021-05-08T14:25:00',
       },
     },
     {
-      id: 18,
+      _id: 18,
       props: {
         name: 'A new blog, using GitHub Pages / Jekyll',
         created: '2021-05-15T14:25:00',
@@ -164,7 +164,7 @@ But for now, this is stored in a json file along with other test data.`,
       },
     },
     {
-      id: 19,
+      _id: 19,
       props: {
         name: `ArangoDB`,
         created: '2021-05-16T23:14:00',
@@ -176,7 +176,7 @@ I'm trying out ArangoDB in another project - it took a while to figure out how t
       },
     },
     {
-      id: 20,
+      _id: 20,
       props: {
         name: `PostgreSQL and A Graph Extension (AGE)`,
         created: '2021-05-22T06:18:53',
@@ -188,7 +188,7 @@ I think I'll try PostgreSQL for the main backend - there is a graph extension fo
       },
     },
     {
-      id: 21,
+      _id: 21,
       props: {
         name: `A new blog, using Hugo`,
         created: '2021-02-07',
@@ -206,7 +206,7 @@ I tried Eleventy but wasn't crazy about the architecture and documentation. Gats
       },
     },
     {
-      id: 22,
+      _id: 22,
       props: {
         name: `Types`,
         created: '2021-02-08',
@@ -226,7 +226,7 @@ Types need to be dynamic, as with neo4j - user will be able to define new types/
       },
     },
     {
-      id: 23,
+      _id: 23,
       props: {
         name: `Back to Hugo, and Stardog Knowledge Graph`,
         created: '2021-05-23T19:21:53',
@@ -239,7 +239,7 @@ The gateway needs to be able to consolidate different datasources. I Googled aro
       },
     },
     {
-      id: 24,
+      _id: 24,
       props: {
         name: `Postgres plans and new new new blog`,
         created: '2021-05-30T06:11:00',
@@ -258,22 +258,22 @@ I'm going to make a simpler blog - I'm not crazy about Hugo - it's a bit complex
 
   edges: [
     {
-      src: 1,
-      dst: 2,
+      _from: 1,
+      _to: 2,
       props: {
         type: 'contains',
         created: '2021-04-25T04:25:00',
       },
     },
-    { src: 5, dst: 8, props: { type: 'shows' } },
-    { src: 6, dst: 9, props: { type: 'shows' } },
-    { src: 7, dst: 10, props: { type: 'shows' } },
-    { src: 14, dst: 16, props: { type: 'contains' } },
-    { src: 14, dst: 17, props: { type: 'contains' } },
+    { _from: 5, _to: 8, props: { type: 'shows' } },
+    { _from: 6, _to: 9, props: { type: 'shows' } },
+    { _from: 7, _to: 10, props: { type: 'shows' } },
+    { _from: 14, _to: 16, props: { type: 'contains' } },
+    { _from: 14, _to: 17, props: { type: 'contains' } },
   ],
 
   history: [
-    { id: 1, time: '2021-05-29T23:19:00', props: { size: '3in' } },
-    { id: 1, time: '2021-05-31T00:14:00', props: { size: '4in' } },
+    { _id: 1, time: '2021-05-29T23:19:00', props: { size: '3in' } },
+    { _id: 1, time: '2021-05-31T00:14:00', props: { size: '4in' } },
   ],
 }
