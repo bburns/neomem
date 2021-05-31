@@ -8,147 +8,145 @@ export const data = {
   nodes: [
     {
       _id: 1,
+      name: 'plecy',
+      created: '2021-04-25T04:25:00',
+      modified: null,
       props: {
-        name: 'plecy',
         alias: 'plecostomus',
         notes: 'a catfish',
         type: 'fish',
         public: true,
       },
-      created: '2021-04-25T04:25:00',
-      modified: null,
     },
     {
       _id: 2,
+      name: 'fish',
+      created: '2021-04-25T04:25:00',
       props: {
-        name: 'fish',
         type: 'folder',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 3,
+      name: 'zoey',
+      created: '2021-04-25T04:25:00',
       props: {
-        name: 'zoey',
         type: 'cat',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 4,
+      name: 'default view',
+      created: '2021-04-25T04:25:00',
       props: {
-        name: 'default view',
         type: 'view',
         columns: [5],
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 5,
+      name: 'name',
+      created: '2021-04-25T04:25:00',
       props: {
         type: 'column',
-        note: 'name',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 6,
+      name: 'type',
+      created: '2021-04-25T04:25:00',
       props: {
         type: 'column',
-        note: 'type',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 7,
+      name: 'description',
+      created: '2021-04-25T04:25:00',
       props: {
         type: 'column',
-        note: 'description',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 8,
+      name: 'name',
+      created: '2021-04-25T04:25:00',
       props: {
         type: 'field',
-        name: 'name',
         display: 'Name',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 9,
+      name: 'type',
+      created: '2021-04-25T04:25:00',
       props: {
         type: 'field',
-        name: 'type',
         display: 'Type',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 10,
+      name: 'description',
+      created: '2021-04-25T04:25:00',
       props: {
         type: 'field',
-        name: 'description',
         display: 'Description',
       },
-      created: '2021-04-25T04:25:00',
     },
     {
       _id: 11,
+      name: 'neoblog',
+      created: '2021-04-25T10:25:00',
       props: {
         type: 'blog',
-        name: 'neoblog',
         notes: `This is my blog.`,
         public: true,
       },
-      created: '2021-04-25T10:25:00',
     },
     {
       _id: 13,
+      name: 'notes',
+      created: '2021-04-25T14:25:00',
       props: {
         type: 'column',
-        notes: 'notes',
       },
-      created: '2021-04-25T14:25:00',
     },
     {
       _id: 14,
+      name: 'forest',
+      created: '2021-05-08T14:25:00',
       props: {
         type: 'place',
-        name: 'forest',
         notes: 'a dreary forest with faint light filtering from above',
       },
-      created: '2021-05-08T14:25:00',
     },
     {
       _id: 15,
+      name: 'field',
+      created: '2021-05-08T14:25:00',
       props: {
         type: 'place',
-        name: 'field',
         notes: 'a grassy field stretches out, covered in wildflowers',
       },
-      created: '2021-05-08T14:25:00',
     },
     {
       _id: 16,
-      props: {
-        name: 'trees',
-      },
+      name: 'trees',
       created: '2021-05-08T14:25:00',
+      props: {},
     },
     {
       _id: 17,
-      props: {
-        name: 'leaves',
-      },
+      name: 'leaves',
       created: '2021-05-08T14:25:00',
+      props: {},
     },
     {
       _id: 18,
+      name: 'A new blog, using GitHub Pages / Jekyll',
       created: '2021-05-15T14:25:00',
       props: {
-        name: 'A new blog, using GitHub Pages / Jekyll',
         type: 'post',
         public: true,
         notes: `
@@ -165,9 +163,9 @@ But for now, this is stored in a json file along with other test data.`,
     },
     {
       _id: 19,
+      name: `ArangoDB`,
       created: '2021-05-16T23:14:00',
       props: {
-        name: `ArangoDB`,
         modified: null,
         type: 'post',
         // public: true,
@@ -177,9 +175,9 @@ I'm trying out ArangoDB in another project - it took a while to figure out how t
     },
     {
       _id: 20,
+      name: `PostgreSQL and A Graph Extension (AGE)`,
       created: '2021-05-22T06:18:53',
       props: {
-        name: `PostgreSQL and A Graph Extension (AGE)`,
         modified: null,
         type: 'post',
         public: true,
@@ -189,9 +187,9 @@ I think I'll try PostgreSQL for the main backend - there is a graph extension fo
     },
     {
       _id: 21,
+      name: `A new blog, using Hugo`,
       created: '2021-02-07',
       props: {
-        name: `A new blog, using Hugo`,
         type: 'post',
         public: true,
         notes: `
@@ -207,9 +205,9 @@ I tried Eleventy but wasn't crazy about the architecture and documentation. Gats
     },
     {
       _id: 22,
+      name: `Types`,
       created: '2021-02-08',
       props: {
-        name: `Types`,
         type: 'post',
         public: true,
         notes: `
@@ -227,9 +225,9 @@ Types need to be dynamic, as with neo4j - user will be able to define new types/
     },
     {
       _id: 23,
+      name: `Back to Hugo, and Stardog Knowledge Graph`,
       created: '2021-05-23T19:21:53',
       props: {
-        name: `Back to Hugo, and Stardog Knowledge Graph`,
         type: 'post',
         public: true,
         notes: `
@@ -240,9 +238,9 @@ The gateway needs to be able to consolidate different datasources. I Googled aro
     },
     {
       _id: 24,
+      name: `Postgres plans and new new new blog`,
       created: '2021-05-30T06:11:00',
       props: {
-        name: `Postgres plans and new new new blog`,
         type: 'post',
         public: true,
         notes: `
