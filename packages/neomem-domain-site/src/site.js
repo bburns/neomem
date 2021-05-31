@@ -8,7 +8,7 @@ const print = console.log
 
 const { nodes } = data
 
-//. get from blog node
+//. get from blog node - get({ name: 'neomem blog' }) ?
 const about = `
 Neomem is a combination table and document editor, with free and paid hosting plans and a marketplace for plugins.
 
@@ -40,7 +40,7 @@ function getPage(nodes) {
 <title>Neomem.io</title>
 <style>
 .title {
-  font-size: 2em;
+  font-size: 3em;
 }
 .about {
   margin-bottom: 1em;
@@ -64,6 +64,7 @@ ${posts.map(getPost).join('\n')}
 </html>`
 }
 
+//. get nodes via edges from the main blog node
 const posts = nodes
   .filter(node => node.props.type === 'post' && node.props.public)
   .sort((a, b) => -a.created.localeCompare(b.created))

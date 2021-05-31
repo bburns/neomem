@@ -26,6 +26,7 @@ class Connection {
     return node
   }
 
+  // prop could be id or name? eg id to disambiguate
   update(id, prop, value) {
     const node = this.get(id) || { id }
     const props = node.props || {}
