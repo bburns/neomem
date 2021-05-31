@@ -1,0 +1,17 @@
+{
+  "name": "neomem-domain-site",
+  "version": "0.1.0",
+  "description": "site generator domain for neomem",
+  "type": "module",
+  "scripts": {
+    "build": "node src/site.js"
+  },
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0"
+  }
+}

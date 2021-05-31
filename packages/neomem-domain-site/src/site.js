@@ -1,4 +1,3 @@
-import R from 'rambda'
 import { data } from '../../neomem-driver-json/src/data.js'
 
 const print = console.log
@@ -27,8 +26,6 @@ ${posts.map(getPost).join('\n')}
 `
 }
 
-//. later do some kind of query with pagination
-// const posts = R.filter(node => node.type === 'post' && node.public, nodes)
 const posts = nodes.filter(
   node => node.props.type === 'post' && node.props.public
 )
