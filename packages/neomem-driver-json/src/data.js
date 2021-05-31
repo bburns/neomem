@@ -2,7 +2,9 @@
 // store nodes, edges, history.
 
 // consider this the serialized form - the db would read them
-// and instantiate the indexes, or store those separately
+// and instantiate the indexes, or store those separately.
+// so... maybe for serialization could store name, created etc in props?
+// does it matter? would just be more consistent.
 
 export const data = {
   nodes: [
