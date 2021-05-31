@@ -1,9 +1,5 @@
 // use this to experiment with datamodel - use for testing also.
-// store nodes and edges.
-
-// _id, _from, _to are from arangodb
-
-//. call these items and relations, as the ui will use?
+// store nodes, edges, history.
 
 // consider this the serialized form - the db would read them
 // and instantiate the indexes, or store those separately
