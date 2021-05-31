@@ -16,6 +16,10 @@ It's open source and cross-platform. More information at https://github.com/bbur
 Development is ongoing, with a launch planned for August 2021.
 
 Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
+
+Note: this site is generated in Neomem - will make it look nicer later...
+
+----
 `
 
 function getPost(post) {
