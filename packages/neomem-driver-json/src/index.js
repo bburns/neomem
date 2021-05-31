@@ -1,31 +1,41 @@
-let nodes = []
+// json driver
 
-// load/save etc
-
-export function clear() {
-  nodes = []
+function connect() {
+  return new Connection()
 }
 
-// crud operations
+export const driver = { connect }
 
-export function add(node) {
-  nodes.push(node)
-}
+class Connection {
+  constructor() {
+    this.nodes = []
+  }
 
-export function get(id) {
-  const node = nodes.find(node => node.id === id)
-  return node
-}
+  clear() {
+    this.nodes = []
+  }
 
-export function update(id, prop, value) {
-  const node = get(id) || { id }
-  const props = node.props || {}
-  props[prop] = value
-}
+  // crud operations
 
-export function remove(id) {
-  const i = nodes.findIndex(node => node.id === id)
-  if (i !== -1) {
-    nodes.splice(i, 1)
+  add(node) {
+    this.nodes.push(node)
+  }
+
+  get(id) {
+    const node = this.nodes.find(node => node.id === id)
+    return node
+  }
+
+  update(id, prop, value) {
+    const node = this.get(id) || { id }
+    const props = node.props || {}
+    props[prop] = value
+  }
+
+  remove(id) {
+    const i = this.nodes.findIndex(node => node.id === id)
+    if (i !== -1) {
+      this.nodes.splice(i, 1)
+    }
   }
 }

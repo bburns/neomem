@@ -1,39 +1,41 @@
 // run with `yarn test`
 
 import test from 'ava'
-import * as driver from './index.js'
+import { driver } from './index.js'
 
 const plecy = Object.freeze({ id: 1, props: { name: 'plecy' } })
+
+const connection = driver.connect()
 
 // crud operations
 
 test(`create`, async t => {
-  driver.clear()
-  driver.add(plecy)
-  t.deepEqual(driver.get(1), plecy)
+  connection.clear()
+  connection.add(plecy)
+  t.deepEqual(connection.get(1), plecy)
 })
 
 test(`retrieve`, async t => {
-  driver.clear()
-  t.deepEqual(driver.get(1), undefined)
-  driver.add(plecy)
-  t.deepEqual(driver.get(1), plecy)
+  connection.clear()
+  t.deepEqual(connection.get(1), undefined)
+  connection.add(plecy)
+  t.deepEqual(connection.get(1), plecy)
 })
 
 test(`update`, async t => {
-  driver.clear()
-  driver.add(plecy)
+  connection.clear()
+  connection.add(plecy)
   const prop = 'notes'
   const value = 'plecostomus'
-  driver.update(1, prop, value)
+  connection.update(1, prop, value)
   const plecy2 = { ...plecy, props: { ...plecy.props, [prop]: value } } //. yuck
-  t.deepEqual(driver.get(1), plecy2)
+  t.deepEqual(connection.get(1), plecy2)
 })
 
 test(`delete`, async t => {
-  driver.clear()
-  driver.add(plecy)
-  t.deepEqual(driver.get(1), plecy)
-  driver.remove(1)
-  t.deepEqual(driver.get(1), undefined)
+  connection.clear()
+  connection.add(plecy)
+  t.deepEqual(connection.get(1), plecy)
+  connection.remove(1)
+  t.deepEqual(connection.get(1), undefined)
 })
