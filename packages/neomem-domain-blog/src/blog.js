@@ -1,16 +1,15 @@
-// @ts-nocheck
 import R from 'rambda'
-import { data } from '../../neomem-console/src/data.js'
+import { data } from '../../neomem-driver-json/src/data.js'
 
-const output = console.log
+const print = console.log
 
 const { nodes } = data
 
 function getPost(post) {
   return `<div class='post'>
-<div class='name'>${post.name}</div>
-<div class='created'>${post.created}</div>
-<div class='notes'>${post.notes || ''}</div>
+<div class='name'>${post.props.name}</div>
+<div class='created'>${post.props.created}</div>
+<div class='notes'>${post.props.notes || ''}</div>
 </div>`
 }
 
@@ -20,7 +19,7 @@ function getPage(nodes) {
 <body>
 <div class='page'>
 <div class='blog'>
-${R.map(getPost, posts).join('\n')}
+${posts.map(getPost).join('\n')}
 </div>
 </div>
 </body>
@@ -29,6 +28,9 @@ ${R.map(getPost, posts).join('\n')}
 }
 
 //. later do some kind of query with pagination
-const posts = R.filter(node => node.type === 'post' && node.public, nodes)
+// const posts = R.filter(node => node.type === 'post' && node.public, nodes)
+const posts = nodes.filter(
+  node => node.props.type === 'post' && node.props.public
+)
 
-output(getPage(posts))
+print(getPage(posts))
