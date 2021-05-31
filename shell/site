@@ -5,7 +5,8 @@
 const shell = require('shelljs')
 
 const cmd = `
-npm run --silent --prefix packages/neomem-domain-site build > site/public/index.html
+npm run --silent --prefix packages/neomem-domain-site build \
+  > site/public/index.html
 `
 shell.exec(cmd)
 
