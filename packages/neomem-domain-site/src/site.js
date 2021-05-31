@@ -8,7 +8,7 @@ function getPost(post) {
   return `<div class='post'>
 <div class='name'><b>${post.props.name}</b></div>
 <div class='created'>${post.props.created.slice(0, 10)}</div>
-<div class='notes'>${post.props.notes.replaceAll('\n', '<br/>')}</div>
+<div class='notes'>${post.props.notes.trim().replaceAll('\n', '<br/>')}</div>
 </div>`
 }
 
@@ -28,9 +28,7 @@ function getPage(nodes) {
 </head>
 <body>
 <div class='page'>
-<div class='title'>
-Neomem Blog
-</div>
+<div class='title'>Neomem Blog</div>
 <div class='blog'>
 ${posts.map(getPost).join('\n')}
 </div>
