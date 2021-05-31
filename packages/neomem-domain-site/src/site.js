@@ -13,7 +13,8 @@ function getPost(post) {
 }
 
 function getPage(nodes) {
-  return `<html>
+  return `<!doctype html>
+<html>
 <head>
 <style>
 .post {
