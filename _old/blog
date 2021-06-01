@@ -1,5 +1,0 @@
-#!/bin/bash
-# usage:
-#   ./blog
-
-node src/blog.js > public/index.md
