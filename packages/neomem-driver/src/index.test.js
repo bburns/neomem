@@ -3,6 +3,8 @@
 import test from 'ava'
 import { driver } from './index.js'
 
+//...........
+
 const plecy = Object.freeze({ _id: 1, props: { name: 'plecy' } })
 
 const connection = driver.connect()
