@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "description": "site generator domain for neomem",
   "type": "module",
-  "scripts": {
-    "build": "node src/site.js"
-  },
+  "scripts": {},
   "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
   "dependencies": {

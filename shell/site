@@ -9,7 +9,7 @@ const shell = require('shelljs')
 const deploy = process.argv[2] === '-d' || process.argv[2] === '--deploy'
 
 //npm run --silent --prefix packages/neomem-domain-site build
-const cmd = `node packages/neomem-domain-site/src/site.js > site-vite/index.html`
+const cmd = `node packages/neomem-domain-site/src/site.js > site/index.html`
 shell.exec(cmd)
 
 if (deploy) {

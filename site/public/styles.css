@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+body {
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #323a42;
+  font-size: 22px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.title {
+  font-size: 3em;
+}
+.about {
+  margin-bottom: 1em;
+  /* text-align: center; */
+}
+.post {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.post .name {
+  font-weight: bold;
+}
