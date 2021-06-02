@@ -13,6 +13,9 @@ const cmd = `node packages/neomem-domain-site/src/site.js > site/index.html`
 shell.exec(cmd)
 
 if (deploy) {
+  const cmd1 = `npm --prefix site run build`
+  shell.exec(cmd1)
+
   const cmd2 = `firebase deploy`
   shell.exec(cmd2)
 }
