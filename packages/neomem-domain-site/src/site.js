@@ -7,6 +7,8 @@ import marked from 'marked'
 
 const templatePath = `./site-vite/templates/index.html`
 
+const warning = `<!-- warning: generated file - do not edit -->`
+
 const print = console.log
 
 const { nodes } = data
@@ -42,9 +44,9 @@ ${posts.map(getPost).join('\n')}
 </div>
 </div>
 </body>
-`
+`.trim()
 
 const template = String(fs.readFileSync(templatePath))
-const page = template.replace('{{body}}', body)
+const page = template.replace('{{body}}', body).replace('{{warning}}', warning)
 
 print(page)
