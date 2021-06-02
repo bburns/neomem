@@ -41,7 +41,7 @@ ${posts.map(getPost).join('\n')}
 </body>
 `
 
-const templatePath = `site/templates/index.html`
+const templatePath = `./site/templates/index.html`
 const template = String(fs.readFileSync(templatePath))
 const page = template.replace('{{body}}', body)
 
