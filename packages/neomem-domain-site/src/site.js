@@ -16,7 +16,7 @@ const about = marked(
 
 function getPost(post) {
   return `<div class='post'>
-<div class='name'><b>${post.name}</b></div>
+<div class='name'>${post.name}</div>
 <div class='created'>${post.created.slice(0, 10)}</div>
 <div class='notes'>${marked(post.props.notes)}</div>
 </div>`
@@ -30,7 +30,8 @@ const posts = nodes
 const body = `
 <body>
 <div class='page'>
-<div class='title'>Neomem</div>
+<div class='title'>Neomem.io</div>
+<div class='subtitle'>An open-source information manager</div>
 <div class='about'>
 ${marked(about)}
 </div>

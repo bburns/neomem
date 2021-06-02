@@ -16,3 +16,6 @@ body {
 .post {
   margin-bottom: 2em;
 }
+.post .name {
+  font-weight: bold;
+}
