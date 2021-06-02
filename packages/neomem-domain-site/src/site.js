@@ -5,6 +5,8 @@ import fs from 'fs'
 import { data } from '../../neomem-driver-json/src/data.js'
 import marked from 'marked'
 
+const templatePath = `./site-vite/templates/index.html`
+
 const print = console.log
 
 const { nodes } = data
@@ -42,7 +44,6 @@ ${posts.map(getPost).join('\n')}
 </body>
 `
 
-const templatePath = `./site/templates/index.html`
 const template = String(fs.readFileSync(templatePath))
 const page = template.replace('{{body}}', body)
 
