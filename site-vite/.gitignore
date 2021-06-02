@@ -4,4 +4,4 @@ dist
 dist-ssr
 *.local
 
-index.html
+/index.html
