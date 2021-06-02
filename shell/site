@@ -8,10 +8,8 @@ const shell = require('shelljs')
 
 const deploy = process.argv[2] === '-d' || process.argv[2] === '--deploy'
 
-const cmd = `
-npm run --silent --prefix packages/neomem-domain-site build \
-  > site/dist/index.html
-`
+//npm run --silent --prefix packages/neomem-domain-site build
+const cmd = `node packages/neomem-domain-site/src/site.js > site/dist/index.html`
 shell.exec(cmd)
 
 if (deploy) {
