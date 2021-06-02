@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 // build and deploy site
+// usage: shell/site
 
 // note: must use require instead of import, else must add .js extension to file
 const shell = require('shelljs')
@@ -9,7 +10,7 @@ const deploy = process.argv[2] === '-d' || process.argv[2] === '--deploy'
 
 const cmd = `
 npm run --silent --prefix packages/neomem-domain-site build \
-  > site/static/html/body.html
+  > site/dist/index.html
 `
 shell.exec(cmd)
 
