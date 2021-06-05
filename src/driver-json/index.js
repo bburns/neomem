@@ -1,3 +1,5 @@
+// driver for timegraph json files
+
 import fs from 'fs'
 
 export const driver = {
@@ -26,8 +28,12 @@ class Connect {
         this.edgeFromIndex[edge._from] = [edge]
       }
     })
+    //. get edgeToIndex
+    //. get name indexes
   }
-  //. these will be part of 'get'
+
+  //. these will all be part of 'get'
+
   getNode(id) {
     const node = this.nodeIndex[id]
     return node
@@ -52,6 +58,9 @@ class Connect {
       .join(', ')
     return exits
   }
+
+  // crud operations
+
   get() {}
   set() {}
   update() {}
