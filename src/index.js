@@ -1,6 +1,6 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { data } from './data.js'
+import { data } from './data-neomem.js'
 
 const print = console.log
 const welcome = `
@@ -26,19 +26,34 @@ data.edges.forEach(edge => {
   }
 })
 
+function getPath(node) {
+  //. walk up tree to get path? until mount point?
+}
+
 // diff drivers implement these differently - polymorphic
 function getContents(node) {
-  // if node is file, read first 200 chars
-  // if node is folder, get list of files
-  // if node is place, get list of nodes linked from here
   const typeName = nodeIndex[node.type].name
+  // if node is file, read first 200 chars
   if (typeName === 'file') {
     // return fs.readFileSync(getPath(node))
     return node.contents
+
+    // if node is folder, get list of files
   } else if (typeName === 'folder') {
     // return fs.readdirSync(getPath(node))
-    // return
+    return []
+
+    // if node is place, get list of nodes linked from here
+  } else if (typeName === 'place') {
   }
+}
+
+function getExits(node) {
+  const edges = edgeFromIndex[node._id] || []
+  const exits = edges
+    .map(edge => nodeIndex[edge.type || unlabelled].name)
+    .join(', ')
+  return exits
 }
 
 // parse command string
@@ -50,24 +65,13 @@ const step = async (str, oldContext, filename, callback) => {
   //
   if (command === 'look' || command === 'l') {
     const node = nodeIndex[id]
-    // const type = nodeIndex[node.type]
-    // const contentType = nodeIndex[type.contentType]
-    const edges = edgeFromIndex[id] || []
-    const exits = edges
-      .map(edge => nodeIndex[edge.type || unlabelled].name)
-      .join(', ')
+    const type = nodeIndex[node.type]
+
     print(chalk.bold(node.name))
-    if (node.notes) {
-      print(`notes: ${node.notes}`)
-    }
-    // const contents = contentType.name
-    // if (contentType.name === 'readDir') {
-    // }
-    const contents = getContents(node)
-    const entrances = []
-    print(`contents: ${contents}`)
-    print(`exits: ${exits}`)
-    print(`entrances: ${entrances}`)
+    print(`type: ${type.name}`)
+    print(`notes: ${node.notes}`)
+    print(`contents: ${getContents(node)}`)
+    print(`exits: ${getExits(node)}`)
     //
   } else if (command === 'list') {
     const node = nodeIndex[id]
@@ -78,10 +82,10 @@ const step = async (str, oldContext, filename, callback) => {
     print(`contents: ${contents}`)
     //
   } else if (command === 'go') {
-    // dest can be adjacent edge or node name, or abs path
+    // dest can be adjacent edge name, node name, or abs path, or id
+    // eg 'go north', 'go /home', 'go hello.txt', '2' ?
     const dest = words[1]
-
-    id = 2
+    id = Number(dest)
   }
   // const { output, context } = await evaluate(str, oldContext)
   // print(output)
