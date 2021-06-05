@@ -52,28 +52,24 @@ class Connect {
     const name = pathlib.basename(key)
     return { _id: key, name }
   }
-  getName(node) {
-    return node.name
-  }
+
+  // getName(node) {
+  //   return node.name
+  // }
+
   getNotes(node) {
     // return node.notes
     return '(n/a)'
   }
+
   getPath(node) {
     //. walk up tree to get path? until root or mount point? i guess so
     // return this.path
     // return '.'
-    let parent = pathlib.normalize(node._id)
-    return parent
+    let path = pathlib.normalize(node._id)
+    return path
   }
-  async getType(node) {
-    // const type = this.nodeIndex[node.type]
-    const path = this.getPath(node)
-    const type = (await isDir(path))
-      ? { _id: 'm1', name: 'folder' }
-      : { _id: 'm2', name: 'file' }
-    return type
-  }
+
   getEdges(node) {
     // const edges = this.edgeFromIndex[node._id] || []
     // return edges
@@ -117,8 +113,39 @@ class Connect {
     }
   }
 
-  get() {}
+  // crud operations
+
+  async get(key) {
+    key = pathlib.normalize(key)
+    const name = pathlib.basename(key)
+    return new Node({ _id: key, name }, this)
+  }
+
   set() {}
   update() {}
   del() {}
+}
+
+class Node {
+  constructor(props, connection) {
+    this.props = props
+    this.connection = connection
+  }
+
+  async get(prop) {
+    if (prop === 'name') {
+      return this.props[prop]
+      //
+    } else if (prop === 'type') {
+      return this.getType()
+    }
+  }
+
+  async getType() {
+    const path = this.props._id
+    const type = (await isDir(path))
+      ? { _id: 'm1', name: 'folder' }
+      : { _id: 'm2', name: 'file' }
+    return new Node(type, this.connection)
+  }
 }

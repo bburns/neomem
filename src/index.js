@@ -19,8 +19,6 @@ print(welcome)
 
 // filesys
 let filepath = null
-// let id = '.'
-// let key = '.'
 let key = 'README.md'
 
 const connection = driver.connect()
@@ -36,14 +34,19 @@ const step = async (str, oldContext, filename, callback) => {
     await connection.load(filepath)
     //
   } else if (command === 'look' || command === 'l') {
-    const node = connection.getNode(key)
-    const name = connection.getName(node)
-    const type = connection.getType(node)
-    print(chalk.bold(name))
-    print(`type: ${connection.getName(type)}`)
-    print(`notes: ${connection.getNotes(node)}`)
-    print(`contents: ${await connection.getContents(node)}`)
-    print(`exits: ${connection.getExits(node)}`)
+    // const node = connection.getNode(key)
+    // const name = connection.getName(node)
+    // const type = connection.getType(node)
+    // print(chalk.bold(name))
+    // print(`type: ${connection.getName(type)}`)
+    // print(`notes: ${connection.getNotes(node)}`)
+    // print(`contents: ${await connection.getContents(node)}`)
+    // print(`exits: ${connection.getExits(node)}`)
+    const node = await connection.get(key)
+    const type = await node.get('type')
+    console.log(type)
+    print(chalk.bold(await node.get('name')))
+    print(`type: ${await type.get('name')}`)
     //
   } else if (command === 'list') {
     const node = connection.getNode(key)
