@@ -62,7 +62,7 @@ class Connect {
     //. walk up tree to get path? until root or mount point? i guess so
     // return this.path
     // return '.'
-    let parent = pathlib.normalize('..')
+    let parent = pathlib.normalize(node._id)
     return parent
   }
   getType(node) {
@@ -105,6 +105,8 @@ class Connect {
     const path = this.getPath(node)
     if (type.name === 'folder') {
       return this.readDir(path)
+    } else if (type.name === 'file') {
+      return this.readFile(path)
     }
     // const readCommand = type.readCommand
     // // if node is folder, get list of files
