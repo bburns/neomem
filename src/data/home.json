@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "name": "home",
+    "notes": "main skeleton for neomem"
+  },
   "nodes": [
     { "_id": 1, "name": "home", "type": "m1" },
     { "_id": 2, "name": "filesys", "type": "m2" },

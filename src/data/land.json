@@ -1,8 +1,12 @@
 {
+  "meta": {
+    "name": "land",
+    "notes": "a zorkish world"
+  },
   "nodes": [
     { "_id": 1, "name": "forest", "type": 8 },
     { "_id": 2, "name": "clearing", "type": 8 },
-    { "_id": 3, "name": "south of house", "type": 8 },
+    { "_id": 3, "name": "field", "type": 8 },
     { "_id": 4, "name": "east", "type": "edge", "reverse": 5, "alias": ["e"] },
     { "_id": 5, "name": "west", "type": "edge", "reverse": 4, "alias": ["w"] },
     { "_id": 6, "name": "north", "type": "edge", "reverse": 7, "alias": ["n"] },
