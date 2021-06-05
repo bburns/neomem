@@ -38,7 +38,6 @@ const step = async (str, oldContext, filename, callback) => {
     const type = await node.get('type')
     print(chalk.bold(await node.get('name')))
     print(`type: ${await type.get('name')}`)
-    //. what is notes/contents in terms of file vs folder?
     print(`notes: ${await node.get('notes')}`)
     print(`contents: ${await node.get('contents')}`)
     // print(`exits: ${connection.getExits(node)}`)
@@ -46,9 +45,13 @@ const step = async (str, oldContext, filename, callback) => {
   } else if (command === 'list') {
     const node = await connection.get(key)
     print(chalk.bold(await node.get('name')))
-    //. what is notes/contents in terms of file vs folder?
     const contents = await node.get('contents')
-    print(`contents: ${contents}`)
+    if (typeof contents === 'string') {
+      print(`contents: ${contents}`)
+    } else {
+      print(`contents:`)
+      print(contents.join('\n'))
+    }
     //
   } else if (command === 'go') {
     //. dest can be adjacent edge name, node name, or abs path, or id

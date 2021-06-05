@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import pathlib from 'path'
-import meta from './meta.js'
+import { meta } from './meta.js'
 
 export const driver = {
   connect() {

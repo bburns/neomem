@@ -1,4 +1,4 @@
-export default {
+export const meta = {
   nodes: [
     { _id: 'm1', name: 'folder' },
     { _id: 'm2', name: 'file' },
