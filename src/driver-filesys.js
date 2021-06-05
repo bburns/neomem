@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs/promises'
 import pathlib from 'path'
 import meta from './meta-filesys.js'
 
@@ -8,12 +8,13 @@ export const driver = {
   },
 }
 
-function isDir(path) {
+async function isDir(path) {
   try {
-    var stat = fs.lstatSync(path)
+    // var stat = fs.lstatSync(path)
+    const stat = await fs.stat(path)
     return stat.isDirectory()
   } catch (e) {
-    // lstatSync throws an error if path doesn't exist
+    // stat throws an error if path doesn't exist
     return false
   }
 }
@@ -65,10 +66,10 @@ class Connect {
     let parent = pathlib.normalize(node._id)
     return parent
   }
-  getType(node) {
+  async getType(node) {
     // const type = this.nodeIndex[node.type]
     const path = this.getPath(node)
-    const type = isDir(path)
+    const type = (await isDir(path))
       ? { _id: 'm1', name: 'folder' }
       : { _id: 'm2', name: 'file' }
     return type
@@ -86,38 +87,36 @@ class Connect {
     return '(n/a)'
   }
 
-  readDir(path) {
-    return fs.readdirSync(path)
+  async readDir(path) {
+    // return fs.readdirSync(path)
+    return await fs.readdir(path)
   }
 
-  readFile(path, nchars) {
-    return fs.readFileSync(path)
+  async readFile(path, nchars) {
+    // return fs.readFileSync(path)
+    // const fd = fs.openSync(path, 'r')
+    // fs.read(fd, Buffer.alloc(200), 0, 100, 0, (err, bytesRead, buffer) => {
+    //   console.log(err, bytesRead, buffer)
+    //   fs.closeSync(fd)
+    //   return String(buffer)
+    // })
+    const h = await fs.open(path, 'r')
+    const { bytesRead, buffer } = await h.read(Buffer.alloc(200), 0, 200, 0)
+    await h.close()
+    return String(buffer)
   }
 
-  // getContents(node) {
-  //   const edges = this.getEdges(node)
-  //   const contents = edges.map(edge => this.nodeIndex[edge._to].name).join(', ')
-  //   return contents
-  // }
   // diff drivers implement these differently - polymorphic
-  getContents(node) {
-    const type = this.getType(node)
+  async getContents(node) {
+    const type = await this.getType(node)
     const path = this.getPath(node)
     if (type.name === 'folder') {
-      return this.readDir(path)
+      return await this.readDir(path)
     } else if (type.name === 'file') {
-      return this.readFile(path)
+      return await this.readFile(path, 200)
     }
-    // const readCommand = type.readCommand
-    // // if node is folder, get list of files
-    // if (readCommand === 'readDir') {
-    //   return this.readDir(path)
-    //   // if node is file, read first 200 chars
-    // } else if (readCommand === 'readFile') {
-    //   return this.readFile(path, 200)
-    // }
-    // return node.contents
   }
+
   get() {}
   set() {}
   update() {}

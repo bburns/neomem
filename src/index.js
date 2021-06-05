@@ -20,7 +20,8 @@ print(welcome)
 // filesys
 let filepath = null
 // let id = '.'
-let key = '.'
+// let key = '.'
+let key = 'README.md'
 
 const connection = driver.connect()
 
@@ -41,7 +42,7 @@ const step = async (str, oldContext, filename, callback) => {
     print(chalk.bold(name))
     print(`type: ${connection.getName(type)}`)
     print(`notes: ${connection.getNotes(node)}`)
-    print(`contents: ${connection.getContents(node)}`)
+    print(`contents: ${await connection.getContents(node)}`)
     print(`exits: ${connection.getExits(node)}`)
     //
   } else if (command === 'list') {
