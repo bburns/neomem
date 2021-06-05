@@ -44,9 +44,10 @@ const step = async (str, oldContext, filename, callback) => {
     // print(`exits: ${connection.getExits(node)}`)
     const node = await connection.get(key)
     const type = await node.get('type')
-    console.log(type)
     print(chalk.bold(await node.get('name')))
     print(`type: ${await type.get('name')}`)
+    print(`notes: ${await node.get('notes')}`)
+    print(`contents: ${await node.get('contents')}`)
     //
   } else if (command === 'list') {
     const node = connection.getNode(key)

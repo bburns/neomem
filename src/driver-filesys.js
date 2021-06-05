@@ -19,6 +19,25 @@ async function isDir(path) {
   }
 }
 
+async function readDir(path) {
+  // return fs.readdirSync(path)
+  return await fs.readdir(path)
+}
+
+async function readFile(path, nchars) {
+  // return fs.readFileSync(path)
+  // const fd = fs.openSync(path, 'r')
+  // fs.read(fd, Buffer.alloc(200), 0, 100, 0, (err, bytesRead, buffer) => {
+  //   console.log(err, bytesRead, buffer)
+  //   fs.closeSync(fd)
+  //   return String(buffer)
+  // })
+  const h = await fs.open(path, 'r')
+  const { bytesRead, buffer } = await h.read(Buffer.alloc(200), 0, 200, 0)
+  await h.close()
+  return String(buffer)
+}
+
 class Connect {
   constructor() {
     // this.nodeIndex = {}
@@ -83,36 +102,6 @@ class Connect {
     return '(n/a)'
   }
 
-  async readDir(path) {
-    // return fs.readdirSync(path)
-    return await fs.readdir(path)
-  }
-
-  async readFile(path, nchars) {
-    // return fs.readFileSync(path)
-    // const fd = fs.openSync(path, 'r')
-    // fs.read(fd, Buffer.alloc(200), 0, 100, 0, (err, bytesRead, buffer) => {
-    //   console.log(err, bytesRead, buffer)
-    //   fs.closeSync(fd)
-    //   return String(buffer)
-    // })
-    const h = await fs.open(path, 'r')
-    const { bytesRead, buffer } = await h.read(Buffer.alloc(200), 0, 200, 0)
-    await h.close()
-    return String(buffer)
-  }
-
-  // diff drivers implement these differently - polymorphic
-  async getContents(node) {
-    const type = await this.getType(node)
-    const path = this.getPath(node)
-    if (type.name === 'folder') {
-      return await this.readDir(path)
-    } else if (type.name === 'file') {
-      return await this.readFile(path, 200)
-    }
-  }
-
   // crud operations
 
   async get(key) {
@@ -132,20 +121,39 @@ class Node {
     this.connection = connection
   }
 
-  async get(prop) {
-    if (prop === 'name') {
-      return this.props[prop]
-      //
-    } else if (prop === 'type') {
-      return this.getType()
-    }
-  }
-
   async getType() {
-    const path = this.props._id
+    const path = this.getPath()
     const type = (await isDir(path))
       ? { _id: 'm1', name: 'folder' }
       : { _id: 'm2', name: 'file' }
     return new Node(type, this.connection)
+  }
+
+  getPath() {
+    const path = pathlib.normalize(this.props._id)
+    return path
+  }
+
+  // diff drivers implement these differently - polymorphic
+  async getContents() {
+    const type = await this.getType()
+    const typeName = await type.get('name')
+    const path = this.getPath()
+    if (typeName === 'folder') {
+      return await readDir(path)
+    } else if (typeName === 'file') {
+      return await readFile(path, 200)
+    }
+  }
+
+  async get(prop) {
+    if (prop === 'name') {
+      return this.props[prop]
+    } else if (prop === 'type') {
+      return this.getType()
+    } else if (prop === 'notes') {
+      return '(n/a)'
+    } else if (prop === 'contents') {
+    }
   }
 }
