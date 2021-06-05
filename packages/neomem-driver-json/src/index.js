@@ -11,10 +11,6 @@ class Connection {
     this.nodes = []
   }
 
-  clear() {
-    this.nodes = []
-  }
-
   // crud operations
 
   add(node) {
@@ -39,5 +35,11 @@ class Connection {
     if (i !== -1) {
       this.nodes.splice(i, 1)
     }
+  }
+
+  // extra operations
+
+  clear() {
+    this.nodes = []
   }
 }

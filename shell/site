@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// build and deploy site
+// build and optionally deploy site
 // usage: shell/site
 
 // note: must use require instead of import, else must add .js extension to file
