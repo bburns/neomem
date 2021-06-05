@@ -42,10 +42,9 @@ class Connect {
     this.path = path
   }
 
-  //. these will be part of 'get'
+  //. these will all be part of 'get'
+
   getNode(key) {
-    // const node = this.nodeIndex[id]
-    // return node
     //. read props of the file or folder here? or do lazy eval?
     key = pathlib.normalize(key)
     // const stats = fs.statSync(key)
@@ -53,19 +52,18 @@ class Connect {
     return { _id: key, name }
   }
   getName(node) {
-    // return 'pokpok'
-    // if (!node.name) {
-    // node.name =
-    // }
     return node.name
   }
   getNotes(node) {
-    return node.notes
+    // return node.notes
+    return '(n/a)'
   }
   getPath(node) {
-    //. walk up tree to get path? until mount point? i guess so
+    //. walk up tree to get path? until root or mount point? i guess so
     // return this.path
-    return '.'
+    // return '.'
+    let parent = pathlib.normalize('..')
+    return parent
   }
   getType(node) {
     // const type = this.nodeIndex[node.type]
@@ -85,16 +83,15 @@ class Connect {
     //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
     //   .join(', ')
     // return exits
+    return '(n/a)'
   }
 
   readDir(path) {
-    // return fs.readdirSync(path)
-    return 'a dir list'
+    return fs.readdirSync(path)
   }
 
   readFile(path, nchars) {
-    // return fs.readFileSync(path)
-    return 'blahblah'
+    return fs.readFileSync(path)
   }
 
   // getContents(node) {
@@ -106,6 +103,9 @@ class Connect {
   getContents(node) {
     const type = this.getType(node)
     const path = this.getPath(node)
+    if (type.name === 'folder') {
+      return this.readDir(path)
+    }
     // const readCommand = type.readCommand
     // // if node is folder, get list of files
     // if (readCommand === 'readDir') {
