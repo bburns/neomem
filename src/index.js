@@ -1,4 +1,5 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
+import chalk from 'chalk' // color text https://github.com/chalk/chalk
 
 const print = console.log
 const welcome = `
@@ -18,9 +19,10 @@ let data = {
 
 let id = 1
 
-let nodeIndex = {}
+const nodeIndex = {}
 data.nodes.forEach(node => (nodeIndex[node._id] = node))
-let edgeFromIndex = {}
+
+const edgeFromIndex = {}
 data.edges.forEach(edge => {
   // (edgeFromIndex[edge._from] = edge)
   if (edgeFromIndex[edge._from]) {
@@ -35,11 +37,20 @@ data.edges.forEach(edge => {
 const step = async (str, oldContext, filename, callback) => {
   str = str.trim()
   if (str === 'look' || str === 'l') {
-    let node = nodeIndex[id]
-    let edges = edgeFromIndex[id]
-    let exits = edges.map(edge => edge.name)
-    print(node)
-    print(exits)
+    const node = nodeIndex[id]
+    const edges = edgeFromIndex[id]
+    const exits = edges.map(edge => edge.name).join(', ')
+    print(chalk.bold(node.name))
+    if (node.notes) {
+      print(node.notes)
+    }
+    print(`exits: ${exits}`)
+  } else if (str === 'list') {
+    const node = nodeIndex[id]
+    const edges = edgeFromIndex[id]
+    const contents = edges.map(edge => nodeIndex[edge._to].name).join(', ')
+    print(chalk.bold(node.name))
+    print(contents)
   }
   // const { output, context } = await evaluate(str, oldContext)
   // print(output)
