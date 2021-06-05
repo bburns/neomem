@@ -1,4 +1,5 @@
 import fs from 'fs'
+import meta from './meta-filesys.js'
 
 export const driver = {
   connect() {
@@ -51,7 +52,9 @@ class Connect {
   getType(node) {
     // const type = this.nodeIndex[node.type]
     const path = this.getPath(node)
-    const type = isDir(path) ? 'directory' : 'file'
+    const type = isDir(path)
+      ? { _id: 'm1', name: 'folder' }
+      : { _id: 'm2', name: 'file' }
     return type
   }
   getEdges(node) {
