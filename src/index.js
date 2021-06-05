@@ -31,10 +31,10 @@ const step = async (str, oldContext, filename, callback) => {
   //
   if (command === 'load') {
     await connection.load(path)
+    //
   } else if (command === 'look' || command === 'l') {
     const node = connection.getNode(id)
     const type = connection.getType(node)
-
     print(chalk.bold(node.name))
     print(`type: ${type.name}`)
     print(`notes: ${node.notes}`)

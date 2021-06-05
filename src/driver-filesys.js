@@ -6,12 +6,22 @@ export const driver = {
   },
 }
 
+function isDir(path) {
+  try {
+    var stat = fs.lstatSync(path)
+    return stat.isDirectory()
+  } catch (e) {
+    // lstatSync throws an error if path doesn't exist
+    return false
+  }
+}
+
 class Connect {
   constructor() {
-    this.nodeIndex = {}
-    this.edgeFromIndex = {}
-    this.edgeToIndex = {}
-    this.unlabelled = 'm4'
+    // this.nodeIndex = {}
+    // this.edgeFromIndex = {}
+    // this.edgeToIndex = {}
+    // this.unlabelled = 'm4'
   }
   // async load(path) {
   //   // read data
@@ -29,23 +39,31 @@ class Connect {
   // }
   //. these will be part of 'get'
   getNode(id) {
-    const node = this.nodeIndex[id]
-    return node
+    // const node = this.nodeIndex[id]
+    // return node
+    return { id }
+  }
+  getPath(node) {
+    //. walk up tree to get path? until mount point? i guess so
+    // return this.path
+    return '.'
   }
   getType(node) {
-    const type = this.nodeIndex[node.type]
+    // const type = this.nodeIndex[node.type]
+    const path = this.getPath(node)
+    const type = isDir(path) ? 'directory' : 'file'
     return type
   }
   getEdges(node) {
-    const edges = this.edgeFromIndex[node._id] || []
-    return edges
+    // const edges = this.edgeFromIndex[node._id] || []
+    // return edges
   }
   getExits(node) {
-    const edges = this.getEdges(node)
-    const exits = edges
-      .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
-      .join(', ')
-    return exits
+    // const edges = this.getEdges(node)
+    // const exits = edges
+    //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
+    //   .join(', ')
+    // return exits
   }
 
   readDir(path) {
@@ -57,10 +75,6 @@ class Connect {
     // return fs.readFileSync(path)
     return 'blahblah'
   }
-  getPath(node) {
-    //. walk up tree to get path? until mount point? i guess so
-    return 'a path'
-  }
 
   // getContents(node) {
   //   const edges = this.getEdges(node)
@@ -71,14 +85,14 @@ class Connect {
   getContents(node) {
     const type = this.getType(node)
     const path = this.getPath(node)
-    const readCommand = type.readCommand
-    // if node is folder, get list of files
-    if (readCommand === 'readDir') {
-      return this.readDir(path)
-      // if node is file, read first 200 chars
-    } else if (readCommand === 'readFile') {
-      return this.readFile(path, 200)
-    }
+    // const readCommand = type.readCommand
+    // // if node is folder, get list of files
+    // if (readCommand === 'readDir') {
+    //   return this.readDir(path)
+    //   // if node is file, read first 200 chars
+    // } else if (readCommand === 'readFile') {
+    //   return this.readFile(path, 200)
+    // }
     // return node.contents
   }
   get() {}
