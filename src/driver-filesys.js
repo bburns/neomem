@@ -62,45 +62,32 @@ class Connect {
     this.path = path
   }
 
-  //. these will all be part of 'get'
+  //. these will all be part of 'get' or node.get
 
-  getNode(key) {
-    //. read props of the file or folder here? or do lazy eval?
-    key = pathlib.normalize(key)
-    // const stats = fs.statSync(key)
-    const name = pathlib.basename(key)
-    return { _id: key, name }
-  }
+  // getNode(key) {
+  //   //. read props of the file or folder here? or do lazy eval?
+  //   key = pathlib.normalize(key)
+  //   // const stats = fs.statSync(key)
+  //   const name = pathlib.basename(key)
+  //   return { _id: key, name }
+  // }
 
   // getName(node) {
   //   return node.name
   // }
 
-  getNotes(node) {
-    // return node.notes
-    return '(n/a)'
-  }
+  // getNotes(node) {
+  //   // return node.notes
+  //   return '(n/a)'
+  // }
 
-  getPath(node) {
-    //. walk up tree to get path? until root or mount point? i guess so
-    // return this.path
-    // return '.'
-    let path = pathlib.normalize(node._id)
-    return path
-  }
-
-  getEdges(node) {
-    // const edges = this.edgeFromIndex[node._id] || []
-    // return edges
-  }
-  getExits(node) {
-    // const edges = this.getEdges(node)
-    // const exits = edges
-    //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
-    //   .join(', ')
-    // return exits
-    return '(n/a)'
-  }
+  // getPath(node) {
+  //   //. walk up tree to get path? until root or mount point? i guess so
+  //   // return this.path
+  //   // return '.'
+  //   let path = pathlib.normalize(node._id)
+  //   return path
+  // }
 
   // crud operations
 
@@ -146,6 +133,20 @@ class Node {
     }
   }
 
+  // getEdges(node) {
+  //   // const edges = this.edgeFromIndex[node._id] || []
+  //   // return edges
+  // }
+
+  // getExits(node) {
+  //   // const edges = this.getEdges(node)
+  //   // const exits = edges
+  //   //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
+  //   //   .join(', ')
+  //   // return exits
+  //   return '(n/a)'
+  // }
+
   async get(prop) {
     if (prop === 'name') {
       return this.props[prop]
@@ -154,6 +155,7 @@ class Node {
     } else if (prop === 'notes') {
       return '(n/a)'
     } else if (prop === 'contents') {
+      return await this.getContents()
     }
   }
 }

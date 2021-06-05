@@ -34,26 +34,21 @@ const step = async (str, oldContext, filename, callback) => {
     await connection.load(filepath)
     //
   } else if (command === 'look' || command === 'l') {
-    // const node = connection.getNode(key)
-    // const name = connection.getName(node)
-    // const type = connection.getType(node)
-    // print(chalk.bold(name))
-    // print(`type: ${connection.getName(type)}`)
-    // print(`notes: ${connection.getNotes(node)}`)
-    // print(`contents: ${await connection.getContents(node)}`)
-    // print(`exits: ${connection.getExits(node)}`)
     const node = await connection.get(key)
     const type = await node.get('type')
     print(chalk.bold(await node.get('name')))
     print(`type: ${await type.get('name')}`)
     print(`notes: ${await node.get('notes')}`)
     print(`contents: ${await node.get('contents')}`)
+    // print(`exits: ${connection.getExits(node)}`)
     //
   } else if (command === 'list') {
-    const node = connection.getNode(key)
-    const contents = connection.getContents(node)
-    print(chalk.bold(node.name))
-    print(`contents: ${contents}`)
+    const node = await connection.get(key)
+    print(chalk.bold(await node.get('name')))
+    // const node = connection.getNode(key)
+    // const contents = connection.getContents(node)
+    // print(chalk.bold(node.name))
+    // print(`contents: ${contents}`)
     //
   } else if (command === 'go') {
     // dest can be adjacent edge name, node name, or abs path, or id
