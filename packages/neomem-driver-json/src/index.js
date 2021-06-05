@@ -1,5 +1,10 @@
 // json driver
 
+//. this is actually driver-timegraph?
+// ie assumes nodes, edges, history 'tables'
+// should be able to connect to different datastores
+// so this is the api, those are drivers?
+
 function connect() {
   return new Connection()
 }
