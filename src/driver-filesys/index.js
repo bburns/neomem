@@ -1,32 +1,11 @@
-import fs from 'fs/promises'
 import pathlib from 'path'
+import * as lib from './lib.js'
 import { meta } from './meta.js'
 
 export const driver = {
   connect() {
     return new Connect()
   },
-}
-
-async function isDir(path) {
-  try {
-    const stat = await fs.stat(path)
-    return stat.isDirectory()
-  } catch (e) {
-    // stat throws an error if path doesn't exist
-    return false
-  }
-}
-
-async function readDir(path) {
-  return await fs.readdir(path)
-}
-
-async function readFile(path, nchars) {
-  const h = await fs.open(path, 'r')
-  const { buffer } = await h.read(Buffer.alloc(nchars), 0, nchars, 0)
-  await h.close()
-  return String(buffer)
 }
 
 class Connect {
@@ -57,7 +36,7 @@ class Node {
 
   async getType() {
     const path = this.getPath()
-    const type = (await isDir(path))
+    const type = (await lib.isDir(path))
       ? { _id: 'm1', name: 'folder' }
       : { _id: 'm2', name: 'file' }
     return new Node(type, this.connection)
@@ -81,7 +60,7 @@ class Node {
     const typeName = await type.get('name')
     const path = this.getPath()
     if (typeName === 'folder') {
-      return readDir(path)
+      return lib.readDir(path)
     }
     return '(n/a)'
   }
@@ -105,7 +84,7 @@ class Node {
     const typeName = await type.get('name')
     const path = this.getPath()
     if (typeName === 'file') {
-      return readFile(path, 80)
+      return lib.readFile(path, 80)
     }
     return '(n/a)'
   }
