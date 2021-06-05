@@ -14,7 +14,7 @@ print(welcome)
 
 // locations
 let id = 1
-const unlabelled = 3
+const unlabelled = 'm4'
 
 // get indexes
 const nodeIndex = {}
@@ -32,10 +32,12 @@ function getPath(node) {
   //. walk up tree to get path? until mount point? i guess so
   return 'a path'
 }
+
 function readDir(path) {
-  // return fs.readdirSync(getPath(node))
+  // return fs.readdirSync(path)
   return 'a dir list'
 }
+
 function readFile(path) {
   // return fs.readFileSync(path)
   return 'blahblah'
@@ -100,6 +102,7 @@ const step = async (str, oldContext, filename, callback) => {
   // oldContext.locationId = context.locationId
   // const location = await context.connection.get(context.locationId)
   // print(decorateLocation(location))
+  print()
   callback() // so knows to print prompt again
 }
 
