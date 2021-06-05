@@ -1,7 +1,7 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { driver } from './driver-filesys.js'
-// import { driver } from './driver-json.js'
+import { driver } from './driver-filesys/index.js'
+// import { driver } from './driver-json/index.js'
 
 const print = console.log
 const welcome = `

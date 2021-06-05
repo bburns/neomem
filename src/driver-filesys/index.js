@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import pathlib from 'path'
-import meta from './meta-filesys.js'
+import meta from './meta.js'
 
 export const driver = {
   connect() {
@@ -10,7 +10,6 @@ export const driver = {
 
 async function isDir(path) {
   try {
-    // var stat = fs.lstatSync(path)
     const stat = await fs.stat(path)
     return stat.isDirectory()
   } catch (e) {
@@ -20,7 +19,6 @@ async function isDir(path) {
 }
 
 async function readDir(path) {
-  // return fs.readdirSync(path)
   return await fs.readdir(path)
 }
 
@@ -107,7 +105,7 @@ class Node {
     const typeName = await type.get('name')
     const path = this.getPath()
     if (typeName === 'file') {
-      return readFile(path, 100)
+      return readFile(path, 80)
     }
     return '(n/a)'
   }
