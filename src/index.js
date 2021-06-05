@@ -18,7 +18,7 @@ print(welcome)
 // let key = 1
 
 // filesys
-// let path = '.'
+let filepath = null
 // let id = '.'
 let key = '.'
 
@@ -39,9 +39,7 @@ const step = async (str, oldContext, filename, callback) => {
     const name = connection.getName(node)
     const type = connection.getType(node)
     print(chalk.bold(name))
-    // print(`type: ${type.name}`)
     print(`type: ${connection.getName(type)}`)
-    // print(`notes: ${node.notes}`)
     print(`notes: ${connection.getNotes(node)}`)
     print(`contents: ${connection.getContents(node)}`)
     print(`exits: ${connection.getExits(node)}`)

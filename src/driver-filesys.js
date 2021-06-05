@@ -1,4 +1,5 @@
 import fs from 'fs'
+import pathlib from 'path'
 import meta from './meta-filesys.js'
 
 export const driver = {
@@ -45,8 +46,11 @@ class Connect {
   getNode(key) {
     // const node = this.nodeIndex[id]
     // return node
-    //. read props of the file or folder here? or do lazy eval? lazy
-    return { _id: key }
+    //. read props of the file or folder here? or do lazy eval?
+    key = pathlib.normalize(key)
+    // const stats = fs.statSync(key)
+    const name = pathlib.basename(key)
+    return { _id: key, name }
   }
   getName(node) {
     // return 'pokpok'
