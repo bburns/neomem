@@ -9,15 +9,24 @@ const prompt = '=> '
 print(welcome)
 
 let data = {
-  nodes: [{ name: 'a forest' }],
+  nodes: [
+    { _id: 1, name: 'forest' },
+    { _id: 2, name: 'clearing' },
+  ],
+  edges: [{ _from: 1, _to: 2 }],
 }
+
+let id = 1
+
+let nodeIndex = {}
+data.nodes.forEach(node => (nodeIndex[node._id] = node))
 
 // parse command string into a fn and execute it.
 // note: these parameters are specified by node's repl library.
 const step = async (str, oldContext, filename, callback) => {
   str = str.trim()
   if (str === 'look' || str === 'l') {
-    print(data.nodes)
+    print(nodeIndex[id])
   }
   // const { output, context } = await evaluate(str, oldContext)
   // print(output)
