@@ -13,20 +13,33 @@ let data = {
     { _id: 1, name: 'forest' },
     { _id: 2, name: 'clearing' },
   ],
-  edges: [{ _from: 1, _to: 2 }],
+  edges: [{ _from: 1, _to: 2, name: 'east' }],
 }
 
 let id = 1
 
 let nodeIndex = {}
 data.nodes.forEach(node => (nodeIndex[node._id] = node))
+let edgeFromIndex = {}
+data.edges.forEach(edge => {
+  // (edgeFromIndex[edge._from] = edge)
+  if (edgeFromIndex[edge._from]) {
+    edgeFromIndex[edge._from].push(edge)
+  } else {
+    edgeFromIndex[edge._from] = [edge]
+  }
+})
 
 // parse command string into a fn and execute it.
 // note: these parameters are specified by node's repl library.
 const step = async (str, oldContext, filename, callback) => {
   str = str.trim()
   if (str === 'look' || str === 'l') {
-    print(nodeIndex[id])
+    let node = nodeIndex[id]
+    let edges = edgeFromIndex[id]
+    let exits = edges.map(edge => edge.name)
+    print(node)
+    print(exits)
   }
   // const { output, context } = await evaluate(str, oldContext)
   // print(output)
