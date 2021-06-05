@@ -11,11 +11,19 @@ print(welcome)
 
 let data = {
   nodes: [
-    { _id: 1, name: 'forest' },
-    { _id: 2, name: 'clearing' },
+    { _id: 1, name: 'forest', type: 'place' },
+    { _id: 2, name: 'clearing', type: 'place' },
+    { _id: 3, name: 'south of house', type: 'place' },
+    { _id: 4, name: 'east', type: 'edge', reverse: 'west' },
+    { _id: 4, name: 'north', type: 'edge', reverse: 'south' },
   ],
-  edges: [{ _from: 1, _to: 2, name: 'east' }],
+  edges: [
+    { _from: 1, _to: 2, name: 'east', type: 'exit' },
+    { _from: 1, _to: 3, name: 'north', type: 'exit' },
+  ],
 }
+
+// let data = {}
 
 let id = 1
 
@@ -36,21 +44,27 @@ data.edges.forEach(edge => {
 // note: these parameters are specified by node's repl library.
 const step = async (str, oldContext, filename, callback) => {
   str = str.trim()
-  if (str === 'look' || str === 'l') {
+  const words = str.split(' ')
+  const command = words[0]
+  if (command === 'look' || command === 'l') {
     const node = nodeIndex[id]
-    const edges = edgeFromIndex[id]
+    const edges = edgeFromIndex[id] || []
     const exits = edges.map(edge => edge.name).join(', ')
     print(chalk.bold(node.name))
     if (node.notes) {
       print(node.notes)
     }
     print(`exits: ${exits}`)
-  } else if (str === 'list') {
+  } else if (command === 'list') {
     const node = nodeIndex[id]
     const edges = edgeFromIndex[id]
     const contents = edges.map(edge => nodeIndex[edge._to].name).join(', ')
     print(chalk.bold(node.name))
     print(contents)
+  } else if (command === 'go') {
+    const dest = words[1]
+    // console.log(dest)
+    id = 2
   }
   // const { output, context } = await evaluate(str, oldContext)
   // print(output)
