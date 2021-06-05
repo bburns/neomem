@@ -9,6 +9,7 @@ const prompt = '=> '
 
 print(welcome)
 
+// zork sim
 // let data = {
 //   nodes: [
 //     { _id: 1, name: 'forest', type: 'place' },
@@ -26,22 +27,28 @@ print(welcome)
 //   ],
 // }
 
+// filesys sim
 let data = {
   nodes: [
-    { _id: 1, name: 'pok' },
-    { _id: 2, name: 'lkm' },
+    { _id: 1, name: 'pok', type: 5, notes: `hello this is pok` },
+    { _id: 2, name: 'lkm', type: 6 },
+    { _id: 3, name: 'unlabelled' },
+    { _id: 4, name: 'contains' },
+    { _id: 5, name: 'folder' },
+    { _id: 6, name: 'file' },
   ],
-  edges: [{ _from: 1, _to: 2 }],
+  edges: [{ _from: 1, _to: 2, type: 4 }],
 }
 
+// locations
 let id = 1
+const unlabelled = 3
 
+// get indexes
 const nodeIndex = {}
 data.nodes.forEach(node => (nodeIndex[node._id] = node))
-
 const edgeFromIndex = {}
 data.edges.forEach(edge => {
-  // (edgeFromIndex[edge._from] = edge)
   if (edgeFromIndex[edge._from]) {
     edgeFromIndex[edge._from].push(edge)
   } else {
@@ -49,7 +56,7 @@ data.edges.forEach(edge => {
   }
 })
 
-// parse command string into a fn and execute it.
+// parse command string
 // note: these parameters are specified by node's repl library.
 const step = async (str, oldContext, filename, callback) => {
   str = str.trim()
@@ -57,13 +64,15 @@ const step = async (str, oldContext, filename, callback) => {
   const command = words[0]
   if (command === 'look' || command === 'l') {
     const node = nodeIndex[id]
-    // const edges = edgeFromIndex[id] || []
-    // const exits = edges.map(edge => nodeIndex[edge.direction].name).join(', ')
+    const edges = edgeFromIndex[id] || []
+    const exits = edges
+      .map(edge => nodeIndex[edge.type || unlabelled].name)
+      .join(', ')
     print(chalk.bold(node.name))
     if (node.notes) {
       print(node.notes)
     }
-    // print(`exits: ${exits}`)
+    print(`exits: ${exits}`)
   } else if (command === 'list') {
     const node = nodeIndex[id]
     const edges = edgeFromIndex[id] || [] // eg [{_from:1, _to:2}]
