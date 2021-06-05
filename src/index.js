@@ -1,8 +1,9 @@
 import fs from 'fs'
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-// import { data } from './data-neomem.js'
-import { data } from './data-filesys.js'
+
+import { driver } from './driver-filesys.js'
+// import { driver } from './driver-json.js'
 
 const print = console.log
 const welcome = `
@@ -12,59 +13,14 @@ const prompt = '=> '
 
 print(welcome)
 
-// locations
-let id = 1
-const unlabelled = 'm4'
+// let path = './data-flesys.json'
+// let path = './data-neomem.json'
+// let id = 1
 
-// get indexes
-const nodeIndex = {}
-data.nodes.forEach(node => (nodeIndex[node._id] = node))
-const edgeFromIndex = {}
-data.edges.forEach(edge => {
-  if (edgeFromIndex[edge._from]) {
-    edgeFromIndex[edge._from].push(edge)
-  } else {
-    edgeFromIndex[edge._from] = [edge]
-  }
-})
+let path = '.'
+let id = '.'
 
-function getPath(node) {
-  //. walk up tree to get path? until mount point? i guess so
-  return 'a path'
-}
-
-function readDir(path) {
-  // return fs.readdirSync(path)
-  return 'a dir list'
-}
-
-function readFile(path) {
-  // return fs.readFileSync(path)
-  return 'blahblah'
-}
-
-// diff drivers implement these differently - polymorphic
-function getContents(node) {
-  const type = nodeIndex[node.type]
-  const readCommand = type.readCommand
-  // if node is folder, get list of files
-  if (readCommand === 'readDir') {
-    // return 'run readdir'
-    return readDir(getPath(node))
-    // if node is file, read first 200 chars
-  } else if (readCommand === 'readFile') {
-    return readFile(getPath(node))
-  }
-  // return node.contents
-}
-
-function getExits(node) {
-  const edges = edgeFromIndex[node._id] || []
-  const exits = edges
-    .map(edge => nodeIndex[edge.type || unlabelled].name)
-    .join(', ')
-  return exits
-}
+const connection = driver.connect()
 
 // parse command string
 // note: these parameters are specified by node's repl library.
@@ -73,21 +29,21 @@ const step = async (str, oldContext, filename, callback) => {
   const words = str.split(' ')
   const command = words[0]
   //
-  if (command === 'look' || command === 'l') {
-    const node = nodeIndex[id]
-    const type = nodeIndex[node.type]
+  if (command === 'load') {
+    await connection.load(path)
+  } else if (command === 'look' || command === 'l') {
+    const node = connection.getNode(id)
+    const type = connection.getType(node)
 
     print(chalk.bold(node.name))
     print(`type: ${type.name}`)
     print(`notes: ${node.notes}`)
-    print(`contents: ${getContents(node)}`)
-    print(`exits: ${getExits(node)}`)
+    print(`contents: ${connection.getContents(node)}`)
+    print(`exits: ${connection.getExits(node)}`)
     //
   } else if (command === 'list') {
-    const node = nodeIndex[id]
-    const edges = edgeFromIndex[id] || [] // eg [{_from:1, _to:2}]
-    // const edgeNames = edges.map(edge => )
-    const contents = edges.map(edge => nodeIndex[edge._to].name).join(', ')
+    const node = connection.getNode(id)
+    const contents = connection.getContents(node)
     print(chalk.bold(node.name))
     print(`contents: ${contents}`)
     //
