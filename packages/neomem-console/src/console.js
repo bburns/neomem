@@ -4,7 +4,7 @@ import repl from 'repl' // node lib - lots of options https://nodejs.org/api/rep
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { evaluate } from './evaluate.js'
 import { connect } from './driver-json.js'
-import { data } from './data.js'
+import { data } from '../../neomem-driver-json/src/data.js'
 
 const welcome = `
 Welcome to Neomem

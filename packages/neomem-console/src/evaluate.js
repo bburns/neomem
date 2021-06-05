@@ -1,4 +1,6 @@
 // console command evaluator
+// takes a string and returns a command fn
+// eg 'look' => fn look
 
 import R from 'rambda' // functional programming lib https://ramdajs.com/
 import commands from './commands.js'
