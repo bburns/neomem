@@ -25,68 +25,17 @@ async function readDir(path) {
 }
 
 async function readFile(path, nchars) {
-  // return fs.readFileSync(path)
-  // const fd = fs.openSync(path, 'r')
-  // fs.read(fd, Buffer.alloc(200), 0, 100, 0, (err, bytesRead, buffer) => {
-  //   console.log(err, bytesRead, buffer)
-  //   fs.closeSync(fd)
-  //   return String(buffer)
-  // })
   const h = await fs.open(path, 'r')
-  const { bytesRead, buffer } = await h.read(Buffer.alloc(200), 0, 200, 0)
+  const { buffer } = await h.read(Buffer.alloc(nchars), 0, nchars, 0)
   await h.close()
   return String(buffer)
 }
 
 class Connect {
-  constructor() {
-    // this.nodeIndex = {}
-    // this.edgeFromIndex = {}
-    // this.edgeToIndex = {}
-    // this.unlabelled = 'm4'
-  }
+  constructor() {}
 
-  async load(path) {
-    // read data
-    // const data = JSON.parse(String(await fs.readFileSync(path)))
-    // // get node index
-    // data.nodes.forEach(node => (this.nodeIndex[node._id] = node))
-    // // get edge indexes
-    // data.edges.forEach(edge => {
-    //   if (this.edgeFromIndex[edge._from]) {
-    //     this.edgeFromIndex[edge._from].push(edge)
-    //   } else {
-    //     this.edgeFromIndex[edge._from] = [edge]
-    //   }
-    // })
-    this.path = path
-  }
-
-  //. these will all be part of 'get' or node.get
-
-  // getNode(key) {
-  //   //. read props of the file or folder here? or do lazy eval?
-  //   key = pathlib.normalize(key)
-  //   // const stats = fs.statSync(key)
-  //   const name = pathlib.basename(key)
-  //   return { _id: key, name }
-  // }
-
-  // getName(node) {
-  //   return node.name
-  // }
-
-  // getNotes(node) {
-  //   // return node.notes
-  //   return '(n/a)'
-  // }
-
-  // getPath(node) {
-  //   //. walk up tree to get path? until root or mount point? i guess so
-  //   // return this.path
-  //   // return '.'
-  //   let path = pathlib.normalize(node._id)
-  //   return path
+  // async load(path) {
+  //   this.path = path
   // }
 
   // crud operations
@@ -116,6 +65,13 @@ class Node {
     return new Node(type, this.connection)
   }
 
+  // getPath(node) {
+  //   //. walk up tree to get path? until root or mount point? i guess so
+  //   // return this.path
+  //   // return '.'
+  //   let path = pathlib.normalize(node._id)
+  //   return path
+  // }
   getPath() {
     const path = pathlib.normalize(this.props._id)
     return path
@@ -127,10 +83,9 @@ class Node {
     const typeName = await type.get('name')
     const path = this.getPath()
     if (typeName === 'folder') {
-      return await readDir(path)
-    } else if (typeName === 'file') {
-      return await readFile(path, 200)
+      return readDir(path)
     }
+    return '(n/a)'
   }
 
   // getEdges(node) {
@@ -147,15 +102,25 @@ class Node {
   //   return '(n/a)'
   // }
 
+  async getNotes() {
+    const type = await this.getType()
+    const typeName = await type.get('name')
+    const path = this.getPath()
+    if (typeName === 'file') {
+      return readFile(path, 100)
+    }
+    return '(n/a)'
+  }
+
   async get(prop) {
     if (prop === 'name') {
       return this.props[prop]
     } else if (prop === 'type') {
       return this.getType()
     } else if (prop === 'notes') {
-      return '(n/a)'
+      return this.getNotes()
     } else if (prop === 'contents') {
-      return await this.getContents()
+      return this.getContents()
     }
   }
 }
