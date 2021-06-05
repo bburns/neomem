@@ -29,7 +29,16 @@ data.edges.forEach(edge => {
 })
 
 function getPath(node) {
-  //. walk up tree to get path? until mount point?
+  //. walk up tree to get path? until mount point? i guess so
+  return 'a path'
+}
+function readDir(path) {
+  // return fs.readdirSync(getPath(node))
+  return 'a dir list'
+}
+function readFile(path) {
+  // return fs.readFileSync(path)
+  return 'blahblah'
 }
 
 // diff drivers implement these differently - polymorphic
@@ -38,14 +47,13 @@ function getContents(node) {
   const readCommand = type.readCommand
   // if node is folder, get list of files
   if (readCommand === 'readDir') {
-    // return fs.readdirSync(getPath(node))
-    return 'run readdir'
+    // return 'run readdir'
+    return readDir(getPath(node))
     // if node is file, read first 200 chars
   } else if (readCommand === 'readFile') {
-    // return fs.readFileSync(getPath(node))
-    // return node.contents
-    return 'run readfile'
+    return readFile(getPath(node))
   }
+  // return node.contents
 }
 
 function getExits(node) {

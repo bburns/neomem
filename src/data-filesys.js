@@ -1,12 +1,11 @@
 // filesys sim
 export const data = {
   nodes: [
-    { _id: 1, name: 'home', type: 5, notes: `the home folder` },
+    { _id: 1, name: 'home', type: 5 },
     {
       _id: 2,
       name: 'hello.txt',
       type: 6,
-      notes: `a text file`,
       contents: `blahblahblah`,
     },
     { _id: 3, name: 'unlabelled' },
