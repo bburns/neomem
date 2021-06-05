@@ -1,6 +1,8 @@
+import fs from 'fs'
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { data } from './data-neomem.js'
+// import { data } from './data-neomem.js'
+import { data } from './data-filesys.js'
 
 const print = console.log
 const welcome = `
@@ -32,19 +34,17 @@ function getPath(node) {
 
 // diff drivers implement these differently - polymorphic
 function getContents(node) {
-  const typeName = nodeIndex[node.type].name
-  // if node is file, read first 200 chars
-  if (typeName === 'file') {
-    // return fs.readFileSync(getPath(node))
-    return node.contents
-
-    // if node is folder, get list of files
-  } else if (typeName === 'folder') {
+  const type = nodeIndex[node.type]
+  const readCommand = type.readCommand
+  // if node is folder, get list of files
+  if (readCommand === 'readDir') {
     // return fs.readdirSync(getPath(node))
-    return []
-
-    // if node is place, get list of nodes linked from here
-  } else if (typeName === 'place') {
+    return 'run readdir'
+    // if node is file, read first 200 chars
+  } else if (readCommand === 'readFile') {
+    // return fs.readFileSync(getPath(node))
+    // return node.contents
+    return 'run readfile'
   }
 }
 
