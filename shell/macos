@@ -1,0 +1,4 @@
+#!/bin/bash
+
+brew install parallel # run cmds in parallel
+brew install expect # includes unbuffer, which can restore color output

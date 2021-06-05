@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+//. get py version from ladder99
+
 // run a docker-compose yaml file with optional list of services
 
 // usage: shell/docker COMMAND SETUP [SERVICES]
