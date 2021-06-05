@@ -1,7 +1,5 @@
-import fs from 'fs'
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-
 import { driver } from './driver-filesys.js'
 // import { driver } from './driver-json.js'
 
@@ -13,12 +11,16 @@ const prompt = '=> '
 
 print(welcome)
 
-// let path = './data-flesys.json'
-// let path = './data-neomem.json'
+// json files
+// let filepath = './data-flesys.json'
+// let filepath = './data-neomem.json'
 // let id = 1
+// let key = 1
 
-let path = '.'
-let id = '.'
+// filesys
+// let path = '.'
+// let id = '.'
+let key = '.'
 
 const connection = driver.connect()
 
@@ -30,19 +32,22 @@ const step = async (str, oldContext, filename, callback) => {
   const command = words[0]
   //
   if (command === 'load') {
-    await connection.load(path)
+    await connection.load(filepath)
     //
   } else if (command === 'look' || command === 'l') {
-    const node = connection.getNode(id)
+    const node = connection.getNode(key)
+    const name = connection.getName(node)
     const type = connection.getType(node)
-    print(chalk.bold(node.name))
-    print(`type: ${type.name}`)
-    print(`notes: ${node.notes}`)
+    print(chalk.bold(name))
+    // print(`type: ${type.name}`)
+    print(`type: ${connection.getName(type)}`)
+    // print(`notes: ${node.notes}`)
+    print(`notes: ${connection.getNotes(node)}`)
     print(`contents: ${connection.getContents(node)}`)
     print(`exits: ${connection.getExits(node)}`)
     //
   } else if (command === 'list') {
-    const node = connection.getNode(id)
+    const node = connection.getNode(key)
     const contents = connection.getContents(node)
     print(chalk.bold(node.name))
     print(`contents: ${contents}`)
@@ -51,13 +56,8 @@ const step = async (str, oldContext, filename, callback) => {
     // dest can be adjacent edge name, node name, or abs path, or id
     // eg 'go north', 'go /home', 'go hello.txt', '2' ?
     const dest = words[1]
-    id = Number(dest)
+    key = dest
   }
-  // const { output, context } = await evaluate(str, oldContext)
-  // print(output)
-  // oldContext.locationId = context.locationId
-  // const location = await context.connection.get(context.locationId)
-  // print(decorateLocation(location))
   print()
   callback() // so knows to print prompt again
 }

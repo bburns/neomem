@@ -24,25 +24,39 @@ class Connect {
     // this.edgeToIndex = {}
     // this.unlabelled = 'm4'
   }
-  // async load(path) {
-  //   // read data
-  //   const data = JSON.parse(String(await fs.readFileSync(path)))
-  //   // get node index
-  //   data.nodes.forEach(node => (this.nodeIndex[node._id] = node))
-  //   // get edge indexes
-  //   data.edges.forEach(edge => {
-  //     if (this.edgeFromIndex[edge._from]) {
-  //       this.edgeFromIndex[edge._from].push(edge)
-  //     } else {
-  //       this.edgeFromIndex[edge._from] = [edge]
-  //     }
-  //   })
-  // }
+
+  async load(path) {
+    // read data
+    // const data = JSON.parse(String(await fs.readFileSync(path)))
+    // // get node index
+    // data.nodes.forEach(node => (this.nodeIndex[node._id] = node))
+    // // get edge indexes
+    // data.edges.forEach(edge => {
+    //   if (this.edgeFromIndex[edge._from]) {
+    //     this.edgeFromIndex[edge._from].push(edge)
+    //   } else {
+    //     this.edgeFromIndex[edge._from] = [edge]
+    //   }
+    // })
+    this.path = path
+  }
+
   //. these will be part of 'get'
-  getNode(id) {
+  getNode(key) {
     // const node = this.nodeIndex[id]
     // return node
-    return { id }
+    //. read props of the file or folder here? or do lazy eval? lazy
+    return { _id: key }
+  }
+  getName(node) {
+    // return 'pokpok'
+    // if (!node.name) {
+    // node.name =
+    // }
+    return node.name
+  }
+  getNotes(node) {
+    return node.notes
   }
   getPath(node) {
     //. walk up tree to get path? until mount point? i guess so
