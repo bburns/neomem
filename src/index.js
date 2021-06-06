@@ -1,7 +1,8 @@
 import { exec } from 'child_process' // node lib
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { driver } from './driver-json/index.js'
+import { driver as driverJson } from './driver-json/index.js'
+import { driver as driverFilesys } from './driver-filesys/index.js'
 
 const filepath = './src/data/home.json' //. pass via envar or param
 
@@ -13,7 +14,7 @@ const prompt = '> '
 
 ;(async function () {
   print(welcome)
-  const connection = driver.connect()
+  let connection = driverJson.connect()
   await connection.load(filepath)
   let key = connection.getInitialLocation()
   await look(connection, key)
@@ -40,13 +41,18 @@ const prompt = '> '
       // get node of new location
       const node = await connection.get(key)
       const type = await node.get('type')
+      const driverName = await node.get('driver')
       const typeName = await type.get('name')
       if (typeName === 'mount') {
-        //. assume same driver for now
-        // connection = driver.connect()
-        const filepath = await node.get('source')
-        await connection.load('./src/' + filepath)
-        key = connection.getInitialLocation()
+        if (driverName === 'json') {
+          connection = driverJson.connect()
+          const source = await node.get('source')
+          await connection.load('./src/' + source)
+          key = connection.getInitialLocation()
+        } else if (driverName === 'filesys') {
+          connection = driverFilesys.connect()
+          key = './src/data/blog'
+        }
       }
 
       await look(connection, key)

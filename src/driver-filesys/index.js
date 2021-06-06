@@ -34,9 +34,9 @@ class Node {
     this.props = props
   }
 
-  load(path) {
-    driverJson.
-  }
+  // load(path) {
+  //   driverJson.
+  // }
 
   async getType() {
     const path = this.getPath()
