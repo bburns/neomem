@@ -8,6 +8,7 @@ const print = console.log
 //------------------------------------------------------------------------
 // edit
 //------------------------------------------------------------------------
+
 async function edit(connection, key, words) {
   //.
   exec('code pok.txt', (error, stdout, stderr) => {
@@ -19,6 +20,7 @@ edit.notes = `edit notes for a node`
 //------------------------------------------------------------------------
 // go
 //------------------------------------------------------------------------
+
 async function go(connection, key, words) {
   //. dest can be adjacent edge name, node name, or abs path, or id
   // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
@@ -53,6 +55,7 @@ go.notes = `go to another location, or in a direction`
 //------------------------------------------------------------------------
 // help
 //------------------------------------------------------------------------
+
 async function help(connection, key, words) {
   const rows = Object.keys(commands).map(key => [key, commands[key].notes])
   print(rows)
@@ -62,6 +65,7 @@ help.notes = `get help`
 //------------------------------------------------------------------------
 // look
 //------------------------------------------------------------------------
+
 async function look(connection, key, words) {
   const node = await connection.get(key)
   const name = await node.get('name')
@@ -85,6 +89,7 @@ look.notes = `look at this or another location`
 //------------------------------------------------------------------------
 // list
 //------------------------------------------------------------------------
+
 async function list(connection, key, words) {
   const node = await connection.get(key)
   const name = await node.get('name')
@@ -98,6 +103,7 @@ list.notes = `list contents of this or another location`
 //------------------------------------------------------------------------
 // unknown
 //------------------------------------------------------------------------
+
 async function unknown(connection, key, words) {
   print('Huh?')
 }
