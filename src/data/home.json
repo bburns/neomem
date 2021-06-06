@@ -12,7 +12,6 @@
       "type": "home:folder",
       "notes": "neomem skeleton"
     },
-    { "_id": 2, "name": "data", "type": "home:folder" },
     {
       "_id": 3,
       "name": "filesys",
@@ -50,11 +49,10 @@
     }
   ],
   "edges": [
-    { "_from": 1, "_to": 2, "type": "home:contains" },
-    { "_from": 2, "_to": 3, "type": "home:contains" },
-    { "_from": 2, "_to": 4, "type": "home:contains" },
-    { "_from": 2, "_to": 5, "type": "home:contains" },
-    { "_from": 2, "_to": 6, "type": "home:contains" },
-    { "_from": 2, "_to": 7, "type": "home:contains" }
+    { "_from": 1, "_to": 3, "type": "home:contains" },
+    { "_from": 1, "_to": 4, "type": "home:contains" },
+    { "_from": 1, "_to": 5, "type": "home:contains" },
+    { "_from": 1, "_to": 6, "type": "home:contains" },
+    { "_from": 1, "_to": 7, "type": "home:contains" }
   ]
 }
