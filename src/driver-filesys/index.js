@@ -11,7 +11,13 @@ export const driver = {
 //
 
 class Connect {
-  constructor() {}
+  constructor() {
+    this.path = null
+  }
+
+  async load(path) {
+    this.path = path
+  }
 
   // crud operations
 
@@ -34,12 +40,9 @@ class Node {
     this.props = props
   }
 
-  // load(path) {
-  //   driverJson.
-  // }
-
   async getType() {
     const path = this.getPath()
+    //...
     const type = (await lib.isDir(path))
       ? { _id: 'm1', name: 'folder' }
       : { _id: 'm2', name: 'file' }
@@ -53,12 +56,13 @@ class Node {
   //   let path = pathlib.normalize(node._id)
   //   return path
   // }
+  //. get full path?
   getPath() {
-    const path = pathlib.normalize(this.props._id)
+    // const path = pathlib.normalize(this.props._id)
+    const path = pathlib.join(this.connection.path, this.props._id)
     return path
   }
 
-  // diff drivers implement these differently - polymorphic
   async getContents() {
     const type = await this.getType()
     const typeName = await type.get('name')
@@ -74,7 +78,7 @@ class Node {
     return edges
   }
 
-  getExits() {
+  async getExits() {
     // const edges = this.getEdges(node)
     // const exits = edges
     //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
@@ -88,6 +92,8 @@ class Node {
     const typeName = await type.get('name')
     const path = this.getPath()
     if (typeName === 'file') {
+      // console.log(path)
+      console.log(this.connection)
       return lib.readFile(path, 80)
     }
     return '(n/a)'
@@ -105,5 +111,6 @@ class Node {
     } else if (prop === 'contents') {
       return this.getContents()
     }
+    return this.props[prop]
   }
 }

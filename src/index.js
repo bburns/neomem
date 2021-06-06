@@ -41,17 +41,20 @@ const prompt = '> '
       // get node of new location
       const node = await connection.get(key)
       const type = await node.get('type')
-      const driverName = await node.get('driver')
       const typeName = await type.get('name')
       if (typeName === 'mount') {
+        const driverName = await node.get('driver')
+        const source = await node.get('source')
         if (driverName === 'json') {
           connection = driverJson.connect()
-          const source = await node.get('source')
           await connection.load('./src/' + source)
           key = connection.getInitialLocation()
         } else if (driverName === 'filesys') {
           connection = driverFilesys.connect()
-          key = './src/data/blog'
+          // key = source
+          // key = './src/data/blog' //..
+          connection.load('./src/' + source)
+          key = '.'
         }
       }
 

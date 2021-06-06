@@ -22,6 +22,8 @@ class Connect {
   }
 
   async load(path) {
+    //. save path?
+
     // read all json data
     const data = JSON.parse(String(await fs.readFile(path)))
     this.initialLocation = data.meta.initialLocation
