@@ -68,15 +68,11 @@ const prompt = '> '
 
   async function list(connection, key) {
     const node = await connection.get(key)
+    const name = await node.get('name')
     const contents = await node.get('contents')
 
-    print(chalk.bold(await node.get('name')))
-    if (typeof contents === 'string') {
-      print(`contents: ${contents}`)
-    } else {
-      print(`contents:`)
-      print(contents.join('\n'))
-    }
+    print(chalk.bold(name))
+    print(contents.join('\n'))
   }
 
   const server = repl.start({ prompt, eval: step })
