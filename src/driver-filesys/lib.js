@@ -15,8 +15,11 @@ export async function readDir(path) {
 }
 
 export async function readFile(path, nchars) {
-  const h = await fs.open(path, 'r')
-  const { buffer } = await h.read(Buffer.alloc(nchars), 0, nchars, 0)
-  await h.close()
+  if (!nchars) {
+    return String(fs.readFile(path))
+  }
+  const file = await fs.open(path, 'r')
+  const { buffer } = await file.read(Buffer.alloc(nchars), 0, nchars, 0)
+  await file.close()
   return String(buffer)
 }

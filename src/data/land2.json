@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "name": "land2",
+    "notes": "another world",
+    "metafile": "place-meta.json"
+  },
+  "nodes": [
+    { "_id": 1, "name": "foyer", "type": "place:place" },
+    { "_id": 2, "name": "living room", "type": "place:place" },
+    { "_id": 3, "name": "kitchen", "type": "place:place" }
+  ],
+  "edges": [
+    { "_from": 2, "_to": 3, "direction": "place:west", "type": "place:exit" },
+    { "_from": 2, "_to": 1, "direction": "place:south", "type": "place:exit" }
+  ]
+}

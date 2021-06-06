@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "name": "places meta file",
+    "notes": ""
+  },
+  "nodes": [
+    {
+      "_id": "place:east",
+      "name": "east",
+      "type": "edge",
+      "reverse": "place:west",
+      "alias": ["e"]
+    },
+    {
+      "_id": "place:west",
+      "name": "west",
+      "type": "edge",
+      "reverse": "place:east",
+      "alias": ["w"]
+    },
+    {
+      "_id": "place:north",
+      "name": "north",
+      "type": "edge",
+      "reverse": "place:south",
+      "alias": ["n"]
+    },
+    {
+      "_id": "place:south",
+      "name": "south",
+      "type": "edge",
+      "reverse": "place:north",
+      "alias": ["s"]
+    },
+    { "_id": "place:place", "name": "place", "type": "type" },
+    { "_id": "place:exit", "name": "exit", "type": "type" }
+  ],
+  "edges": []
+}
