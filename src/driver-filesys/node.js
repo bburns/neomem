@@ -25,7 +25,7 @@ export class Node {
   // }
 
   async getExits() {
-    return 'up'
+    return ['up']
   }
 
   async getNotes() {

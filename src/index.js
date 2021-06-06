@@ -28,44 +28,13 @@ const prompt = '> '
     const command = words[0]
 
     if (command === 'look' || command === 'l') {
-      await look(connection, key)
-      //
-    } else if (command === 'list') {
-      await list(connection, key)
-      //
-    } else if (command === 'go') {
-      //. dest can be adjacent edge name, node name, or abs path, or id
-      // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
-      const dest = words[1]
-      key = dest
-
-      // get node of new location
-      const node = await connection.get(key)
-      const type = await node.get('type')
-      const typeName = await type.get('name')
-
-      if (typeName === 'mount') {
-        const driverName = await node.get('driver')
-        const source = await node.get('source')
-        if (driverName === 'json') {
-          connection = driverJson.connect()
-          await connection.load('./src/' + source)
-          key = connection.getInitialLocation()
-        } else if (driverName === 'filesys') {
-          connection = driverFilesys.connect()
-          // key = source
-          // key = './src/data/blog' //..
-          connection.load('./src/' + source)
-          key = '.'
-        }
-      }
-
-      await look(connection, key)
-      //
+      key = await look(connection, key, words)
     } else if (command === 'edit') {
-      exec('code pok.txt', (error, stdout, stderr) => {
-        print('done')
-      })
+      await edit(connection, key, words)
+    } else if (command === 'go') {
+      key = await go(connection, key, words)
+    } else if (command === 'list') {
+      key = await list(connection, key, words)
     } else {
       print('Huh?')
     }
@@ -73,7 +42,44 @@ const prompt = '> '
     callback() // so knows to print prompt again
   }
 
-  async function look(connection, key) {
+  async function edit(connection, key, words) {
+    //.
+    exec('code pok.txt', (error, stdout, stderr) => {
+      print('done')
+    })
+  }
+
+  async function go(connection, key, words) {
+    //. dest can be adjacent edge name, node name, or abs path, or id
+    // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
+    const dest = words[1]
+    key = dest
+
+    // get node of new location
+    const node = await connection.get(key)
+    const type = await node.get('type')
+    const typeName = await type.get('name')
+
+    if (typeName === 'mount') {
+      const driverName = await node.get('driver')
+      const source = await node.get('source')
+      if (driverName === 'json') {
+        connection = driverJson.connect()
+        await connection.load('./src/' + source)
+        key = connection.getInitialLocation()
+      } else if (driverName === 'filesys') {
+        connection = driverFilesys.connect()
+        // key = source
+        // key = './src/data/blog' //..
+        connection.load('./src/' + source)
+        key = '.'
+      }
+    }
+
+    await look(connection, key, words)
+  }
+
+  async function look(connection, key, words) {
     const node = await connection.get(key)
     const name = await node.get('name')
     const type = await node.get('type')
@@ -93,7 +99,7 @@ const prompt = '> '
     if (exits && exits.length > 0) print(`exits: ${exits.join(', ')}`)
   }
 
-  async function list(connection, key) {
+  async function list(connection, key, words) {
     const node = await connection.get(key)
     const name = await node.get('name')
     const contents = await node.get('contents')
