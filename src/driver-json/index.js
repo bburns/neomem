@@ -14,7 +14,7 @@ class Connect {
     this.nodeIndex = {}
     this.edgeFromIndex = {}
     this.edgeToIndex = {}
-    // this.nodeNameIndex = {}
+    this.nodeNameIndex = {}
     // this.unlabelled = 'm4'
   }
 
@@ -23,7 +23,8 @@ class Connect {
     const data = JSON.parse(String(await fs.readFileSync(path)))
     // get node index
     data.nodes.forEach(node => (this.nodeIndex[node._id] = node))
-    // data.nodes.forEach(node => (this.nodeNameIndex[node.name] = node))
+    //. assume unique names for now
+    data.nodes.forEach(node => (this.nodeNameIndex[node.name] = node))
     // get edge indexes
     data.edges.forEach(edge => {
       if (this.edgeFromIndex[edge._from]) {
@@ -44,7 +45,7 @@ class Connect {
   // crud operations
 
   async get(key) {
-    const props = this.nodeIndex[key]
+    const props = this.nodeIndex[key] || this.nodeNameIndex[key]
     return new Node(props, this)
   }
 
@@ -84,7 +85,7 @@ class Node {
     return exits
   }
 
-  get(prop) {
+  async get(prop) {
     if (prop === 'name') {
       return this.props[prop]
     } else if (prop === 'type') {

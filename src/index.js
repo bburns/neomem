@@ -28,8 +28,9 @@ const step = async (str, oldContext, filename, callback) => {
   if (command === 'look' || command === 'l') {
     //
     const node = await connection.get(key)
+    // print(node)
     const type = await node.get('type')
-
+    // print(type)
     print(chalk.bold(await node.get('name')))
     print(`type: ${await type.get('name')}`)
     print(`notes: ${await node.get('notes')}`)
@@ -57,8 +58,8 @@ const step = async (str, oldContext, filename, callback) => {
     key = dest
     //
   } else if (command === 'edit') {
-  } else if (command === 'up') {
-    key = '..'
+    // } else if (command === 'up') {
+    //   key = '..'
   }
   print()
   callback() // so knows to print prompt again
