@@ -52,10 +52,22 @@ export class Node {
 
   async getType() {
     const path = this.getPath()
-    //. use filesys-meta.json values
-    const type = (await lib.isDir(path))
-      ? { _id: 'folder', name: 'folder' }
-      : { _id: 'file', name: 'file' }
+    //. use filesys-meta.json values here
+    // const type = await lib.isDir(path)
+    //   ? { _id: 'folder', name: 'folder' }
+    //   : { _id: 'file', name: 'file' }
+    // return new Node(this.connection, type)
+    const isFolder = await lib.isDir(path)
+    let type
+    if (isFolder) {
+      //. use filesys-meta.json values here
+      type = { _id: 'folder', name: 'folder' }
+    } else if (path.endsWith('.md')) {
+      //...
+      type = { _id: 'mount', name: 'mount' }
+    } else {
+      type = { _id: 'file', name: 'file' }
+    }
     return new Node(this.connection, type)
   }
 

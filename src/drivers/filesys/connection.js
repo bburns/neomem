@@ -1,8 +1,5 @@
-// connection
-
 import pathlib from 'path'
 import { Node } from './node.js'
-// import { drivers } from '../index.js'
 
 export class Connection {
   constructor() {
@@ -20,14 +17,20 @@ export class Connection {
     return this.initialLocation
   }
 
-  // crud operations
-
   async get(key) {
     key = pathlib.normalize(key)
     const name = pathlib.basename(key)
+    if (key.endsWith('.md')) {
+      return new Node(this, {
+        _id: key,
+        type: 'mount',
+        driver: 'markdown',
+        source: pathlib.join(this.path, key),
+        name,
+      })
+    }
     return new Node(this, { _id: key, name })
   }
-
   set() {}
   update() {}
   del() {}
