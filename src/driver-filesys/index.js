@@ -1,6 +1,5 @@
 import pathlib from 'path'
 import * as lib from './lib.js'
-// import { meta } from './meta.js'
 
 export const driver = {
   connect() {

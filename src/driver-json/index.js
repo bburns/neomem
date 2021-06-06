@@ -50,7 +50,7 @@ class Connect {
 
   async get(key) {
     const props = this.nodeIndex[key] || this.nodeNameIndex[key]
-    return new Node(props, this)
+    return new Node(this, props)
   }
 
   set() {}
@@ -61,14 +61,14 @@ class Connect {
 //
 
 class Node {
-  constructor(props, connection) {
-    this.props = props
+  constructor(connection, props = {}) {
     this.connection = connection
+    this.props = props
   }
 
   getType() {
     const type = this.connection.nodeIndex[this.props.type]
-    return new Node(type, this.connection)
+    return new Node(this.connection, type)
   }
 
   getEdges() {

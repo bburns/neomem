@@ -1,0 +1,7 @@
+{
+  "nodes": [
+    { "_id": "filesys:folder", "name": "folder" },
+    { "_id": "filesys:file", "name": "file" }
+  ],
+  "edges": []
+}
