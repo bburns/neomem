@@ -4,22 +4,22 @@
     "notes": "metadata for home.json"
   },
   "nodes": [
-    { "_id": "home:folder", "name": "folder", "type": "home:type" },
-    { "_id": "home:mount", "name": "mount", "type": "home:type" },
+    { "_id": "folder", "name": "folder", "type": "type" },
+    { "_id": "mount", "name": "mount", "type": "type" },
     {
-      "_id": "home:contains",
+      "_id": "contains",
       "name": "contains",
-      "type": "home:edge",
-      "reverse": "home:containedBy"
+      "type": "edge",
+      "reverse": "containedBy"
     },
-    { "_id": "home:unlabelled", "name": "unlabelled" },
-    { "_id": "home:type", "name": "type", "type": "home:type" },
-    { "_id": "home:edge", "name": "edge", "type": "home:type" },
+    { "_id": "unlabelled", "name": "unlabelled" },
+    { "_id": "type", "name": "type", "type": "type" },
+    { "_id": "edge", "name": "edge", "type": "type" },
     {
-      "_id": "home:containedBy",
+      "_id": "containedBy",
       "name": "contained by",
-      "type": "home:edge",
-      "reverse": "home:contains"
+      "type": "edge",
+      "reverse": "contains"
     }
   ],
   "edges": []

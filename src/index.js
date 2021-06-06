@@ -35,8 +35,7 @@ const prompt = '> '
     if (ret) {
       if (ret.connection) connection = ret.connection
       if (ret.key) key = ret.key
-      log('new key', key)
-      past.push({ connection, key })
+      // past.push({ connection, key })
     }
     print()
     callback() // so knows to print prompt again

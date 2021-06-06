@@ -6,7 +6,9 @@ import { Node } from './node.js'
 
 export class Connection {
   constructor() {
+    this.type = 'filesys'
     this.path = null
+    this.initialLocation = null
   }
 
   async load(path) {

@@ -32,7 +32,7 @@ edit.notes = `edit notes for a node`
 // go
 //------------------------------------------------------------------------
 
-async function go(connection, key, words) {
+async function go(connection, key, words, past) {
   //. dest can be adjacent edge name, node name, or abs path, or id
   // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
   const dest = words[1]
@@ -50,12 +50,13 @@ async function go(connection, key, words) {
     const source = await node.get('source')
     await connection.load('./src/' + source)
     key = connection.getInitialLocation()
-    console.log('new key', key)
   }
 
   await look(connection, key, words)
 
-  return { key, connection }
+  past.push({ connection, key })
+
+  return { connection, key }
 }
 go.notes = `go to another location, or in a direction`
 
@@ -68,6 +69,15 @@ async function help(connection, key, words) {
   print(rows)
 }
 help.notes = `get help`
+
+//------------------------------------------------------------------------
+// info
+//------------------------------------------------------------------------
+
+async function info(connection, key, words, past) {
+  print({ connection, key, words, past })
+}
+info.notes = `get debugging info`
 
 //------------------------------------------------------------------------
 // look
@@ -119,4 +129,4 @@ async function unknown(connection, key, words) {
 //------------------------------------------------------------------------
 
 export const aliases = { l: look }
-export const commands = { back, edit, go, help, look, list, unknown }
+export const commands = { back, edit, go, help, info, look, list, unknown }

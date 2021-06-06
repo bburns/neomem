@@ -6,12 +6,13 @@ import pathlib from 'path'
 
 export const driver = {
   connect() {
-    return new Connect()
+    return new Connection()
   },
 }
 
-class Connect {
+class Connection {
   constructor() {
+    this.type = 'json-timegraph'
     this.path = null
     this.index = null
     this.initialLocation = null
