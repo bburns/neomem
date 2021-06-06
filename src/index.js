@@ -25,7 +25,8 @@ const prompt = '> '
     const words = str.split(' ')
     const command = words[0]
     const fn = commands[command] || aliases[command] || commands.unknown
-    key = await fn(connection, key, words)
+    const ret = await fn(connection, key, words)
+    if (ret) key = ret
     print()
     callback() // so knows to print prompt again
   }
