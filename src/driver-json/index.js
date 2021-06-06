@@ -109,15 +109,22 @@ class Node {
 
   // some props are simple keyvalue items, some are relnships, etc
   async get(prop) {
-    if (prop === 'name') {
-      return this.props[prop]
-    } else if (prop === 'contents') {
-      return this.getContents()
-    } else if (prop === 'exits') {
-      return this.getExits()
-    } else if (prop === 'type') {
-      return this.getType()
+    // if (prop === 'name') {
+    //   return this.props[prop]
+    // } else if (prop === 'contents') {
+    //   return this.getContents()
+    // } else if (prop === 'exits') {
+    //   return this.getExits()
+    // } else if (prop === 'type') {
+    //   return this.getType()
+    // }
+    // return this.props[prop]
+    const map = {
+      contents: this.getContents,
+      exits: this.getExits,
+      type: this.getType,
     }
-    return this.props[prop]
+    const method = map[prop]
+    return method ? method.bind(this)() : this.props[prop]
   }
 }

@@ -29,8 +29,9 @@ export class Node {
     const typeName = await type.get('name')
     const path = this.getPath()
     if (typeName === 'file') {
-      return lib.readFile(path, 80)
+      return lib.readFile(path, 60)
     }
+    // folders don't have notes - they have contents - see getContents
     return '(n/a)'
   }
 
@@ -59,17 +60,13 @@ export class Node {
   }
 
   async get(prop) {
-    if (prop === 'name') {
-      return this.props[prop]
-    } else if (prop === 'contents') {
-      return this.getContents()
-    } else if (prop === 'exits') {
-      return this.getExits()
-    } else if (prop === 'notes') {
-      return this.getNotes()
-    } else if (prop === 'type') {
-      return this.getType()
+    const map = {
+      contents: this.getContents,
+      exits: this.getExits,
+      notes: this.getNotes,
+      type: this.getType,
     }
-    return this.props[prop]
+    const method = map[prop]
+    return method ? method.bind(this)() : this.props[prop]
   }
 }

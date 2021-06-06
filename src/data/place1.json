@@ -6,7 +6,12 @@
     "initialLocation": "forest"
   },
   "nodes": [
-    { "_id": "forest", "name": "forest", "type": "place" },
+    {
+      "_id": "forest",
+      "name": "forest",
+      "type": "place",
+      "notes": "a shady forest of aspen trees"
+    },
     { "_id": "clearing", "name": "clearing", "type": "place" },
     { "_id": "field", "name": "field", "type": "place" }
   ],
