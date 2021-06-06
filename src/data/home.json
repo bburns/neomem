@@ -36,16 +36,17 @@
     },
     { "_id": "m1", "name": "folder", "type": "m5" },
     { "_id": "m2", "name": "mount", "type": "m5" },
-    { "_id": "m3", "name": "contains", "type": "m6" },
+    { "_id": "m3", "name": "contains", "type": "m6", "reverse": "m7" },
     { "_id": "m4", "name": "unlabelled" },
     { "_id": "m5", "name": "type", "type": "m5" },
-    { "_id": "m6", "name": "edge", "type": "m5" }
+    { "_id": "m6", "name": "edge", "type": "m5" },
+    { "_id": "m7", "name": "contained by", "type": "m6", "reverse": "m3" }
   ],
   "edges": [
     { "_from": 1, "_to": 2, "type": "m3" },
     { "_from": 2, "_to": 3, "type": "m3" },
     { "_from": 2, "_to": 4, "type": "m3" },
     { "_from": 2, "_to": 5, "type": "m3" },
-    { "_from": 2, "_to": 5, "type": "m3" }
+    { "_from": 2, "_to": 6, "type": "m3" }
   ]
 }

@@ -97,5 +97,6 @@ class Node {
     } else if (prop === 'exits') {
       return this.getExits()
     }
+    return this.props[prop] || '(unavailable)'
   }
 }

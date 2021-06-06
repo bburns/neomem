@@ -1,3 +1,4 @@
+import { exec } from 'child_process' // node lib
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { driver } from './driver-json/index.js'
@@ -34,8 +35,9 @@ const step = async (str, oldContext, filename, callback) => {
     print(chalk.bold(await node.get('name')))
     print(`type: ${await type.get('name')}`)
     print(`notes: ${await node.get('notes')}`)
+    print(`source: ${await node.get('source')}`)
     print(`contents: ${await node.get('contents')}`)
-    print(`exits: ${await node.get('exits')}`)
+    // print(`exits: ${await node.get('exits')}`) //. just for rooms etc
     //
   } else if (command === 'list') {
     //
@@ -58,6 +60,10 @@ const step = async (str, oldContext, filename, callback) => {
     key = dest
     //
   } else if (command === 'edit') {
+    // exec('code pok.txt').unref()
+    exec('code pok.txt', function callback(error, stdout, stderr) {
+      print('done')
+    })
     // } else if (command === 'up') {
     //   key = '..'
   }
