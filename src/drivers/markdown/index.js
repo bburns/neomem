@@ -25,14 +25,11 @@ class Connection {
     return this.initialLocation
   }
 
-  // crud operations
-
   async get(key) {
     //. scan file for key = header name/text - eventually could have indexes
-    const props = { _id: key, name: key, notes: this.text }
+    const props = { _id: key, name: this.path, notes: this.text }
     return new Node(this, props)
   }
-
   set() {}
   update() {}
   del() {}
@@ -56,12 +53,11 @@ class Node {
     return contents
   }
 
-  getNotes() {
-    return this.props.notes.slice(60)
-  }
+  // getNotes() {
+  //   return this.props.notes
+  // }
 
   getType() {
-    // const type = this.connection.index.nodeId[this.props.type]
     const type = { _id: 'markdown', name: 'markdown' }
     return new Node(this.connection, type)
   }
@@ -70,7 +66,7 @@ class Node {
   async get(prop) {
     const map = {
       contents: this.getContents,
-      notes: this.getNotes,
+      // notes: this.getNotes,
       type: this.getType,
     }
     const method = map[prop]

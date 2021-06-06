@@ -96,11 +96,15 @@ async function look(connection, key, words) {
 
   //. use metadata to determine what props to include
   print(chalk.bold(name))
-  if (typeName) print(`type: ${typeName}`)
-  if (notes) print(`notes: ${notes}`)
-  if (source) print(`source: ${source}`) //. just for mounts
-  if (contents && contents.length > 0) print(`contents: ${contents.join(', ')}`)
-  if (exits && exits.length > 0) print(`exits: ${exits.join(', ')}`)
+  function printRow(name, value) {
+    // print(chalk.gray(name + ':'), value)
+    print(name + ':', value)
+  }
+  if (typeName) printRow('type', typeName)
+  if (notes) printRow('notes', notes)
+  if (source) printRow('source', source)
+  if (contents && contents.length > 0) printRow('contents', contents.join(', '))
+  if (exits && exits.length > 0) printRow('exits', exits.join(', '))
 }
 look.notes = `look at this or another location`
 
