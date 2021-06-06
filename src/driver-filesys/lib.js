@@ -1,4 +1,5 @@
 import fs from 'fs/promises'
+// import pathlib from 'path'
 
 export async function isDir(path) {
   try {

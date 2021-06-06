@@ -2,6 +2,7 @@
 // have meta, nodes, edges, history subitems
 
 import fs from 'fs/promises'
+import pathlib from 'path'
 
 export const driver = {
   connect() {
@@ -21,7 +22,8 @@ class Connect {
     // read all json data
     const data = JSON.parse(String(await fs.readFile(path)))
     // read metadata
-    const metafilepath = data.meta.metafile
+    const folder = pathlib.dirname(path)
+    const metafilepath = pathlib.join(folder, data.meta.metafile)
     const meta = JSON.parse(String(await fs.readFile(metafilepath)))
     // get node index
     data.nodes.forEach(node => (this.nodeIndex[node._id] = node))
