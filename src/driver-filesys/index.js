@@ -65,19 +65,19 @@ class Node {
     return '(n/a)'
   }
 
-  // getEdges(node) {
-  //   // const edges = this.edgeFromIndex[node._id] || []
-  //   // return edges
-  // }
+  getEdges() {
+    const edges = this.connection.edgeFromIndex[this.props._id] || []
+    return edges
+  }
 
-  // getExits(node) {
-  //   // const edges = this.getEdges(node)
-  //   // const exits = edges
-  //   //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
-  //   //   .join(', ')
-  //   // return exits
-  //   return '(n/a)'
-  // }
+  getExits() {
+    // const edges = this.getEdges(node)
+    // const exits = edges
+    //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
+    //   .join(', ')
+    // return exits
+    return '(n/a)'
+  }
 
   async getNotes() {
     const type = await this.getType()
@@ -96,6 +96,8 @@ class Node {
       return this.getType()
     } else if (prop === 'notes') {
       return this.getNotes()
+    } else if (prop === 'exits') {
+      return this.getExits()
     } else if (prop === 'contents') {
       return this.getContents()
     }

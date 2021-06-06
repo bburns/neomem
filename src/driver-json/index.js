@@ -41,14 +41,9 @@ class Connect {
     //. get name indexes
   }
 
-  //. these will all be part of 'get'
-
   // crud operations
 
   async get(key) {
-    // key = pathlib.normalize(key)
-    // const name = pathlib.basename(key)
-    // return new Node({ _id: key }, this)
     const props = this.nodeIndex[key]
     return new Node(props, this)
   }
@@ -65,31 +60,30 @@ class Node {
     this.props = props
     this.connection = connection
   }
-  // getNode(id) {
-  //   const node = this.nodeIndex[id]
-  //   return node
-  // }
+
   getType() {
     const type = this.connection.nodeIndex[this.props.type]
     return new Node(type, this.connection)
   }
+
   getEdges() {
-    //. need Edge class also
+    //. need Edge class also?
     const edges = this.connection.edgeFromIndex[this.props._id] || []
     return edges
   }
+
   getContents() {
     const edges = this.getEdges()
     const contents = edges.map(edge => this.connection.nodeIndex[edge._to].name)
     return contents
   }
-  // getExits(node) {
-  //   const edges = this.getEdges(node)
-  //   const exits = edges
-  //     .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
-  //     .join(', ')
-  //   return exits
-  // }
+
+  getExits() {
+    const edges = this.getEdges()
+    const exits = edges.map(edge => this.connection.nodeIndex[edge.type].name)
+    return exits
+  }
+
   get(prop) {
     if (prop === 'name') {
       return this.props[prop]
@@ -99,6 +93,8 @@ class Node {
       return this.props[prop]
     } else if (prop === 'contents') {
       return this.getContents()
+    } else if (prop === 'exits') {
+      return this.getExits()
     }
   }
 }

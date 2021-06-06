@@ -5,29 +5,30 @@
   },
   "nodes": [
     { "_id": 1, "name": "home", "type": "m1" },
+    { "_id": 2, "name": "data", "type": "m1" },
     {
-      "_id": 2,
+      "_id": 3,
       "name": "filesys",
       "type": "m2",
       "driver": "filesys",
       "source": "."
     },
     {
-      "_id": 3,
+      "_id": 4,
       "name": "land",
       "type": "m2",
       "driver": "json",
       "source": "data/land.json"
     },
     {
-      "_id": 4,
+      "_id": 5,
       "name": "postgres",
       "type": "m2",
       "driver": "postgres",
       "source": "neomem"
     },
     {
-      "_id": 5,
+      "_id": 6,
       "name": "blog",
       "type": "m2",
       "driver": "filesys",
@@ -42,8 +43,9 @@
   ],
   "edges": [
     { "_from": 1, "_to": 2, "type": "m3" },
-    { "_from": 1, "_to": 3, "type": "m3" },
-    { "_from": 1, "_to": 4, "type": "m3" },
-    { "_from": 1, "_to": 5, "type": "m3" }
+    { "_from": 2, "_to": 3, "type": "m3" },
+    { "_from": 2, "_to": 4, "type": "m3" },
+    { "_from": 2, "_to": 5, "type": "m3" },
+    { "_from": 2, "_to": 5, "type": "m3" }
   ]
 }

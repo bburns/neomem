@@ -34,7 +34,7 @@ const step = async (str, oldContext, filename, callback) => {
     print(`type: ${await type.get('name')}`)
     print(`notes: ${await node.get('notes')}`)
     print(`contents: ${await node.get('contents')}`)
-    // print(`exits: ${connection.getExits(node)}`)
+    print(`exits: ${await node.get('exits')}`)
     //
   } else if (command === 'list') {
     //
@@ -52,13 +52,13 @@ const step = async (str, oldContext, filename, callback) => {
   } else if (command === 'go') {
     //
     //. dest can be adjacent edge name, node name, or abs path, or id
-    // eg 'go north', 'go /home', 'go hello.txt', '2' ?
+    // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
     const dest = words[1]
     key = dest
     //
   } else if (command === 'edit') {
-    //
-    //
+  } else if (command === 'up') {
+    key = '..'
   }
   print()
   callback() // so knows to print prompt again
