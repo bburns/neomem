@@ -1,8 +1,10 @@
+// connection
+
 import pathlib from 'path'
 import { Node } from './node.js'
 import { driver as driverJson } from '../driver-json/index.js'
 
-export class Connect {
+export class Connection {
   constructor() {
     this.path = null
   }
@@ -23,5 +25,3 @@ export class Connect {
   update() {}
   del() {}
 }
-
-//

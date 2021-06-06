@@ -1,3 +1,5 @@
+// filesystem node - file or folder
+
 import pathlib from 'path'
 import * as lib from './lib.js'
 
@@ -7,13 +9,34 @@ export class Node {
     this.props = props
   }
 
-  async getType() {
+  async getContents() {
+    const type = await this.getType()
+    const typeName = await type.get('name')
     const path = this.getPath()
-    //. use filesys-meta.json values
-    const type = (await lib.isDir(path))
-      ? { _id: 'folder', name: 'folder' }
-      : { _id: 'file', name: 'file' }
-    return new Node(this.connection, type)
+    if (typeName === 'folder') {
+      return lib.readDir(path)
+    }
+    return '(n/a)'
+  }
+
+  // async getEdges() {
+  //   const edges = this.connection.edgeFromIndex[this.props._id] || []
+  //   return edges
+  // }
+
+  async getExits() {
+    return 'up'
+  }
+
+  async getNotes() {
+    const type = await this.getType()
+    const typeName = await type.get('name')
+    const path = this.getPath()
+    if (typeName === 'file') {
+      console.log(this.connection)
+      return lib.readFile(path, 80)
+    }
+    return '(n/a)'
   }
 
   // getPath(node) {
@@ -31,53 +54,26 @@ export class Node {
     return path
   }
 
-  async getContents() {
-    const type = await this.getType()
-    const typeName = await type.get('name')
+  async getType() {
     const path = this.getPath()
-    if (typeName === 'folder') {
-      return lib.readDir(path)
-    }
-    return '(n/a)'
-  }
-
-  getEdges() {
-    const edges = this.connection.edgeFromIndex[this.props._id] || []
-    return edges
-  }
-
-  async getExits() {
-    // const edges = this.getEdges(node)
-    // const exits = edges
-    //   .map(edge => this.nodeIndex[edge.type || this.unlabelled].name)
-    //   .join(', ')
-    // return exits
-    return '(n/a)'
-  }
-
-  async getNotes() {
-    const type = await this.getType()
-    const typeName = await type.get('name')
-    const path = this.getPath()
-    if (typeName === 'file') {
-      // console.log(path)
-      console.log(this.connection)
-      return lib.readFile(path, 80)
-    }
-    return '(n/a)'
+    //. use filesys-meta.json values
+    const type = (await lib.isDir(path))
+      ? { _id: 'folder', name: 'folder' }
+      : { _id: 'file', name: 'file' }
+    return new Node(this.connection, type)
   }
 
   async get(prop) {
     if (prop === 'name') {
       return this.props[prop]
-    } else if (prop === 'type') {
-      return this.getType()
-    } else if (prop === 'notes') {
-      return this.getNotes()
-    } else if (prop === 'exits') {
-      return this.getExits()
     } else if (prop === 'contents') {
       return this.getContents()
+    } else if (prop === 'exits') {
+      return this.getExits()
+    } else if (prop === 'notes') {
+      return this.getNotes()
+    } else if (prop === 'type') {
+      return this.getType()
     }
     return this.props[prop]
   }

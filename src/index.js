@@ -80,7 +80,7 @@ const prompt = '> '
     const notes = await node.get('notes')
     const source = await node.get('source')
     const contents = await node.get('contents')
-    // const exits = await node.get('exits')
+    const exits = await node.get('exits')
 
     //. use metadata to determine what props to include
     print(chalk.bold(name))
@@ -88,7 +88,7 @@ const prompt = '> '
     if (notes) print(`notes: ${notes}`)
     if (source) print(`source: ${source}`) //. just for mounts
     if (contents && contents.length > 0) print(`contents: ${contents}`)
-    // if (exits) print(`exits: ${exits}`) //. just for rooms etc
+    if (exits) print(`exits: ${exits}`) //. just for rooms etc
   }
 
   async function list(connection, key) {

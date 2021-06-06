@@ -1,7 +1,7 @@
-import { Connect } from './connect.js'
+import { Connection } from './connection.js'
 
 export const driver = {
   connect() {
-    return new Connect()
+    return new Connection()
   },
 }
