@@ -42,6 +42,7 @@ const prompt = '> '
       const node = await connection.get(key)
       const type = await node.get('type')
       const typeName = await type.get('name')
+
       if (typeName === 'mount') {
         const driverName = await node.get('driver')
         const source = await node.get('source')
@@ -64,8 +65,6 @@ const prompt = '> '
       exec('code pok.txt', (error, stdout, stderr) => {
         print('done')
       })
-      // } else if (command === 'up') {
-      //   key = '..'
     } else {
       print('Huh?')
     }
@@ -83,6 +82,7 @@ const prompt = '> '
     const contents = await node.get('contents')
     // const exits = await node.get('exits')
 
+    //. use metadata to determine what props to include
     print(chalk.bold(name))
     if (typeName) print(`type: ${typeName}`)
     if (notes) print(`notes: ${notes}`)
@@ -96,6 +96,7 @@ const prompt = '> '
     const name = await node.get('name')
     const contents = await node.get('contents')
 
+    //. use metadata to determine what cols to include, sort, group, etc
     print(chalk.bold(name))
     print(contents.join('\n'))
   }

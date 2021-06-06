@@ -42,7 +42,7 @@ class Node {
 
   async getType() {
     const path = this.getPath()
-    //...
+    //.. use filesys-meta.json values
     const type = (await lib.isDir(path))
       ? { _id: 'm1', name: 'folder' }
       : { _id: 'm2', name: 'file' }

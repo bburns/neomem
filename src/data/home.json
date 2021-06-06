@@ -2,46 +2,46 @@
   "meta": {
     "name": "home",
     "notes": "main skeleton for neomem",
-    "initialLocation": 1,
+    "initialLocation": "home",
     "metafile": "home-meta.json"
   },
   "nodes": [
     {
-      "_id": 1,
+      "_id": "home",
       "name": "home",
       "type": "home:folder",
       "notes": "neomem skeleton"
     },
     {
-      "_id": 3,
+      "_id": "filesys",
       "name": "filesys",
       "type": "home:mount",
       "driver": "filesys",
       "source": "."
     },
     {
-      "_id": 4,
+      "_id": "place1",
       "name": "place1",
       "type": "home:mount",
       "driver": "json",
       "source": "data/place1.json"
     },
     {
-      "_id": 5,
+      "_id": "postgres",
       "name": "postgres",
       "type": "home:mount",
       "driver": "postgres",
       "source": "neomem"
     },
     {
-      "_id": 6,
+      "_id": "blog",
       "name": "blog",
       "type": "home:mount",
       "driver": "filesys",
       "source": "data/blog"
     },
     {
-      "_id": 7,
+      "_id": "place2",
       "name": "place2",
       "type": "home:mount",
       "driver": "json",
@@ -49,10 +49,10 @@
     }
   ],
   "edges": [
-    { "_from": 1, "_to": 3, "type": "home:contains" },
-    { "_from": 1, "_to": 4, "type": "home:contains" },
-    { "_from": 1, "_to": 5, "type": "home:contains" },
-    { "_from": 1, "_to": 6, "type": "home:contains" },
-    { "_from": 1, "_to": 7, "type": "home:contains" }
+    { "_from": "home", "_to": "filesys", "type": "home:contains" },
+    { "_from": "home", "_to": "blog", "type": "home:contains" },
+    { "_from": "home", "_to": "postgres", "type": "home:contains" },
+    { "_from": "home", "_to": "place1", "type": "home:contains" },
+    { "_from": "home", "_to": "place2", "type": "home:contains" }
   ]
 }
