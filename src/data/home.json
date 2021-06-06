@@ -17,10 +17,10 @@
     },
     {
       "_id": 4,
-      "name": "land",
+      "name": "place1",
       "type": "home:mount",
       "driver": "json",
-      "source": "data/land.json"
+      "source": "data/place1.json"
     },
     {
       "_id": 5,
@@ -35,6 +35,13 @@
       "type": "home:mount",
       "driver": "filesys",
       "source": "data/blog"
+    },
+    {
+      "_id": 7,
+      "name": "place2",
+      "type": "home:mount",
+      "driver": "json",
+      "source": "data/place2.json"
     }
   ],
   "edges": [
@@ -42,6 +49,7 @@
     { "_from": 2, "_to": 3, "type": "home:contains" },
     { "_from": 2, "_to": 4, "type": "home:contains" },
     { "_from": 2, "_to": 5, "type": "home:contains" },
-    { "_from": 2, "_to": 6, "type": "home:contains" }
+    { "_from": 2, "_to": 6, "type": "home:contains" },
+    { "_from": 2, "_to": 7, "type": "home:contains" }
   ]
 }
