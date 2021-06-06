@@ -10,9 +10,9 @@ const print = console.log
 
 async function back(connection, key, words, past) {
   past.pop()
-  key = past[past.length - 1]
-  await look(connection, key, words)
-  return key
+  const previous = past[past.length - 1]
+  await look(previous.connection, previous.key)
+  return previous
 }
 back.notes = `go back to previous location`
 

@@ -14,7 +14,6 @@ Welcome to Neomem
 const prompt = '> '
 
 ;(async function () {
-  // let connection = driverJson.connect()
   let connection = drivers.json.connect()
   await connection.load(filepath)
   let key = connection.getInitialLocation()
@@ -23,7 +22,7 @@ const prompt = '> '
   await commands.look(connection, key)
   print()
 
-  const past = [key]
+  const past = [{ connection, key }]
 
   // parse and execute command string
   // note: these parameters are specified by node's repl library.
@@ -35,10 +34,9 @@ const prompt = '> '
     const ret = await fn(connection, key, words, past) // execute cmd
     if (ret) {
       if (ret.connection) connection = ret.connection
-      // { key, connection } = ret
       if (ret.key) key = ret.key
       log('new key', key)
-      past.push(key)
+      past.push({ connection, key })
     }
     print()
     callback() // so knows to print prompt again
