@@ -1,11 +1,3 @@
-/Users/bburns/Desktop/Workspace/neomem
-$ COMMAND=start npm run console
-
-> neomem@0.1.0 console
-> npm run --prefix packages/neomem-console ${COMMAND}
-> neomem-console@0.1.0 start
-> node src/console.js
-
 Welcome to Neomem
 -----------------------------------------------------
 

@@ -1,0 +1,65 @@
+Welcome to Neomem
+-----------------------------------------------------
+home
+type: folder
+notes: neomem skeleton
+contents: blog, filesys, place1, place2, postgres
+
+> go place1
+go place1
+forest
+type: place
+notes: a shady forest of aspen trees
+contents: clearing, field
+exits: east, north
+
+> go field
+go field
+field
+type: place
+
+> back
+back
+forest
+type: place
+notes: a shady forest of aspen trees
+contents: clearing, field
+exits: east, north
+
+> back
+back
+home
+type: folder
+notes: neomem skeleton
+contents: blog, filesys, place1, place2, postgres
+
+> go blog
+go blog
+.
+type: folder
+notes: (n/a)
+contents: 2021-02-07.md, 2021-02-08.md, 2021-05-15.md, 2021-05-22.md, 2021-05-23.md, 2021-05-30.md, blog-meta.json, index.md
+exits: up
+
+> list
+list
+src/data/blog { key: '.' }
+.
+2021-02-07.md
+2021-02-08.md
+2021-05-15.md
+2021-05-22.md
+2021-05-23.md
+2021-05-30.md
+blog-meta.json
+index.md
+
+> go index.md
+go index.md
+undefined
+type: markdown
+notes: ---
+name: Neomem blog
+created: 2021-04-25
+type: blog
+public:
