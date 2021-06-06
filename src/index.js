@@ -88,8 +88,9 @@ const prompt = '> '
     if (typeName) print(`type: ${typeName}`)
     if (notes) print(`notes: ${notes}`)
     if (source) print(`source: ${source}`) //. just for mounts
-    if (contents && contents.length > 0) print(`contents: ${contents}`)
-    if (exits && exits.length > 0) print(`exits: ${exits}`)
+    if (contents && contents.length > 0)
+      print(`contents: ${contents.join(', ')}`)
+    if (exits && exits.length > 0) print(`exits: ${exits.join(', ')}`)
   }
 
   async function list(connection, key) {

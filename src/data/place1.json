@@ -1,17 +1,22 @@
 {
   "meta": {
-    "name": "place1",
+    "name": "forest",
     "notes": "a world",
     "metafile": "place-meta.json",
-    "initialLocation": 1
+    "initialLocation": "forest"
   },
   "nodes": [
-    { "_id": 1, "name": "forest", "type": "place:place" },
-    { "_id": 2, "name": "clearing", "type": "place:place" },
-    { "_id": 3, "name": "field", "type": "place:place" }
+    { "_id": "forest", "name": "forest", "type": "place" },
+    { "_id": "clearing", "name": "clearing", "type": "place" },
+    { "_id": "field", "name": "field", "type": "place" }
   ],
   "edges": [
-    { "_from": 1, "_to": 2, "direction": "place:east", "type": "place:exit" },
-    { "_from": 1, "_to": 3, "direction": "place:north", "type": "place:exit" }
+    {
+      "_from": "forest",
+      "_to": "clearing",
+      "direction": "east",
+      "type": "exit"
+    },
+    { "_from": "forest", "_to": "field", "direction": "north", "type": "exit" }
   ]
 }

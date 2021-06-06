@@ -96,10 +96,10 @@ class Node {
   getExits() {
     const edges = this.getEdges()
     const exits = edges
-      .map(edge => this.connection.index.nodeId[edge.type].name)
+      .map(edge => edge.direction)
       .filter(edge => edge !== 'contains')
       .sort((a, b) => a.localeCompare(b))
-    return exits
+    return [...new Set(exits)]
   }
 
   getType() {
