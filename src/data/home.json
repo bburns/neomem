@@ -24,7 +24,7 @@
       "name": "place1",
       "type": "mount",
       "driver": "jsonTimegraph",
-      "source": "data/place1.json"
+      "source": "src/data/place1.json"
     },
     {
       "_id": "postgres",
@@ -38,14 +38,14 @@
       "name": "blog",
       "type": "mount",
       "driver": "filesys",
-      "source": "data/blog"
+      "source": "src/data/blog"
     },
     {
       "_id": "place2",
       "name": "place2",
       "type": "mount",
       "driver": "jsonTimegraph",
-      "source": "data/place2.json"
+      "source": "src/data/place2.json"
     }
   ],
   "edges": [
