@@ -4,8 +4,8 @@
     "notes": "metadata for blog"
   },
   "nodes": [
-    { "_id": "blog:blog", "name": "type", "type": "blog:type" },
-    { "_id": "blog:post", "name": "type", "type": "blog:type" },
+    { "_id": "blog", "name": "blog", "type": "blog:type" },
+    { "_id": "post", "name": "post", "type": "blog:type" },
     { "_id": "blog:type", "name": "type", "type": "blog:type" }
   ],
   "edges": []
