@@ -19,6 +19,8 @@ const prompt = '> '
   await commands.look(connection, key)
   print()
 
+  const past = [key]
+
   // parse and execute command string
   // note: these parameters are specified by node's repl library.
   const step = async (str, oldContext, filename, callback) => {
@@ -26,8 +28,11 @@ const prompt = '> '
     const words = str.split(' ') //. tokenize
     const command = words[0]
     const fn = commands[command] || aliases[command] || commands.unknown
-    const ret = await fn(connection, key, words) // execute cmd
-    if (ret) key = ret
+    const ret = await fn(connection, key, words, past) // execute cmd
+    if (ret) {
+      key = ret
+      past.push(key)
+    }
     print()
     callback() // so knows to print prompt again
   }

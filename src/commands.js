@@ -63,6 +63,17 @@ async function help(connection, key, words) {
 help.notes = `get help`
 
 //------------------------------------------------------------------------
+// back
+//------------------------------------------------------------------------
+
+async function back(connection, key, words, past) {
+  key = past.pop()
+  await look(connection, key, words)
+  return key
+}
+back.notes = `go back to previous location`
+
+//------------------------------------------------------------------------
 // look
 //------------------------------------------------------------------------
 
@@ -111,4 +122,4 @@ async function unknown(connection, key, words) {
 //------------------------------------------------------------------------
 
 export const aliases = { l: look }
-export const commands = { edit, go, help, look, list, unknown }
+export const commands = { back, edit, go, help, look, list, unknown }
