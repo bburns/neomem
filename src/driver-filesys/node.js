@@ -16,13 +16,9 @@ export class Node {
     if (typeName === 'folder') {
       return lib.readDir(path)
     }
-    return '(n/a)'
+    // files don't have contents - they have notes - see getNotes
+    return ['(n/a)']
   }
-
-  // async getEdges() {
-  //   const edges = this.connection.edgeFromIndex[this.props._id] || []
-  //   return edges
-  // }
 
   async getExits() {
     return ['up']
@@ -33,7 +29,6 @@ export class Node {
     const typeName = await type.get('name')
     const path = this.getPath()
     if (typeName === 'file') {
-      console.log(this.connection)
       return lib.readFile(path, 80)
     }
     return '(n/a)'
