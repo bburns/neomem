@@ -25,16 +25,19 @@ class Connect {
     // read all json data
     const data = JSON.parse(String(await fs.readFile(path)))
     this.initialLocation = data.meta.initialLocation
+
     // read metadata
     const folder = pathlib.dirname(path)
     const metafilepath = pathlib.join(folder, data.meta.metafile)
     const meta = JSON.parse(String(await fs.readFile(metafilepath)))
+
     // get node index
     data.nodes.forEach(node => (this.index.nodeId[node._id] = node))
     meta.nodes.forEach(node => (this.index.nodeId[node._id] = node))
+
     //. assume unique names for now
-    // data.nodes.forEach(node => (this.nodeNameIndex[node.name] = node))
     data.nodes.forEach(node => (this.index.nodeName[node.name] = node))
+
     // get edge indexes
     data.edges.forEach(edge => {
       if (this.index.edgeFrom[edge._from]) {
@@ -48,8 +51,6 @@ class Connect {
       //   this.index.edgeTo[edge._to] = [edge]
       // }
     })
-    //. get edgeToIndex
-    //. get name indexes
   }
 
   getInitialLocation() {
@@ -107,10 +108,10 @@ class Node {
   async get(prop) {
     if (prop === 'name') {
       return this.props[prop]
-    } else if (prop === 'type') {
-      return this.getType()
     } else if (prop === 'notes') {
       return this.props[prop]
+    } else if (prop === 'type') {
+      return this.getType()
     } else if (prop === 'contents') {
       return this.getContents()
     } else if (prop === 'exits') {

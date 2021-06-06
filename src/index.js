@@ -36,6 +36,7 @@ const prompt = '> '
       // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
       const dest = words[1]
       key = dest
+      await look(connection, key)
       //
     } else if (command === 'edit') {
       exec('code pok.txt', (error, stdout, stderr) => {
@@ -43,6 +44,8 @@ const prompt = '> '
       })
       // } else if (command === 'up') {
       //   key = '..'
+    } else {
+      print('Huh?')
     }
     print()
     callback() // so knows to print prompt again
@@ -52,7 +55,6 @@ const prompt = '> '
     const node = await connection.get(key)
     const name = await node.get('name')
     const type = await node.get('type')
-    console.log(type.props)
     const typeName = await type.get('name')
     const notes = await node.get('notes')
     const source = await node.get('source')
@@ -63,7 +65,7 @@ const prompt = '> '
     if (typeName) print(`type: ${typeName}`)
     if (notes) print(`notes: ${notes}`)
     if (source) print(`source: ${source}`) //. just for mounts
-    if (contents) print(`contents: ${contents}`)
+    if (contents && contents.length > 0) print(`contents: ${contents}`)
     // if (exits) print(`exits: ${exits}`) //. just for rooms etc
   }
 
