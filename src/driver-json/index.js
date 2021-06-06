@@ -92,17 +92,17 @@ class Node {
 
   getContents() {
     const edges = this.getEdges()
-    const contents = edges.map(
-      edge => this.connection.index.nodeId[edge._to].name
-    )
+    const contents = edges
+      .map(edge => this.connection.index.nodeId[edge._to].name)
+      .sort((a, b) => a.localeCompare(b))
     return contents
   }
 
   getExits() {
     const edges = this.getEdges()
-    const exits = edges.map(
-      edge => this.connection.index.nodeId[edge.type].name
-    )
+    const exits = edges
+      .map(edge => this.connection.index.nodeId[edge.type].name)
+      .sort((a, b) => a.localeCompare(b))
     return exits
   }
 
