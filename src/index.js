@@ -1,17 +1,22 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
-import { driver as driverJson } from './driver-json/index.js'
+import chalk from 'chalk' // color text https://github.com/chalk/chalk
+// import { driver as driverJson } from './driver-json/index.js'
+import { drivers } from './drivers.js'
 import { commands, aliases } from './commands.js'
 
 const filepath = './src/data/home.json' //. pass via envar or param
 
 const print = console.log
+const log = (...args) => print(chalk.gray(...args))
+
 const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
 const prompt = '> '
 
 ;(async function () {
-  let connection = driverJson.connect()
+  // let connection = driverJson.connect()
+  let connection = drivers.json.connect()
   await connection.load(filepath)
   let key = connection.getInitialLocation()
 
@@ -31,7 +36,7 @@ const prompt = '> '
     const ret = await fn(connection, key, words, past) // execute cmd
     if (ret) {
       key = ret
-      console.log('new key', key)
+      log('new key', key)
       past.push(key)
     }
     print()

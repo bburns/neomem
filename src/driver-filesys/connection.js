@@ -2,7 +2,7 @@
 
 import pathlib from 'path'
 import { Node } from './node.js'
-import { driver as driverJson } from '../driver-json/index.js'
+import { drivers } from '../drivers.js'
 
 export class Connection {
   constructor() {
@@ -11,6 +11,11 @@ export class Connection {
 
   async load(path) {
     this.path = path
+    this.initialLocation = '.'
+  }
+
+  getInitialLocation() {
+    return this.initialLocation
   }
 
   // crud operations
