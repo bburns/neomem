@@ -52,6 +52,7 @@ const prompt = '> '
     const node = await connection.get(key)
     const name = await node.get('name')
     const type = await node.get('type')
+    console.log(type.props)
     const typeName = await type.get('name')
     const notes = await node.get('notes')
     const source = await node.get('source')

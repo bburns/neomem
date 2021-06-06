@@ -12,10 +12,12 @@ export const driver = {
 
 class Connect {
   constructor() {
-    this.nodeIndex = {}
-    this.edgeFromIndex = {}
-    this.edgeToIndex = {}
-    this.nodeNameIndex = {}
+    this.index = {
+      nodeId: {},
+      nodeName: {},
+      edgeFrom: {},
+      edgeTo: {},
+    }
     this.initialLocation = null
   }
 
@@ -28,20 +30,22 @@ class Connect {
     const metafilepath = pathlib.join(folder, data.meta.metafile)
     const meta = JSON.parse(String(await fs.readFile(metafilepath)))
     // get node index
-    data.nodes.forEach(node => (this.nodeIndex[node._id] = node))
+    data.nodes.forEach(node => (this.index.nodeId[node._id] = node))
+    meta.nodes.forEach(node => (this.index.nodeId[node._id] = node))
     //. assume unique names for now
-    data.nodes.forEach(node => (this.nodeNameIndex[node.name] = node))
+    // data.nodes.forEach(node => (this.nodeNameIndex[node.name] = node))
+    data.nodes.forEach(node => (this.index.nodeName[node.name] = node))
     // get edge indexes
     data.edges.forEach(edge => {
-      if (this.edgeFromIndex[edge._from]) {
-        this.edgeFromIndex[edge._from].push(edge)
+      if (this.index.edgeFrom[edge._from]) {
+        this.index.edgeFrom[edge._from].push(edge)
       } else {
-        this.edgeFromIndex[edge._from] = [edge]
+        this.index.edgeFrom[edge._from] = [edge]
       }
-      // if (this.edgeToIndex[edge._to]) {
-      //   this.edgeToIndex[edge._to].push(edge)
+      // if (this.index.edgeTo[edge._to]) {
+      //   this.index.edgeTo[edge._to].push(edge)
       // } else {
-      //   this.edgeToIndex[edge._to] = [edge]
+      //   this.index.edgeTo[edge._to] = [edge]
       // }
     })
     //. get edgeToIndex
@@ -55,7 +59,7 @@ class Connect {
   // crud operations
 
   async get(key) {
-    const props = this.nodeIndex[key] || this.nodeNameIndex[key]
+    const props = this.index.nodeId[key] || this.index.nodeName[key]
     return new Node(this, props)
   }
 
@@ -73,25 +77,29 @@ class Node {
   }
 
   getType() {
-    const type = this.connection.nodeIndex[this.props.type]
+    const type = this.connection.index.nodeId[this.props.type]
     return new Node(this.connection, type)
   }
 
   getEdges() {
     //. need Edge class also?
-    const edges = this.connection.edgeFromIndex[this.props._id] || []
+    const edges = this.connection.index.edgeFrom[this.props._id] || []
     return edges
   }
 
   getContents() {
     const edges = this.getEdges()
-    const contents = edges.map(edge => this.connection.nodeIndex[edge._to].name)
+    const contents = edges.map(
+      edge => this.connection.index.nodeId[edge._to].name
+    )
     return contents
   }
 
   getExits() {
     const edges = this.getEdges()
-    const exits = edges.map(edge => this.connection.nodeIndex[edge.type].name)
+    const exits = edges.map(
+      edge => this.connection.index.nodeId[edge.type].name
+    )
     return exits
   }
 
