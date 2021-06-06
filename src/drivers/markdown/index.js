@@ -1,7 +1,6 @@
 // driver for markdown text files
 
 import fs from 'fs/promises'
-import pathlib from 'path'
 
 export const driver = {
   connect() {
@@ -30,7 +29,6 @@ class Connection {
 
   async get(key) {
     //. scan file for key = header name/text - eventually could have indexes
-    // const props = { _id: key, notes: this.text.slice(0, 60) }
     const props = { _id: key, name: key, notes: this.text }
     return new Node(this, props)
   }
@@ -49,10 +47,6 @@ class Node {
   }
 
   getContents() {
-    // const edges = this.getEdges()
-    // const contents = edges
-    //   .map(edge => this.connection.index.nodeId[edge._to].name)
-    //   .sort((a, b) => a.localeCompare(b))
     const regex = /^[#]+[ ]+.*$/gm // match header lines
     const contents = []
     let arr
