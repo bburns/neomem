@@ -28,27 +28,26 @@ const step = async (str, oldContext, filename, callback) => {
   if (command === 'look' || command === 'l') {
     //
     const node = await connection.get(key)
-    // print(node.props)
-    // const type = await node.get('type')
+    const type = await node.get('type')
 
     print(chalk.bold(await node.get('name')))
-    // print(`type: ${await type.get('name')}`)
-    // print(`notes: ${await node.get('notes')}`)
-    // print(`contents: ${await node.get('contents')}`)
+    print(`type: ${await type.get('name')}`)
+    print(`notes: ${await node.get('notes')}`)
+    print(`contents: ${await node.get('contents')}`)
     // print(`exits: ${connection.getExits(node)}`)
     //
   } else if (command === 'list') {
     //
     const node = await connection.get(key)
-    print(node)
-    // print(chalk.bold(await node.get('name')))
-    // const contents = await node.get('contents')
-    // if (typeof contents === 'string') {
-    //   print(`contents: ${contents}`)
-    // } else {
-    //   print(`contents:`)
-    //   print(contents.join('\n'))
-    // }
+    // print(node)
+    print(chalk.bold(await node.get('name')))
+    const contents = await node.get('contents')
+    if (typeof contents === 'string') {
+      print(`contents: ${contents}`)
+    } else {
+      print(`contents:`)
+      print(contents.join('\n'))
+    }
     //
   } else if (command === 'go') {
     //

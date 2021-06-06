@@ -69,19 +69,21 @@ class Node {
   //   const node = this.nodeIndex[id]
   //   return node
   // }
-  // getType(node) {
-  //   const type = this.nodeIndex[node.type]
-  //   return type
-  // }
-  // getEdges(node) {
-  //   const edges = this.edgeFromIndex[node._id] || []
-  //   return edges
-  // }
-  // getContents(node) {
-  //   const edges = this.getEdges(node)
-  //   const contents = edges.map(edge => this.nodeIndex[edge._to].name).join(', ')
-  //   return contents
-  // }
+  getType() {
+    const type = this.connection.nodeIndex[this.props.type]
+    return new Node(type, this.connection)
+  }
+  getEdges() {
+    //. need Edge class also
+    const edges = this.connection.edgeFromIndex[this.props._id] || []
+    return edges
+  }
+  getContents() {
+    const edges = this.getEdges()
+    const contents = edges.map(edge => this.connection.nodeIndex[edge._to].name)
+    // .join(', ')
+    return contents
+  }
   // getExits(node) {
   //   const edges = this.getEdges(node)
   //   const exits = edges
@@ -92,12 +94,12 @@ class Node {
   get(prop) {
     if (prop === 'name') {
       return this.props[prop]
-      // } else if (prop === 'type') {
-      // return this.getType()
-      // } else if (prop === 'notes') {
-      // return this.getNotes()
-      // } else if (prop === 'contents') {
-      // return this.getContents()
+    } else if (prop === 'type') {
+      return this.getType()
+    } else if (prop === 'notes') {
+      return this.props[prop]
+    } else if (prop === 'contents') {
+      return this.getContents()
     }
   }
 }
