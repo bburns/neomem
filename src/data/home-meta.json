@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "name": "home-meta",
+    "notes": "metadata for home.json"
+  },
+  "nodes": [
+    { "_id": "home:folder", "name": "folder", "type": "home:type" },
+    { "_id": "home:mount", "name": "mount", "type": "home:type" },
+    {
+      "_id": "home:contains",
+      "name": "contains",
+      "type": "home:edge",
+      "reverse": "home:containedBy"
+    },
+    { "_id": "home:unlabelled", "name": "unlabelled" },
+    { "_id": "home:type", "name": "type", "type": "home:type" },
+    { "_id": "home:edge", "name": "edge", "type": "home:type" },
+    {
+      "_id": "home:containedBy",
+      "name": "contained by",
+      "type": "home:edge",
+      "reverse": "home:contains"
+    }
+  ],
+  "edges": []
+}

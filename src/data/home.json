@@ -1,52 +1,64 @@
 {
   "meta": {
     "name": "home",
-    "notes": "main skeleton for neomem"
+    "notes": "main skeleton for neomem",
+    "initialLocation": 1,
+    "metafile": "home-meta.json"
   },
   "nodes": [
-    { "_id": 1, "name": "home", "type": "m1" },
-    { "_id": 2, "name": "data", "type": "m1" },
+    { "_id": 1, "name": "home", "type": "home:folder" },
+    { "_id": 2, "name": "data", "type": "home:folder" },
     {
       "_id": 3,
       "name": "filesys",
-      "type": "m2",
+      "type": "home:mount",
       "driver": "filesys",
       "source": "."
     },
     {
       "_id": 4,
       "name": "land",
-      "type": "m2",
+      "type": "home:mount",
       "driver": "json",
       "source": "data/land.json"
     },
     {
       "_id": 5,
       "name": "postgres",
-      "type": "m2",
+      "type": "home:mount",
       "driver": "postgres",
       "source": "neomem"
     },
     {
       "_id": 6,
       "name": "blog",
-      "type": "m2",
+      "type": "home:mount",
       "driver": "filesys",
       "source": "data/blog"
     },
-    { "_id": "m1", "name": "folder", "type": "m5" },
-    { "_id": "m2", "name": "mount", "type": "m5" },
-    { "_id": "m3", "name": "contains", "type": "m6", "reverse": "m7" },
-    { "_id": "m4", "name": "unlabelled" },
-    { "_id": "m5", "name": "type", "type": "m5" },
-    { "_id": "m6", "name": "edge", "type": "m5" },
-    { "_id": "m7", "name": "contained by", "type": "m6", "reverse": "m3" }
+    { "_id": "home:folder", "name": "folder", "type": "home:type" },
+    { "_id": "home:mount", "name": "mount", "type": "home:type" },
+    {
+      "_id": "home:contains",
+      "name": "contains",
+      "type": "home:edge",
+      "reverse": "home:containedBy"
+    },
+    { "_id": "home:unlabelled", "name": "unlabelled" },
+    { "_id": "home:type", "name": "type", "type": "home:type" },
+    { "_id": "home:edge", "name": "edge", "type": "home:type" },
+    {
+      "_id": "home:containedBy",
+      "name": "contained by",
+      "type": "home:edge",
+      "reverse": "home:contains"
+    }
   ],
   "edges": [
-    { "_from": 1, "_to": 2, "type": "m3" },
-    { "_from": 2, "_to": 3, "type": "m3" },
-    { "_from": 2, "_to": 4, "type": "m3" },
-    { "_from": 2, "_to": 5, "type": "m3" },
-    { "_from": 2, "_to": 6, "type": "m3" }
+    { "_from": 1, "_to": 2, "type": "home:contains" },
+    { "_from": 2, "_to": 3, "type": "home:contains" },
+    { "_from": 2, "_to": 4, "type": "home:contains" },
+    { "_from": 2, "_to": 5, "type": "home:contains" },
+    { "_from": 2, "_to": 6, "type": "home:contains" }
   ]
 }

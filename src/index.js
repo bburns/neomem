@@ -2,7 +2,6 @@ import { exec } from 'child_process' // node lib
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { driver } from './driver-json/index.js'
-// import { driver } from './driver-filesys/index.js'
 
 const print = console.log
 const welcome = `
@@ -12,7 +11,6 @@ const prompt = '=> '
 
 print(welcome)
 
-// json files
 let filepath = './src/data/home.json'
 let key = 1
 
@@ -27,11 +25,8 @@ const step = async (str, oldContext, filename, callback) => {
   const command = words[0]
 
   if (command === 'look' || command === 'l') {
-    //
     const node = await connection.get(key)
-    // print(node)
     const type = await node.get('type')
-    // print(type)
     print(chalk.bold(await node.get('name')))
     print(`type: ${await type.get('name')}`)
     print(`notes: ${await node.get('notes')}`)
@@ -40,7 +35,6 @@ const step = async (str, oldContext, filename, callback) => {
     // print(`exits: ${await node.get('exits')}`) //. just for rooms etc
     //
   } else if (command === 'list') {
-    //
     const node = await connection.get(key)
     // print(node)
     print(chalk.bold(await node.get('name')))
@@ -53,15 +47,13 @@ const step = async (str, oldContext, filename, callback) => {
     }
     //
   } else if (command === 'go') {
-    //
     //. dest can be adjacent edge name, node name, or abs path, or id
     // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
     const dest = words[1]
     key = dest
     //
   } else if (command === 'edit') {
-    // exec('code pok.txt').unref()
-    exec('code pok.txt', function callback(error, stdout, stderr) {
+    exec('code pok.txt', (error, stdout, stderr) => {
       print('done')
     })
     // } else if (command === 'up') {
