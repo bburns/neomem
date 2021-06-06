@@ -6,6 +6,17 @@ import { driver as driverFilesys } from './driver-filesys/index.js'
 const print = console.log
 
 //------------------------------------------------------------------------
+// back
+//------------------------------------------------------------------------
+
+async function back(connection, key, words, past) {
+  key = past.pop()
+  await look(connection, key, words)
+  return key
+}
+back.notes = `go back to previous location`
+
+//------------------------------------------------------------------------
 // edit
 //------------------------------------------------------------------------
 
@@ -61,17 +72,6 @@ async function help(connection, key, words) {
   print(rows)
 }
 help.notes = `get help`
-
-//------------------------------------------------------------------------
-// back
-//------------------------------------------------------------------------
-
-async function back(connection, key, words, past) {
-  key = past.pop()
-  await look(connection, key, words)
-  return key
-}
-back.notes = `go back to previous location`
 
 //------------------------------------------------------------------------
 // look
