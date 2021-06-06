@@ -2,7 +2,8 @@
   "meta": {
     "name": "place2",
     "notes": "another world",
-    "metafile": "place-meta.json"
+    "metafile": "place-meta.json",
+    "initialLocation": 1
   },
   "nodes": [
     { "_id": 1, "name": "foyer", "type": "place:place" },

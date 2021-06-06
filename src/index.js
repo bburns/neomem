@@ -36,6 +36,19 @@ const prompt = '> '
       // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
       const dest = words[1]
       key = dest
+
+      // get node of new location
+      const node = await connection.get(key)
+      const type = await node.get('type')
+      const typeName = await type.get('name')
+      if (typeName === 'mount') {
+        //. assume same driver for now
+        // connection = driver.connect()
+        const filepath = await node.get('source')
+        await connection.load('./src/' + filepath)
+        key = connection.getInitialLocation()
+      }
+
       await look(connection, key)
       //
     } else if (command === 'edit') {

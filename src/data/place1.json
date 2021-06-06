@@ -2,7 +2,8 @@
   "meta": {
     "name": "place1",
     "notes": "a world",
-    "metafile": "place-meta.json"
+    "metafile": "place-meta.json",
+    "initialLocation": 1
   },
   "nodes": [
     { "_id": 1, "name": "forest", "type": "place:place" },
