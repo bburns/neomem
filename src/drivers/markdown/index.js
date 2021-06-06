@@ -19,7 +19,7 @@ class Connection {
 
   async load(path) {
     this.path = path
-    this.text = JSON.parse(String(await fs.readFile(path)))
+    this.text = String(await fs.readFile(path))
   }
 
   getInitialLocation() {
@@ -70,17 +70,18 @@ class Node {
   //   return [...new Set(exits)]
   // }
 
-  // getType() {
-  //   const type = this.connection.index.nodeId[this.props.type]
-  //   return new Node(this.connection, type)
-  // }
+  getType() {
+    // const type = this.connection.index.nodeId[this.props.type]
+    const type = { _id: 'markdown', name: 'markdown' }
+    return new Node(this.connection, type)
+  }
 
   // some props are simple keyvalue items, some are relnships, etc
   async get(prop) {
     const map = {
       // contents: this.getContents,
       // exits: this.getExits,
-      // type: this.getType,
+      type: this.getType,
     }
     const method = map[prop]
     return method ? method.bind(this)() : this.props[prop]
