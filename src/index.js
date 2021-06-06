@@ -1,7 +1,7 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-// import { driver } from './driver-json/index.js'
-import { driver } from './driver-filesys/index.js'
+import { driver } from './driver-json/index.js'
+// import { driver } from './driver-filesys/index.js'
 
 const print = console.log
 const welcome = `
@@ -12,16 +12,11 @@ const prompt = '=> '
 print(welcome)
 
 // json files
-// let filepath = './data-flesys.json'
-// let filepath = './zork.json'
-// let id = 1
-// let key = 1
-
-// filesys
-let filepath = null
-let key = 'README.md'
+let filepath = './src/data/home.json'
+let key = 1
 
 const connection = driver.connect()
+connection.load(filepath)
 
 // parse command string
 // note: these parameters are specified by node's repl library.
@@ -30,32 +25,30 @@ const step = async (str, oldContext, filename, callback) => {
   const words = str.split(' ')
   const command = words[0]
 
-  if (command === 'load') {
-    //
-    await connection.load(filepath)
-    //
-  } else if (command === 'look' || command === 'l') {
+  if (command === 'look' || command === 'l') {
     //
     const node = await connection.get(key)
-    const type = await node.get('type')
+    // print(node.props)
+    // const type = await node.get('type')
 
     print(chalk.bold(await node.get('name')))
-    print(`type: ${await type.get('name')}`)
-    print(`notes: ${await node.get('notes')}`)
-    print(`contents: ${await node.get('contents')}`)
+    // print(`type: ${await type.get('name')}`)
+    // print(`notes: ${await node.get('notes')}`)
+    // print(`contents: ${await node.get('contents')}`)
     // print(`exits: ${connection.getExits(node)}`)
     //
   } else if (command === 'list') {
     //
     const node = await connection.get(key)
-    print(chalk.bold(await node.get('name')))
-    const contents = await node.get('contents')
-    if (typeof contents === 'string') {
-      print(`contents: ${contents}`)
-    } else {
-      print(`contents:`)
-      print(contents.join('\n'))
-    }
+    print(node)
+    // print(chalk.bold(await node.get('name')))
+    // const contents = await node.get('contents')
+    // if (typeof contents === 'string') {
+    //   print(`contents: ${contents}`)
+    // } else {
+    //   print(`contents:`)
+    //   print(contents.join('\n'))
+    // }
     //
   } else if (command === 'go') {
     //

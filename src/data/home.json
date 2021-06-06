@@ -42,6 +42,8 @@
   ],
   "edges": [
     { "_from": 1, "_to": 2, "type": "m3" },
-    { "_from": 1, "_to": 3, "type": "m3" }
+    { "_from": 1, "_to": 3, "type": "m3" },
+    { "_from": 1, "_to": 4, "type": "m3" },
+    { "_from": 1, "_to": 5, "type": "m3" }
   ]
 }
