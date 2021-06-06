@@ -9,50 +9,50 @@
     {
       "_id": "home",
       "name": "home",
-      "type": "home:folder",
+      "type": "folder",
       "notes": "neomem skeleton"
     },
     {
       "_id": "filesys",
       "name": "filesys",
-      "type": "home:mount",
+      "type": "mount",
       "driver": "filesys",
       "source": "."
     },
     {
       "_id": "place1",
       "name": "place1",
-      "type": "home:mount",
-      "driver": "json",
+      "type": "mount",
+      "driver": "jsonTimegraph",
       "source": "data/place1.json"
     },
     {
       "_id": "postgres",
       "name": "postgres",
-      "type": "home:mount",
+      "type": "mount",
       "driver": "postgres",
       "source": "neomem"
     },
     {
       "_id": "blog",
       "name": "blog",
-      "type": "home:mount",
+      "type": "mount",
       "driver": "filesys",
       "source": "data/blog"
     },
     {
       "_id": "place2",
       "name": "place2",
-      "type": "home:mount",
-      "driver": "json",
+      "type": "mount",
+      "driver": "jsonTimegraph",
       "source": "data/place2.json"
     }
   ],
   "edges": [
-    { "_from": "home", "_to": "filesys", "type": "home:contains" },
-    { "_from": "home", "_to": "blog", "type": "home:contains" },
-    { "_from": "home", "_to": "postgres", "type": "home:contains" },
-    { "_from": "home", "_to": "place1", "type": "home:contains" },
-    { "_from": "home", "_to": "place2", "type": "home:contains" }
+    { "_from": "home", "_to": "filesys", "type": "contains" },
+    { "_from": "home", "_to": "blog", "type": "contains" },
+    { "_from": "home", "_to": "postgres", "type": "contains" },
+    { "_from": "home", "_to": "place1", "type": "contains" },
+    { "_from": "home", "_to": "place2", "type": "contains" }
   ]
 }

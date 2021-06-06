@@ -2,7 +2,7 @@
 
 import pathlib from 'path'
 import { Node } from './node.js'
-import { drivers } from '../index.js'
+// import { drivers } from '../index.js'
 
 export class Connection {
   constructor() {

@@ -14,7 +14,7 @@ Welcome to Neomem
 const prompt = '> '
 
 ;(async function () {
-  let connection = drivers.json.connect()
+  let connection = drivers.jsonTimegraph.connect()
   await connection.load(filepath)
   let key = connection.getInitialLocation()
 
