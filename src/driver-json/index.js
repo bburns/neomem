@@ -89,6 +89,7 @@ class Node {
     return exits
   }
 
+  // some props are simple keyvalue items, some are relnships, etc
   async get(prop) {
     if (prop === 'name') {
       return this.props[prop]

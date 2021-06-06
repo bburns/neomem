@@ -17,7 +17,7 @@ class Connect {
   async get(key) {
     key = pathlib.normalize(key)
     const name = pathlib.basename(key)
-    return new Node({ _id: key, name }, this)
+    return new Node(this, { _id: key, name })
   }
 
   set() {}
@@ -28,9 +28,9 @@ class Connect {
 //
 
 class Node {
-  constructor(props, connection) {
-    this.props = props
+  constructor(connection, props) {
     this.connection = connection
+    this.props = props
   }
 
   async getType() {
@@ -38,7 +38,7 @@ class Node {
     const type = (await lib.isDir(path))
       ? { _id: 'm1', name: 'folder' }
       : { _id: 'm2', name: 'file' }
-    return new Node(type, this.connection)
+    return new Node(this.connection, type)
   }
 
   // getPath(node) {

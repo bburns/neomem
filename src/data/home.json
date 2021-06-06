@@ -6,7 +6,12 @@
     "metafile": "home-meta.json"
   },
   "nodes": [
-    { "_id": 1, "name": "home", "type": "home:folder" },
+    {
+      "_id": 1,
+      "name": "home",
+      "type": "home:folder",
+      "notes": "neomem skeleton"
+    },
     { "_id": 2, "name": "data", "type": "home:folder" },
     {
       "_id": 3,
