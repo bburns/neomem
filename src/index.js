@@ -3,20 +3,20 @@ import repl from 'repl' // node lib - lots of options https://nodejs.org/api/rep
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { driver } from './driver-json/index.js'
 
+const filepath = './src/data/home.json' //. pass via envar or param
+
 const print = console.log
 const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
-const prompt = '=> '
-
-let filepath = './src/data/home.json' //. pass via envar or param
+const prompt = '> '
 
 ;(async function () {
   print(welcome)
   const connection = driver.connect()
   await connection.load(filepath)
   let key = connection.getInitialLocation()
-  await look(key)
+  await look(connection, key)
 
   // parse command string
   // note: these parameters are specified by node's repl library.
@@ -26,10 +26,10 @@ let filepath = './src/data/home.json' //. pass via envar or param
     const command = words[0]
 
     if (command === 'look' || command === 'l') {
-      await look(key)
+      await look(connection, key)
       //
     } else if (command === 'list') {
-      await list(key)
+      await list(connection, key)
       //
     } else if (command === 'go') {
       //. dest can be adjacent edge name, node name, or abs path, or id
@@ -48,21 +48,29 @@ let filepath = './src/data/home.json' //. pass via envar or param
     callback() // so knows to print prompt again
   }
 
-  async function look(key) {
+  async function look(connection, key) {
     const node = await connection.get(key)
+    const name = await node.get('name')
     const type = await node.get('type')
-    print(chalk.bold(await node.get('name')))
-    print(`type: ${await type.get('name')}`)
-    print(`notes: ${await node.get('notes')}`)
-    print(`source: ${await node.get('source')}`) //. just for mounts
-    print(`contents: ${await node.get('contents')}`)
-    // print(`exits: ${await node.get('exits')}`) //. just for rooms etc
+    const typeName = await type.get('name')
+    const notes = await node.get('notes')
+    const source = await node.get('source')
+    const contents = await node.get('contents')
+    // const exits = await node.get('exits')
+
+    print(chalk.bold(name))
+    if (typeName) print(`type: ${typeName}`)
+    if (notes) print(`notes: ${notes}`)
+    if (source) print(`source: ${source}`) //. just for mounts
+    if (contents) print(`contents: ${contents}`)
+    // if (exits) print(`exits: ${exits}`) //. just for rooms etc
   }
 
-  async function list(key) {
+  async function list(connection, key) {
     const node = await connection.get(key)
-    print(chalk.bold(await node.get('name')))
     const contents = await node.get('contents')
+
+    print(chalk.bold(await node.get('name')))
     if (typeof contents === 'string') {
       print(`contents: ${contents}`)
     } else {
