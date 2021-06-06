@@ -11,21 +11,22 @@ Welcome to Neomem
 const prompt = '> '
 
 ;(async function () {
-  print(welcome)
   let connection = driverJson.connect()
   await connection.load(filepath)
   let key = connection.getInitialLocation()
+
+  print(welcome)
   await commands.look(connection, key)
   print()
 
-  // parse command string
+  // parse and execute command string
   // note: these parameters are specified by node's repl library.
   const step = async (str, oldContext, filename, callback) => {
     str = str.trim()
-    const words = str.split(' ')
+    const words = str.split(' ') //. tokenize
     const command = words[0]
     const fn = commands[command] || aliases[command] || commands.unknown
-    const ret = await fn(connection, key, words)
+    const ret = await fn(connection, key, words) // execute cmd
     if (ret) key = ret
     print()
     callback() // so knows to print prompt again
