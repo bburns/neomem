@@ -81,7 +81,6 @@ class Node {
   getContents() {
     const edges = this.getEdges()
     const contents = edges.map(edge => this.connection.nodeIndex[edge._to].name)
-    // .join(', ')
     return contents
   }
   // getExits(node) {

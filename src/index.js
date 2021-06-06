@@ -56,6 +56,9 @@ const step = async (str, oldContext, filename, callback) => {
     const dest = words[1]
     key = dest
     //
+  } else if (command === 'edit') {
+    //
+    //
   }
   print()
   callback() // so knows to print prompt again
