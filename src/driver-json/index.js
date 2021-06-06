@@ -12,17 +12,13 @@ export const driver = {
 
 class Connect {
   constructor() {
-    this.index = {
-      nodeId: {},
-      nodeName: {},
-      edgeFrom: {},
-      edgeTo: {},
-    }
+    this.path = null
+    this.index = null
     this.initialLocation = null
   }
 
   async load(path) {
-    //. save path?
+    this.path = path
 
     // read all json data
     const data = JSON.parse(String(await fs.readFile(path)))
@@ -33,8 +29,16 @@ class Connect {
     const metafilepath = pathlib.join(folder, data.meta.metafile)
     const meta = JSON.parse(String(await fs.readFile(metafilepath)))
 
+    this.index = {
+      nodeId: {},
+      nodeName: {},
+      edgeFrom: {},
+      edgeTo: {},
+    }
+
     // get node index
     data.nodes.forEach(node => (this.index.nodeId[node._id] = node))
+    //. add metadata nodes - ok?
     meta.nodes.forEach(node => (this.index.nodeId[node._id] = node))
 
     //. assume unique names for now
@@ -53,6 +57,7 @@ class Connect {
       //   this.index.edgeTo[edge._to] = [edge]
       // }
     })
+    //. add metadata edges also?
   }
 
   getInitialLocation() {
@@ -109,16 +114,6 @@ class Node {
 
   // some props are simple keyvalue items, some are relnships, etc
   async get(prop) {
-    // if (prop === 'name') {
-    //   return this.props[prop]
-    // } else if (prop === 'contents') {
-    //   return this.getContents()
-    // } else if (prop === 'exits') {
-    //   return this.getExits()
-    // } else if (prop === 'type') {
-    //   return this.getType()
-    // }
-    // return this.props[prop]
     const map = {
       contents: this.getContents,
       exits: this.getExits,

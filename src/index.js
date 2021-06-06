@@ -31,6 +31,7 @@ const prompt = '> '
     const ret = await fn(connection, key, words, past) // execute cmd
     if (ret) {
       key = ret
+      console.log('new key', key)
       past.push(key)
     }
     print()

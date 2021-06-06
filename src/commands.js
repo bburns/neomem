@@ -10,7 +10,8 @@ const print = console.log
 //------------------------------------------------------------------------
 
 async function back(connection, key, words, past) {
-  key = past.pop()
+  past.pop()
+  key = past[past.length - 1]
   await look(connection, key, words)
   return key
 }
@@ -52,14 +53,14 @@ async function go(connection, key, words) {
       key = connection.getInitialLocation()
     } else if (driverName === 'filesys') {
       connection = driverFilesys.connect()
-      // key = source
-      // key = './src/data/blog' //..
       connection.load('./src/' + source)
       key = '.'
     }
   }
 
   await look(connection, key, words)
+
+  return key
 }
 go.notes = `go to another location, or in a direction`
 
