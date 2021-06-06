@@ -1,7 +1,6 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-// import { driver as driverJson } from './driver-json/index.js'
-import { drivers } from './drivers.js'
+import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands.js'
 
 const filepath = './src/data/home.json' //. pass via envar or param
@@ -35,7 +34,9 @@ const prompt = '> '
     const fn = commands[command] || aliases[command] || commands.unknown
     const ret = await fn(connection, key, words, past) // execute cmd
     if (ret) {
-      key = ret
+      if (ret.connection) connection = ret.connection
+      // { key, connection } = ret
+      if (ret.key) key = ret.key
       log('new key', key)
       past.push(key)
     }

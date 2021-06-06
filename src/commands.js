@@ -1,8 +1,6 @@
 import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-// import { driver as driverJson } from './driver-json/index.js'
-// import { driver as driverFilesys } from './driver-filesys/index.js'
-import { drivers } from './drivers.js'
+import { drivers } from './drivers/index.js'
 
 const print = console.log
 
@@ -47,9 +45,9 @@ async function go(connection, key, words) {
 
   if (typeName === 'mount') {
     const driverName = await node.get('driver')
-    const source = await node.get('source')
     const driver = drivers[driverName]
-    connection = driver.connect()
+    connection = await driver.connect()
+    const source = await node.get('source')
     await connection.load('./src/' + source)
     key = connection.getInitialLocation()
     console.log('new key', key)
@@ -57,7 +55,7 @@ async function go(connection, key, words) {
 
   await look(connection, key, words)
 
-  return key
+  return { key, connection }
 }
 go.notes = `go to another location, or in a direction`
 
@@ -100,6 +98,7 @@ look.notes = `look at this or another location`
 //------------------------------------------------------------------------
 
 async function list(connection, key, words) {
+  console.log(connection.path, { key })
   const node = await connection.get(key)
   const name = await node.get('name')
   const contents = await node.get('contents')
