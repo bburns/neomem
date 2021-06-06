@@ -89,7 +89,7 @@ async function look(connection, key, words) {
   const name = await node.get('name')
   const type = await node.get('type')
   const typeName = await type.get('name')
-  const notes = await node.get('notes')
+  const notes = (await node.get('notes')).slice(0, 60)
   const source = await node.get('source')
   const contents = await node.get('contents')
   const exits = await node.get('exits')
@@ -115,7 +115,7 @@ async function list(connection, key, words) {
   const contents = await node.get('contents')
   //. use metadata to determine what cols to include, sort, group, etc
   print(chalk.bold(name))
-  print(contents.join('\n'))
+  if (contents && contents.length > 0) print(contents.join('\n'))
 }
 list.notes = `list contents of this or another location`
 

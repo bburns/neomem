@@ -103,7 +103,7 @@ class Node {
     const edges = this.getEdges()
     const exits = edges
       .map(edge => edge.direction)
-      .filter(edge => edge !== 'contains')
+      .filter(dir => dir !== 'contains')
       .sort((a, b) => a.localeCompare(b))
     return [...new Set(exits)]
   }

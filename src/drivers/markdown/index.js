@@ -30,7 +30,8 @@ class Connection {
 
   async get(key) {
     //. scan file for key = header name/text - eventually could have indexes
-    const props = { _id: key, notes: this.text.slice(0, 60) }
+    // const props = { _id: key, notes: this.text.slice(0, 60) }
+    const props = { _id: key, name: key, notes: this.text }
     return new Node(this, props)
   }
 
@@ -47,28 +48,23 @@ class Node {
     this.props = props
   }
 
-  // getContents() {
-  //   const edges = this.getEdges()
-  //   const contents = edges
-  //     .map(edge => this.connection.index.nodeId[edge._to].name)
-  //     .sort((a, b) => a.localeCompare(b))
-  //   return contents
-  // }
+  getContents() {
+    // const edges = this.getEdges()
+    // const contents = edges
+    //   .map(edge => this.connection.index.nodeId[edge._to].name)
+    //   .sort((a, b) => a.localeCompare(b))
+    const regex = /^[#]+[ ]+.*$/gm // match header lines
+    const contents = []
+    let arr
+    while ((arr = regex.exec(this.props.notes)) !== null) {
+      contents.push(arr[0])
+    }
+    return contents
+  }
 
-  // getEdges() {
-  //   //. need Edge class also?
-  //   const edges = this.connection.index.edgeFrom[this.props._id] || []
-  //   return edges
-  // }
-
-  // getExits() {
-  //   const edges = this.getEdges()
-  //   const exits = edges
-  //     .map(edge => edge.direction)
-  //     .filter(edge => edge !== 'contains')
-  //     .sort((a, b) => a.localeCompare(b))
-  //   return [...new Set(exits)]
-  // }
+  getNotes() {
+    return this.props.notes.slice(60)
+  }
 
   getType() {
     // const type = this.connection.index.nodeId[this.props.type]
@@ -79,8 +75,8 @@ class Node {
   // some props are simple keyvalue items, some are relnships, etc
   async get(prop) {
     const map = {
-      // contents: this.getContents,
-      // exits: this.getExits,
+      contents: this.getContents,
+      notes: this.getNotes,
       type: this.getType,
     }
     const method = map[prop]
