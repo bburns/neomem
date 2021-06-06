@@ -79,17 +79,6 @@ class Node {
     this.props = props
   }
 
-  getType() {
-    const type = this.connection.index.nodeId[this.props.type]
-    return new Node(this.connection, type)
-  }
-
-  getEdges() {
-    //. need Edge class also?
-    const edges = this.connection.index.edgeFrom[this.props._id] || []
-    return edges
-  }
-
   getContents() {
     const edges = this.getEdges()
     const contents = edges
@@ -98,26 +87,36 @@ class Node {
     return contents
   }
 
+  getEdges() {
+    //. need Edge class also?
+    const edges = this.connection.index.edgeFrom[this.props._id] || []
+    return edges
+  }
+
   getExits() {
     const edges = this.getEdges()
     const exits = edges
       .map(edge => this.connection.index.nodeId[edge.type].name)
+      .filter(edge => edge !== 'contains')
       .sort((a, b) => a.localeCompare(b))
     return exits
+  }
+
+  getType() {
+    const type = this.connection.index.nodeId[this.props.type]
+    return new Node(this.connection, type)
   }
 
   // some props are simple keyvalue items, some are relnships, etc
   async get(prop) {
     if (prop === 'name') {
       return this.props[prop]
-    } else if (prop === 'notes') {
-      return this.props[prop]
-    } else if (prop === 'type') {
-      return this.getType()
     } else if (prop === 'contents') {
       return this.getContents()
     } else if (prop === 'exits') {
       return this.getExits()
+    } else if (prop === 'type') {
+      return this.getType()
     }
     return this.props[prop]
   }

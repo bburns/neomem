@@ -18,6 +18,7 @@ const prompt = '> '
   await connection.load(filepath)
   let key = connection.getInitialLocation()
   await look(connection, key)
+  print()
 
   // parse command string
   // note: these parameters are specified by node's repl library.
@@ -88,7 +89,7 @@ const prompt = '> '
     if (notes) print(`notes: ${notes}`)
     if (source) print(`source: ${source}`) //. just for mounts
     if (contents && contents.length > 0) print(`contents: ${contents}`)
-    if (exits) print(`exits: ${exits}`) //. just for rooms etc
+    if (exits && exits.length > 0) print(`exits: ${exits}`)
   }
 
   async function list(connection, key) {
