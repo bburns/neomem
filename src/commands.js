@@ -71,4 +71,9 @@ async function list(connection, key, words) {
   print(contents.join('\n'))
 }
 
-export const commands = { edit, go, look, list }
+async function unknown(connection, key, words) {
+  print('Huh?')
+}
+
+export const aliases = { l: look }
+export const commands = { edit, go, look, list, unknown }
