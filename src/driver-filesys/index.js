@@ -1,5 +1,6 @@
 import pathlib from 'path'
 import * as lib from './lib.js'
+import { driver as driverJson } from '../driver-json/index.js'
 
 export const driver = {
   connect() {
@@ -31,6 +32,10 @@ class Node {
   constructor(connection, props) {
     this.connection = connection
     this.props = props
+  }
+
+  load(path) {
+    driverJson.
   }
 
   async getType() {

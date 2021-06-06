@@ -16,11 +16,13 @@ class Connect {
     this.edgeFromIndex = {}
     this.edgeToIndex = {}
     this.nodeNameIndex = {}
+    this.initialLocation = null
   }
 
   async load(path) {
     // read all json data
     const data = JSON.parse(String(await fs.readFile(path)))
+    this.initialLocation = data.meta.initialLocation
     // read metadata
     const folder = pathlib.dirname(path)
     const metafilepath = pathlib.join(folder, data.meta.metafile)
@@ -44,6 +46,10 @@ class Connect {
     })
     //. get edgeToIndex
     //. get name indexes
+  }
+
+  getInitialLocation() {
+    return this.initialLocation
   }
 
   // crud operations

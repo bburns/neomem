@@ -9,22 +9,46 @@ Welcome to Neomem
 -----------------------------------------------------`
 const prompt = '=> '
 
-print(welcome)
+let filepath = './src/data/home.json' //. pass via envar or param
 
-let filepath = './src/data/home.json'
-let key = 1
+;(async function () {
+  print(welcome)
+  const connection = driver.connect()
+  await connection.load(filepath)
+  let key = connection.getInitialLocation()
+  await look(key)
 
-const connection = driver.connect()
-connection.load(filepath)
+  // parse command string
+  // note: these parameters are specified by node's repl library.
+  const step = async (str, oldContext, filename, callback) => {
+    str = str.trim()
+    const words = str.split(' ')
+    const command = words[0]
 
-// parse command string
-// note: these parameters are specified by node's repl library.
-const step = async (str, oldContext, filename, callback) => {
-  str = str.trim()
-  const words = str.split(' ')
-  const command = words[0]
+    if (command === 'look' || command === 'l') {
+      await look(key)
+      //
+    } else if (command === 'list') {
+      await list(key)
+      //
+    } else if (command === 'go') {
+      //. dest can be adjacent edge name, node name, or abs path, or id
+      // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
+      const dest = words[1]
+      key = dest
+      //
+    } else if (command === 'edit') {
+      exec('code pok.txt', (error, stdout, stderr) => {
+        print('done')
+      })
+      // } else if (command === 'up') {
+      //   key = '..'
+    }
+    print()
+    callback() // so knows to print prompt again
+  }
 
-  if (command === 'look' || command === 'l') {
+  async function look(key) {
     const node = await connection.get(key)
     const type = await node.get('type')
     print(chalk.bold(await node.get('name')))
@@ -33,10 +57,10 @@ const step = async (str, oldContext, filename, callback) => {
     print(`source: ${await node.get('source')}`) //. just for mounts
     print(`contents: ${await node.get('contents')}`)
     // print(`exits: ${await node.get('exits')}`) //. just for rooms etc
-    //
-  } else if (command === 'list') {
+  }
+
+  async function list(key) {
     const node = await connection.get(key)
-    // print(node)
     print(chalk.bold(await node.get('name')))
     const contents = await node.get('contents')
     if (typeof contents === 'string') {
@@ -45,22 +69,7 @@ const step = async (str, oldContext, filename, callback) => {
       print(`contents:`)
       print(contents.join('\n'))
     }
-    //
-  } else if (command === 'go') {
-    //. dest can be adjacent edge name, node name, or abs path, or id
-    // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
-    const dest = words[1]
-    key = dest
-    //
-  } else if (command === 'edit') {
-    exec('code pok.txt', (error, stdout, stderr) => {
-      print('done')
-    })
-    // } else if (command === 'up') {
-    //   key = '..'
   }
-  print()
-  callback() // so knows to print prompt again
-}
 
-const server = repl.start({ prompt, eval: step })
+  const server = repl.start({ prompt, eval: step })
+})()
