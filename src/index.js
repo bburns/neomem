@@ -35,7 +35,7 @@ const step = async (str, oldContext, filename, callback) => {
     print(chalk.bold(await node.get('name')))
     print(`type: ${await type.get('name')}`)
     print(`notes: ${await node.get('notes')}`)
-    print(`source: ${await node.get('source')}`)
+    print(`source: ${await node.get('source')}`) //. just for mounts
     print(`contents: ${await node.get('contents')}`)
     // print(`exits: ${await node.get('exits')}`) //. just for rooms etc
     //
