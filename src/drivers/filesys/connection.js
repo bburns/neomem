@@ -20,7 +20,7 @@ export class Connection {
   async get(key) {
     key = pathlib.normalize(key)
     const name = pathlib.basename(key)
-    //...
+    //... fix this
     if (key.endsWith('.md')) {
       return new Node(this, {
         _id: key,

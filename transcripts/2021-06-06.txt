@@ -1,43 +1,44 @@
 Welcome to Neomem
 -----------------------------------------------------
-home
+[home]
 type: folder
 notes: neomem skeleton
 contents: blog, filesys, place1, place2, postgres
 
+> help
+[
+  [ 'back', 'go back to previous location' ],
+  [ 'edit', 'edit notes for a node' ],
+  [ 'go', 'go to another location, or in a direction' ],
+  [ 'help', 'get help' ],
+  [ 'info', 'get debugging info' ],
+  [ 'look', 'look at this or another location' ],
+  [ 'list', 'list contents of this or another location' ],
+  [ 'unknown', undefined ]
+]
+
 > go place1
-forest
+[forest]
 type: place
 notes: a shady forest of aspen trees
 contents: clearing, field
 exits: east, north
 
 > go field
-field
+[field]
 type: place
 
 > back
-forest
-type: place
-notes: a shady forest of aspen trees
-contents: clearing, field
-exits: east, north
-
 > back
-home
-type: folder
-notes: neomem skeleton
-contents: blog, filesys, place1, place2, postgres
-
 > go blog
-.
+[blog]
 type: folder
 notes: (n/a)
 contents: 2021-02-07.md, 2021-02-08.md, 2021-05-15.md, 2021-05-22.md, 2021-05-23.md, 2021-05-30.md, blog-meta.json, index.md
 exits: up
 
 > list
-.
+[blog]
 2021-02-07.md
 2021-02-08.md
 2021-05-15.md
@@ -48,7 +49,7 @@ blog-meta.json
 index.md
 
 > go index.md
-index.md
+[index.md]
 type: markdown
 notes: ---
 name: Neomem blog
@@ -57,21 +58,9 @@ type: blog
 public:
 
 > back
-.
-type: folder
-notes: (n/a)
-contents: 2021-02-07.md, 2021-02-08.md, 2021-05-15.md, 2021-05-22.md, 2021-05-23.md, 2021-05-30.md, blog-meta.json, index.md
-exits: up
-
 > back
-.
-type: folder
-notes: (n/a)
-contents: .DS_Store, .firebase, .firebaserc, .git, .github, .gitignore, .prettierignore, .prettierrc, LICENSE, README.md, _old, design, firebase.json, lerna.json, node_modules, package-lock.json, package.json, packages, setups, shell, site, src, transcripts, yarn.lock
-exits: up
-
 > go README.md
-README.md
+[README.md]
 type: markdown
 notes: # Neomem
 
@@ -79,7 +68,7 @@ An open-source information manager - with plugins
 contents: # Neomem, ## About, ## Current Status, ## Goals, ## Use Cases, ## Inspiration, ## Implementation, ## Architecture, ## Features, ## Packages, ## Installation, ## Running, ## Links, ## License
 
 > list
-README.md
+[README.md]
 # Neomem
 ## About
 ## Current Status

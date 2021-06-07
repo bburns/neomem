@@ -63,7 +63,7 @@ export class Node {
       //. use filesys-meta.json values here
       type = { _id: 'folder', name: 'folder' }
     } else if (path.endsWith('.md')) {
-      //...
+      //... fix this
       type = { _id: 'mount', name: 'mount' }
     } else {
       type = { _id: 'file', name: 'file' }
