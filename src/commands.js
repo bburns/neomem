@@ -97,7 +97,7 @@ async function look(connection, key, words) {
   const exits = await node.get('exits')
 
   //. use metadata to determine what props to include
-  print(chalk.bold(name))
+  print(chalk.bold('[' + name + ']'))
   if (typeName) printRow('type', typeName)
   if (notes) printRow('notes', notes)
   if (source) printRow('source', source)
