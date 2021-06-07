@@ -51,7 +51,6 @@ async function go(connection, key, words, past) {
     const driver = drivers[driverName]
     connection = await driver.connect()
     const source = await node.get('source')
-    // await connection.load('./src/' + source)
     await connection.load(source)
     key = connection.getInitialLocation()
   }
@@ -99,15 +98,14 @@ async function look(connection, key, words) {
 
   //. use metadata to determine what props to include
   print(chalk.bold(name))
-  function printRow(name, value) {
-    // print(chalk.gray(name + ':'), value)
-    print(name + ':', value)
-  }
   if (typeName) printRow('type', typeName)
   if (notes) printRow('notes', notes)
   if (source) printRow('source', source)
   if (contents && contents.length > 0) printRow('contents', contents.join(', '))
   if (exits && exits.length > 0) printRow('exits', exits.join(', '))
+  function printRow(name, value) {
+    print(name + ':', value)
+  }
 }
 look.notes = `look at this or another location`
 
@@ -136,5 +134,5 @@ async function unknown(connection, key, words) {
 
 //------------------------------------------------------------------------
 
-export const aliases = { l: look }
 export const commands = { back, edit, go, help, info, look, list, unknown }
+export const aliases = { l: look }
