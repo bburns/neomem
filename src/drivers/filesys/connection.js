@@ -21,6 +21,9 @@ export class Connection {
     key = pathlib.normalize(key)
     const name = pathlib.basename(key)
     //... fix this
+    // want some kind of automatic mount points depending on file type -
+    // register based on extension somewhere.
+    // distinguish plain json from json-timegraph - look inside for metadata.
     if (key.endsWith('.md')) {
       return new Node(this, {
         _id: key,

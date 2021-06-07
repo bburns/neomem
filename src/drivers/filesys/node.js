@@ -64,6 +64,7 @@ export class Node {
       type = { _id: 'folder', name: 'folder' }
     } else if (path.endsWith('.md')) {
       //... fix this
+      // ie want automatic mount for certain file types/extensions
       type = { _id: 'mount', name: 'mount' }
     } else {
       type = { _id: 'file', name: 'file' }
