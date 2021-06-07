@@ -9,10 +9,13 @@ const print = console.log
 //------------------------------------------------------------------------
 
 async function back(connection, key, words, past) {
-  past.pop()
-  const previous = past[past.length - 1]
-  await look(previous.connection, previous.key)
-  return previous
+  if (past.length > 1) {
+    past.pop()
+    const previous = past[past.length - 1]
+    await look(previous.connection, previous.key)
+    return previous
+  }
+  print(`No more history.`)
 }
 back.notes = `go back to previous location`
 

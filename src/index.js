@@ -1,12 +1,11 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
-import chalk from 'chalk' // color text https://github.com/chalk/chalk
+// import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands.js'
 
 const filepath = './src/data/home.json' //. pass via envar or param
 
 const print = console.log
-const log = (...args) => print(chalk.gray(...args))
 
 const welcome = `
 Welcome to Neomem
@@ -33,9 +32,8 @@ const prompt = '> '
     const fn = commands[command] || aliases[command] || commands.unknown
     const ret = await fn(connection, key, words, past) // execute cmd
     if (ret) {
-      if (ret.connection) connection = ret.connection
-      if (ret.key) key = ret.key
-      // past.push({ connection, key })
+      connection = ret.connection
+      key = ret.key
     }
     print()
     callback() // so knows to print prompt again
