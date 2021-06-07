@@ -97,7 +97,9 @@ async function look(connection, key, words) {
   const exits = await node.get('exits')
 
   //. use metadata to determine what props to include
-  print(chalk.bold('[' + name + ']'))
+  // print(chalk.bold('[' + name + ']'))
+  // print(chalk.bold(name))
+  printRow('name', name)
   if (typeName) printRow('type', typeName)
   if (notes) printRow('notes', notes)
   if (source) printRow('source', source)
@@ -114,7 +116,7 @@ look.notes = `look at this or another location`
 //------------------------------------------------------------------------
 
 async function list(connection, key, words) {
-  console.log(connection.path, { key })
+  // console.log(connection.path, { key })
   const node = await connection.get(key)
   const name = await node.get('name')
   const contents = await node.get('contents')

@@ -1,5 +1,5 @@
 import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
-// import chalk from 'chalk' // color text https://github.com/chalk/chalk
+import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands.js'
 
@@ -10,7 +10,6 @@ const print = console.log
 const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
-const prompt = '> '
 
 ;(async function () {
   let connection = drivers.jsonTimegraph.connect()
@@ -21,6 +20,7 @@ const prompt = '> '
   await commands.look(connection, key)
   print()
 
+  const prompt = `${'[' + chalk.bold(key) + ']'}\n> `
   const past = [{ connection, key }]
 
   // parse and execute command string
@@ -36,6 +36,7 @@ const prompt = '> '
       key = ret.key
     }
     print()
+    server.setPrompt(`[${chalk.bold(key)}]\n> `)
     callback() // so knows to print prompt again
   }
 
