@@ -27,10 +27,10 @@ export class Connection {
     if (key.endsWith('.md')) {
       return new Node(this, {
         _id: key,
+        name,
         type: 'mount',
         driver: 'markdown',
         source: pathlib.join(this.path, key),
-        name,
       })
     }
     return new Node(this, { _id: key, name })

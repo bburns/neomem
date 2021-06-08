@@ -44,9 +44,8 @@ async function go(connection, key, words, past) {
   // get node of new location
   const node = await connection.get(key)
   const type = await node.get('type')
-  const typeName = await type.get('name')
 
-  if (typeName === 'mount') {
+  if (type === 'mount') {
     const driverName = (await node.get('driver')) || 'markdown' //.
     const driver = drivers[driverName]
     connection = await driver.connect()
@@ -90,7 +89,6 @@ async function look(connection, key, words) {
   const node = await connection.get(key)
   const name = await node.get('name')
   const type = await node.get('type')
-  const typeName = await type.get('name')
   const notes = (await node.get('notes')).slice(0, 60)
   const source = await node.get('source')
   const contents = await node.get('contents')
@@ -100,7 +98,7 @@ async function look(connection, key, words) {
   // print(chalk.bold('[' + name + ']'))
   // print(chalk.bold(name))
   printRow('name', name)
-  if (typeName) printRow('type', typeName)
+  if (type) printRow('type', type)
   if (notes) printRow('notes', notes)
   if (source) printRow('source', source)
   if (contents && contents.length > 0) printRow('contents', contents.join(', '))
@@ -116,7 +114,6 @@ look.notes = `look at this or another location`
 //------------------------------------------------------------------------
 
 async function list(connection, key, words) {
-  // console.log(connection.path, { key })
   const node = await connection.get(key)
   const name = await node.get('name')
   const contents = await node.get('contents')

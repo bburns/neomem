@@ -11,9 +11,8 @@ export class Node {
 
   async getContents() {
     const type = await this.getType()
-    const typeName = await type.get('name')
     const path = this.getPath()
-    if (typeName === 'folder') {
+    if (type === 'folder') {
       return lib.readDir(path)
     }
     // files don't have contents - they have notes - see getNotes
@@ -26,9 +25,8 @@ export class Node {
 
   async getNotes() {
     const type = await this.getType()
-    const typeName = await type.get('name')
     const path = this.getPath()
-    if (typeName === 'file') {
+    if (type === 'file') {
       return lib.readFile(path, 60)
     }
     // folders don't have notes - they have contents - see getContents
@@ -44,32 +42,24 @@ export class Node {
   // }
   //. get full path?
   getPath() {
-    //. _id is just the filename? or should it store the path relative to mount point?
-    // const path = pathlib.normalize(this.props._id)
+    //. _id is just the filename? or should it be the path relative to mount point?
+    //. or walk up the path tree to get the full string
     const path = pathlib.join(this.connection.path, this.props._id)
     return path
   }
 
   async getType() {
     const path = this.getPath()
-    //. use filesys-meta.json values here
-    // const type = await lib.isDir(path)
-    //   ? { _id: 'folder', name: 'folder' }
-    //   : { _id: 'file', name: 'file' }
-    // return new Node(this.connection, type)
     const isFolder = await lib.isDir(path)
-    let type
     if (isFolder) {
-      //. use filesys-meta.json values here
-      type = { _id: 'folder', name: 'folder' }
+      return 'folder'
     } else if (path.endsWith('.md')) {
       //... fix this
       // ie want automatic mount for certain file types/extensions
-      type = { _id: 'mount', name: 'mount' }
-    } else {
-      type = { _id: 'file', name: 'file' }
+      return 'mount'
     }
-    return new Node(this.connection, type)
+    return 'file'
+    // return new Node(this.connection, type)
   }
 
   async get(prop) {
