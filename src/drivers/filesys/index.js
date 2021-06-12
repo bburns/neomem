@@ -1,12 +1,18 @@
 import fs from 'fs/promises'
 import pathlib from 'path'
+import { fileURLToPath } from 'url'
 import { Node } from './node.js'
+
+// must create __dirname since we're using esm modules
+//. where put this stuff?
+// see https://github.com/nodejs/help/issues/2907#issuecomment-757446568
+// @ts-ignore
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = pathlib.dirname(__filename)
 
 export const driver = {
   async connect() {
-    const meta = eval(
-      String(await fs.readFile('./src/drivers/filesys/meta.js'))
-    )
+    const meta = eval(String(await fs.readFile(__dirname + '/meta.js')))
     return new Connection(meta)
   },
 }

@@ -3,6 +3,7 @@
   "description": "an open source information manager",
   "version": "0.1.0",
   "type": "module",
+  "module": "esnext",
   "scripts": {
     "start": "nodemon src/index.js",
     "//.": "move these into shell scripts?",

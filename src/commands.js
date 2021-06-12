@@ -120,13 +120,15 @@ look.notes = `look at this or another location`
 async function list(connection, key, words) {
   const node = await connection.get(key)
   const name = await node.get('name')
-  const contents = await node.get('contents') // array of items
+  // const contents = await node.get('contents') // array of items
   //. use metadata to determine what cols to include, sort, group, etc
   print(chalk.bold(name))
   // if (contents && contents.length > 0) print(contents.join('\n'))
-  // tree.show(contents, view)
-  // view(contents)
-  views.tree(contents)
+  // views.tree(contents)
+  const meta = {
+    columns: 'n,name,size,created,modified'.split(','),
+  }
+  views.tree(node, 'contents', meta)
 }
 list.notes = `list contents of this or another location`
 
