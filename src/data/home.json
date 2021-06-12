@@ -27,8 +27,8 @@
       "source": "src/data/place1.json"
     },
     {
-      "_id": "postgres",
-      "name": "postgres",
+      "_id": "pg",
+      "name": "pg",
       "type": "mount",
       "driver": "postgres",
       "source": "neomem"
@@ -46,13 +46,20 @@
       "type": "mount",
       "driver": "jsonTimegraph",
       "source": "src/data/place2.json"
+    },
+    {
+      "_id": "gsheet",
+      "name": "gsheet",
+      "type": "mount",
+      "driver": "gsheet"
     }
   ],
   "edges": [
     { "_from": "home", "_to": "filesys", "type": "contains" },
     { "_from": "home", "_to": "blog", "type": "contains" },
-    { "_from": "home", "_to": "postgres", "type": "contains" },
+    { "_from": "home", "_to": "pg", "type": "contains" },
     { "_from": "home", "_to": "place1", "type": "contains" },
-    { "_from": "home", "_to": "place2", "type": "contains" }
+    { "_from": "home", "_to": "place2", "type": "contains" },
+    { "_from": "home", "_to": "gsheet", "type": "contains" }
   ]
 }
