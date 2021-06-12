@@ -1,6 +1,7 @@
+// treetable view
 // prop is eg 'contents'
 export async function view(node, prop, meta, connection) {
-  const path = (await node.get('path')) || '.'
+  // const path = (await node.get('path')) || '.'
   const keys = await node.get(prop)
   if (keys && keys.length > 0) {
     const nodes = []

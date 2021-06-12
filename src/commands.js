@@ -128,7 +128,7 @@ async function list(connection, key, words) {
   const meta = {
     columns: 'n,name,size,created,modified'.split(','),
   }
-  await views.tree(node, 'contents', meta, connection)
+  await views.treetable(node, 'contents', meta, connection)
 }
 list.notes = `list contents of this or another location`
 

@@ -1,3 +1,3 @@
-import { view as tree } from './tree.js'
+import { view as treetable } from './treetable.js'
 
-export const views = { tree }
+export const views = { treetable }
