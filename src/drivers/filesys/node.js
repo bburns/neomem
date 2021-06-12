@@ -87,7 +87,7 @@ export class Node {
     return stats.mtimeMs
   }
 
-  async get(prop) {
+  async get(spec) {
     const map = {
       contents: this.getContents,
       exits: this.getExits,
@@ -97,7 +97,17 @@ export class Node {
       created: this.getCreated,
       modified: this.getModified,
     }
-    const method = map[prop]
-    return method ? method.bind(this)() : this.props[prop]
+    // const method = map[prop]
+    // return method ? method.bind(this)() : this.props[prop]
+
+    const isArray = Array.isArray(spec)
+    const props = isArray ? spec : [spec]
+    const keyvalues = {}
+    for (const prop of props) {
+      const method = map[prop]
+      const value = method ? await method.bind(this)() : this.props[prop]
+      keyvalues[prop] = value
+    }
+    return isArray ? keyvalues : keyvalues[spec]
   }
 }
