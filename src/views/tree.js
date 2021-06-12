@@ -6,17 +6,11 @@ export async function view(node, prop, meta, connection) {
     const nodes = []
     for (const key of keys) {
       // const subpath = path + '/' + key
+      // console.log(subpath)
       const subpath = key
-      console.log(subpath)
       const node = await connection.get(subpath)
       nodes.push(node)
     }
-    // console.log(nodes)
-    // const rows = await nodes.map(async (node, n) => ({
-    //   n,
-    //   id: node._id,
-    //   name: await node.get('name'),
-    // }))
     const rows = []
     for (const [n, node] of nodes.entries()) {
       const row = {
@@ -24,7 +18,7 @@ export async function view(node, prop, meta, connection) {
         name: await node.get('name'),
         size: await node.get('size'),
         created: await node.get('created'),
-        // modified: await node.get('modified'),
+        modified: await node.get('modified'),
       }
       rows.push(row)
     }

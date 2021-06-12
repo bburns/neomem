@@ -1,5 +1,6 @@
 // filesystem node - file or folder
 
+import fs from 'fs/promises'
 import pathlib from 'path'
 import * as lib from './lib.js'
 
@@ -65,12 +66,36 @@ export class Node {
     return 'file'
   }
 
+  async getSize() {
+    const path = this.getPath()
+    const stats = await fs.stat(path) //. store this in the node, with .dirty flag
+    if (stats.isDirectory()) {
+      return 0
+    }
+    return stats.size
+  }
+
+  async getCreated() {
+    const path = this.getPath()
+    const stats = await fs.stat(path) //. store this in the node, with .dirty flag
+    return stats.birthtimeMs
+  }
+
+  async getModified() {
+    const path = this.getPath()
+    const stats = await fs.stat(path) //. store this in the node, with .dirty flag
+    return stats.mtimeMs
+  }
+
   async get(prop) {
     const map = {
       contents: this.getContents,
       exits: this.getExits,
       notes: this.getNotes,
+      size: this.getSize,
       type: this.getType,
+      created: this.getCreated,
+      modified: this.getModified,
     }
     const method = map[prop]
     return method ? method.bind(this)() : this.props[prop]
