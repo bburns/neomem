@@ -119,13 +119,14 @@ class Node {
 
   // some props are simple keyvalue items, some are relnships, etc
   async get(spec) {
-    const isArray = Array.isArray(spec)
-    const props = isArray ? spec : [spec]
     const map = {
       contents: this.getContents,
       exits: this.getExits,
       // type: this.getType,
     }
+
+    const isArray = Array.isArray(spec)
+    const props = isArray ? spec : [spec]
     const keyvalues = {}
     for (const prop of props) {
       const method = map[prop]

@@ -17,12 +17,6 @@ export async function view(node, prop, meta, connection) {
     for (const [n, node] of nodes.entries()) {
       const data = await node.get(cols)
       const row = { n, ...data }
-      //   n,
-      //   name: await node.get('name'),
-      //   size: await node.get('size'),
-      //   created: await node.get('created'),
-      //   modified: await node.get('modified'),
-      // }
       rows.push(row)
     }
     console.log(rows)
