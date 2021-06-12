@@ -1,8 +1,0 @@
-{
-  "nodes": [
-    { "_id": "markdown", "name": "markdown", "extension": "md" },
-    { "_id": "folder", "name": "folder" },
-    { "_id": "file", "name": "file" }
-  ],
-  "edges": []
-}

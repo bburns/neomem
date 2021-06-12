@@ -64,10 +64,10 @@
   edges: [
     { _from: 'home', _to: 'filesys', type: 'contains' },
     { _from: 'home', _to: 'blog', type: 'contains' },
-    { _from: 'home', _to: 'pg', type: 'contains' },
+    // { _from: 'home', _to: 'pg', type: 'contains' },
     { _from: 'home', _to: 'forest', type: 'contains' },
     { _from: 'home', _to: 'house', type: 'contains' },
-    { _from: 'home', _to: 'gsheet', type: 'contains' },
+    // { _from: 'home', _to: 'gsheet', type: 'contains' },
     { _from: 'home', _to: 'notes', type: 'contains' },
   ],
 })
