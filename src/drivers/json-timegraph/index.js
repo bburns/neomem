@@ -3,6 +3,7 @@
 
 import fs from 'fs/promises'
 import pathlib from 'path'
+import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
   connect() {
@@ -124,15 +125,6 @@ class Node {
       exits: this.getExits,
       // type: this.getType,
     }
-
-    const isArray = Array.isArray(spec)
-    const props = isArray ? spec : [spec]
-    const keyvalues = {}
-    for (const prop of props) {
-      const method = map[prop]
-      const value = method ? method.bind(this)() : this.props[prop]
-      keyvalues[prop] = value
-    }
-    return isArray ? keyvalues : keyvalues[spec]
+    return libdrivers.get(this, spec, map)
   }
 }

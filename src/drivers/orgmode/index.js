@@ -1,6 +1,7 @@
 // driver for orgmode text files
 
 import fs from 'fs/promises'
+import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
   connect() {
@@ -66,14 +67,12 @@ class Node {
     return new Node(this.connection, type)
   }
 
-  // some props are simple keyvalue items, some are relnships, etc
-  async get(prop) {
+  async get(spec) {
     const map = {
       contents: this.getContents,
       // notes: this.getNotes,
       type: this.getType,
     }
-    const method = map[prop]
-    return method ? method.bind(this)() : this.props[prop]
+    return libdrivers.get(this, spec, map)
   }
 }

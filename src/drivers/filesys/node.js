@@ -3,6 +3,7 @@
 import fs from 'fs/promises'
 import pathlib from 'path'
 import * as lib from './lib.js'
+import * as libdrivers from '../libdrivers.js'
 
 export class Node {
   constructor(connection, props) {
@@ -97,17 +98,6 @@ export class Node {
       created: this.getCreated,
       modified: this.getModified,
     }
-    // const method = map[prop]
-    // return method ? method.bind(this)() : this.props[prop]
-
-    const isArray = Array.isArray(spec)
-    const props = isArray ? spec : [spec]
-    const keyvalues = {}
-    for (const prop of props) {
-      const method = map[prop]
-      const value = method ? await method.bind(this)() : this.props[prop]
-      keyvalues[prop] = value
-    }
-    return isArray ? keyvalues : keyvalues[spec]
+    return libdrivers.get(this, spec, map)
   }
 }

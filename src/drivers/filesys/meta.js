@@ -1,5 +1,6 @@
 ;({
   nodes: [
+    // specify filetypes here - will convert to mount points
     {
       _id: 'markdown',
       name: 'markdown',
