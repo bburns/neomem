@@ -6,31 +6,33 @@ import pathlib from 'path'
 import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
-  connect() {
-    return new Connection()
+  connect(path) {
+    return new Connection(path)
   },
 }
 
 //
 
 class Connection {
-  constructor() {
+  constructor(path) {
     this.type = 'json-timegraph'
-    this.path = null
+    // this.path = null
+    this.path = path
     this.index = null
     this.initialLocation = null
   }
 
-  async load(path) {
-    this.path = path
+  //. move this to Node - should load lazily as needed
+  async load() {
+    // this.path = path
 
     // read all json data
     // const data = JSON.parse(String(await fs.readFile(path)))
-    const data = eval(String(await fs.readFile(path)))
+    const data = eval(String(await fs.readFile(this.path)))
     this.initialLocation = data.meta.initialLocation
 
     // read metadata
-    const folder = pathlib.dirname(path)
+    const folder = pathlib.dirname(this.path)
     const metafilepath = pathlib.join(folder, data.meta.metafile)
     // const meta = JSON.parse(String(await fs.readFile(metafilepath)))
     const meta = eval(String(await fs.readFile(metafilepath)))
@@ -73,6 +75,7 @@ class Connection {
   // crud operations
 
   async get(key) {
+    if (!this.index) await this.load()
     const props = this.index.nodeId[key] || this.index.nodeName[key]
     return new Node(this, props)
   }

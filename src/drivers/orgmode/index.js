@@ -19,20 +19,23 @@ class Connection {
     this.text = null
   }
 
-  async load(path) {
-    this.path = path
-    //. read whole file
-    this.text = String(await fs.readFile(path))
-  }
+  // async load(path) {
+  //   this.path = path
+  //   //. read whole file - better to do lazily in Node class
+  //   this.text = String(await fs.readFile(path))
+  // }
 
   getInitialLocation() {
     return this.initialLocation
   }
 
   async get(key) {
-    //. scan file for key = header name/text - eventually could have indexes?
-    //. returns this.text ?
-    const props = { _id: key, name: this.path, notes: this.text }
+    const props = {
+      _id: key,
+      name: key,
+      // notes: this.text,
+      path: key,
+    }
     return new Node(this, props)
   }
   set() {}
@@ -48,7 +51,13 @@ class Node {
     this.props = props
   }
 
-  getContents() {
+  //. scan file for key = header name/text - eventually could have indexes?
+  async load() {
+    this.props.notes = String(await fs.readFile(this.props.path))
+  }
+
+  async getContents() {
+    if (!this.props.notes) await this.load()
     const regex = /^[*]+[ ]+.*$/gm // match header lines
     const contents = []
     let arr

@@ -52,9 +52,10 @@ async function go(connection, key, words, past) {
   if (type === 'mount') {
     const driverName = (await node.get('driver')) || 'markdown' //.
     const driver = drivers[driverName]
-    connection = await driver.connect()
-    const source = await node.get('source')
-    await connection.load(source)
+    connection = await driver.connect(key)
+    //. don't load file here - do lazily as needed
+    // const source = await node.get('source')
+    // await connection.load(source)
     key = connection.getInitialLocation()
   }
 
