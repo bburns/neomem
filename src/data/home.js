@@ -53,6 +53,13 @@
       type: 'mount',
       driver: 'gsheet',
     },
+    {
+      _id: 'notes',
+      name: 'notes',
+      type: 'mount',
+      driver: 'filesys',
+      source: '/Users/bburns/Dropbox/@Notebook',
+    },
   ],
   edges: [
     { _from: 'home', _to: 'filesys', type: 'contains' },
@@ -61,5 +68,6 @@
     { _from: 'home', _to: 'forest', type: 'contains' },
     { _from: 'home', _to: 'house', type: 'contains' },
     { _from: 'home', _to: 'gsheet', type: 'contains' },
+    { _from: 'home', _to: 'notes', type: 'contains' },
   ],
 })

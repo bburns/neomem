@@ -89,7 +89,7 @@ async function look(connection, key, words) {
   const node = await connection.get(key)
   const name = await node.get('name')
   const type = await node.get('type')
-  const notes = (await node.get('notes')).slice(0, 60)
+  const notes = ((await node.get('notes')) || '').slice(0, 60)
   const source = await node.get('source')
   const contents = await node.get('contents')
   const exits = await node.get('exits')
