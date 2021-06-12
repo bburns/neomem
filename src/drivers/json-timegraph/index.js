@@ -68,7 +68,8 @@ class Connection {
     //. add metadata edges also?
   }
 
-  getInitialLocation() {
+  async getInitialLocation() {
+    if (!this.index) await this.load()
     return this.initialLocation
   }
 

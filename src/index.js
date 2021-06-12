@@ -14,7 +14,7 @@ Welcome to Neomem
 async function main() {
   let connection = drivers.jsonTimegraph.connect(filepath)
   // await connection.load(filepath)
-  let key = connection.getInitialLocation()
+  let key = await connection.getInitialLocation()
 
   print(welcome)
   await commands.look(connection, key)
