@@ -1,4 +1,4 @@
-// driver for json timegraph files
+// driver for js/json timegraph files
 // have meta, nodes, edges, history subitems
 
 import fs from 'fs/promises'
@@ -16,16 +16,13 @@ export const driver = {
 class Connection {
   constructor(path) {
     this.type = 'json-timegraph'
-    // this.path = null
     this.path = path
     this.index = null
     this.initialLocation = null
   }
 
-  //. move this to Node - should load lazily as needed
+  // read file and build indexes
   async load() {
-    // this.path = path
-
     // read all json data
     // const data = JSON.parse(String(await fs.readFile(path)))
     const data = eval(String(await fs.readFile(this.path)))
@@ -117,17 +114,11 @@ class Node {
     return [...new Set(exits)]
   }
 
-  // getType() {
-  //   const type = this.connection.index.nodeId[this.props.type]
-  //   return new Node(this.connection, type)
-  // }
-
   // some props are simple keyvalue items, some are relnships, etc
   async get(spec) {
     const map = {
       contents: this.getContents,
       exits: this.getExits,
-      // type: this.getType,
     }
     return libdrivers.get(this, spec, map)
   }
