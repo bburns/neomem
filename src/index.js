@@ -11,7 +11,7 @@ const welcome = `
 Welcome to Neomem
 -----------------------------------------------------`
 
-;(async function () {
+async function main() {
   let connection = drivers.jsonTimegraph.connect()
   await connection.load(filepath)
   let key = connection.getInitialLocation()
@@ -26,12 +26,13 @@ Welcome to Neomem
 
   // parse and execute command string
   // note: these parameters are specified by node's repl library.
-  const step = async (str, oldContext, filename, callback) => {
+  async function step(str, oldContext, filename, callback) {
     str = str.trim()
     const words = str.split(' ') //. tokenize
     const command = words[0]
     const fn = commands[command] || aliases[command] || commands.unknown
     const ret = await fn(connection, key, words, past) // execute cmd
+    // update location if needed
     if (ret) {
       connection = ret.connection
       key = ret.key
@@ -42,4 +43,6 @@ Welcome to Neomem
   }
 
   const server = repl.start({ prompt, eval: step })
-})()
+}
+
+main()
