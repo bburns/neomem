@@ -10,6 +10,8 @@ export const driver = {
   },
 }
 
+//
+
 class Connection {
   constructor() {
     this.type = 'json-timegraph'
@@ -22,13 +24,15 @@ class Connection {
     this.path = path
 
     // read all json data
-    const data = JSON.parse(String(await fs.readFile(path)))
+    // const data = JSON.parse(String(await fs.readFile(path)))
+    const data = eval(String(await fs.readFile(path)))
     this.initialLocation = data.meta.initialLocation
 
     // read metadata
     const folder = pathlib.dirname(path)
     const metafilepath = pathlib.join(folder, data.meta.metafile)
-    const meta = JSON.parse(String(await fs.readFile(metafilepath)))
+    // const meta = JSON.parse(String(await fs.readFile(metafilepath)))
+    const meta = eval(String(await fs.readFile(metafilepath)))
 
     this.index = {
       nodeId: {},

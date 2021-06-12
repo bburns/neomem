@@ -3,7 +3,7 @@ import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands.js'
 
-const filepath = './src/data/home.json' //. pass via envar or param
+const filepath = './src/data/home.js' //. pass via envar or param
 
 const print = console.log
 
