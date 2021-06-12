@@ -13,14 +13,16 @@ export async function view(node, prop, meta, connection) {
       nodes.push(node)
     }
     const rows = []
+    const cols = 'name,size,created,modified'.split(',')
     for (const [n, node] of nodes.entries()) {
-      const row = {
-        n,
-        name: await node.get('name'),
-        size: await node.get('size'),
-        created: await node.get('created'),
-        modified: await node.get('modified'),
-      }
+      const data = await node.get(cols)
+      const row = { n, ...data }
+      //   n,
+      //   name: await node.get('name'),
+      //   size: await node.get('size'),
+      //   created: await node.get('created'),
+      //   modified: await node.get('modified'),
+      // }
       rows.push(row)
     }
     console.log(rows)
