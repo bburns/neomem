@@ -23,6 +23,7 @@ export class Node {
     return ['up']
   }
 
+  //. will want some kind of paging, like [more]? how do?
   async getNotes() {
     const type = await this.getType()
     const path = this.getPath()

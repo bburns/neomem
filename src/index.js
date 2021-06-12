@@ -20,7 +20,8 @@ Welcome to Neomem
   await commands.look(connection, key)
   print()
 
-  const prompt = `${'[' + chalk.bold(key) + ']'}\n> `
+  const getPrompt = key => `${chalk.bold('[' + key + ']')}\n> `
+  const prompt = getPrompt(key)
   const past = [{ connection, key }]
 
   // parse and execute command string
@@ -36,7 +37,7 @@ Welcome to Neomem
       key = ret.key
     }
     print()
-    server.setPrompt(`[${chalk.bold(key)}]\n> `)
+    server.setPrompt(getPrompt(key))
     callback() // so knows to print prompt again
   }
 
