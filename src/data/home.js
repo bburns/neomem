@@ -60,6 +60,13 @@
       driver: 'filesys',
       source: '/Users/bburns/Dropbox/@Notebook',
     },
+    {
+      _id: 'test',
+      name: 'test',
+      type: 'mount',
+      driver: 'orgmode',
+      source: '/Users/bburns/Desktop/test.org',
+    },
   ],
   edges: [
     { _from: 'home', _to: 'filesys', type: 'contains' },
@@ -69,5 +76,6 @@
     { _from: 'home', _to: 'house', type: 'contains' },
     // { _from: 'home', _to: 'gsheet', type: 'contains' },
     { _from: 'home', _to: 'notes', type: 'contains' },
+    { _from: 'home', _to: 'test', type: 'contains' },
   ],
 })
