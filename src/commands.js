@@ -1,6 +1,7 @@
 import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
+import { views } from './views/index.js'
 
 const print = console.log
 
@@ -25,7 +26,10 @@ back.notes = `go back to previous location`
 
 async function edit(connection, key, words) {
   //.
-  exec('code pok.txt', (error, stdout, stderr) => {
+  console.log(key)
+  console.log(connection)
+  const { path } = connection
+  exec(`code ${path}`, (error, stdout, stderr) => {
     print('done')
   })
 }
@@ -116,10 +120,13 @@ look.notes = `look at this or another location`
 async function list(connection, key, words) {
   const node = await connection.get(key)
   const name = await node.get('name')
-  const contents = await node.get('contents')
+  const contents = await node.get('contents') // array of items
   //. use metadata to determine what cols to include, sort, group, etc
   print(chalk.bold(name))
-  if (contents && contents.length > 0) print(contents.join('\n'))
+  // if (contents && contents.length > 0) print(contents.join('\n'))
+  // tree.show(contents, view)
+  // view(contents)
+  views.tree(contents)
 }
 list.notes = `list contents of this or another location`
 
