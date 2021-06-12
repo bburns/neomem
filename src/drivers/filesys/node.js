@@ -54,11 +54,8 @@ export class Node {
     const isFolder = await lib.isDir(path)
     if (isFolder) {
       return 'folder'
-      // } else if (path.endsWith('.md')) {
-      //   //... fix this
-      //   // ie want automatic mount for certain file types/extensions
-      //   return 'mount'
     } else {
+      // check for mounts
       for (const filetype of this.connection.filetypes) {
         if (path.endsWith('.' + filetype.extension)) {
           return 'mount'
@@ -66,7 +63,6 @@ export class Node {
       }
     }
     return 'file'
-    // return new Node(this.connection, type)
   }
 
   async get(prop) {
