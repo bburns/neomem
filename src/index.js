@@ -18,7 +18,9 @@ Welcome to Neomem
 -----------------------------------------------------`
 
 async function main() {
-  // let node = drivers.get(connectionString)
+  // let driver = drivers.get(connectionString)
+  // let datasource = driver.connect(filepath)
+  // let datasource = drivers.connect(connectionString)
   let datasource = drivers[filedriver].connect(filepath)
   let path = await datasource.get('initialPath')
   let location = { datasource, path }

@@ -59,17 +59,17 @@ class NodeOrgmode {
     return contents
   }
 
-  getType() {
-    const type = { _id: 'orgmode', name: 'orgmode' }
-    return new NodeOrgmode(this.datasource, type)
-  }
+  // getType() {
+  //   const type = { _id: 'orgmode', name: 'orgmode' }
+  //   return new NodeOrgmode(this.datasource, type)
+  // }
 
   // crud handlers
 
   async get(spec) {
     const map = {
       contents: this.getContents,
-      type: this.getType,
+      // type: this.getType,
     }
     return libdrivers.get(this, spec, map)
   }

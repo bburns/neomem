@@ -1,5 +1,5 @@
 import { drivers } from '../drivers/index.js'
-// import * as lib from '../lib.js'
+import * as lib from '../lib.js'
 
 // get a destination for a command
 //. words could specify nothing, an adjacent edge name / direction,
@@ -13,14 +13,14 @@ import { drivers } from '../drivers/index.js'
 export async function getDestination({ location, words, past, table }) {
   let path = words[1] || location.path
 
-  // //. get location from rownum in previous table
+  //. get location from rownum in previous table
   // if (lib.isNumber(path)) {
-  //   path = table[Number(path)][1] //..
+  // const rownum = Number(path)
+  // path = table[rownum][1] //..
   // }
 
   // get node of new location
   const node = await location.datasource.get(path)
-  // console.log(23, node)
   const type = await node.get('type')
 
   // if new node is a mount point, replace it with the target
