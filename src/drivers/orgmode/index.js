@@ -19,12 +19,6 @@ class Connection {
     this.text = null
   }
 
-  // async load(path) {
-  //   this.path = path
-  //   //. read whole file - better to do lazily in Node class
-  //   this.text = String(await fs.readFile(path))
-  // }
-
   getInitialLocation() {
     return this.initialLocation
   }
