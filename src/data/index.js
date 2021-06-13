@@ -4,7 +4,8 @@
     name: 'home',
     notes: 'main skeleton for neomem',
     initialLocation: 'home',
-    metafile: 'home-meta.js',
+    metafile: 'index-meta.js',
+    created: '2021-06-05',
   },
   nodes: [
     {
@@ -12,6 +13,7 @@
       name: 'home',
       type: 'folder',
       notes: 'neomem skeleton',
+      created: '2021-06-05',
     },
     {
       _id: 'filesys',
@@ -19,6 +21,7 @@
       type: 'mount',
       driver: 'filesys',
       source: '.',
+      created: '2021-06-05',
     },
     {
       _id: 'forest',
@@ -26,6 +29,7 @@
       type: 'mount',
       driver: 'jsonTimegraph',
       source: 'src/data/forest.js',
+      created: '2021-06-05',
     },
     {
       _id: 'pg',
@@ -33,6 +37,7 @@
       type: 'mount',
       driver: 'postgres',
       source: 'neomem',
+      created: '2021-06-06',
     },
     {
       _id: 'blog',
@@ -40,6 +45,7 @@
       type: 'mount',
       driver: 'filesys',
       source: 'src/data/blog',
+      created: '2021-06-06',
     },
     {
       _id: 'house',
@@ -47,12 +53,14 @@
       type: 'mount',
       driver: 'jsonTimegraph',
       source: 'src/data/house.js',
+      created: '2021-06-06',
     },
     {
       _id: 'gsheet',
       name: 'gsheet',
       type: 'mount',
       driver: 'gsheet',
+      created: '2021-06-12',
     },
     {
       _id: 'notes',
@@ -60,6 +68,7 @@
       type: 'mount',
       driver: 'filesys',
       source: '/Users/bburns/Dropbox/@Notebook',
+      created: '2021-06-12',
     },
     {
       _id: 'test',
@@ -67,6 +76,7 @@
       type: 'mount',
       driver: 'orgmode',
       source: '/Users/bburns/Desktop/test.org',
+      created: '2021-06-12',
     },
   ],
   edges: [
