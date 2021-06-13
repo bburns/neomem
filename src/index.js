@@ -1,3 +1,5 @@
+// main console repl
+
 import librepl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
@@ -19,12 +21,12 @@ async function main() {
   let table = null
 
   print(welcome)
-  await commands.look({ connection, key: location })
+  await commands.look({ connection, location })
   print()
 
   const getPrompt = location => `${chalk.bold('[' + location + ']')}\n> `
   const prompt = getPrompt(location)
-  const past = [{ connection, key: location }]
+  const past = [{ connection, location }]
 
   // parse and execute command string
   // note: these parameters are specified by node's repl library.
@@ -35,7 +37,7 @@ async function main() {
     const commandFn = commands[command] || aliases[command] || commands.unknown
     const ret = await commandFn({
       connection,
-      key: location,
+      location,
       words,
       past,
       table,
@@ -43,7 +45,7 @@ async function main() {
     // update vars if needed
     if (ret) {
       if (ret.connection) connection = ret.connection
-      if (ret.key) location = ret.key
+      if (ret.location) location = ret.location
       if (ret.table) table = ret.table
     }
     print()
