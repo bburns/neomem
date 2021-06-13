@@ -61,22 +61,21 @@ go.notes = `Go to another location, or in a direction`
 // help
 //------------------------------------------------------------------------
 
-async function help({ words }) {
-  //. handle asking for help on a topic
-  // const topic = words[1]
-  const rows = Object.keys(commands)
+async function help() {
+  const objs = Object.keys(commands)
     .filter(key => commands[key].notes)
-    .sort((a, b) => a.localeCompare(b))
-    .map(key => [key, commands[key].notes])
-  // .map(key => ({ command: key, description: commands[key].notes }))
+    .sort()
+    // .map(key => [key, commands[key].notes])
+    .map(key => ({ command: key, description: commands[key].notes }))
   //. add aliases to col0 or col2
-  print(rows)
+  // print(rows)
   //. print with treetable view on an array of arrays - pass as datasource
-  // const meta = {
-  //   columns: 'command,description,aliases'.split(',')
-  // }
-  // const table = await views.treetable({rows, meta})
-  // print(table)
+  const meta = {
+    columns: 'command,description,aliases'.split(','),
+  }
+  // const table = await views.treetable({ rows, meta })
+  const rows = views.getRows(objs, meta.columns)
+  print(rows)
 }
 help.notes = `Get help`
 
