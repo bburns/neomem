@@ -5,10 +5,12 @@ import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands/index.js'
 
-//. specify as some kind of connection string eg 'file://src/data/index.js'?
+//. specify as a connection string eg 'file://src/data/index.js'?
+// or 'jstimegraph://src/data/index.js' ?
 const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it
 
+//. make a ui object
 const print = console.log
 
 const welcome = `
@@ -16,6 +18,7 @@ Welcome to Neomem
 -----------------------------------------------------`
 
 async function main() {
+  //. drivers.lookup(connectionString)
   let datasource = drivers[filedriver].connect(filepath)
   let location = await datasource.getInitialLocation()
   let table = null

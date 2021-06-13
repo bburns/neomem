@@ -1,24 +1,29 @@
 // driver for markdown text files
 
+//. this is similar to orgmode, but with different header markers,
+// semantics for notes area, frontmatter, properties, etc.
+// also might want our own textfile format eventually,
+// with significant whitespace, prop:values, wikilinks, etc.
+// so will need some base textfile handler classes.
+
 import fs from 'fs/promises'
 
 export const driver = {
   connect() {
-    return new Connection()
+    return new DatasourceMarkdown()
   },
 }
 
-class Connection {
-  constructor() {
+class DatasourceMarkdown {
+  constructor(path) {
     this.type = 'markdown'
-    this.path = null
+    this.path = path
     this.initialLocation = null
     this.text = null
   }
 
-  async load(path) {
-    this.path = path
-    this.text = String(await fs.readFile(path))
+  async load() {
+    this.text = String(await fs.readFile(this.path))
   }
 
   getInitialLocation() {
@@ -28,7 +33,7 @@ class Connection {
   async get(key) {
     //. scan file for key = header name/text - eventually could have indexes
     const props = { _id: key, name: this.path, notes: this.text }
-    return new Node(this, props)
+    return new NodeMarkdown(this, props)
   }
   set() {}
   update() {}
@@ -37,7 +42,7 @@ class Connection {
 
 //
 
-class Node {
+class NodeMarkdown {
   constructor(connection, props = {}) {
     this.connection = connection
     this.props = props
@@ -59,7 +64,7 @@ class Node {
 
   getType() {
     const type = { _id: 'markdown', name: 'markdown' }
-    return new Node(this.connection, type)
+    return new NodeMarkdown(this.connection, type)
   }
 
   // some props are simple keyvalue items, some are relnships, etc

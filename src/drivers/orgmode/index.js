@@ -5,13 +5,13 @@ import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
   connect(path) {
-    return new Connection(path)
+    return new DatasourceOrgmode(path)
   },
 }
 
 //
 
-class Connection {
+class DatasourceOrgmode {
   constructor(path) {
     this.type = 'orgmode'
     this.path = path
@@ -30,7 +30,7 @@ class Connection {
       // notes: this.text,
       path: key,
     }
-    return new Node(this, props)
+    return new NodeOrgmode(this, props)
   }
   set() {}
   update() {}
@@ -39,7 +39,7 @@ class Connection {
 
 //
 
-class Node {
+class NodeOrgmode {
   constructor(connection, props = {}) {
     this.connection = connection
     this.props = props
@@ -67,7 +67,7 @@ class Node {
 
   getType() {
     const type = { _id: 'orgmode', name: 'orgmode' }
-    return new Node(this.connection, type)
+    return new NodeOrgmode(this.connection, type)
   }
 
   async get(spec) {

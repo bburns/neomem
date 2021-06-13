@@ -11,13 +11,13 @@ const __dirname = libpath.dirname(liburl.fileURLToPath(import.meta.url))
 export const driver = {
   async connect(path) {
     const meta = eval(String(await fs.readFile(__dirname + '/meta.js')))
-    return new ConnectionFilesys(path, meta)
+    return new DatasourceFilesys(path, meta)
   },
 }
 
 //
 
-export class ConnectionFilesys {
+export class DatasourceFilesys {
   constructor(path, meta) {
     this.type = 'filesys'
     this.path = path

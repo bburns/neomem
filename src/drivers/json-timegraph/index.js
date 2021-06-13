@@ -7,13 +7,13 @@ import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
   connect(path) {
-    return new ConnectionJsonTimegraph(path)
+    return new DatasourceJsonTimegraph(path)
   },
 }
 
 //
 
-class ConnectionJsonTimegraph {
+class DatasourceJsonTimegraph {
   constructor(path) {
     this.type = 'json-timegraph'
     this.path = path
