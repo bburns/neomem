@@ -28,6 +28,7 @@ class DatasourceJsonTimegraph {
     this.initialLocation = data.meta.initialLocation
 
     // read metadata
+    // kept in a separate file so can be shared across datasources
     const folder = pathlib.dirname(this.path)
     const metafilepath = pathlib.join(folder, data.meta.metafile)
     const meta = eval(String(await fs.readFile(metafilepath)))

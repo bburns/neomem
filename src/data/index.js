@@ -1,3 +1,4 @@
+// json-timegraph datasource
 ;({
   meta: {
     name: 'home',
