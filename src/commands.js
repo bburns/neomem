@@ -86,13 +86,13 @@ async function help({ words }) {
     .map(key => [key, commands[key].notes])
   // .map(key => ({ command: key, description: commands[key].notes }))
   //. add aliases to col0 or col2
+  print(rows)
   //. print with treetable view on an array of arrays - pass as datasource
-  // print(rows)
   // const meta = {
   //   columns: 'command,description,aliases'.split(',')
   // }
   // const table = await views.treetable(rows, meta)
-  print(table)
+  // print(table)
 }
 help.notes = `Get help`
 
