@@ -2,12 +2,11 @@
 
 //. handle tree recursion and graph traversal
 
-// axis is eg 'contents', 'children'
 export async function table({ node, meta, axis = null }) {
-  // const path = (await node.get('path')) || '.'
   const subnodes = [node]
   if (axis) {
     const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
+    // const path = (await node.get('path')) || '.'
     for (const key of keys) {
       // const subpath = path + '/' + key //. use this
       const subpath = key
