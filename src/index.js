@@ -15,16 +15,16 @@ Welcome to Neomem
 
 async function main() {
   let connection = drivers[filedriver].connect(filepath)
-  let key = await connection.getInitialLocation()
+  let location = await connection.getInitialLocation()
   let table = null
 
   print(welcome)
-  await commands.look({ connection, key })
+  await commands.look({ connection, key: location })
   print()
 
-  const getPrompt = key => `${chalk.bold('[' + key + ']')}\n> `
-  const prompt = getPrompt(key)
-  const past = [{ connection, key }]
+  const getPrompt = location => `${chalk.bold('[' + location + ']')}\n> `
+  const prompt = getPrompt(location)
+  const past = [{ connection, key: location }]
 
   // parse and execute command string
   // note: these parameters are specified by node's repl library.
@@ -33,15 +33,21 @@ async function main() {
     const words = str.split(' ') //. tokenize
     const command = words[0]
     const commandFn = commands[command] || aliases[command] || commands.unknown
-    const ret = await commandFn({ connection, key, words, past, table }) // execute cmd
+    const ret = await commandFn({
+      connection,
+      key: location,
+      words,
+      past,
+      table,
+    }) // execute cmd
     // update vars if needed
     if (ret) {
       if (ret.connection) connection = ret.connection
-      if (ret.key) key = ret.key
+      if (ret.key) location = ret.key
       if (ret.table) table = ret.table
     }
     print()
-    repl.setPrompt(getPrompt(key))
+    repl.setPrompt(getPrompt(location))
     callback() // so knows to print prompt again
   }
 
