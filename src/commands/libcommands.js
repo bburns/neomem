@@ -38,3 +38,12 @@ export async function getDestination({ location, words, past, table }) {
 
   return locationCopy
 }
+
+export function getRows(objs, columns) {
+  const rows = [columns]
+  for (const obj of objs) {
+    const row = columns.map(column => obj[column])
+    rows.push(row)
+  }
+  return rows
+}

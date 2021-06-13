@@ -65,20 +65,13 @@ async function help() {
   const objs = Object.keys(commands)
     .filter(key => commands[key].notes)
     .sort()
-    // .map(key => [key, commands[key].notes])
     .map(key => ({ command: key, description: commands[key].notes }))
-  //. add aliases to col0 or col2
-  // print(rows)
-  //. print with treetable view on an array of arrays - pass as datasource
+  //. add aliases to col2
   const meta = {
     columns: 'command,description,aliases'.split(','),
   }
-  // const table = await views.treetable({ rows, meta })
-  // const rows = views.getRows(objs, meta.columns)
-  // print(rows)
-  // table = await views.table({ node, axis: 'contents', meta })
-  // print(table)
-  const rows = getRows(objs, meta.columns)
+  //. const objs = await views.table({ node, axis: 'contents', meta })
+  const rows = libcommands.getRows(objs, meta.columns)
   print(rows)
 }
 help.notes = `Get help`
@@ -134,23 +127,12 @@ async function list({ location, words = [], past = [], table = {} }) {
   }
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
-  //. pass obj
   table = await views.table({ node, axis: 'contents', meta })
-  // print(table)
-  const rows = getRows(table, meta.columns)
+  const rows = libcommands.getRows(table, meta.columns)
   print(rows)
   return { table }
 }
 list.notes = `List contents of this or another location`
-
-function getRows(objs, columns) {
-  const rows = [columns]
-  for (const obj of objs) {
-    const row = columns.map(column => obj[column])
-    rows.push(row)
-  }
-  return rows
-}
 
 //------------------------------------------------------------------------
 // read
