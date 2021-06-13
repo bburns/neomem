@@ -122,6 +122,7 @@ async function list({ location, words = [], past = [], table = {} }) {
   location = await libcommands.getDestination({ location, words, past, table })
   const node = await location.datasource.get(location.path)
   const name = await node.get('name')
+  print(chalk.bold(name))
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
@@ -130,12 +131,36 @@ async function list({ location, words = [], past = [], table = {} }) {
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
   //. pass obj
-  table = await views.treetable({ location, node, prop: 'contents', meta })
-  print(chalk.bold(name))
+  // table = await views.table({ location, node, prop: 'contents', meta })
+  table = await views.table({ location, axis: 'contents', meta })
   print(table)
   return { table }
 }
 list.notes = `List contents of this or another location`
+
+//------------------------------------------------------------------------
+// read
+//------------------------------------------------------------------------
+
+async function read({ location, words = [], past = [], table = {} }) {
+  // location = await libcommands.getDestination({ location, words, past, table })
+  // const node = await location.datasource.get(location.path)
+  // const name = await node.get('name')
+  // print(chalk.bold(name))
+  // //. use metadata to determine what cols to include, sort, group, and order, etc.
+  // //. this will have default cols, and store modifications with item, or type, or location etc.
+  // const meta = {
+  //   columns: 'n,name,size,created,modified'.split(','),
+  // }
+  // //. attach data to view, execute it
+  // //. maybe treetable returns a new View object, like driver.connect()?
+  // //. pass obj
+  // // table = await views.table({ location, node, prop: 'contents', meta })
+  // table = await views.table({ location, axis: 'contents', meta })
+  // print(table)
+  // return { table }
+}
+list.read = `Read contents of this or another location`
 
 //------------------------------------------------------------------------
 // unknown
@@ -147,5 +172,15 @@ async function unknown() {
 
 //------------------------------------------------------------------------
 
-export const commands = { back, edit, go, help, info, look, list, unknown }
+export const commands = {
+  back,
+  edit,
+  go,
+  help,
+  info,
+  look,
+  list,
+  read,
+  unknown,
+}
 export const aliases = { l: look }

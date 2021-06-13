@@ -1,9 +1,8 @@
-//. views should be pluggable/interchangeable
-// given same data, render it different ways
-
 // table view
+
 // prop is eg 'contents'
-export async function view({ location, node, prop, meta }) {
+export async function table({ location, prop, meta }) {
+  const node = await location.datasource.get(location.path)
   // const path = (await node.get('path')) || '.'
   const keys = await node.get(prop) // eg get('contents') -> array of itemkeys
   if (keys && keys.length > 0) {
