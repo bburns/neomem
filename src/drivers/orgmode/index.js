@@ -1,6 +1,7 @@
 // driver for orgmode text files
 
-import fs from 'fs/promises'
+import fs from 'fs/promises' // node lib
+import libpath from 'path' // node lib
 import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
@@ -16,17 +17,17 @@ class DatasourceOrgmode {
     this.type = 'orgmode'
     this.path = path
     this.initialPath = path
-    this.text = null
   }
 
   async get(spec) {
     let key = spec
     if (key === 'initialPath') return this.initialPath
+    const name = ''
     const props = {
       _id: key,
-      name: key,
+      name,
       path: key,
-      // notes: this.text,
+      type: name ? 'heading' : 'orgmode',
     }
     return new NodeOrgmode(this, props)
   }

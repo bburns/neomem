@@ -11,7 +11,8 @@ import * as lib from '../lib.js'
 
 // location is { datasource, path }
 export async function getDestination({ location, words, past, table }) {
-  let path = words[1] || location.path
+  let locationCopy = { ...location }
+  let path = words[1] || locationCopy.path
 
   //. get location from rownum in previous table
   // if (lib.isNumber(path)) {
@@ -20,7 +21,7 @@ export async function getDestination({ location, words, past, table }) {
   // }
 
   // get node of new location
-  const node = await location.datasource.get(path)
+  const node = await locationCopy.datasource.get(path)
   const type = await node.get('type')
 
   // if new node is a mount point, replace it with the target
@@ -29,9 +30,9 @@ export async function getDestination({ location, words, past, table }) {
     path = await node.get('source')
     const driverName = await node.get('driver')
     const driver = drivers[driverName]
-    location.datasource = await driver.connect(path)
-    location.path = await location.datasource.get('initialPath')
+    locationCopy.datasource = await driver.connect(path)
+    locationCopy.path = await locationCopy.datasource.get('initialPath')
   }
 
-  return location
+  return locationCopy
 }
