@@ -5,7 +5,7 @@ import pathlib from 'path'
 import * as lib from './lib.js'
 import * as libdrivers from '../libdrivers.js'
 
-export class Node {
+export class NodeFilesys {
   constructor(connection, props) {
     this.connection = connection
     this.props = props

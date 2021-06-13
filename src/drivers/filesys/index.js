@@ -1,7 +1,7 @@
 import fs from 'fs/promises'
 import libpath from 'path'
 import liburl from 'url'
-import { Node } from './node.js'
+import { NodeFilesys } from './node.js'
 
 // create __dirname since we're using esm modules
 // see https://github.com/nodejs/help/issues/2907#issuecomment-757446568
@@ -11,13 +11,13 @@ const __dirname = libpath.dirname(liburl.fileURLToPath(import.meta.url))
 export const driver = {
   async connect(path) {
     const meta = eval(String(await fs.readFile(__dirname + '/meta.js')))
-    return new Connection(path, meta)
+    return new ConnectionFilesys(path, meta)
   },
 }
 
 //
 
-export class Connection {
+export class ConnectionFilesys {
   constructor(path, meta) {
     this.type = 'filesys'
     this.path = path
@@ -42,7 +42,7 @@ export class Connection {
     //. better to get type here - file, folder, mount, instead of in ./node.js?
     for (const filetype of this.filetypes) {
       if (key.endsWith('.' + filetype.extension)) {
-        return new Node(this, {
+        return new NodeFilesys(this, {
           _id: key,
           name,
           type: 'mount',
@@ -51,7 +51,7 @@ export class Connection {
         })
       }
     }
-    return new Node(this, { _id: key, name })
+    return new NodeFilesys(this, { _id: key, name })
   }
   set() {}
   update() {}
