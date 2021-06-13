@@ -26,8 +26,8 @@ back.notes = `go back to previous location`
 
 async function edit({ connection, key, words }) {
   //.
-  console.log(key)
-  console.log(connection)
+  // console.log(key)
+  // console.log(connection)
   const { path } = connection
   exec(`code ${path}`, (error, stdout, stderr) => {
     print('done')
@@ -96,7 +96,7 @@ info.notes = `get debugging info`
 
 async function look({ connection, key, words = [] }) {
   const node = await connection.get(key)
-  console.log({ node })
+  // console.log({ node })
   const name = await node.get('name')
   const type = await node.get('type')
   const notes = ((await node.get('notes')) || '').slice(0, 60)
