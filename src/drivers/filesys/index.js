@@ -1,45 +1,42 @@
 import fs from 'fs/promises'
-import pathlib from 'path'
-import { fileURLToPath } from 'url'
+import libpath from 'path'
+import liburl from 'url'
 import { Node } from './node.js'
 
-// must create __dirname since we're using esm modules
-//. where put this stuff?
+// create __dirname since we're using esm modules
 // see https://github.com/nodejs/help/issues/2907#issuecomment-757446568
 // @ts-ignore
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = pathlib.dirname(__filename)
+const __dirname = libpath.dirname(liburl.fileURLToPath(import.meta.url))
 
 export const driver = {
-  async connect() {
+  async connect(path) {
     const meta = eval(String(await fs.readFile(__dirname + '/meta.js')))
-    return new Connection(meta)
+    return new Connection(path, meta)
   },
 }
 
 //
 
 export class Connection {
-  constructor(meta) {
+  constructor(path, meta) {
     this.type = 'filesys'
-    this.path = null
-    this.initialLocation = null
+    this.path = path
+    this.initialLocation = '.'
     this.meta = meta
     this.filetypes = meta.nodes.filter(node => node.type === 'filetype')
   }
 
-  async load(path) {
-    this.path = path
-    this.initialLocation = '.'
-  }
+  // async load() {
+  //   this.initialLocation = '.'
+  // }
 
   getInitialLocation() {
     return this.initialLocation
   }
 
   async get(key) {
-    key = pathlib.normalize(key)
-    const name = pathlib.basename(key)
+    key = libpath.normalize(key)
+    const name = libpath.basename(key)
     // check for mounts
     //. distinguish plain json from json-timegraph - look inside for metadata.
     //. better to get type here - file, folder, mount, instead of in ./node.js?
@@ -50,7 +47,7 @@ export class Connection {
           name,
           type: 'mount',
           driver: filetype.driver,
-          source: pathlib.join(this.path, key),
+          source: libpath.join(this.path, key),
         })
       }
     }

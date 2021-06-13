@@ -7,31 +7,29 @@ import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
   connect(path) {
-    return new Connection(path)
+    return new ConnectionJsonTimegraph(path)
   },
 }
 
 //
 
-class Connection {
+class ConnectionJsonTimegraph {
   constructor(path) {
     this.type = 'json-timegraph'
     this.path = path
-    this.index = null
+    this.index = null // dict of indexes
     this.initialLocation = null
   }
 
   // read file and build indexes
   async load() {
     // read all json data
-    // const data = JSON.parse(String(await fs.readFile(path)))
     const data = eval(String(await fs.readFile(this.path)))
     this.initialLocation = data.meta.initialLocation
 
     // read metadata
     const folder = pathlib.dirname(this.path)
     const metafilepath = pathlib.join(folder, data.meta.metafile)
-    // const meta = JSON.parse(String(await fs.readFile(metafilepath)))
     const meta = eval(String(await fs.readFile(metafilepath)))
 
     this.index = {
@@ -72,10 +70,12 @@ class Connection {
 
   // crud operations
 
-  async get(key) {
+  async get(spec) {
+    const key = spec
     if (!this.index) await this.load()
     const props = this.index.nodeId[key] || this.index.nodeName[key]
-    return new Node(this, props)
+    const node = new NodeJsonTimegraph(this, props)
+    return node
   }
 
   set() {}
@@ -85,7 +85,7 @@ class Connection {
 
 //
 
-class Node {
+class NodeJsonTimegraph {
   constructor(connection, props = {}) {
     this.connection = connection
     this.props = props
@@ -113,6 +113,8 @@ class Node {
       .sort((a, b) => a.localeCompare(b))
     return [...new Set(exits)]
   }
+
+  // crud operations
 
   // some props are simple keyvalue items, some are relnships, etc
   async get(spec) {

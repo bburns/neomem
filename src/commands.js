@@ -46,16 +46,13 @@ async function go(connection, key, words, past) {
   key = dest
 
   // get node of new location
-  const node = await connection.get(key)
+  const node = await connection.get(key) // eg 'notes'
   const type = await node.get('type')
 
   if (type === 'mount') {
     const driverName = (await node.get('driver')) || 'markdown' //.
     const driver = drivers[driverName]
     connection = await driver.connect(key)
-    //. don't load file here - do lazily as needed
-    // const source = await node.get('source')
-    // await connection.load(source)
     key = await connection.getInitialLocation()
   }
 
@@ -92,6 +89,7 @@ info.notes = `get debugging info`
 
 async function look(connection, key, words) {
   const node = await connection.get(key)
+  console.log({ node })
   const name = await node.get('name')
   const type = await node.get('type')
   const notes = ((await node.get('notes')) || '').slice(0, 60)
