@@ -9,6 +9,7 @@ import { commands, aliases } from './commands/index.js'
 // or 'jstimegraph://src/data/index.js' ?
 const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it
+// const connectionString = 'file://src/data/index.js'
 
 //. make a ui object
 const print = console.log
@@ -18,9 +19,8 @@ Welcome to Neomem
 -----------------------------------------------------`
 
 async function main() {
-  //. drivers.lookup(connectionString)
+  // let node = drivers.get(connectionString)
   let datasource = drivers[filedriver].connect(filepath)
-  // let location = await datasource.getInitialLocation()
   let location = await datasource.get('initialLocation')
   let table = null
 

@@ -53,38 +53,39 @@ edit.notes = `Edit notes for a node`
 //------------------------------------------------------------------------
 
 async function go({ datasource, location, words, past, table }) {
-  const destination = words[1]
-  // const destination = libcommands.getDestination({
-  //   datasource,
-  //   location,
-  //   words,
-  //   past,
-  //   table,
-  // })
-  location = destination
-
-  //. get location from rownum in previous table
-  if (lib.isNumber(location)) {
-    location = table[location][1] //..
-  }
+  //. maybe this should return a node?
+  const destination = libcommands.getDestination({
+    datasource,
+    location,
+    words,
+    past,
+    table,
+  })
+  datasource = destination.datasource
+  location = destination.location
+  // console.log(65, datasource, location)
 
   // get node of new location
   const node = await datasource.get(location)
   const type = await node.get('type')
 
+  // if new node is a mount point, replace it with the target
+  //. move this into getDestination also - want it for 'edit index.md' etc
   if (type === 'mount') {
-    const driverName = (await node.get('driver')) || 'markdown' //.
+    const driverName = await node.get('driver')
     const driver = drivers[driverName]
     datasource = await driver.connect(location)
-    // location = await datasource.getInitialLocation()
     location = await datasource.get('initialLocation')
   }
 
-  await look({ datasource, location, words })
+  // await look({ datasource, location })
+  await look({ destination })
 
-  past.push({ datasource, location })
+  // past.push({ datasource, location })
+  past.push(destination)
 
-  return { datasource, location }
+  // return { datasource, location }
+  return destination
 }
 go.notes = `Go to another location, or in a direction`
 

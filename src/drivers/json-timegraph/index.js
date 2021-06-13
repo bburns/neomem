@@ -68,13 +68,14 @@ class DatasourceJsonTimegraph {
   }
 
   // crud operations
-  //. spec could be a name, key, path, array of such, qbe, etc
 
+  //. spec could be a name, key, path, array of such, qbe, etc
   async get(spec) {
     const key = spec
     if (!this.index) await this.load()
     if (key === 'initialLocation') return this.initialLocation
     const props = this.index.nodeId[key] || this.index.nodeName[key]
+    console.log(78, props)
     const node = new NodeJsonTimegraph(this, props)
     return node
   }
@@ -120,9 +121,9 @@ class NodeJsonTimegraph {
   }
 
   // crud operations
-  //. spec could be a name, key, path, array of such, qbe, etc
 
   // some props are simple keyvalue items, some are relnships, etc
+  //. spec could be a name, key, path, array of such, qbe, etc
   async get(spec) {
     const accessorMap = {
       contents: this.getContents,
