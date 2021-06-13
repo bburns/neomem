@@ -38,8 +38,8 @@ class DatasourceOrgmode {
 //
 
 class NodeOrgmode {
-  constructor(connection, props = {}) {
-    this.connection = connection
+  constructor(datasource, props = {}) {
+    this.datasource = datasource
     this.props = props
   }
 
@@ -59,19 +59,16 @@ class NodeOrgmode {
     return contents
   }
 
-  // getNotes() {
-  //   return this.props.notes
-  // }
-
   getType() {
     const type = { _id: 'orgmode', name: 'orgmode' }
-    return new NodeOrgmode(this.connection, type)
+    return new NodeOrgmode(this.datasource, type)
   }
+
+  // crud handlers
 
   async get(spec) {
     const map = {
       contents: this.getContents,
-      // notes: this.getNotes,
       type: this.getType,
     }
     return libdrivers.get(this, spec, map)

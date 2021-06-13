@@ -41,8 +41,8 @@ class DatasourceMarkdown {
 //
 
 class NodeMarkdown {
-  constructor(connection, props = {}) {
-    this.connection = connection
+  constructor(datasource, props = {}) {
+    this.datasource = datasource
     this.props = props
   }
 
@@ -62,7 +62,7 @@ class NodeMarkdown {
 
   getType() {
     const type = { _id: 'markdown', name: 'markdown' }
-    return new NodeMarkdown(this.connection, type)
+    return new NodeMarkdown(this.datasource, type)
   }
 
   // some props are simple keyvalue items, some are relnships, etc

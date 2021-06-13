@@ -87,22 +87,22 @@ class DatasourceJsonTimegraph {
 //
 
 class NodeJsonTimegraph {
-  constructor(connection, props = {}) {
-    this.connection = connection
+  constructor(datasource, props = {}) {
+    this.datasource = datasource
     this.props = props
   }
 
   getContents() {
     const edges = this.getEdges()
     const contents = edges
-      .map(edge => this.connection.index.nodeId[edge._to].name)
+      .map(edge => this.datasource.index.nodeId[edge._to].name)
       .sort((a, b) => a.localeCompare(b))
     return contents
   }
 
   getEdges() {
     //. need Edge class also?
-    const edges = this.connection.index.edgeFrom[this.props._id] || []
+    const edges = this.datasource.index.edgeFrom[this.props._id] || []
     return edges
   }
 

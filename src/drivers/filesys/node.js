@@ -6,8 +6,8 @@ import * as libfilesys from './libfilesys.js'
 import * as libdrivers from '../libdrivers.js'
 
 export class NodeFilesys {
-  constructor(connection, props) {
-    this.connection = connection
+  constructor(datasource, props) {
+    this.datasource = datasource
     this.props = props
   }
 
@@ -47,7 +47,7 @@ export class NodeFilesys {
   getPath() {
     //. _id is just the filename? or should it be the path relative to mount point?
     //. or walk up the path tree to get the full string
-    const path = pathlib.join(this.connection.path, this.props._id)
+    const path = pathlib.join(this.datasource.path, this.props._id)
     return path
   }
 
@@ -58,7 +58,7 @@ export class NodeFilesys {
       return 'folder'
     } else {
       // check for mounts
-      for (const filetype of this.connection.filetypes) {
+      for (const filetype of this.datasource.filetypes) {
         if (path.endsWith('.' + filetype.extension)) {
           return 'mount'
         }
