@@ -15,13 +15,13 @@ class DatasourceOrgmode {
   constructor(path) {
     this.type = 'orgmode'
     this.path = path
-    this.initialLocation = path
+    this.initialPath = path
     this.text = null
   }
 
   async get(spec) {
     let key = spec
-    if (key === 'initialLocation') return this.initialLocation
+    if (key === 'initialPath') return this.initialPath
     const props = {
       _id: key,
       name: key,

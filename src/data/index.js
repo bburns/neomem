@@ -3,7 +3,7 @@
   meta: {
     name: 'home',
     notes: 'main skeleton for neomem',
-    initialLocation: 'home',
+    initialPath: 'home',
     metafile: 'index-meta.js',
     created: '2021-06-05',
   },

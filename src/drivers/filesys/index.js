@@ -21,14 +21,14 @@ export class DatasourceFilesys {
   constructor(path, meta) {
     this.type = 'filesys'
     this.path = path
-    this.initialLocation = '.'
+    this.initialPath = '.'
     this.meta = meta
     this.filetypes = meta.nodes.filter(node => node.type === 'filetype')
   }
 
   async get(spec) {
     let key = spec
-    if (key === 'initialLocation') return this.initialLocation
+    if (key === 'initialPath') return this.initialPath
     key = libpath.normalize(key)
     const name = libpath.basename(key)
     // check for mounts

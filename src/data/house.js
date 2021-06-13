@@ -3,7 +3,7 @@
     name: 'house',
     notes: 'another world',
     metafile: 'place-meta.js',
-    initialLocation: 1,
+    initialPath: 1,
   },
   nodes: [
     { _id: 1, name: 'foyer', type: 'place' },

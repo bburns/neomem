@@ -20,7 +20,7 @@ class DatasourceJsonTimegraph {
     this.type = 'json-timegraph'
     this.path = path
     this.index = null // dict of indexes
-    this.initialLocation = null
+    this.initialPath = null
   }
 
   // read file and build indexes
@@ -28,7 +28,7 @@ class DatasourceJsonTimegraph {
   async load() {
     // read all json data
     const data = eval(String(await fs.readFile(this.path)))
-    this.initialLocation = data.meta.initialLocation
+    this.initialPath = data.meta.initialPath
 
     // read metadata
     // kept in a separate file so can be shared across datasources
@@ -73,9 +73,8 @@ class DatasourceJsonTimegraph {
   async get(spec) {
     const key = spec
     if (!this.index) await this.load()
-    if (key === 'initialLocation') return this.initialLocation
+    if (key === 'initialPath') return this.initialPath
     const props = this.index.nodeId[key] || this.index.nodeName[key]
-    console.log(78, props)
     const node = new NodeJsonTimegraph(this, props)
     return node
   }

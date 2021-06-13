@@ -3,7 +3,7 @@
     name: 'forest',
     notes: 'a world',
     metafile: 'place-meta.js',
-    initialLocation: 'forest',
+    initialPath: 'forest',
   },
   nodes: [
     {

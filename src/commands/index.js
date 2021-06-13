@@ -2,7 +2,6 @@
 
 import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { drivers } from '../drivers/index.js'
 import { views } from '../views/index.js'
 import * as lib from '../lib.js'
 import * as libcommands from './libcommands.js'
@@ -52,40 +51,11 @@ edit.notes = `Edit notes for a node`
 // go
 //------------------------------------------------------------------------
 
-async function go({ datasource, location, words, past, table }) {
-  //. maybe this should return a node?
-  const destination = libcommands.getDestination({
-    datasource,
-    location,
-    words,
-    past,
-    table,
-  })
-  datasource = destination.datasource
-  location = destination.location
-  // console.log(65, datasource, location)
-
-  // get node of new location
-  const node = await datasource.get(location)
-  const type = await node.get('type')
-
-  // if new node is a mount point, replace it with the target
-  //. move this into getDestination also - want it for 'edit index.md' etc
-  if (type === 'mount') {
-    const driverName = await node.get('driver')
-    const driver = drivers[driverName]
-    datasource = await driver.connect(location)
-    location = await datasource.get('initialLocation')
-  }
-
-  // await look({ datasource, location })
-  await look({ destination })
-
-  // past.push({ datasource, location })
-  past.push(destination)
-
-  // return { datasource, location }
-  return destination
+async function go({ location, words, past, table }) {
+  location = await libcommands.getDestination({ location, words, past, table })
+  await look({ location })
+  past.push(location)
+  return location
 }
 go.notes = `Go to another location, or in a direction`
 
@@ -125,15 +95,9 @@ info.notes = `Get debugging info`
 // look
 //------------------------------------------------------------------------
 
-async function look({ datasource, location, words = [] }) {
-  // const destination = libcommands.getDestination({
-  //   datasource,
-  //   location,
-  //   words,
-  //   past,
-  //   table,
-  // })
-  const node = await datasource.get(location)
+async function look({ location, words = [], past = [], table = {} }) {
+  location = await libcommands.getDestination({ location, words, past, table })
+  const node = await location.datasource.get(location.path)
   const name = await node.get('name')
   const path = await node.get('path')
   const type = await node.get('type')
@@ -157,15 +121,9 @@ look.notes = `Look at this or another location`
 // list
 //------------------------------------------------------------------------
 
-async function list({ datasource, location, words }) {
-  // const destination = libcommands.getDestination({
-  //   datasource,
-  //   location,
-  //   words,
-  //   past,
-  //   table,
-  // })
-  const node = await datasource.get(location)
+async function list({ location, words = [], past = [], table = {} }) {
+  location = await libcommands.getDestination({ location, words, past, table })
+  const node = await location.datasource.get(location.path)
   const name = await node.get('name')
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
@@ -175,11 +133,11 @@ async function list({ datasource, location, words }) {
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
   //. pass obj
-  const table = await views.treetable({
+  table = await views.treetable({
+    location,
     node,
     prop: 'contents',
     meta,
-    datasource,
   })
   print(chalk.bold(name))
   print(table)
