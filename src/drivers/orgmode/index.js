@@ -4,18 +4,18 @@ import fs from 'fs/promises'
 import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
-  connect() {
-    return new Connection()
+  connect(path) {
+    return new Connection(path)
   },
 }
 
 //
 
 class Connection {
-  constructor() {
+  constructor(path) {
     this.type = 'orgmode'
-    this.path = null
-    this.initialLocation = null
+    this.path = path
+    this.initialLocation = path
     this.text = null
   }
 

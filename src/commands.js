@@ -56,7 +56,7 @@ async function go(connection, key, words, past) {
     //. don't load file here - do lazily as needed
     // const source = await node.get('source')
     // await connection.load(source)
-    key = connection.getInitialLocation()
+    key = await connection.getInitialLocation()
   }
 
   await look(connection, key, words)
