@@ -9,11 +9,11 @@ const print = console.log
 // back
 //------------------------------------------------------------------------
 
-async function back(connection, key, words, past) {
+async function back({ connection, key, words, past }) {
   if (past.length > 1) {
     past.pop()
     const previous = past[past.length - 1]
-    await look(previous.connection, previous.key)
+    await look({ connection: previous.connection, key: previous.key })
     return previous
   }
   print(`No more history.`)
@@ -24,7 +24,7 @@ back.notes = `go back to previous location`
 // edit
 //------------------------------------------------------------------------
 
-async function edit(connection, key, words) {
+async function edit({ connection, key, words }) {
   //.
   console.log(key)
   console.log(connection)
@@ -42,7 +42,7 @@ function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
-async function go(connection, key, words, past, table) {
+async function go({ connection, key, words, past, table }) {
   //. dest can be adjacent edge name, node name, abs path, id, rownum
   // eg 'north', 'home', '/home', 'hello.txt', '2'
   const dest = words[1]
@@ -63,7 +63,7 @@ async function go(connection, key, words, past, table) {
     key = await connection.getInitialLocation()
   }
 
-  await look(connection, key, words)
+  await look({ connection, key, words })
 
   past.push({ connection, key })
 
@@ -75,7 +75,7 @@ go.notes = `go to another location, or in a direction`
 // help
 //------------------------------------------------------------------------
 
-async function help(connection, key, words) {
+async function help({ connection, key, words }) {
   const rows = Object.keys(commands).map(key => [key, commands[key].notes])
   print(rows)
 }
@@ -85,7 +85,7 @@ help.notes = `get help`
 // info
 //------------------------------------------------------------------------
 
-async function info(connection, key, words, past) {
+async function info({ connection, key, words, past }) {
   print({ connection, key, words, past })
 }
 info.notes = `get debugging info`
@@ -94,7 +94,7 @@ info.notes = `get debugging info`
 // look
 //------------------------------------------------------------------------
 
-async function look(connection, key, words) {
+async function look({ connection, key, words = [] }) {
   const node = await connection.get(key)
   console.log({ node })
   const name = await node.get('name')
@@ -123,7 +123,7 @@ look.notes = `look at this or another location`
 // list
 //------------------------------------------------------------------------
 
-async function list(connection, key, words) {
+async function list({ connection, key, words }) {
   const node = await connection.get(key)
   const name = await node.get('name')
   print(chalk.bold(name))
@@ -142,7 +142,7 @@ list.notes = `list contents of this or another location`
 // unknown
 //------------------------------------------------------------------------
 
-async function unknown(connection, key, words) {
+async function unknown({ connection, key, words }) {
   print('Huh?')
 }
 

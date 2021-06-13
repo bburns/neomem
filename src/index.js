@@ -17,7 +17,7 @@ async function main() {
   let table = null
 
   print(welcome)
-  await commands.look(connection, key)
+  await commands.look({ connection, key })
   print()
 
   const getPrompt = key => `${chalk.bold('[' + key + ']')}\n> `
@@ -26,20 +26,18 @@ async function main() {
 
   // parse and execute command string
   // note: these parameters are specified by node's repl library.
-  async function step(str, oldContext, filename, callback) {
+  async function step(str, context, filename, callback) {
     str = str.trim()
     const words = str.split(' ') //. tokenize
     const command = words[0]
     const fn = commands[command] || aliases[command] || commands.unknown
-    const ret = await fn(connection, key, words, past, table) // execute cmd
-    // update location if needed
-    // if (ret) {
-    //   connection = ret.connection
-    //   key = ret.key
-    // }
-    if (ret.connection) connection = ret.connection
-    if (ret.key) key = ret.key
-    if (ret.table) table = ret.table
+    const ret = await fn({ connection, key, words, past, table }) // execute cmd
+    // update vars if needed
+    if (ret) {
+      if (ret.connection) connection = ret.connection
+      if (ret.key) key = ret.key
+      if (ret.table) table = ret.table
+    }
     print()
     server.setPrompt(getPrompt(key))
     callback() // so knows to print prompt again
