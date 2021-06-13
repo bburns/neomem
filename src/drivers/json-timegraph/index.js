@@ -75,6 +75,7 @@ class DatasourceJsonTimegraph {
     if (!this.index) await this.load()
     if (key === 'initialPath') return this.initialPath
     const props = this.index.nodeId[key] || this.index.nodeName[key]
+    // if (!props) throw new Error('ahhhh')
     const node = new NodeJsonTimegraph(this, props)
     return node
   }

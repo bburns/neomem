@@ -20,17 +20,17 @@ export async function getDestination({ location, words, past, table }) {
 
   // get node of new location
   const node = await location.datasource.get(path)
+  // console.log(23, node)
   const type = await node.get('type')
 
   // if new node is a mount point, replace it with the target
   //. move this into getDestination also - want it for 'edit index.md' etc
   if (type === 'mount') {
-    const driverName = await node.get('driver')
     path = await node.get('source')
+    const driverName = await node.get('driver')
     const driver = drivers[driverName]
     location.datasource = await driver.connect(path)
     location.path = await location.datasource.get('initialPath')
-    // console.log(location)
   }
 
   return location

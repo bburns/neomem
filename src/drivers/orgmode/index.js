@@ -25,8 +25,8 @@ class DatasourceOrgmode {
     const props = {
       _id: key,
       name: key,
-      // notes: this.text,
       path: key,
+      // notes: this.text,
     }
     return new NodeOrgmode(this, props)
   }
