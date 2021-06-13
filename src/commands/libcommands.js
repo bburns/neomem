@@ -15,6 +15,8 @@ export async function getDestination({ location, words, past, table }) {
   let path = words[1] || locationCopy.path
 
   //. get location from rownum in previous table
+  //. need to know table path also so can add the row name to it.
+  // ie table needs to be a better data structure
   // if (lib.isNumber(path)) {
   // const rownum = Number(path)
   // path = table[rownum][1] //..
@@ -25,7 +27,6 @@ export async function getDestination({ location, words, past, table }) {
   const type = await node.get('type')
 
   // if new node is a mount point, replace it with the target
-  //. move this into getDestination also - want it for 'edit index.md' etc
   if (type === 'mount') {
     path = await node.get('source')
     const driverName = await node.get('driver')

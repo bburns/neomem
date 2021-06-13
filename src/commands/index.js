@@ -29,15 +29,17 @@ back.notes = `Go back to previous location`
 //------------------------------------------------------------------------
 
 async function edit({ location, words, past, table }) {
-  location = libcommands.getDestination({ location, words, past, table })
+  location = await libcommands.getDestination({ location, words, past, table })
   const { path } = location
   //. handle editing part of a file, or json item, etc -
   // get text repr, edit, then parse / insert it
   // note: code is vscode
   //. could have diff editors for diff file types, eg image editor
-  exec(`code ${path}`, (error, stdout, stderr) => {
-    print('done')
-  })
+  const cmd = `code ${path}`
+  console.log(`Running '${cmd}'...`)
+  // exec(cmd, (error, stdout, stderr) => {
+  //   print('done')
+  // })
 }
 edit.notes = `Edit notes for a node`
 
