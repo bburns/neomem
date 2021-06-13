@@ -5,6 +5,7 @@ import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from '../drivers/index.js'
 import { views } from '../views/index.js'
 import * as lib from '../lib.js'
+import * as libcommands from './libcommands.js'
 
 //. fns will receive this as part of ui object
 const print = console.log
@@ -28,18 +29,14 @@ back.notes = `Go back to previous location`
 // edit
 //------------------------------------------------------------------------
 
-//. handle disambiguation, context, history, etc
-//. should return a { datasource, location }?
-// because could be looking at a different datasource + path,
-// eg 'edit /home/blog/index.md' - datasource is markdown file, ?
-function getDestination({ datasource, location, words }) {
-  const destination = words[1] || datasource.path
-  return destination
-}
-
-async function edit({ datasource, location, words }) {
-  //. handle destination - none=current location, direction, name, path, etc
-  // const destination = getDestination({ datasource, location, words })
+async function edit({ datasource, location, words, past, table }) {
+  const destination = libcommands.getDestination({
+    datasource,
+    location,
+    words,
+    past,
+    table,
+  })
   const { path } = datasource
   //. handle editing part of a file, or json item, etc -
   // get text repr, edit, then parse / insert it
@@ -56,14 +53,14 @@ edit.notes = `Edit notes for a node`
 //------------------------------------------------------------------------
 
 async function go({ datasource, location, words, past, table }) {
-  //. words could specify an adjacent edge name / direction, node name,
-  // abs path, id, rownum, adjective+noun, 'back', 'fwd', or
-  // something in the location history / context, etc.
-  // eg undefined, 'north', 'author', 'home', '/home', 'hello.txt', '2', 'books',
-  // 'back', 'blue mushroom'.
-  //
   const destination = words[1]
-  // const destination = getDestination({ datasource, location, words, past, table })
+  // const destination = libcommands.getDestination({
+  //   datasource,
+  //   location,
+  //   words,
+  //   past,
+  //   table,
+  // })
   location = destination
 
   //. get location from rownum in previous table
@@ -127,8 +124,13 @@ info.notes = `Get debugging info`
 //------------------------------------------------------------------------
 
 async function look({ datasource, location, words = [] }) {
-  //. handle destination - direction, name, path, adj+noun, etc
-  // const destination = words[1]
+  // const destination = libcommands.getDestination({
+  //   datasource,
+  //   location,
+  //   words,
+  //   past,
+  //   table,
+  // })
   const node = await datasource.get(location)
   const name = await node.get('name')
   const path = await node.get('path')
@@ -154,8 +156,13 @@ look.notes = `Look at this or another location`
 //------------------------------------------------------------------------
 
 async function list({ datasource, location, words }) {
-  //. handle destination - direction, name, path, adj+noun, etc
-  // const destination = words[1]
+  // const destination = libcommands.getDestination({
+  //   datasource,
+  //   location,
+  //   words,
+  //   past,
+  //   table,
+  // })
   const node = await datasource.get(location)
   const name = await node.get('name')
   //. use metadata to determine what cols to include, sort, group, and order, etc.
