@@ -74,7 +74,11 @@ async function help() {
     columns: 'command,description,aliases'.split(','),
   }
   // const table = await views.treetable({ rows, meta })
-  const rows = views.getRows(objs, meta.columns)
+  // const rows = views.getRows(objs, meta.columns)
+  // print(rows)
+  // table = await views.table({ node, axis: 'contents', meta })
+  // print(table)
+  const rows = getRows(objs, meta.columns)
   print(rows)
 }
 help.notes = `Get help`
@@ -131,7 +135,6 @@ async function list({ location, words = [], past = [], table = {} }) {
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
   //. pass obj
-  // table = await views.table({ location, node, prop: 'contents', meta })
   table = await views.table({ node, axis: 'contents', meta })
   // print(table)
   const rows = getRows(table, meta.columns)
