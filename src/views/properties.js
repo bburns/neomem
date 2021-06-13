@@ -1,14 +1,16 @@
 // properties view
 
-export async function properties({ node, axis, meta }) {
+export async function properties({ node, meta, axis = null }) {
   // const path = (await node.get('path')) || '.'
-  const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
   const subnodes = [node]
-  for (const key of keys) {
-    // const subpath = path + '/' + key //. use this
-    const subpath = key
-    const subnode = await node.datasource.get(subpath)
-    subnodes.push(subnode)
+  if (axis) {
+    const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
+    for (const key of keys) {
+      // const subpath = path + '/' + key //. use this
+      const subpath = key
+      const subnode = await node.datasource.get(subpath)
+      subnodes.push(subnode)
+    }
   }
   const { columns } = meta
   const objs = []

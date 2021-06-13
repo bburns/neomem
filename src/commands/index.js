@@ -121,7 +121,7 @@ async function look({ location, words = [], past = [], table = {} }) {
   }
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
-  table = await views.properties({ node, axis: 'contents', meta })
+  table = await views.properties({ node, meta })
   // const rows = libcommands.getRows(table, meta.columns)
   // print(rows)
   print(table)
