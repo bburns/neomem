@@ -11,7 +11,7 @@ import * as lib from '../lib.js'
 
 // location is { datasource, path }
 export async function getDestination({ location, words, past, table }) {
-  let locationCopy = { ...location }
+  const locationCopy = { ...location }
   let path = words[1] || locationCopy.path
 
   //. get location from rownum in previous table
@@ -23,6 +23,7 @@ export async function getDestination({ location, words, past, table }) {
   // }
 
   // get node of new location
+  //. will need to iterate down the path segments or tags, eg 'go foo/bar/baz'
   const node = await locationCopy.datasource.get(path)
   const type = await node.get('type')
 
