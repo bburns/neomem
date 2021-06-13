@@ -115,6 +115,10 @@ class NodeJsonTimegraph {
     return [...new Set(exits)]
   }
 
+  getSize() {
+    return libdrivers.sizeOf(this)
+  }
+
   // crud operations
   //. spec could be a name, key, path, array of such, qbe, etc
 
@@ -123,6 +127,7 @@ class NodeJsonTimegraph {
     const accessorMap = {
       contents: this.getContents,
       exits: this.getExits,
+      size: this.getSize,
     }
     return libdrivers.get(this, spec, accessorMap)
   }
