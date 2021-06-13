@@ -78,15 +78,21 @@ go.notes = `Go to another location, or in a direction`
 //------------------------------------------------------------------------
 
 async function help({ words }) {
-  //. could ask for help on a topic
+  //. handle asking for help on a topic
   const topic = words[1]
   const rows = Object.keys(commands)
     .filter(key => commands[key].notes)
     .sort((a, b) => a.localeCompare(b))
     .map(key => [key, commands[key].notes])
-  //. add aliases to col0
-  //. print with treetable view
-  print(rows)
+  // .map(key => ({ command: key, description: commands[key].notes }))
+  //. add aliases to col0 or col2
+  //. print with treetable view on an array of arrays - pass as datasource
+  // print(rows)
+  // const meta = {
+  //   columns: 'command,description,aliases'.split(',')
+  // }
+  // const table = await views.treetable(rows, meta)
+  print(table)
 }
 help.notes = `Get help`
 
