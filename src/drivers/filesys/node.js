@@ -2,7 +2,7 @@
 
 import fs from 'fs/promises'
 import pathlib from 'path'
-import * as lib from './lib.js'
+import * as libfilesys from './libfilesys.js'
 import * as libdrivers from '../libdrivers.js'
 
 export class NodeFilesys {
@@ -15,7 +15,7 @@ export class NodeFilesys {
     const type = await this.getType()
     const path = this.getPath()
     if (type === 'folder') {
-      return lib.readDir(path)
+      return libfilesys.readDir(path)
     }
     // files don't have contents - they have notes - see getNotes
     return ['(n/a)']
@@ -30,7 +30,7 @@ export class NodeFilesys {
     const type = await this.getType()
     const path = this.getPath()
     if (type === 'file') {
-      return lib.readFile(path, 60)
+      return libfilesys.readFile(path, 60)
     }
     // folders don't have notes - they have contents - see getContents
     return '(n/a)'
@@ -53,7 +53,7 @@ export class NodeFilesys {
 
   async getType() {
     const path = this.getPath()
-    const isFolder = await lib.isDir(path)
+    const isFolder = await libfilesys.isDir(path)
     if (isFolder) {
       return 'folder'
     } else {
