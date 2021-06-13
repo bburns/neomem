@@ -5,7 +5,7 @@ import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands.js'
 
-//. specify as some kind of connection string eg 'file:src/data/index.js'?
+//. specify as some kind of connection string eg 'file://src/data/index.js'?
 const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it
 
@@ -16,17 +16,17 @@ Welcome to Neomem
 -----------------------------------------------------`
 
 async function main() {
-  let connection = drivers[filedriver].connect(filepath)
-  let location = await connection.getInitialLocation()
+  let datasource = drivers[filedriver].connect(filepath)
+  let location = await datasource.getInitialLocation()
   let table = null
 
   print(welcome)
-  await commands.look({ connection, location })
+  await commands.look({ datasource, location })
   print()
 
   const getPrompt = location => `${chalk.bold('[' + location + ']')}\n> `
   const prompt = getPrompt(location)
-  const past = [{ connection, location }]
+  const past = [{ datasource, location }] // stack of previous locations
 
   // parse and execute command string
   // note: these parameters are specified by node's repl library.
@@ -36,7 +36,7 @@ async function main() {
     const command = words[0]
     const commandFn = commands[command] || aliases[command] || commands.unknown
     const ret = await commandFn({
-      connection,
+      datasource,
       location,
       words,
       past,
@@ -44,7 +44,7 @@ async function main() {
     }) // execute cmd
     // update vars if needed
     if (ret) {
-      if (ret.connection) connection = ret.connection
+      if (ret.datasource) datasource = ret.datasource
       if (ret.location) location = ret.location
       if (ret.table) table = ret.table
     }
