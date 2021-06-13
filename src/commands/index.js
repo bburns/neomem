@@ -2,9 +2,9 @@
 
 import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { drivers } from './drivers/index.js'
-import { views } from './views/index.js'
-import * as lib from './lib.js'
+import { drivers } from '../drivers/index.js'
+import { views } from '../views/index.js'
+import * as lib from '../lib.js'
 
 //. fns will receive this as part of ui object
 const print = console.log
@@ -13,7 +13,7 @@ const print = console.log
 // back
 //------------------------------------------------------------------------
 
-async function back({ datasource, location, words, past }) {
+async function back({ past }) {
   if (past.length > 1) {
     past.pop()
     const previous = past[past.length - 1]
@@ -28,9 +28,23 @@ back.notes = `Go back to previous location`
 // edit
 //------------------------------------------------------------------------
 
+//. handle disambiguation, context, history, etc
+//. should return a { datasource, location }?
+// because could be looking at a different datasource + path,
+// eg 'edit /home/blog/index.md' - datasource is markdown file, ?
+function getDestination({ datasource, location, words }) {
+  const destination = words[1] || datasource.path
+  return destination
+}
+
 async function edit({ datasource, location, words }) {
-  //. handle path = connection.path or location + words
+  //. handle destination - none=current location, direction, name, path, etc
+  // const destination = getDestination({ datasource, location, words })
   const { path } = datasource
+  //. handle editing part of a file, or json item, etc -
+  // get text repr, edit, then parse / insert it
+  // note: code is vscode
+  //. could have diff editors for diff file types, eg image editor
   exec(`code ${path}`, (error, stdout, stderr) => {
     print('done')
   })
@@ -42,11 +56,14 @@ edit.notes = `Edit notes for a node`
 //------------------------------------------------------------------------
 
 async function go({ datasource, location, words, past, table }) {
-  //. destination can be an adjacent edge name, node name, abs path, id, rownum,
-  // adjective+noun, or something in the location history / context, etc
-  // eg 'north', 'home', '/home', 'hello.txt', '2', 'books'
-  //. will need same destination handler for other cmds - list, look, edit, etc.
+  //. words could specify an adjacent edge name / direction, node name,
+  // abs path, id, rownum, adjective+noun, 'back', 'fwd', or
+  // something in the location history / context, etc.
+  // eg undefined, 'north', 'author', 'home', '/home', 'hello.txt', '2', 'books',
+  // 'back', 'blue mushroom'.
+  //
   const destination = words[1]
+  // const destination = getDestination({ datasource, location, words, past, table })
   location = destination
 
   //. get location from rownum in previous table
@@ -79,7 +96,7 @@ go.notes = `Go to another location, or in a direction`
 
 async function help({ words }) {
   //. handle asking for help on a topic
-  const topic = words[1]
+  // const topic = words[1]
   const rows = Object.keys(commands)
     .filter(key => commands[key].notes)
     .sort((a, b) => a.localeCompare(b))

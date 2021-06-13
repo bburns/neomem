@@ -3,7 +3,7 @@
 import librepl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
-import { commands, aliases } from './commands.js'
+import { commands, aliases } from './commands/index.js'
 
 //. specify as some kind of connection string eg 'file://src/data/index.js'?
 const filepath = './src/data/index.js' //. pass via envar or param
