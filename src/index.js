@@ -1,9 +1,11 @@
-import repl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
+import librepl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands.js'
 
-const filepath = './src/data/home.js' //. pass via envar or param
+//. specify as some kind of connection string eg 'file:src/data/index.js'?
+const filepath = './src/data/index.js' //. pass via envar or param
+const filedriver = 'jsonTimegraph' //. ditto, until can automate it
 
 const print = console.log
 
@@ -12,7 +14,7 @@ Welcome to Neomem
 -----------------------------------------------------`
 
 async function main() {
-  let connection = drivers.jsonTimegraph.connect(filepath)
+  let connection = drivers[filedriver].connect(filepath)
   let key = await connection.getInitialLocation()
   let table = null
 
@@ -30,8 +32,8 @@ async function main() {
     str = str.trim()
     const words = str.split(' ') //. tokenize
     const command = words[0]
-    const fn = commands[command] || aliases[command] || commands.unknown
-    const ret = await fn({ connection, key, words, past, table }) // execute cmd
+    const commandFn = commands[command] || aliases[command] || commands.unknown
+    const ret = await commandFn({ connection, key, words, past, table }) // execute cmd
     // update vars if needed
     if (ret) {
       if (ret.connection) connection = ret.connection
@@ -39,11 +41,11 @@ async function main() {
       if (ret.table) table = ret.table
     }
     print()
-    server.setPrompt(getPrompt(key))
+    repl.setPrompt(getPrompt(key))
     callback() // so knows to print prompt again
   }
 
-  const server = repl.start({ prompt, eval: step })
+  const repl = librepl.start({ prompt, eval: step })
 }
 
 main()
