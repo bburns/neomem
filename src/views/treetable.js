@@ -25,6 +25,6 @@ export async function view({ location, node, prop, meta }) {
   }
 }
 
-class ViewTreetable {
-  constructor() {}
-}
+// class ViewTreetable {
+//   constructor() {}
+// }

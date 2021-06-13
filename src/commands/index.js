@@ -3,7 +3,7 @@
 import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { views } from '../views/index.js'
-import * as lib from '../lib.js'
+// import * as lib from '../lib.js'
 import * as libcommands from './libcommands.js'
 
 //. fns will receive this as part of ui object
@@ -17,7 +17,7 @@ async function back({ past }) {
   if (past.length > 1) {
     past.pop()
     const previous = past[past.length - 1]
-    await look({ datasource: previous.datasource, location: previous.location })
+    await look({ location: previous.location })
     return previous
   }
   print(`No more history.`)
@@ -28,15 +28,9 @@ back.notes = `Go back to previous location`
 // edit
 //------------------------------------------------------------------------
 
-async function edit({ datasource, location, words, past, table }) {
-  const destination = libcommands.getDestination({
-    datasource,
-    location,
-    words,
-    past,
-    table,
-  })
-  const { path } = datasource
+async function edit({ location, words, past, table }) {
+  location = libcommands.getDestination({ location, words, past, table })
+  const { path } = location
   //. handle editing part of a file, or json item, etc -
   // get text repr, edit, then parse / insert it
   // note: code is vscode
@@ -133,12 +127,7 @@ async function list({ location, words = [], past = [], table = {} }) {
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
   //. pass obj
-  table = await views.treetable({
-    location,
-    node,
-    prop: 'contents',
-    meta,
-  })
+  table = await views.treetable({ location, node, prop: 'contents', meta })
   print(chalk.bold(name))
   print(table)
   return { table }
