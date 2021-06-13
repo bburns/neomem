@@ -18,7 +18,7 @@ class DatasourceMarkdown {
   constructor(path) {
     this.type = 'markdown'
     this.path = path
-    this.initialLocation = null
+    this.initialLocation = ''
     this.text = null
   }
 
@@ -26,11 +26,9 @@ class DatasourceMarkdown {
     this.text = String(await fs.readFile(this.path))
   }
 
-  getInitialLocation() {
-    return this.initialLocation
-  }
-
-  async get(key) {
+  async get(spec) {
+    let key = spec
+    if (key === 'initialLocation') return this.initialLocation
     //. scan file for key = header name/text - eventually could have indexes
     const props = { _id: key, name: this.path, notes: this.text }
     return new NodeMarkdown(this, props)

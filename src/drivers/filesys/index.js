@@ -26,15 +26,9 @@ export class DatasourceFilesys {
     this.filetypes = meta.nodes.filter(node => node.type === 'filetype')
   }
 
-  // async load() {
-  //   this.initialLocation = '.'
-  // }
-
-  getInitialLocation() {
-    return this.initialLocation
-  }
-
-  async get(key) {
+  async get(spec) {
+    let key = spec
+    if (key === 'initialLocation') return this.initialLocation
     key = libpath.normalize(key)
     const name = libpath.basename(key)
     // check for mounts

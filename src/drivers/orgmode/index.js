@@ -19,11 +19,9 @@ class DatasourceOrgmode {
     this.text = null
   }
 
-  getInitialLocation() {
-    return this.initialLocation
-  }
-
-  async get(key) {
+  async get(spec) {
+    let key = spec
+    if (key === 'initialLocation') return this.initialLocation
     const props = {
       _id: key,
       name: key,

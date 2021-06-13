@@ -1,6 +1,8 @@
 // driver for js/json timegraph files
 // have meta, nodes, edges, history subitems
 
+// this is kind of a proving ground for the postgres-timegraph driver.
+
 import fs from 'fs/promises'
 import pathlib from 'path'
 import * as libdrivers from '../libdrivers.js'
@@ -22,6 +24,7 @@ class DatasourceJsonTimegraph {
   }
 
   // read file and build indexes
+  //. don't strictly need this - could scan file each request for now
   async load() {
     // read all json data
     const data = eval(String(await fs.readFile(this.path)))
@@ -64,16 +67,13 @@ class DatasourceJsonTimegraph {
     //. add metadata edges also?
   }
 
-  async getInitialLocation() {
-    if (!this.index) await this.load()
-    return this.initialLocation
-  }
-
   // crud operations
+  //. spec could be a name, key, path, array of such, qbe, etc
 
   async get(spec) {
     const key = spec
     if (!this.index) await this.load()
+    if (key === 'initialLocation') return this.initialLocation
     const props = this.index.nodeId[key] || this.index.nodeName[key]
     const node = new NodeJsonTimegraph(this, props)
     return node
@@ -116,13 +116,14 @@ class NodeJsonTimegraph {
   }
 
   // crud operations
+  //. spec could be a name, key, path, array of such, qbe, etc
 
   // some props are simple keyvalue items, some are relnships, etc
   async get(spec) {
-    const map = {
+    const accessorMap = {
       contents: this.getContents,
       exits: this.getExits,
     }
-    return libdrivers.get(this, spec, map)
+    return libdrivers.get(this, spec, accessorMap)
   }
 }

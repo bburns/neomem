@@ -76,7 +76,8 @@ async function go({ datasource, location, words, past, table }) {
     const driverName = (await node.get('driver')) || 'markdown' //.
     const driver = drivers[driverName]
     datasource = await driver.connect(location)
-    location = await datasource.getInitialLocation()
+    // location = await datasource.getInitialLocation()
+    location = await datasource.get('initialLocation')
   }
 
   await look({ datasource, location, words })

@@ -20,7 +20,8 @@ Welcome to Neomem
 async function main() {
   //. drivers.lookup(connectionString)
   let datasource = drivers[filedriver].connect(filepath)
-  let location = await datasource.getInitialLocation()
+  // let location = await datasource.getInitialLocation()
+  let location = await datasource.get('initialLocation')
   let table = null
 
   print(welcome)
