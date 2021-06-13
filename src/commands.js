@@ -49,6 +49,7 @@ async function go(connection, key, words, past, table) {
   key = dest
 
   if (isNumber(key)) {
+    key = table[key][1]
   }
 
   // get node of new location
@@ -126,9 +127,7 @@ async function list(connection, key, words) {
   const node = await connection.get(key)
   const name = await node.get('name')
   print(chalk.bold(name))
-  // const contents = await node.get('contents') // array of items
-  // if (contents && contents.length > 0) print(contents.join('\n'))
-  // use metadata to determine what cols to include, sort, group, etc
+  //. use metadata to determine what cols to include, sort, group, etc
   const meta = {
     columns: 'n,name,size,created,modified'.split(','),
   }
