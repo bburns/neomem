@@ -1,6 +1,6 @@
 // treetable view
 // prop is eg 'contents'
-export async function view(node, prop, meta, connection) {
+export async function view({ node, prop, meta, datasource }) {
   // const contents = await node.get('contents') // array of items
   // if (contents && contents.length > 0) print(contents.join('\n'))
   // const path = (await node.get('path')) || '.'
@@ -10,7 +10,7 @@ export async function view(node, prop, meta, connection) {
     for (const key of keys) {
       // const subpath = path + '/' + key //. use this
       const subpath = key
-      const node = await connection.get(subpath)
+      const node = await datasource.get(subpath)
       nodes.push(node)
     }
     const { columns } = meta
@@ -23,4 +23,8 @@ export async function view(node, prop, meta, connection) {
     }
     return rows
   }
+}
+
+class ViewTreetable {
+  constructor() {}
 }

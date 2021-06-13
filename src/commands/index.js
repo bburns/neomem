@@ -106,7 +106,7 @@ async function help({ words }) {
   // const meta = {
   //   columns: 'command,description,aliases'.split(',')
   // }
-  // const table = await views.treetable(rows, meta)
+  // const table = await views.treetable({rows, meta})
   // print(table)
 }
 help.notes = `Get help`
@@ -174,7 +174,12 @@ async function list({ datasource, location, words }) {
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
   //. pass obj
-  const table = await views.treetable(node, 'contents', meta, datasource)
+  const table = await views.treetable({
+    node,
+    prop: 'contents',
+    meta,
+    datasource,
+  })
   print(chalk.bold(name))
   print(table)
   return { table }
