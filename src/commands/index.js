@@ -132,11 +132,22 @@ async function list({ location, words = [], past = [], table = {} }) {
   //. maybe treetable returns a new View object, like driver.connect()?
   //. pass obj
   // table = await views.table({ location, node, prop: 'contents', meta })
-  table = await views.table({ location, axis: 'contents', meta })
-  print(table)
+  table = await views.table({ node, axis: 'contents', meta })
+  // print(table)
+  const rows = getRows(table, meta.columns)
+  print(rows)
   return { table }
 }
 list.notes = `List contents of this or another location`
+
+function getRows(objs, columns) {
+  const rows = [columns]
+  for (const obj of objs) {
+    const row = columns.map(column => obj[column])
+    rows.push(row)
+  }
+  return rows
+}
 
 //------------------------------------------------------------------------
 // read
