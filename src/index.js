@@ -14,6 +14,7 @@ Welcome to Neomem
 async function main() {
   let connection = drivers.jsonTimegraph.connect(filepath)
   let key = await connection.getInitialLocation()
+  let table = null
 
   print(welcome)
   await commands.look(connection, key)
@@ -30,12 +31,15 @@ async function main() {
     const words = str.split(' ') //. tokenize
     const command = words[0]
     const fn = commands[command] || aliases[command] || commands.unknown
-    const ret = await fn(connection, key, words, past) // execute cmd
+    const ret = await fn(connection, key, words, past, table) // execute cmd
     // update location if needed
-    if (ret) {
-      connection = ret.connection
-      key = ret.key
-    }
+    // if (ret) {
+    //   connection = ret.connection
+    //   key = ret.key
+    // }
+    if (ret.connection) connection = ret.connection
+    if (ret.key) key = ret.key
+    if (ret.table) table = ret.table
     print()
     server.setPrompt(getPrompt(key))
     callback() // so knows to print prompt again

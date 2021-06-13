@@ -19,6 +19,7 @@ export async function view(node, prop, meta, connection) {
       const row = columns.map(column => data[column])
       rows.push(row)
     }
-    console.log(rows)
+    // console.log(rows)
+    return rows
   }
 }

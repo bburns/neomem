@@ -38,15 +38,21 @@ edit.notes = `edit notes for a node`
 //------------------------------------------------------------------------
 // go
 //------------------------------------------------------------------------
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n)
+}
 
-async function go(connection, key, words, past) {
-  //. dest can be adjacent edge name, node name, or abs path, or id
-  // eg 'go north', 'go /home', 'go hello.txt', 'go 2', 'go up'
+async function go(connection, key, words, past, table) {
+  //. dest can be adjacent edge name, node name, abs path, id, rownum
+  // eg 'north', 'home', '/home', 'hello.txt', '2'
   const dest = words[1]
   key = dest
 
+  if (isNumber(key)) {
+  }
+
   // get node of new location
-  const node = await connection.get(key) // eg 'notes'
+  const node = await connection.get(key)
   const type = await node.get('type')
 
   if (type === 'mount') {
@@ -127,7 +133,9 @@ async function list(connection, key, words) {
     columns: 'n,name,size,created,modified'.split(','),
   }
   //. attach data to view, execute it
-  await views.treetable(node, 'contents', meta, connection)
+  const table = await views.treetable(node, 'contents', meta, connection)
+  console.log(table)
+  return { table }
 }
 list.notes = `list contents of this or another location`
 
