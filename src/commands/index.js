@@ -128,7 +128,7 @@ async function list({ location, words = [], past = [], table = {} }) {
   const objs = await libcommands.getRelated({ node, meta, axis: 'contents' })
   const rows = await views.table({ objs, meta })
   print(rows)
-  // return { table }
+  // return { table } //... wrap objs in a table structure with meta, axis, node
 }
 list.notes = `List contents of this or another location`
 
@@ -149,13 +149,10 @@ async function read({ location, words = [], past = [], table = {} }) {
       ','
     ),
   }
-  //. attach data to view, execute it
-  //. maybe treetable returns a new View object, like driver.connect()?
-  table = await views.document({ node, meta, axis: 'contents' })
-  print(table)
-  // const rows = libcommands.getRows(table, meta.columns)
-  // print(rows)
-  return { table }
+  const objs = await libcommands.getRelated({ node, meta, axis: 'contents' })
+  const rows = await views.document({ objs, meta })
+  print(rows)
+  // return { table } //..
 }
 list.read = `Read contents of this or another location`
 
