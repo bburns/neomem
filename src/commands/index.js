@@ -145,7 +145,7 @@ async function read({ location, words = [], past = [], table = {} }) {
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
-    columns: 'name,type,notes,source,contents,exits,created,modified'.split(
+    columns: 'name,type,source,created,modified,contents,exits,notes'.split(
       ','
     ),
   }
