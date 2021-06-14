@@ -5,10 +5,9 @@ import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js'
 import { commands, aliases } from './commands/index.js'
 
-//. specify as a connection string
 const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it
-// const connectionString = 'file://src/data/index.js'
+//. const connectionString = 'file://src/data/index.js'
 
 //. make a ui object
 const print = console.log
@@ -18,9 +17,7 @@ Welcome to Neomem
 -----------------------------------------------------`
 
 async function main() {
-  // let driver = drivers.get(connectionString)
-  // let datasource = driver.connect(filepath)
-  // let datasource = drivers.connect(connectionString)
+  //. let datasource = drivers.connect(connectionString)
   let datasource = drivers[filedriver].connect(filepath)
   let path = await datasource.get('initialPath')
   let location = { datasource, path }
@@ -35,7 +32,7 @@ async function main() {
       '[' + location.datasource.type + '://' + location.path + ']'
     )}\n> `
   const prompt = getPrompt(location)
-  const past = [location] // stack of previous locations
+  const past = [location] // array of previous locations
 
   // parse and execute command string
   // note: these parameters are specified by node's repl library.

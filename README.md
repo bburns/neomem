@@ -22,7 +22,6 @@ An open-source information manager - with plugins for different views and dataso
   - [Implementation](#implementation)
   - [Architecture](#architecture)
   - [Features](#features)
-  - [Packages](#packages)
   - [Installation](#installation)
   - [Running](#running)
   - [Links](#links)
@@ -91,48 +90,33 @@ Some use cases to test the app and database structure -
 - go to item quickly with alt-g command, start typing to filter list
 - clipboard monitor - paste contents when it changes
 
-## Packages
+<!-- ## Packages
 
 - neomem-console - console interface
 - neomem-web - web interface
 - neomem-gateway - datasource manager
 - neomem-driver-pg - plugin for postgres databases
-<!-- - neomem-driver-neo4j - plugin for neo4j graph databases -->
+- neomem-driver-neo4j - plugin for neo4j graph databases
 - neomem-driver-filesys - plugin for file system access
-- neomem-driver-bookmarks - plugin for chrome bookmark access
+- neomem-driver-bookmarks - plugin for chrome bookmark access -->
 
 ## Installation
 
-Note: Neomem is under heavy development - i.e. it barely works at the moment...
+Note: Neomem is under heavy development.
 
-Install nodejs, [yarn](https://yarnpkg.com/) and [just](https://github.com/casey/just#packages).
-
-Clone this repo
+Install nodejs, then clone this repo and install the dependencies
 
     git clone https://github.com/bburns/Neomem
-
-Install dependencies
-
     cd Neomem
-    yarn
+    npm install
 
 ## Running
 
-In one terminal, start the gateway and data sources -
-
-    just gateway
-
-in another, start the console ui -
-
-    just console
-
-<!-- in another, start the gui -
-
-    just gui -->
+    npm start
 
 ## Links
 
-Blog at https://bburns.github.io/Neomem.
+Blog at https://neomem.io.
 
 Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
 

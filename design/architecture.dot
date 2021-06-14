@@ -7,30 +7,32 @@ graph architecture {
 
   // nodes
   console [ fillcolor=lightyellow ];
-  browser [ fillcolor=lightyellow ];
-  nmgui [ label="neomem-web\n(svelte)"; fillcolor=greenyellow ];
-  nmconsole [label="neomem-console\n(node)"; fillcolor=greenyellow ];
-  nmgateway [label="neomem-gateway\n(federated\nrest endpoint)"];
-  driverNeo4j [label="driver-neo4j\n(/neo4j)"];
-  driverBookmarks [label="driver-bookmarks\n(/bookmarks)"];
-  driverFilesys1 [label="driver-filesys\n(/dropbox)"];
-  driverFilesys2 [label="driver-filesys\n(/desktop)"];
-  neo4j [ label="neo4j\ngraph db", fillcolor=lavender ];
-  bookmarks [ label="bookmarks\njson file", fillcolor=lavender ];
-  filesys1 [ label="filesystem\n/Dropbox", fillcolor=lavender ];
-  filesys2 [ label="filesystem\n/Desktop", fillcolor=lavender ];
+  neomem [label="neomem"; fillcolor=greenyellow ];
+  driverChrome [label="chrome driver"];
+  driverFilesys [label="filesys driver"];
+  // driverGsheet [label="gsheet driver"];
+  driverJson [label="json driver"];
+  driverMarkdown [label="markdown driver"];
+  driverOther [label="other drivers..."];
+  sourceChrome [ label="bookmarks\njson file", fillcolor=lavender ];
+  sourceFilesys [ label="filesystem", fillcolor=lavender ];
+  // sourceGsheet [ label="google sheet", fillcolor=lavender ];
+  sourceJson [ label="json file", fillcolor=lavender ];
+  sourceMarkdown [ label="markdown file", fillcolor=lavender ];
+  sourceOther [ label="email, gsheet,\npostgres, xml, ...", fillcolor=lavender ];
 
   // edges
-  browser -- nmgui;
-  console -- nmconsole;
-  nmconsole -- nmgateway [ label="  http" ];
-  nmgui -- nmgateway [ label="  http" ];
-  nmgateway -- driverNeo4j [ label="  http" ];
-  nmgateway -- driverBookmarks [ label="  http" ];
-  nmgateway -- driverFilesys1 [  label="  http" ];
-  nmgateway -- driverFilesys2 [  label="  http" ];
-  driverNeo4j -- neo4j;
-  driverBookmarks -- bookmarks;
-  driverFilesys1 -- filesys1;
-  driverFilesys2 -- filesys2;
+  console -- neomem;
+  neomem -- driverChrome;
+  neomem -- driverFilesys;
+  // neomem -- driverGsheet;
+  neomem -- driverJson;
+  neomem -- driverMarkdown;
+  neomem -- driverOther;
+  driverChrome -- sourceChrome;
+  driverFilesys -- sourceFilesys;
+  // driverGsheet -- sourceGsheet;
+  driverJson -- sourceJson;
+  driverMarkdown -- sourceMarkdown;
+  driverOther -- sourceOther;
 }
