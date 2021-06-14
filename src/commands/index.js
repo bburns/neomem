@@ -95,8 +95,10 @@ async function look({ location, words = [], past = [], table = {} }) {
   // const printRow = (name, value) => print(name + ':', value)
   location = await libcommands.getDestination({ location, words, past, table })
   const node = await location.datasource.get(location.path)
-  // const name = await node.get('name')
-  // print(chalk.bold(name))
+  const name = await node.get('name')
+  print(chalk.bold(name))
+  //. attach data to view, execute it
+  //. maybe treetable returns a new View object, like driver.connect()?
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
@@ -104,13 +106,8 @@ async function look({ location, words = [], past = [], table = {} }) {
       'name,path,type,notes,source,contents,exits,created,modified'.split(','),
   }
   const objs = await libcommands.getRelated({ node, meta })
-  //. attach data to view, execute it
-  //. maybe treetable returns a new View object, like driver.connect()?
-  // table = await views.properties({ node, meta })
-  // console.log(objs)
   const rows = await views.properties({ objs, meta })
   print(rows)
-  // return { table }
 }
 look.notes = `Look at this or another location`
 
@@ -128,12 +125,10 @@ async function list({ location, words = [], past = [], table = {} }) {
   const meta = {
     columns: 'n,name,size,created,modified'.split(','),
   }
-  //. attach data to view, execute it
-  //. maybe treetable returns a new View object, like driver.connect()?
-  table = await views.table({ node, axis: 'contents', meta })
-  const rows = libcommands.getRows(table, meta.columns)
+  const objs = await libcommands.getRelated({ node, meta, axis: 'contents' })
+  const rows = await views.table({ objs, meta })
   print(rows)
-  return { table }
+  // return { table }
 }
 list.notes = `List contents of this or another location`
 
