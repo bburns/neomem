@@ -7,31 +7,32 @@ graph architecture {
 
   // nodes
   console [ fillcolor=lightyellow ];
-  neomem [label="neomem"; fillcolor=greenyellow ];
-  driverChrome [label="chrome driver"];
-  driverFilesys [label="filesys driver"];
-  // driverGsheet [label="gsheet driver"];
-  driverJson [label="json driver"];
-  driverMarkdown [label="markdown driver"];
-  driverOther [label="other drivers..."];
+  viewCalendar [ label="calendar view", fillcolor=white ];
+  viewDocument [ label="document view", fillcolor=white ];
+  viewGraph [ label="graph view", fillcolor=white ];
+  viewProperties [ label="properties view", fillcolor=white ];
+  viewTable [ label="table view", fillcolor=white ];
+  neomem [ label="neomem"; fillcolor=greenyellow ];
+  driverChrome [ label="chrome driver"];
+  driverFilesys [ label="filesys driver"];
+  driverJson [ label="json driver"];
+  driverMarkdown [ label="markdown driver"];
+  driverOther [ label="other drivers..."];
   sourceChrome [ label="bookmarks\njson file", fillcolor=lavender ];
   sourceFilesys [ label="filesystem", fillcolor=lavender ];
-  // sourceGsheet [ label="google sheet", fillcolor=lavender ];
   sourceJson [ label="json file", fillcolor=lavender ];
   sourceMarkdown [ label="markdown file", fillcolor=lavender ];
   sourceOther [ label="email, gsheet,\npostgres, xml, ...", fillcolor=lavender ];
 
   // edges
-  console -- neomem;
+  console -- { viewCalendar, viewDocument, viewGraph, viewProperties, viewTable } -- neomem;
   neomem -- driverChrome;
   neomem -- driverFilesys;
-  // neomem -- driverGsheet;
   neomem -- driverJson;
   neomem -- driverMarkdown;
   neomem -- driverOther;
   driverChrome -- sourceChrome;
   driverFilesys -- sourceFilesys;
-  // driverGsheet -- sourceGsheet;
   driverJson -- sourceJson;
   driverMarkdown -- sourceMarkdown;
   driverOther -- sourceOther;
