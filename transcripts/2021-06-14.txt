@@ -1,0 +1,128 @@
+/Users/bburns/Desktop/Workspace/neomem
+$ npm start
+
+Welcome to Neomem
+-----------------------------------------------------
+home
+[
+  [ 'property', 'value' ],
+  [ 'name', 'home' ],
+  [ 'path', undefined ],
+  [ 'type', 'folder' ],
+  [ 'notes', 'neomem skeleton' ],
+  [ 'source', undefined ],
+  [
+    'contents',
+    [ 'blog', 'filesys', 'forest', 'house', 'notes', 'test' ]
+  ],
+  [ 'exits', [ undefined ] ],
+  [ 'created', '2021-06-05' ],
+  [ 'modified', undefined ]
+]
+
+[json-timegraph://home]
+> help
+[
+  [ 'command', 'description', 'aliases' ],
+  [ 'back', 'Go back to previous location', undefined ],
+  [ 'edit', 'Edit notes for a node', undefined ],
+  [ 'go', 'Go to another location, or in a direction', undefined ],
+  [ 'help', 'Get help', undefined ],
+  [ 'info', 'Get debugging info', undefined ],
+  [ 'list', 'List contents of this or another location', undefined ],
+  [ 'look', 'Look at this or another location', undefined ],
+  [ 'read', 'Read contents of this or another location', undefined ]
+]
+
+[json-timegraph://home]
+> look blog
+.
+[
+  [ 'property', 'value' ],
+  [ 'name', '.' ],
+  [ 'path', undefined ],
+  [ 'type', 'folder' ],
+  [ 'notes', '(n/a)' ],
+  [ 'source', undefined ],
+  [
+    'contents',
+    [
+      '2021-02-07.md',
+      '2021-02-08.md',
+      '2021-05-15.md',
+      '2021-05-22.md',
+      '2021-05-23.md',
+      '2021-05-30.md',
+      '2021-06-06.md',
+      'blog-meta.json',
+      'index.md'
+    ]
+  ],
+  [ 'exits', [ 'up' ] ],
+  [ 'created', 1622935361523.9294 ],
+  [ 'modified', 1623017029026.431 ]
+]
+
+[json-timegraph://home]
+> list blog
+.
+[
+  [ 'n', 'name', 'size', 'created', 'modified' ],
+  [ 0, '.', 0, 1622935361523.9294, 1623017029026.431 ],
+  [ 1, '2021-02-07.md', 406, 1622935652538.5479, 1622972230192.121 ],
+  [ 2, '2021-02-08.md', 780, 1622935673077.8188, 1622935840002.7878 ],
+  [ 3, '2021-05-15.md', 730, 1622935506134.0952, 1622935925671.7605 ],
+  [ 4, '2021-05-22.md', 315, 1622935590935.7654, 1622935932997.4375 ],
+  [ 5, '2021-05-23.md', 399, 1622935685900.7144, 1622935878997.8635 ],
+  [ 6, '2021-05-30.md', 763, 1622935704267.1685, 1622935910164.2312 ],
+  [ 7, '2021-06-06.md', 2528, 1623017029026.4138, 1623032088501.0479 ],
+  [ 8, 'blog-meta.json', 275, 1622972034529.2603, 1622989378682.4207 ],
+  [ 9, 'index.md', 599, 1622935403025.5188, 1622972001801 ]
+]
+
+[json-timegraph://home]
+> go test
+
+[
+  [ 'property', 'value' ],
+  [ 'name', '' ],
+  [ 'path', '/Users/bburns/Desktop/test.org' ],
+  [ 'type', 'orgmode' ],
+  [
+    'notes',
+    'test orgmode file\n' +
+      '------------------------------------------\n' +
+      '\n' +
+      '* comps\n' +
+      '** win\n' +
+      'bought: 2018\n' +
+      '\n' +
+      '** mac\n' +
+      'bought: 2020\n'
+  ],
+  [ 'source', undefined ],
+  [ 'contents', [ 'comps', 'win', 'mac' ] ],
+  [ 'exits', undefined ],
+  [ 'created', undefined ],
+  [ 'modified', undefined ]
+]
+
+[json-timegraph://home]
+> back
+
+[json-timegraph://home]
+> go forest
+forest
+[
+  [ 'property', 'value' ],
+  [ 'name', 'forest' ],
+  [ 'path', undefined ],
+  [ 'type', 'place' ],
+  [ 'notes', 'a shady forest of aspen trees' ],
+  [ 'source', undefined ],
+  [ 'contents', [ 'clearing', 'field' ] ],
+  [ 'exits', [ 'east', 'north' ] ],
+  [ 'created', undefined ],
+  [ 'modified', undefined ]
+]
+

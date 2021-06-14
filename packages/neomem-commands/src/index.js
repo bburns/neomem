@@ -1,3 +1,0 @@
-// commands
-
-function look() {}

@@ -154,7 +154,7 @@ async function read({ location, words = [], past = [], table = {} }) {
   print(rows)
   // return { table } //..
 }
-list.read = `Read contents of this or another location`
+read.notes = `Read contents of this or another location`
 
 //------------------------------------------------------------------------
 // unknown
