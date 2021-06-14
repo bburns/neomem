@@ -4,11 +4,11 @@ An open-source information manager - with plugins for different views and dataso
 
 [![Github Issues](https://img.shields.io/github/issues/bburns/Neomem.svg)](https://github.com/bburns/Neomem/issues)
 [![License](https://img.shields.io/github/license/bburns/Neomem.svg)]()
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Github code size in bytes](https://img.shields.io/github/languages/code-size/bburns/Neomem.svg)]()
 [![Follow me on Twitter](https://img.shields.io/twitter/follow/bburnskm.svg?label=Twitter&style=flat&color=blue)](https://twitter.com/bburnskm)
 [![Formatted with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
+<!-- [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/) -->
 <!-- <a href="https://codecov.io/gh/bburns/neomem"><img alt="Codecov Coverage Status" src="https://img.shields.io/Neomem/c/github/bburns/Neomem.svg?style=flat"></a> -->
 <!-- <a href="https://www.npmjs.com/package/neomem"><img alt="npm version" src="https://img.shields.io/npm/v/Neomem.svg?style=flat-square"></a> -->
 <!-- <a href="https://www.npmjs.com/package/neomem"><img alt="weekly downloads from npm" src="https://img.shields.io/npm/dw/Neomem.svg?style=flat-square"></a> -->
