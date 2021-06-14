@@ -53,7 +53,7 @@ async function go({ location, words, past, table }) {
   location = await libcommands.getDestination({ location, words, past, table })
   await look({ location })
   past.push(location)
-  return location
+  return { location }
 }
 go.notes = `Go to another location, or in a direction`
 
