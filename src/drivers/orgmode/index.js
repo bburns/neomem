@@ -1,7 +1,7 @@
 // driver for orgmode text files
 
 import fs from 'fs/promises' // node lib
-import libpath from 'path' // node lib
+// import libpath from 'path' // node lib
 import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
@@ -19,16 +19,14 @@ class DatasourceOrgmode {
     this.initialPath = path
   }
 
+  // crud operations
+
   async get(spec) {
     let key = spec
     if (key === 'initialPath') return this.initialPath
-    const name = ''
-    const props = {
-      _id: key,
-      name,
-      path: key,
-      type: name ? 'heading' : 'orgmode',
-    }
+    const name = '' //.
+    const type = name ? 'heading' : 'orgmode'
+    const props = { _id: key, name, path: key, type }
     return new NodeOrgmode(this, props)
   }
   set() {}
@@ -44,33 +42,33 @@ class NodeOrgmode {
     this.props = props
   }
 
-  //. scan file for key = header name/text - eventually could have indexes?
   async load() {
-    this.props.notes = String(await fs.readFile(this.props.path))
+    this.props.notes = String(await fs.readFile(this.datasource.path))
   }
 
+  //. scan file for key = header name/text - then add indexes
   async getContents() {
     if (!this.props.notes) await this.load()
-    const regex = /^[*]+[ ]+.*$/gm // match header lines
+    const regex = /^[*]+[ ]+(.*)$/gm // match header lines
     const contents = []
     let arr
     while ((arr = regex.exec(this.props.notes)) !== null) {
-      contents.push(arr[0])
+      contents.push(arr[1])
     }
     return contents
   }
 
-  // getType() {
-  //   const type = { _id: 'orgmode', name: 'orgmode' }
-  //   return new NodeOrgmode(this.datasource, type)
-  // }
+  async getNotes() {
+    if (!this.props.notes) await this.load()
+    return this.props.notes
+  }
 
-  // crud handlers
+  // crud operations
 
   async get(spec) {
     const map = {
       contents: this.getContents,
-      // type: this.getType,
+      notes: this.getNotes,
     }
     return libdrivers.get(this, spec, map)
   }
