@@ -3,6 +3,9 @@ $ npm start
 
 Welcome to Neomem
 -----------------------------------------------------
+
+[json-timegraph://home]
+> look
 home
 [
   [ 'property', 'value' ],
@@ -107,7 +110,7 @@ home
   [ 'modified', undefined ]
 ]
 
-[json-timegraph://home]
+[orgmode://test.org]
 > back
 
 [json-timegraph://home]
@@ -125,4 +128,3 @@ forest
   [ 'created', undefined ],
   [ 'modified', undefined ]
 ]
-
