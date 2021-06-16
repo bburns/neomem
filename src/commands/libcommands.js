@@ -41,17 +41,26 @@ export async function getDestination({ location, words, past, table }) {
 
 // get related items
 export async function getRelated({ node, meta, axis = null }) {
-  const subnodes = [node]
+  // get list of node objects
+  const subnodes = [node] //. make optional to include self
   if (axis) {
     const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
     // const path = (await node.get('path')) || '.'
     for (const key of keys) {
+      //. here, / is a relation - 'contents' - but could be another relation to recurse down
+      // eg like path + '-[contents]-' + key ? ie use cypher/gql-like language?
       // const subpath = path + '/' + key //. use this
       const subpath = key
       const subnode = await node.datasource.get(subpath)
       subnodes.push(subnode)
     }
   }
+  console.log(
+    58,
+    subnodes.map(subnode => subnode.props)
+  )
+
+  // get projection
   const { columns } = meta
   const objs = []
   for (const [n, subnode] of subnodes.entries()) {

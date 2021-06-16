@@ -1,5 +1,6 @@
 // properties view
 
+// convert a list of node objects to a property table
 export async function properties({ objs, meta }) {
   const { columns } = meta
   const rows = [['property', 'value']]

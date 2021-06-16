@@ -24,7 +24,7 @@ class DatasourceOrgmode {
   async get(spec) {
     let key = spec
     if (key === 'initialPath') return this.initialPath
-    const name = '' //.
+    const name = key //'' //.
     const type = name ? 'heading' : 'orgmode'
     const props = { _id: key, name, path: key, type }
     return new NodeOrgmode(this, props)
