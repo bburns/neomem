@@ -43,7 +43,6 @@ class DatasourceOrgmode {
       const props = { key, name: header, depth, indent, type, length, notes }
       const node = new NodeOrgmode(this, props)
       subnodes.push(node)
-      // console.log(node)
       // @ts-ignore
     } while ((match = regex.exec(this.text)) !== null)
     // update indexes
@@ -77,8 +76,11 @@ class NodeOrgmode {
   }
 
   getContents() {
+    //. i guess this should return the nodes - called could do
+    // whatever they want with them
     const contents = Object.values(this.datasource.index.keys).map(
-      node => node.props.name
+      // node => node.props.name
+      node => node.props.key
     )
     return contents
   }
