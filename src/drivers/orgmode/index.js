@@ -27,14 +27,16 @@ class DatasourceOrgmode {
     // load file
     this.text = String(await fs.readFile(this.path))
     const subnodes = []
-    // make node for top of file
+
+    // make node for top part of file
     let match = { 1: '', 2: '', index: 0, type: 'orgmode' } //.
+
     // scan file for headers
     const regex = /^([*]+)[ ]+(.*)$/gm // match header lines
     const type = 'header'
     do {
       const nchar = match.index
-      const length = 100 //. find next header row or eof, len = pos - nchar
+      const length = 100 //.. find next header row or eof, len = pos - nchar
       const key = nchar
       const indent = match[1] // header asterisks //. return spaces
       const depth = indent.length
@@ -43,8 +45,11 @@ class DatasourceOrgmode {
       const props = { key, name: header, depth, indent, type, length, notes }
       const node = new NodeOrgmode(this, props)
       subnodes.push(node)
+      //.. also want to store graph structure, in this case a tree -
+      // have a edges 'table'
       // @ts-ignore
     } while ((match = regex.exec(this.text)) !== null)
+
     // update indexes
     this.indexes.keys = {}
     for (const node of subnodes) {
