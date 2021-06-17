@@ -17,7 +17,7 @@ class DatasourceOrgmode {
     this.type = 'orgmode'
     this.path = path
     this.initialPath = 0
-    this.index = {} //.
+    this.indexes = {} //.
     this.text = null
     this.dirty = true
   }
@@ -46,9 +46,9 @@ class DatasourceOrgmode {
       // @ts-ignore
     } while ((match = regex.exec(this.text)) !== null)
     // update indexes
-    this.index.keys = {}
+    this.indexes.keys = {}
     for (const node of subnodes) {
-      this.index.keys[node.props.key] = node
+      this.indexes.keys[node.props.key] = node
     }
     this.dirty = false
   }
@@ -59,7 +59,7 @@ class DatasourceOrgmode {
     if (this.dirty) await this.load()
     let key = spec
     if (key === 'initialPath') return this.initialPath
-    const node = this.index.keys[key]
+    const node = this.indexes.keys[key]
     return node
   }
   set() {}
@@ -78,7 +78,7 @@ class NodeOrgmode {
   getContents() {
     //. i guess this should return the nodes - called could do
     // whatever they want with them
-    const contents = Object.values(this.datasource.index.keys).map(
+    const contents = Object.values(this.datasource.indexes.keys).map(
       // node => node.props.name
       node => node.props.key
     )
