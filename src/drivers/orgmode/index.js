@@ -34,11 +34,11 @@ class DatasourceOrgmode {
     const type = 'header'
     do {
       const nchar = match.index
-      const length = 100 //.
+      const length = 100 //. find next header row or eof, len = pos - nchar
       const key = nchar
-      const indent = match[1]
-      const depth = match[1].length
-      const header = match[2]
+      const indent = match[1] // header asterisks //. return spaces
+      const depth = indent.length
+      const header = match[2] // header text
       const notes = this.text.slice(nchar, nchar + length)
       const props = { key, name: header, depth, indent, type, length, notes }
       const node = new NodeOrgmode(this, props)
