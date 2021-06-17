@@ -16,7 +16,6 @@ class DatasourceOrgmode {
   constructor(path) {
     this.type = 'orgmode'
     this.path = path
-    // this.initialPath = path
     this.initialPath = 0
     this.index = {} //.
     this.text = null
@@ -44,7 +43,7 @@ class DatasourceOrgmode {
       const props = { key, name: header, depth, indent, type, length, notes }
       const node = new NodeOrgmode(this, props)
       subnodes.push(node)
-      console.log(node)
+      // console.log(node)
       // @ts-ignore
     } while ((match = regex.exec(this.text)) !== null)
     // update indexes
@@ -78,7 +77,10 @@ class NodeOrgmode {
   }
 
   getContents() {
-    return 'pokpok'
+    const contents = Object.values(this.datasource.index.keys).map(
+      node => node.props.name
+    )
+    return contents
   }
 
   // crud operations
