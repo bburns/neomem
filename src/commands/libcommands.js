@@ -24,7 +24,9 @@ export async function getDestination({ location, words, past, table }) {
 
   // get node of new location
   //. will need to iterate down the path segments or tags, eg 'go foo/bar/baz'
+  // console.log(27, path)
   const node = await destination.datasource.get(path)
+  // console.log(29, node)
   const type = await node.get('type')
 
   // if new node is a mount point, replace it with the target
