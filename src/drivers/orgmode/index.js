@@ -26,32 +26,42 @@ class DatasourceOrgmode {
   async load() {
     // load file
     this.text = String(await fs.readFile(this.path))
-    const subnodes = []
+    const nodes = []
 
     // scan file for headers
     const text = this.text
     const type = 'header'
-    const regex = /^([*]+)[ ]+(.*)$/gm
-    // match obj for top of file
-    let match = { 1: '', 2: text.slice(0, text.indexOf('\n')), index: 0 }
-    let lastPos = 0
+    const regex = /^([*]+[ ]+)(.*)$/gm
+
+    // make a match obj for top of file - first line will be the name
+    let match = { index: 0, 1: '', 2: text.slice(0, text.indexOf('\n')) }
+
+    // let lastPos = 0
+    // let lastHeaderLength = 0
     do {
-      const pos = match.index
-      const lastLength = pos - lastPos
-      // assign props to previous node retroactively
-      if (subnodes.length > 0) {
-        const lastSubnodeProps = subnodes[subnodes.length - 1].props
-        lastSubnodeProps.length = lastLength
-        lastSubnodeProps.notes = text.slice(lastPos, pos)
-        lastPos = pos
-      }
-      const length = null
+      const pos = match.index // start of header
+
+      // // assign props to previous node retroactively
+      // if (nodes.length > 0) {
+      //   const lastLength = pos - lastPos
+      //   const lastNodeProps = nodes[nodes.length - 1].props
+      //   lastNodeProps.length = lastLength
+      //   lastNodeProps.notes = text.slice(lastPos + lastHeaderLength, pos)
+      //   lastPos = pos
+      //   lastHeaderLength = match[1].length + match[2].length
+      // }
+
+      const length = null // will be set
       const notes = null
       const key = pos
-      const indent = match[1] // header asterisks //. return spaces
+      const indent = match[1].trim() // header asterisks
       const depth = indent.length
       const name = match[2].trim() // header text
-      //.. scan text for "prop: value" lines, add to node props
+      const notesStart = pos + match[1].length + match[2].length + 1
+
+      //. scan text for "prop: value" lines, add to node props
+      // i guess for the read view, would just use notes to edit them,
+      // but for table view would want to access them as props.
       const propvalues = {}
 
       const props = {
@@ -62,11 +72,11 @@ class DatasourceOrgmode {
         indent,
         length,
         notes,
-        contents: [], //.
+        notesStart,
         ...propvalues,
       }
       const node = new NodeOrgmode(this, props)
-      subnodes.push(node)
+      nodes.push(node)
 
       //.. also want to store graph structure, in this case a tree -
       // have a edges 'table'
@@ -74,20 +84,28 @@ class DatasourceOrgmode {
       // @ts-ignore
     } while ((match = regex.exec(text)) !== null)
 
-    // //... add final subnode
-    // const props = { name: 'ahhhh eof' }
-    // const subnode = new NodeOrgmode(this, props)
-    // subnodes.push(subnode)
+    let first = true
+    let lastNode = null
+    for (const node of nodes) {
+      if (lastNode) {
+        lastNode.props.notesEnd = node.props.key
+      }
+      lastNode = node
+    }
 
-    //. update last node
-    const lastSubnodeProps = subnodes[subnodes.length - 1].props
-    const pos = text.length
-    lastSubnodeProps.length = pos - lastPos
-    lastSubnodeProps.notes = text.slice(lastPos, pos)
+    for (const node of nodes) {
+      node.props.notes = text.slice(node.props.notesStart, node.props.notesEnd)
+    }
+
+    // // update last node
+    // const lastNodeProps = nodes[nodes.length - 1].props
+    // const pos = text.length
+    // lastNodeProps.length = pos - lastPos
+    // lastNodeProps.notes = text.slice(lastPos, pos)
 
     // update indexes
     this.indexes.keys = {}
-    for (const node of subnodes) {
+    for (const node of nodes) {
       this.indexes.keys[node.props.key] = node
     }
     this.dirty = false

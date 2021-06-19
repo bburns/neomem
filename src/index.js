@@ -46,6 +46,13 @@ async function main() {
     if (ret) {
       if (ret.location) location = ret.location
       if (ret.table) table = ret.table
+      if (ret.output) {
+        if (typeof ret.output === 'function') {
+          ret.output()
+        } else {
+          print(ret.output)
+        }
+      }
     }
     print()
     repl.setPrompt(getPrompt(location))

@@ -148,14 +148,21 @@ async function read({ location, words = [], past = [], table = {} }) {
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
-    columns: 'name,type,source,created,modified,contents,exits,notes'.split(
-      ','
-    ),
+    // columns: 'name,type,source,created,modified,contents,exits,notes'.split(
+    columns: 'name,notes'.split(','),
   }
-  const objs = await libcommands.getRelated({ node, meta, axis: 'contents' })
+  const objs = await libcommands.getRelated({
+    node,
+    meta,
+    includeSelf: false,
+    axis: 'contents',
+  })
+  //. will want view to return a View object with method to render as string etc
+  //. or a closure with fns to render data
   const rows = await views.document({ objs, meta })
-  print(rows)
+  // print(rows)
   // return { table } //..
+  return { output: rows }
 }
 read.notes = `Read contents of this or another location`
 

@@ -63,10 +63,10 @@ export async function getRelated({
       subnodes.push(subnode)
     }
   }
-  console.log(
-    61,
-    subnodes.map(subnode => subnode.props)
-  )
+  // console.log(
+  //   61,
+  //   subnodes.map(subnode => subnode.props)
+  // )
 
   // get projection
   const { columns } = meta
