@@ -28,27 +28,50 @@ class DatasourceOrgmode {
     this.text = String(await fs.readFile(this.path))
     const subnodes = []
 
-    // make node for top part of file
-    let match = { 1: '', 2: '', index: 0, type: 'orgmode' } //.
-
     // scan file for headers
-    const regex = /^([*]+)[ ]+(.*)$/gm // match header lines
+    const text = this.text
     const type = 'header'
+    const regex = /^([*]+)[ ]+(.*)$/gm
+    // match obj for top of file
+    let match = { 1: '', 2: text.slice(0, text.indexOf('\n')), index: 0 }
+    let lastPos = 0
     do {
-      const nchar = match.index
-      const length = 100 //.. find next header row or eof, len = pos - nchar
-      const key = nchar
+      const pos = match.index
+      const lastLength = pos - lastPos
+      // assign props to previous node retroactively
+      if (subnodes.length > 0) {
+        const lastSubnodeProps = subnodes[subnodes.length - 1].props
+        lastSubnodeProps.length = lastLength
+        lastSubnodeProps.notes = text.slice(lastPos, pos)
+        lastPos = pos
+      }
+      const length = null
+      const notes = null
+      const key = pos
       const indent = match[1] // header asterisks //. return spaces
       const depth = indent.length
-      const header = match[2] // header text
-      const notes = this.text.slice(nchar, nchar + length)
-      const props = { key, name: header, depth, indent, type, length, notes }
+      const name = match[2].trim() // header text
+      //.. scan text for "prop: value" lines, add to node props
+      const propvalues = {}
+      const props = {
+        key,
+        name,
+        depth,
+        indent,
+        type,
+        length,
+        notes,
+        ...propvalues,
+      }
       const node = new NodeOrgmode(this, props)
       subnodes.push(node)
       //.. also want to store graph structure, in this case a tree -
       // have a edges 'table'
+
       // @ts-ignore
-    } while ((match = regex.exec(this.text)) !== null)
+    } while ((match = regex.exec(text)) !== null)
+
+    //. add final subnode
 
     // update indexes
     this.indexes.keys = {}
@@ -83,10 +106,10 @@ class NodeOrgmode {
   getContents() {
     //. i guess this should return the nodes - called could do
     // whatever they want with them
-    const contents = Object.values(this.datasource.indexes.keys).map(
-      // node => node.props.name
-      node => node.props.key
-    )
+    const contents = Object.values(this.datasource.indexes.keys) //.map(
+    //   // node => node.props.name
+    //   node => node.props.key
+    // )
     return contents
   }
 
