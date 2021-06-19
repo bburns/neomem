@@ -123,7 +123,12 @@ async function list({ location, words = [], past = [], table = {} }) {
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = { columns: 'n,name,type,size,created'.split(',') }
-  const objs = await libcommands.getRelated({ node, meta, axis: 'contents' })
+  const objs = await libcommands.getRelated({
+    node,
+    meta,
+    includeSelf: false,
+    axis: 'contents',
+  })
   const rows = await views.table({ objs, meta })
   print(rows)
   // return { table } //... wrap objs in a table structure with meta, axis, node

@@ -53,25 +53,37 @@ class DatasourceOrgmode {
       const name = match[2].trim() // header text
       //.. scan text for "prop: value" lines, add to node props
       const propvalues = {}
+
       const props = {
         key,
         name,
+        type,
         depth,
         indent,
-        type,
         length,
         notes,
+        contents: [], //.
         ...propvalues,
       }
       const node = new NodeOrgmode(this, props)
       subnodes.push(node)
+
       //.. also want to store graph structure, in this case a tree -
       // have a edges 'table'
 
       // @ts-ignore
     } while ((match = regex.exec(text)) !== null)
 
-    //. add final subnode
+    // //... add final subnode
+    // const props = { name: 'ahhhh eof' }
+    // const subnode = new NodeOrgmode(this, props)
+    // subnodes.push(subnode)
+
+    //. update last node
+    const lastSubnodeProps = subnodes[subnodes.length - 1].props
+    const pos = text.length
+    lastSubnodeProps.length = pos - lastPos
+    lastSubnodeProps.notes = text.slice(lastPos, pos)
 
     // update indexes
     this.indexes.keys = {}
@@ -106,10 +118,10 @@ class NodeOrgmode {
   getContents() {
     //. i guess this should return the nodes - called could do
     // whatever they want with them
-    const contents = Object.values(this.datasource.indexes.keys) //.map(
-    //   // node => node.props.name
-    //   node => node.props.key
-    // )
+    const contents = Object.values(this.datasource.indexes.keys).map(
+      // node => node.props.name
+      node => node.props.key
+    )
     return contents
   }
 

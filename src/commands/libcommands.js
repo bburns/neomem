@@ -42,9 +42,15 @@ export async function getDestination({ location, words, past, table }) {
 }
 
 // get related items
-export async function getRelated({ node, meta, axis = null }) {
+export async function getRelated({
+  node,
+  meta,
+  includeSelf = true,
+  axis = null,
+}) {
   // get list of node objects
-  const subnodes = [node] //. make optional to include self
+  const subnodes = [] //. make optional to include self
+  if (includeSelf) subnodes.push(node)
   if (axis) {
     const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
     // const path = (await node.get('path')) || '.'
@@ -57,10 +63,10 @@ export async function getRelated({ node, meta, axis = null }) {
       subnodes.push(subnode)
     }
   }
-  // console.log(
-  //   58,
-  //   subnodes.map(subnode => subnode.props)
-  // )
+  console.log(
+    61,
+    subnodes.map(subnode => subnode.props)
+  )
 
   // get projection
   const { columns } = meta
