@@ -1,6 +1,5 @@
 // command handler functions
 
-// import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { views } from '../views/index.js'
 import * as libcommands from './libcommands.js'
@@ -31,20 +30,14 @@ back.notes = `Go back to previous location`
 async function edit({ location, words, past, table }) {
   location = await libcommands.getDestination({ location, words, past, table })
   // const { path } = location
-  //. datasource should know how to handle the edit(path) cmd - add a method
   const node = await location.datasource.get(location.path)
-  //. write node.notes to a tempfile, then edit it, save back when done
-  console.log(await node.get('notes'))
-  //. handle editing part of a file - a subheader, or json item, etc -
-  // get text repr, edit, then parse / insert it
+
+  // datasource should know how to handle the edit cmd
+  await node.edit('notes')
+
   //. could have diff editors for diff file types, eg image editor
-  // const cmd = `code ${path}` // code is vscode
-  // console.log(`Running '${cmd}'...`)
-  // exec(cmd, (error, stdout, stderr) => {
-  //   print('done')
-  // })
 }
-edit.notes = `Edit notes for a node`
+edit.notes = `Edit notes for this or another location`
 
 //------------------------------------------------------------------------
 // go

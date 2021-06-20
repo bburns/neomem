@@ -1,6 +1,7 @@
 // driver for orgmode text files
 
 import fs from 'fs/promises' // node lib
+import { exec } from 'child_process' // node lib
 // import libpath from 'path' // node lib
 import * as libdrivers from '../libdrivers.js'
 
@@ -17,7 +18,7 @@ class DatasourceOrgmode {
     this.type = 'orgmode'
     this.path = path
     this.initialPath = 0
-    this.indexes = { keys: {} } //. or call it pos?
+    this.indexes = { keys: {} } //. or call it {pos}? or leave opaque?
     this.text = null
     this.dirty = true
   }
@@ -39,7 +40,7 @@ class DatasourceOrgmode {
     do {
       const pos = match.index // start of header
       const length = null
-      const notes = null
+      // const notes = null
       const key = pos
       const indent = match[1].trim() // header asterisks
       const depth = indent.length
@@ -101,7 +102,7 @@ class DatasourceOrgmode {
   }
   set() {}
   update() {}
-  del() {}
+  remove() {}
 }
 
 //
@@ -130,5 +131,21 @@ class NodeOrgmode {
       contents: this.getContents,
     }
     return libdrivers.get(this, spec, map)
+  }
+  async set() {}
+  async update() {}
+  async remove() {}
+  async edit(prop) {
+    // console.log('edit', prop)
+    //. write node.notes to a tempfile, then edit it, save back when done
+    // console.log(await node.get('notes'))
+    //. handle editing part of a file - a subheader, or json item, etc -
+    //. get text repr, edit, then parse/insert it
+    const path = this.datasource.path
+    const cmd = `code ${path}` // code is vscode
+    console.log(`Running '${cmd}'...`)
+    exec(cmd, (error, stdout, stderr) => {
+      console.log('done')
+    })
   }
 }
