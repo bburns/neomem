@@ -1,10 +1,13 @@
 // properties view
+// used for single nodes as well as comparisons between multiple nodes
 
 // convert a list of node objects to a property table
 //. call objs nodes? or are these prop objs?
 export async function properties({ objs, meta }) {
   const { columns } = meta
-  const rows = [['property', 'value']]
+  // const rows = [['property', 'value']]
+  // const rows = [{ property: 'property', value: ['value'] }]
+  const rows = { property: ['value'] }
   for (const column of columns) {
     // const values = objs.map(obj => obj[column])
     const values = objs.map(obj => {
@@ -12,6 +15,7 @@ export async function properties({ objs, meta }) {
       // typeof obj[column] === 'object' ? obj[column].name : obj[column]
       // const type = typeof obj[column]
       if (Array.isArray(oc)) {
+        // return an array? a string?
         // return oc.map(o => o.name).join(', ')
         // return oc.join(', ')
         const value = oc.map(o => {
@@ -26,8 +30,10 @@ export async function properties({ objs, meta }) {
       }
       return oc
     })
-    const row = [column, ...values]
-    rows.push(row)
+    // const row = [column, ...values]
+    // const row = { property: column, value: values }
+    // rows.push(row)
+    rows[column] = values
   }
   return rows
 }

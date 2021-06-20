@@ -132,10 +132,8 @@ async function list({ location, words = [], past = [], table = {} }) {
     includeSelf: false,
     axis: 'contents',
   })
-  console.log(nodes)
   const rows = await views.table({ objs: nodes, meta })
-  // print(rows)
-  // return { table } //... wrap objs in a table structure with meta, axis, node
+  //. wrap rows in a table structure with meta, axis, node
   return { output: rows }
 }
 list.notes = `List contents of this or another location`
