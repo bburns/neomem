@@ -22,6 +22,7 @@
       driver: 'filesys',
       source: '.',
       created: '2021-06-05',
+      notes: 'local filesystem',
     },
     {
       _id: 'forest',
@@ -30,6 +31,7 @@
       driver: 'jsonTimegraph',
       source: 'src/data/forest.js',
       created: '2021-06-05',
+      notes: 'a small world',
     },
     {
       _id: 'pg',

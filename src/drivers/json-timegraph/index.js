@@ -30,9 +30,8 @@ class DatasourceJsonTimegraph {
     const data = eval(String(await fs.readFile(this.path)))
     this.initialPath = data.meta.initialPath
 
-    //. create Node objects, replace data.nodes
-    // data.nodes.forEach(props => data.nodes[])
-    // we read in json data, so these are props objects, NOT nodes - confusing
+    //. create Node objects
+    //. we read in json data, so these are props objects, NOT nodes - confusing
     const nodes = data.nodes.map(props => new NodeJsonTimegraph(this, props))
 
     // read metadata
@@ -50,13 +49,15 @@ class DatasourceJsonTimegraph {
 
     // get node index
     // data.nodes.forEach(node => (this.index.nodeId[node._id] = node))
-    nodes.forEach(node => (this.index.nodeId[node._id] = node))
+    nodes.forEach(node => (this.index.nodeId[node.props._id] = node))
+
     //. add metadata nodes - ok?
+    //. these are props not Nodes
     meta.nodes.forEach(node => (this.index.nodeId[node._id] = node))
 
     //. assume unique names for now
     // data.nodes.forEach(node => (this.index.nodeName[node.name] = node))
-    nodes.forEach(node => (this.index.nodeName[node.name] = node))
+    nodes.forEach(node => (this.index.nodeName[node.props.name] = node))
 
     // get edge indexes
     data.edges.forEach(edge => {
@@ -65,6 +66,7 @@ class DatasourceJsonTimegraph {
       } else {
         this.index.edgeFrom[edge._from] = [edge]
       }
+      //.
       // if (this.index.edgeTo[edge._to]) {
       //   this.index.edgeTo[edge._to].push(edge)
       // } else {
@@ -81,9 +83,7 @@ class DatasourceJsonTimegraph {
     const key = spec
     if (!this.index) await this.load()
     if (key === 'initialPath') return this.initialPath
-    const props = this.index.nodeId[key] || this.index.nodeName[key]
-    // if (!props) throw new Error('ahhhh')
-    const node = new NodeJsonTimegraph(this, props)
+    const node = this.index.nodeId[key] || this.index.nodeName[key]
     return node
   }
 

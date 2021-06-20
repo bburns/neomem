@@ -108,6 +108,7 @@ async function look({ location, words = [], past = [], table = {} }) {
       'name,path,type,notes,source,contents,exits,created,modified'.split(','),
   }
   const nodes = await libcommands.getRelated({ node, meta })
+  // console.log(111, nodes)
   const rows = await views.properties({ objs: nodes, meta })
   // print(rows)
   return { output: rows }
