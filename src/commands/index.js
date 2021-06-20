@@ -63,17 +63,17 @@ go.notes = `Go to another location, or in a direction`
 
 async function help() {
   const objs = Object.keys(commands)
-    .filter(key => commands[key].notes)
     .sort()
-    .map(key => ({ command: key, description: commands[key].notes }))
-  //. add aliases to col2
+    .filter(key => commands[key].notes)
+    .map(key => ({
+      command: key,
+      description: commands[key].notes,
+      aliases: aliasesReverse[key],
+    }))
   const meta = {
     columns: 'command,description,aliases'.split(','),
   }
-  //. const objs = await views.table({ node, axis: 'contents', meta })
-  // const rows = libcommands.getRows(objs, meta.columns)
   const rows = await views.table({ objs, meta })
-  // print(rows)
   return { output: rows }
 }
 help.notes = `Get help`
@@ -83,7 +83,8 @@ help.notes = `Get help`
 //------------------------------------------------------------------------
 
 async function info({ datasource, location, words, past }) {
-  print({ datasource, location, words, past })
+  // print({ datasource, location, words, past })
+  return { output: { datasource, location, words, past } }
 }
 info.notes = `Get debugging info`
 
@@ -112,6 +113,7 @@ async function look({ location, words = [], past = [], table = {} }) {
   return { output: rows }
 }
 look.notes = `Look at this or another location`
+look.alias = 'l'
 
 //------------------------------------------------------------------------
 // list
@@ -189,4 +191,11 @@ export const commands = {
   read,
   unknown,
 }
-export const aliases = { l: look }
+export const aliases = {}
+const aliasesReverse = {}
+Object.values(commands).forEach(command => {
+  // @ts-ignore
+  const names = (command.alias || '').split(',')
+  names.forEach(name => (aliases[name] = command))
+  aliasesReverse[command.name] = names.join(', ')
+})
