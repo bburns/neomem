@@ -6,10 +6,26 @@ export async function properties({ objs, meta }) {
   const { columns } = meta
   const rows = [['property', 'value']]
   for (const column of columns) {
-    const values = objs.map(obj => obj[column])
-    // const values = objs.map(obj =>
-    //   typeof obj[column] === 'object' ? obj[column].name : obj[column]
-    // )
+    // const values = objs.map(obj => obj[column])
+    const values = objs.map(obj => {
+      const oc = obj[column]
+      // typeof obj[column] === 'object' ? obj[column].name : obj[column]
+      // const type = typeof obj[column]
+      if (Array.isArray(oc)) {
+        // return oc.map(o => o.name).join(', ')
+        // return oc.join(', ')
+        const value = oc.map(o => {
+          if (typeof o === 'object') {
+            return o.name
+          }
+          return o
+        })
+        return value
+      } else if (typeof oc === 'object') {
+        return oc.name
+      }
+      return oc
+    })
     const row = [column, ...values]
     rows.push(row)
   }

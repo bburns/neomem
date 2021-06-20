@@ -1,6 +1,6 @@
 // command handler functions
 
-import { exec } from 'child_process' // node lib
+// import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { views } from '../views/index.js'
 // import * as lib from '../lib.js'
@@ -73,7 +73,8 @@ async function help() {
   //. const objs = await views.table({ node, axis: 'contents', meta })
   // const rows = libcommands.getRows(objs, meta.columns)
   const rows = await views.table({ objs, meta })
-  print(rows)
+  // print(rows)
+  return { output: rows }
 }
 help.notes = `Get help`
 
