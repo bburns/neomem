@@ -144,8 +144,11 @@ class NodeOrgmode {
     const path = this.datasource.path
     const cmd = `code ${path}` // code is vscode
     console.log(`Running '${cmd}'...`)
-    exec(cmd, (error, stdout, stderr) => {
-      console.log('done')
+    await new Promise(resolve => {
+      exec(cmd, (error, stdout, stderr) => {
+        console.log('done')
+        resolve()
+      })
     })
   }
 }
