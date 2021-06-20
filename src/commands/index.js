@@ -3,8 +3,8 @@
 // import { exec } from 'child_process' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { views } from '../views/index.js'
-// import * as lib from '../lib.js'
 import * as libcommands from './libcommands.js'
+// import * as lib from '../lib.js'
 
 //. fns will receive this as part of ui object
 const print = console.log
@@ -163,6 +163,8 @@ async function read({ location, words = [], past = [], table = {} }) {
   })
   //. will want view to return a View object with method to render as string etc
   //. or a closure with fns to render data
+  //. or json object with { meta, nodes, edges, history }?
+  // some standard output
   const rows = await views.document({ objs, meta })
   // print(rows)
   // return { table } //..
@@ -191,11 +193,13 @@ export const commands = {
   read,
   unknown,
 }
-export const aliases = {}
-const aliasesReverse = {}
+
+// get aliases
+export const aliases = {} // eg { l: look }
+const aliasesReverse = {} // eg { look: 'l' } //. or better - { look: ['l']}
 Object.values(commands).forEach(command => {
   // @ts-ignore
-  const names = (command.alias || '').split(',')
+  const names = (command.alias || '').split(',') // eg ['l']
   names.forEach(name => (aliases[name] = command))
-  aliasesReverse[command.name] = names.join(', ')
+  aliasesReverse[command.name] = names.join(', ') // eg 'l'
 })
