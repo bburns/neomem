@@ -16,13 +16,13 @@ export async function properties({ objs, meta }) {
         // return oc.join(', ')
         const value = oc.map(o => {
           if (typeof o === 'object') {
-            return o.name
+            return o.props.name
           }
           return o
         })
         return value
       } else if (typeof oc === 'object') {
-        return oc.name
+        return oc.props.name
       }
       return oc
     })
