@@ -17,7 +17,7 @@ class DatasourceOrgmode {
     this.type = 'orgmode'
     this.path = path
     this.initialPath = 0
-    this.indexes = {} //.
+    this.indexes = { keys: {} } //. or call it pos?
     this.text = null
     this.dirty = true
   }
@@ -36,22 +36,9 @@ class DatasourceOrgmode {
     // make a match obj for top of file - first line will be the name
     let match = { index: 0, 1: '', 2: text.slice(0, text.indexOf('\n')) }
 
-    // let lastPos = 0
-    // let lastHeaderLength = 0
     do {
       const pos = match.index // start of header
-
-      // // assign props to previous node retroactively
-      // if (nodes.length > 0) {
-      //   const lastLength = pos - lastPos
-      //   const lastNodeProps = nodes[nodes.length - 1].props
-      //   lastNodeProps.length = lastLength
-      //   lastNodeProps.notes = text.slice(lastPos + lastHeaderLength, pos)
-      //   lastPos = pos
-      //   lastHeaderLength = match[1].length + match[2].length
-      // }
-
-      const length = null // will be set
+      const length = null
       const notes = null
       const key = pos
       const indent = match[1].trim() // header asterisks
@@ -71,7 +58,6 @@ class DatasourceOrgmode {
         depth,
         indent,
         length,
-        notes,
         notesStart,
         ...propvalues,
       }
@@ -84,7 +70,6 @@ class DatasourceOrgmode {
       // @ts-ignore
     } while ((match = regex.exec(text)) !== null)
 
-    let first = true
     let lastNode = null
     for (const node of nodes) {
       if (lastNode) {
@@ -92,22 +77,16 @@ class DatasourceOrgmode {
       }
       lastNode = node
     }
-
     for (const node of nodes) {
       node.props.notes = text.slice(node.props.notesStart, node.props.notesEnd)
     }
 
-    // // update last node
-    // const lastNodeProps = nodes[nodes.length - 1].props
-    // const pos = text.length
-    // lastNodeProps.length = pos - lastPos
-    // lastNodeProps.notes = text.slice(lastPos, pos)
-
-    // update indexes
+    // clear and update indexes
     this.indexes.keys = {}
     for (const node of nodes) {
       this.indexes.keys[node.props.key] = node
     }
+
     this.dirty = false
   }
 
@@ -134,13 +113,14 @@ class NodeOrgmode {
   }
 
   getContents() {
-    //. i guess this should return the nodes - called could do
-    // whatever they want with them
-    const contents = Object.values(this.datasource.indexes.keys).map(
-      // node => node.props.name
-      node => node.props.key
-    )
-    return contents
+    //. i guess this should return the nodes - then caller could do
+    // whatever they want with them - eg display .name, use the key, sort, etc
+    // const contents = Object.values(this.datasource.indexes.keys).map(
+    //   // node => node.props.name
+    //   node => node.props.key
+    // )
+    const nodes = Object.values(this.datasource.indexes.keys)
+    return nodes
   }
 
   // crud operations

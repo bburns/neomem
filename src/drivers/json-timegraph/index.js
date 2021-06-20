@@ -96,8 +96,9 @@ class NodeJsonTimegraph {
   getContents() {
     const edges = this.getEdges()
     const contents = edges
-      .map(edge => this.datasource.index.nodeId[edge._to].name)
-      .sort((a, b) => a.localeCompare(b))
+      // .map(edge => this.datasource.index.nodeId[edge._to].name)
+      .map(edge => this.datasource.index.nodeId[edge._to])
+      .sort((a, b) => a.name.localeCompare(b.name))
     return contents
   }
 

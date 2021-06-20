@@ -24,7 +24,8 @@ async function main() {
   let table = null
 
   print(welcome)
-  await commands.look({ location })
+  const ret = await commands.look({ location })
+  print(ret.output)
   print()
 
   const getPrompt = location =>
@@ -47,11 +48,7 @@ async function main() {
       if (ret.location) location = ret.location
       if (ret.table) table = ret.table
       if (ret.output) {
-        if (typeof ret.output === 'function') {
-          ret.output()
-        } else {
-          print(ret.output)
-        }
+        print(ret.output)
       }
     }
     print()

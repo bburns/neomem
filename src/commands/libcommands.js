@@ -52,16 +52,18 @@ export async function getRelated({
   const subnodes = [] //. make optional to include self
   if (includeSelf) subnodes.push(node)
   if (axis) {
-    const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
-    // const path = (await node.get('path')) || '.'
-    for (const key of keys) {
-      //. here, / is a relation - 'contents' - but could be another relation to recurse down
-      // eg like path + '-[contents]-' + key ? ie use cypher/gql-like language?
-      // const subpath = path + '/' + key //. use this
-      const subpath = key
-      const subnode = await node.datasource.get(subpath)
-      subnodes.push(subnode)
-    }
+    // const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
+    // // const path = (await node.get('path')) || '.'
+    // for (const key of keys) {
+    //   //. here, / is a relation - 'contents' - but could be another relation to recurse down
+    //   // eg like path + '-[contents]-' + key ? ie use cypher/gql-like language?
+    //   // const subpath = path + '/' + key //. use this
+    //   const subpath = key
+    //   const subnode = await node.datasource.get(subpath)
+    //   subnodes.push(subnode)
+    // }
+    const nodes = await node.get(axis) // eg get('contents') -> array of itemkeys
+    subnodes.push(...nodes)
   }
   // console.log(
   //   61,

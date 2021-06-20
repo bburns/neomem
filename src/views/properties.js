@@ -1,11 +1,16 @@
 // properties view
 
 // convert a list of node objects to a property table
+//. call objs nodes? or are these prop objs?
 export async function properties({ objs, meta }) {
   const { columns } = meta
   const rows = [['property', 'value']]
   for (const column of columns) {
-    const row = [column, ...objs.map(obj => obj[column])]
+    const values = objs.map(obj => obj[column])
+    // const values = objs.map(obj =>
+    //   typeof obj[column] === 'object' ? obj[column].name : obj[column]
+    // )
+    const row = [column, ...values]
     rows.push(row)
   }
   return rows

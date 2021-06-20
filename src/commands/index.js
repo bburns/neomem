@@ -105,9 +105,10 @@ async function look({ location, words = [], past = [], table = {} }) {
     columns:
       'name,path,type,notes,source,contents,exits,created,modified'.split(','),
   }
-  const objs = await libcommands.getRelated({ node, meta })
-  const rows = await views.properties({ objs, meta })
-  print(rows)
+  const nodes = await libcommands.getRelated({ node, meta })
+  const rows = await views.properties({ objs: nodes, meta })
+  // print(rows)
+  return { output: rows }
 }
 look.notes = `Look at this or another location`
 
@@ -123,15 +124,16 @@ async function list({ location, words = [], past = [], table = {} }) {
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = { columns: 'n,name,type,size,created'.split(',') }
-  const objs = await libcommands.getRelated({
+  const nodes = await libcommands.getRelated({
     node,
     meta,
     includeSelf: false,
     axis: 'contents',
   })
-  const rows = await views.table({ objs, meta })
-  print(rows)
+  const rows = await views.table({ objs: nodes, meta })
+  // print(rows)
   // return { table } //... wrap objs in a table structure with meta, axis, node
+  return { output: rows }
 }
 list.notes = `List contents of this or another location`
 
@@ -148,7 +150,6 @@ async function read({ location, words = [], past = [], table = {} }) {
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
-    // columns: 'name,type,source,created,modified,contents,exits,notes'.split(
     columns: 'name,notes'.split(','),
   }
   const objs = await libcommands.getRelated({

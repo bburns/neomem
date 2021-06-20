@@ -2,11 +2,15 @@
 
 //. handle tree recursion and graph traversal
 
+//. objs -> nodes?
 export async function table({ objs, meta }) {
   const { columns } = meta
   const rows = [columns]
   for (const obj of objs) {
-    const row = columns.map(column => obj[column])
+    // const row = columns.map(column => obj[column])
+    const row = columns.map(column =>
+      typeof obj[column] === 'object' ? obj[column].name : obj[column]
+    )
     rows.push(row)
   }
   return rows
