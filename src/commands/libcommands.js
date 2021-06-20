@@ -62,24 +62,17 @@ export async function getRelated({
     //   const subnode = await node.datasource.get(subpath)
     //   subnodes.push(subnode)
     // }
-    // const nodes = await node.get(axis) // eg get('contents') -> array of itemkeys
     const nodes = await node.get(axis) // eg get('contents') -> array of nodes
     subnodes.push(...nodes)
   }
-  // console.log(
-  //   70,
-  //   // subnodes.map(subnode => subnode.props)
-  //   subnodes
-  // )
 
   // get projection
   const { columns } = meta
   const objs = []
-  // for (const [n, subnode] of subnodes.entries()) {
-  for (const subnode of subnodes) {
-    // console.log(80, subnode)
+  for (const [n, subnode] of subnodes.entries()) {
+    // for (const subnode of subnodes) {
     const obj = await subnode.get(columns)
-    // obj.n = n //.
+    obj.n = n
     objs.push(obj)
   }
   return objs
