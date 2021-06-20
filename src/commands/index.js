@@ -6,7 +6,7 @@ import { views } from '../views/index.js'
 import * as libcommands from './libcommands.js'
 // import * as lib from '../lib.js'
 
-//. fns will receive this as part of ui object
+//. make a ui object, pass to each cmd. use to get disambiguation etc
 const print = console.log
 
 //------------------------------------------------------------------------
@@ -31,6 +31,7 @@ back.notes = `Go back to previous location`
 async function edit({ location, words, past, table }) {
   location = await libcommands.getDestination({ location, words, past, table })
   // const { path } = location
+  //. datasource should know how to handle the edit(path) cmd - add a method
   const node = await location.datasource.get(location.path)
   //. write node.notes to a tempfile, then edit it, save back when done
   console.log(await node.get('notes'))
@@ -51,9 +52,10 @@ edit.notes = `Edit notes for a node`
 
 async function go({ location, words, past, table }) {
   location = await libcommands.getDestination({ location, words, past, table })
-  await look({ location })
+  const ret = await look({ location })
+  const output = ret.output
   past.push(location)
-  return { location }
+  return { location, output }
 }
 go.notes = `Go to another location, or in a direction`
 
@@ -83,8 +85,8 @@ help.notes = `Get help`
 //------------------------------------------------------------------------
 
 async function info({ datasource, location, words, past }) {
-  // print({ datasource, location, words, past })
-  return { output: { datasource, location, words, past } }
+  const output = { datasource, location, words, past }
+  return { output }
 }
 info.notes = `Get debugging info`
 
@@ -159,13 +161,11 @@ async function read({ location, words = [], past = [], table = {} }) {
     includeSelf: false,
     axis: 'contents',
   })
-  //. will want view to return a View object with method to render as string etc
-  //. or a closure with fns to render data
+  //. return a View object with method to render as string etc?
+  //. or a closure with fns to render data?
   //. or json object with { meta, nodes, edges, history }?
   // some standard output
   const rows = await views.document({ objs, meta })
-  // print(rows)
-  // return { table } //..
   return { output: rows }
 }
 read.notes = `Read contents of this or another location`

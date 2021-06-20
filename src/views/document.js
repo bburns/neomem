@@ -6,10 +6,11 @@ export async function document({ objs, meta }) {
     const { columns } = meta
     for (const column of columns) {
       // const row = [column, obj[column]]
-      const row = { prop: column, value: obj[column] }
+      // const row = { prop: column, value: obj[column] }
+      const row = { [column]: obj[column] }
       rows.push(row)
     }
-    rows.push(['-----------------'])
+    rows.push(['---------------------------------------------'])
   }
   // return rows
   // return () => console.log(rows.join('\n'))
