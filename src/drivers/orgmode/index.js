@@ -1,9 +1,9 @@
 // driver for orgmode text files
 
 import fs from 'fs/promises' // node lib
-import { exec } from 'child_process' // node lib
-// import libpath from 'path' // node lib
+import { exec, execSync, spawn } from 'child_process' // node lib
 import * as libdrivers from '../libdrivers.js'
+// import libpath from 'path' // node lib
 
 export const driver = {
   connect(path) {
@@ -136,19 +136,40 @@ class NodeOrgmode {
   async update() {}
   async remove() {}
   async edit(prop) {
-    // console.log('edit', prop)
-    //. write node.notes to a tempfile, then edit it, save back when done
-    // console.log(await node.get('notes'))
+    //. write this.props[prop] to a tempfile, then edit it, save back when done
     //. handle editing part of a file - a subheader, or json item, etc -
     //. get text repr, edit, then parse/insert it
+    // const editor = 'code' // code is vscode
+    const editor = 'nano'
     const path = this.datasource.path
-    const cmd = `code ${path}` // code is vscode
-    console.log(`Running '${cmd}'...`)
-    await new Promise(resolve => {
-      exec(cmd, (error, stdout, stderr) => {
-        console.log('done')
-        resolve()
-      })
+    // const cmd = `${editor} ${path}`
+    console.log(`Running '${editor}'...`)
+
+    //. try a simple macos notepad/text editor - what?
+
+    //. maybe this is weird because it attached to an existing vscode instance?
+    // await new Promise(resolve => {
+    //   exec(cmd, (error, stdout, stderr) => {
+    //     console.log('done')
+    //     resolve()
+    //   })
+    // })
+
+    // const child = exec(cmd)
+    // child.stdin.pipe(process.stdin)
+    // child.stdout.pipe(process.stdout)
+    // child.on('exit', () => {
+    //   console.log('done')
+    // })
+
+    // nowork with nano
+    // const result = execSync(cmd)
+    // console.log(result.toString())
+
+    // https://stackoverflow.com/questions/9122282/how-do-i-open-a-terminal-application-from-node-js
+    const child = spawn(editor, [path], { stdio: 'inherit' })
+    child.on('exit', (error, code) => {
+      console.log('done')
     })
   }
 }
