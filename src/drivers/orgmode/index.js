@@ -139,14 +139,15 @@ class NodeOrgmode {
     //. write this.props[prop] to a tempfile, then edit it, save back when done
     //. handle editing part of a file - a subheader, or json item, etc -
     //. get text repr, edit, then parse/insert it
-    // const editor = 'code' // code is vscode
-    const editor = 'nano'
-    const path = this.datasource.path
-    // const cmd = `${editor} ${path}`
-    console.log(`Running '${editor}'...`)
 
     //. try a simple macos notepad/text editor - what?
+    // const editor = 'code' // vscode
+    const editor = 'nano'
 
+    const path = this.datasource.path
+    console.log(`Running '${editor}'...`)
+
+    // const cmd = `${editor} ${path}`
     //. maybe this is weird because it attached to an existing vscode instance?
     // await new Promise(resolve => {
     //   exec(cmd, (error, stdout, stderr) => {
@@ -166,9 +167,12 @@ class NodeOrgmode {
     // const result = execSync(cmd)
     // console.log(result.toString())
 
+    // this almost works, but editing is a bit flaky
     // https://stackoverflow.com/questions/9122282/how-do-i-open-a-terminal-application-from-node-js
+    // process.stdin.setRawMode(true)
     const child = spawn(editor, [path], { stdio: 'inherit' })
     child.on('exit', (error, code) => {
+      // process.stdin.setRawMode(false)
       console.log('done')
     })
   }
