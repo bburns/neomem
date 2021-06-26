@@ -19,16 +19,16 @@
     "//test": "(cd packages/neomem-driver-json && yarn test); (cd packages/neomem-console && yarn test)",
     "test": "COMMAND=test npm-run-all --parallel --print-name --race console gateway driver-json"
   },
-  "devDependencies": {
-    "lerna": "^3.22.1",
-    "nodemon": "^2.0.7",
-    "npm-run-all": "^4.1.5"
-  },
-  "private": true,
   "workspaces": [
     "packages/*"
   ],
   "dependencies": {
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "termit": "^0.4.4"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5"
   }
 }
