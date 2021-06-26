@@ -3,7 +3,9 @@
 import fs from 'fs/promises' // node lib
 import { exec, execSync, spawn } from 'child_process' // node lib
 import * as libdrivers from '../libdrivers.js'
+import tty from 'tty'
 // import libpath from 'path' // node lib
+// import Termit from 'termit'
 
 export const driver = {
   connect(path) {
@@ -140,21 +142,22 @@ class NodeOrgmode {
     //. handle editing part of a file - a subheader, or json item, etc -
     //. get text repr, edit, then parse/insert it
 
-    //. try a simple macos notepad/text editor - what?
-    // const editor = 'code' // vscode
-    const editor = 'nano'
+    // //. try a simple macos notepad/text editor - what?
+    // // const editor = 'code' // vscode
+    // const editor = 'nano'
+    const editor = 'vim'
+    // const editor = 'micro'
 
     const path = this.datasource.path
     console.log(`Running '${editor}'...`)
 
-    // const cmd = `${editor} ${path}`
-    //. maybe this is weird because it attached to an existing vscode instance?
-    // await new Promise(resolve => {
-    //   exec(cmd, (error, stdout, stderr) => {
-    //     console.log('done')
-    //     resolve()
-    //   })
-    // })
+    const cmd = `${editor} ${path}`
+    await new Promise(resolve => {
+      exec(cmd, (error, stdout, stderr) => {
+        console.log('done')
+        resolve()
+      })
+    })
 
     // const child = exec(cmd)
     // child.stdin.pipe(process.stdin)
@@ -167,13 +170,53 @@ class NodeOrgmode {
     // const result = execSync(cmd)
     // console.log(result.toString())
 
-    // this almost works, but editing is a bit flaky
-    // https://stackoverflow.com/questions/9122282/how-do-i-open-a-terminal-application-from-node-js
-    // process.stdin.setRawMode(true)
-    const child = spawn(editor, [path], { stdio: 'inherit' })
-    child.on('exit', (error, code) => {
-      // process.stdin.setRawMode(false)
-      console.log('done')
+    // // this almost works, but editing is a bit flaky
+    // // https://stackoverflow.com/questions/9122282/how-do-i-open-a-terminal-application-from-node-js
+    // // process.stdin.setRawMode(true)
+    // const child = spawn(editor, [path], { stdio: 'inherit' })
+    // child.on('exit', (error, code) => {
+    //   // process.stdin.setRawMode(false)
+    //   console.log('done')
+    // })
+
+    // nowork
+    // const options = {
+    //   disableOpen: true,
+    //   disableSaveAs: true,
+    // }
+    // const term = new Termit(options)
+    // term.init(path)
+
+    function spawnVim(file, cb) {
+      var vim = spawn('vim', [file])
+
+      function indata(c) {
+        vim.stdin.write(c)
+      }
+      function outdata(c) {
+        process.stdout.write(c)
+      }
+
+      process.stdin.resume()
+      process.stdin.on('data', indata)
+      vim.stdout.on('data', outdata)
+      // tty.setRawMode(true);
+      process.stdin.setRawMode(true)
+
+      vim.on('exit', function (code) {
+        // tty.setRawMode(false);
+        process.stdin.setRawMode(false)
+        process.stdin.pause()
+        process.stdin.removeListener('data', indata)
+        vim.stdout.removeListener('data', outdata)
+        cb(code)
+      })
+    }
+
+    spawnVim(path, async function (code) {
+      if (code == 0) {
+        const data = String(await fs.readFile(path))
+      }
     })
   }
 }
