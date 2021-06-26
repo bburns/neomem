@@ -139,25 +139,32 @@ class NodeOrgmode {
   async remove() {}
   async edit(prop) {
     //. write this.props[prop] to a tempfile, then edit it, save back when done
+
     //. handle editing part of a file - a subheader, or json item, etc -
     //. get text repr, edit, then parse/insert it
 
-    // //. try a simple macos notepad/text editor - what?
-    // // const editor = 'code' // vscode
+    const shell = 'sh -c '
+    // const shell = ''
+
+    // const editor = 'code' // vscode
     // const editor = 'nano'
-    const editor = 'vim'
-    // const editor = 'micro'
+    // const editor = 'vim'
+    const editor = 'micro'
+    // const editor = 'open -a TextEdit' // comes with macos
 
     const path = this.datasource.path
     console.log(`Running '${editor}'...`)
 
-    const cmd = `${editor} ${path}`
-    await new Promise(resolve => {
-      exec(cmd, (error, stdout, stderr) => {
-        console.log('done')
-        resolve()
-      })
-    })
+    const cmd = `${shell}${editor} ${path}`
+
+    // // works with textedit, but returns immediately
+    // const child = exec(cmd)
+    // console.log(child)
+
+    // // works with textedit, but returns immediately
+    // // nowork with nano
+    // const result = execSync(cmd).toString()
+    // console.log({ result })
 
     // const child = exec(cmd)
     // child.stdin.pipe(process.stdin)
@@ -166,11 +173,6 @@ class NodeOrgmode {
     //   console.log('done')
     // })
 
-    // nowork with nano
-    // const result = execSync(cmd)
-    // console.log(result.toString())
-
-    // // this almost works, but editing is a bit flaky
     // // https://stackoverflow.com/questions/9122282/how-do-i-open-a-terminal-application-from-node-js
     // // process.stdin.setRawMode(true)
     // const child = spawn(editor, [path], { stdio: 'inherit' })
@@ -186,37 +188,5 @@ class NodeOrgmode {
     // }
     // const term = new Termit(options)
     // term.init(path)
-
-    function spawnVim(file, cb) {
-      var vim = spawn('vim', [file])
-
-      function indata(c) {
-        vim.stdin.write(c)
-      }
-      function outdata(c) {
-        process.stdout.write(c)
-      }
-
-      process.stdin.resume()
-      process.stdin.on('data', indata)
-      vim.stdout.on('data', outdata)
-      // tty.setRawMode(true);
-      process.stdin.setRawMode(true)
-
-      vim.on('exit', function (code) {
-        // tty.setRawMode(false);
-        process.stdin.setRawMode(false)
-        process.stdin.pause()
-        process.stdin.removeListener('data', indata)
-        vim.stdout.removeListener('data', outdata)
-        cb(code)
-      })
-    }
-
-    spawnVim(path, async function (code) {
-      if (code == 0) {
-        const data = String(await fs.readFile(path))
-      }
-    })
   }
 }
