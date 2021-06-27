@@ -150,7 +150,7 @@ class NodeOrgmode {
     // const editor = 'nano'
     // const editor = 'vim'
     const editor = 'micro'
-    // const editor = 'open -a TextEdit' // comes with macos
+    // const editor = 'open -a TextEdit' // comes with mac
 
     const path = this.datasource.path
     console.log(`Running '${editor}'...`)
@@ -181,7 +181,7 @@ class NodeOrgmode {
     //   console.log('done')
     // })
 
-    // nowork
+    // // nowork - clears screen, prints header, returns and prints next prompt
     // const options = {
     //   disableOpen: true,
     //   disableSaveAs: true,
