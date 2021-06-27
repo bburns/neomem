@@ -3,8 +3,8 @@
 
 // this is kind of a proving ground for the postgres-timegraph driver.
 
-import fs from 'fs/promises'
-import pathlib from 'path'
+import fs from 'fs/promises' // node lib - filesystem
+import pathlib from 'path' // node lib - path handling
 import * as libdrivers from '../libdrivers.js'
 
 export const driver = {
