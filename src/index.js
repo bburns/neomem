@@ -1,5 +1,6 @@
 // console ui
 // console interface to neomem
+
 // based on https://nodejs.org/api/readline.html#readline_example_tiny_cli
 // originally used https://nodejs.org/api/repl.html but nowork with text editor
 
@@ -17,12 +18,13 @@ const print = console.log
 
 const welcome = `
 Welcome to Neomem
------------------------------------------------------`
+-----------------------------------------------------
+`
 
 async function main() {
-  // let datasource = drivers.connect(connectionString) //.
   let datasource = drivers[filedriver].connect(filepath)
-  let path = await datasource.get('initialPath')
+  // let datasource = drivers.connect(connectionString) //.
+  let path = (await datasource.get('initialPath')) || ''
   let location = { datasource, path }
   let table = null
 
@@ -43,11 +45,10 @@ async function main() {
     output: process.stdout,
     prompt,
   })
-
-  readline.prompt()
-
   readline.on('line', handleLine)
   readline.on('close', handleClose)
+
+  readline.prompt()
 
   // parse and execute command string
   async function handleLine(line) {
@@ -65,6 +66,8 @@ async function main() {
       }
     }
     print()
+    const prompt = getPrompt(location)
+    readline.setPrompt(prompt)
     readline.prompt()
   }
 
