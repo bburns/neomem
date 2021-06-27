@@ -168,9 +168,13 @@ read.notes = `Read contents of this or another location`
 // unknown
 //------------------------------------------------------------------------
 
-async function unknown() {
-  print('Huh?')
+async function unknown({ words }) {
+  // console.log({ words })
+  if (words[0]) {
+    print('Huh?')
+  }
 }
+// unknown.alias = 'undefined'
 
 //------------------------------------------------------------------------
 
