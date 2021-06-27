@@ -69,10 +69,8 @@ export async function getRelated({
   // get projection
   const { columns } = meta
   const objs = []
-  // for (const [n, subnode] of subnodes.entries()) {
   for (const subnode of subnodes) {
     const obj = await subnode.get(columns)
-    // obj.n = n
     objs.push(obj)
   }
   return objs

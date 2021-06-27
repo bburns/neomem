@@ -66,9 +66,7 @@ async function help() {
       description: commands[key].notes,
       aliases: aliasesReverse[key],
     }))
-  const meta = {
-    columns: 'command,description,aliases'.split(','),
-  }
+  const meta = { columns: 'command,description,aliases'.split(',') }
   const rows = await views.table({ objs, meta })
   return { output: rows }
 }
@@ -130,7 +128,8 @@ async function list({ location, words = [], past = [], table = {} }) {
   })
   const rows = await views.table({ objs: nodes, meta })
   //. wrap rows in a table structure with meta, axis, node
-  return { output: rows }
+  // return { output: rows }
+  return { table }
 }
 list.notes = `List contents of this or another location`
 
