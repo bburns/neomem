@@ -23,8 +23,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "shelljs": "^0.8.4",
-    "termit": "^0.4.4"
+    "shelljs": "^0.8.4"
   },
   "devDependencies": {
     "lerna": "^4.0.0",
