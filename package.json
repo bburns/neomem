@@ -5,7 +5,7 @@
   "type": "module",
   "module": "esnext",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
     "//.": "move these into shell scripts?",
     "console": "npm run --prefix packages/neomem-console ${COMMAND}",
     "backend": "COMMAND=start CONFIG_FILE=../../setups/demo/config.yaml npm-run-all --parallel --print-label --race gateway driver-bookmarks driver-filesys",
