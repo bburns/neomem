@@ -110,6 +110,10 @@ Install nodejs, then clone this repo and install the dependencies
     cd Neomem
     npm install
 
+Install [micro](https://github.com/zyedidia/micro), a text editor - see https://github.com/zyedidia/micro#installation, or on Mac,
+
+    brew install micro
+
 ## Running
 
     npm start

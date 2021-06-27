@@ -1,11 +1,8 @@
 // driver for orgmode text files
 
-import fs from 'fs/promises' // node lib
-import { exec, execSync, spawn } from 'child_process' // node lib
+import fs from 'fs/promises' // node lib - filesystem
+import { execSync } from 'child_process' // node lib - run commands
 import * as libdrivers from '../libdrivers.js'
-import tty from 'tty'
-// import libpath from 'path' // node lib
-// import Termit from 'termit'
 
 export const driver = {
   connect(path) {
@@ -134,44 +131,28 @@ class NodeOrgmode {
     }
     return libdrivers.get(this, spec, map)
   }
+
   async set() {}
   async update() {}
   async remove() {}
+
+  // additional methods
+
   async edit(prop) {
     //. write this.props[prop] to a tempfile, then edit it, save back when done
 
     //. handle editing part of a file - a subheader, or json item, etc -
+
     //. get text repr, edit, then parse/insert it
 
-    const shell = 'sh -c '
-    // const shell = ''
-
-    // const editor = 'code' // vscode
-    // const editor = 'nano'
-    // const editor = 'vim'
+    // tried code, nano, vim, micro, open -a TextEdit - micro works best
+    // https://github.com/zyedidia/micro
     const editor = 'micro'
-    // const editor = 'open -a TextEdit' // comes with mac
-
     const path = this.datasource.path
-    console.log(`Running '${editor}'...`)
-
-    const cmd = `${shell}${editor} ${path}`
-
-    // // works with textedit, but returns immediately
-    // const child = exec(cmd)
-    // console.log(child)
-
-    // // works with textedit, but returns immediately
-    // // nowork with nano
-    // const result = execSync(cmd).toString()
-    // console.log({ result })
-
-    // const child = exec(cmd)
-    // child.stdin.pipe(process.stdin)
-    // child.stdout.pipe(process.stdout)
-    // child.on('exit', () => {
-    //   console.log('done')
-    // })
+    const cmd = `${editor} ${path}`
+    console.log(`Running '${cmd}'...`)
+    const result = execSync(cmd).toString()
+    console.log({ result })
 
     // // https://stackoverflow.com/questions/9122282/how-do-i-open-a-terminal-application-from-node-js
     // // process.stdin.setRawMode(true)
@@ -180,13 +161,5 @@ class NodeOrgmode {
     //   // process.stdin.setRawMode(false)
     //   console.log('done')
     // })
-
-    // // nowork - clears screen, prints header, returns and prints next prompt
-    // const options = {
-    //   disableOpen: true,
-    //   disableSaveAs: true,
-    // }
-    // const term = new Termit(options)
-    // term.init(path)
   }
 }
