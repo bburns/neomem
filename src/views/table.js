@@ -4,15 +4,25 @@
 
 //. objs -> nodes?
 export async function table({ objs, meta }) {
-  const { columns } = meta
+  let { columns } = meta
+  columns = ['n', ...columns]
   const rows = [columns]
-  for (const obj of objs) {
+  for (const [n, obj] of objs.entries()) {
+    // for (const obj of objs) {
+    //.
     // const row = columns.map(column => obj[column])
-    const row = columns.map(column =>
-      typeof obj[column] === 'object' ? obj[column].name : obj[column]
-    )
+    const row = columns.map(column => {
+      if (column === 'n') {
+        return n
+      }
+      return typeof obj[column] === 'object' ? obj[column].name : obj[column]
+    })
     rows.push(row)
   }
+  // for (let [n,row] of rows.entries()) {
+  //   if (n === 0) {
+  //   }
+  // }
   return rows
 }
 

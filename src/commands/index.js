@@ -121,7 +121,7 @@ async function list({ location, words = [], past = [], table = {} }) {
   print(chalk.bold(name))
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
-  const meta = { columns: 'n,name,type,size,created'.split(',') }
+  const meta = { columns: 'name,type,size,created'.split(',') }
   const nodes = await libcommands.getRelated({
     node,
     meta,

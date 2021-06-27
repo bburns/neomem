@@ -35,7 +35,7 @@ async function main() {
 
   const getPrompt = location =>
     `${chalk.bold(
-      '[' + location.datasource.type + '://' + location.path + ']'
+      '[' + chalk.gray(location.datasource.type + '://') + location.path + ']'
     )}\n> `
   const prompt = getPrompt(location)
   const past = [location] // array of previous locations
