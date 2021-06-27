@@ -2,8 +2,8 @@
 
 import librepl from 'repl' // node lib - lots of options https://nodejs.org/api/repl.html
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
-import { drivers } from './drivers/index.js'
-import { commands, aliases } from './commands/index.js'
+import { drivers } from './drivers/index.js' // data source drivers
+import { commands, aliases } from './commands/index.js' // command handlers
 
 const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it

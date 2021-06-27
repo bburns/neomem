@@ -32,7 +32,8 @@ async function edit({ location, words, past, table }) {
   // const { path } = location
   const node = await location.datasource.get(location.path)
 
-  // datasource should know how to handle the edit cmd
+  // node's datasource should know how to handle the edit cmd -
+  // eg see drivers/orgmode js
   await node.edit('notes')
 
   //. could have diff editors for diff file types, eg image editor
