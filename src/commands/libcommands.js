@@ -1,5 +1,5 @@
 import { drivers } from '../drivers/index.js'
-import * as lib from '../lib.js'
+// import * as lib from '../lib.js'
 
 // get a destination for a command
 //. words could specify nothing, an adjacent edge name / direction,

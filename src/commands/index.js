@@ -17,7 +17,7 @@ async function back({ past }) {
     past.pop()
     const previous = past[past.length - 1]
     await look({ location: previous.location })
-    return previous
+    return { location: previous }
   }
   print(`No more history.`)
 }
@@ -189,6 +189,10 @@ export const commands = {
   read,
   unknown,
 }
+
+// export const aliases = {
+//   l: look,
+// }
 
 // get aliases
 export const aliases = {} // eg { l: look }
