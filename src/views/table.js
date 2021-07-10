@@ -1,8 +1,11 @@
 // table view
+// used by console list command
 
+//. this is a table-console lib that converts raw table data to text for the console
 //. handle tree recursion and graph traversal
 
-//. objs -> nodes?
+//. objs -> nodes? ie do we want to process a list/tree/graph of nodes here?
+// or expect plainer json objs? ie guess json - cmds could easily pipe json around.
 export async function table({ objs, meta }) {
   let { columns } = meta
   columns = ['n', ...columns]

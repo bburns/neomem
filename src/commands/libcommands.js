@@ -42,6 +42,8 @@ export async function getDestination({ location, words, past, table }) {
 }
 
 // get related items
+//. need this to be a lazy fn so ui can pull data as needed, for pagination.
+//. make it a class/object with fetch fn? or pass in a callback to feed data to?
 export async function getRelated({
   node,
   meta,

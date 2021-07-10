@@ -1,5 +1,5 @@
 // properties view
-// used for single nodes as well as comparisons between multiple nodes
+// used by console look and compare commands
 
 // convert a list of node objects to a property table
 //. call objs nodes? or are these prop objs?

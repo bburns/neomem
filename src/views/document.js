@@ -1,4 +1,5 @@
 // document view
+// used by console read command
 
 export async function document({ objs, meta }) {
   const rows = []

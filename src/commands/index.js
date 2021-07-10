@@ -102,7 +102,11 @@ async function look({ location, words = [], past = [], table = {} }) {
       'name,path,type,notes,source,contents,exits,created,modified'.split(','),
   }
   const nodes = await libcommands.getRelated({ node, meta })
+  // now 'pipe' the nodes json to the properties view.
+  // this is kind of like the gui, with the user selecting the properties view.
   const rows = await views.properties({ objs: nodes, meta })
+  //. output of command could be an object with a print cmd that pulls data
+  // from a bound datasource? then ui could do paging?
   return { output: rows }
 }
 look.notes = `Look at this or another location`
@@ -129,6 +133,9 @@ async function list({ location, words = [], past = [], table = {} }) {
   const rows = await views.table({ objs: nodes, meta })
   //. wrap rows in a table structure with meta, axis, node
   // return { output: rows }
+  //. output of command could be an object with a print cmd that pulls data
+  // from a bound datasource? then ui could do paging?
+  // ui could also then reference rows by number from the output like 'go 4' etc.
   return { table }
 }
 list.notes = `List contents of this or another location`
