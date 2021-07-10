@@ -1,5 +1,6 @@
 //. views should be pluggable/interchangeable
-// given same data, render it different ways
+// ie given same data, render it different ways
+// so in ui user can select some data slice and then view it in different ways
 
 import { document } from './document.js'
 import { properties } from './properties.js'
