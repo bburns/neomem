@@ -8,53 +8,18 @@ import libreadline from 'readline' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { drivers } from './drivers/index.js' // data source drivers
 import { commands, aliases } from './commands/index.js' // command handlers
+import { Ui } from './ui.js'
 
 const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it
 //. const connectionString = 'file://src/data/index.js'
 
-let pageWidth = 100
-let pageHeight = 4
-let nrow = 0
-async function print(data) {
-  let lines = []
-  if (Array.isArray(data)) {
-    lines = data
-  } else {
-    lines = [data]
-  }
-  // const str = String(data)
-  //. split data/str into lines, break at space before pageWidth
-  // const lines = [str]
-  for (let line of lines) {
-    console.log(line)
-    nrow++
-    if (nrow > pageHeight) {
-      console.log('[more]')
-      await getKeypress()
-      nrow = 0
-    }
-  }
-}
-
-const ui = {
-  print,
-}
-
-async function getKeypress() {
-  return new Promise(resolve => {
-    var stdin = process.stdin
-    stdin.setRawMode(true) // so get each keypress
-    stdin.resume() // resume stdin in the parent process
-    stdin.setEncoding('utf8')
-    stdin.on('data', buffer => resolve(buffer.toString()))
-  })
-}
-
 const welcome = `
 Welcome to Neomem
 -----------------------------------------------------
 `
+
+const ui = new Ui()
 
 async function main() {
   let datasource = drivers[filedriver].connect(filepath)
@@ -63,10 +28,10 @@ async function main() {
   let location = { datasource, path }
   let table = null
 
-  await print(welcome)
+  await ui.print(welcome)
   const ret = await commands.look({ location, ui })
-  await print(ret.output)
-  await print()
+  await ui.print(ret.output)
+  await ui.print()
 
   const getPrompt = location =>
     `${chalk.bold(
@@ -84,13 +49,14 @@ async function main() {
   readline.on('line', handleLine)
   readline.on('close', handleClose)
 
-  readline.prompt()
+  readline.prompt() // prints prompt - how incorporate in our ui.print?
 
   // parse and execute command string
   async function handleLine(line) {
+    ui.reset()
     const str = line.trim()
-    const words = str.split(' ') //. tokenize
-    const command = words[0]
+    const words = str.split(' ') //. getTokens(str)
+    const command = words[0] //. getCommand(tokens), or commandFn = getCommandFn(tokens)
     const commandFn = commands[command] || aliases[command] || commands.unknown
     const ret = await commandFn({ location, words, past, table, ui }) // execute cmd
     // update vars if needed
@@ -98,13 +64,13 @@ async function main() {
       if (ret.location) location = ret.location
       if (ret.table) table = ret.table
       if (ret.output) {
-        await print(ret.output)
+        await ui.print(ret.output)
       }
       if (ret.view) {
         printView(ret.view)
       }
     }
-    await print()
+    await ui.print()
     const prompt = getPrompt(location)
     readline.setPrompt(prompt)
     readline.prompt()
@@ -121,6 +87,6 @@ main()
 async function printView(view) {
   const rows = view.rows() // get generator/iterator
   for (let row of rows) {
-    await print(row)
+    await ui.print(row)
   }
 }
