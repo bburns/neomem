@@ -8,8 +8,13 @@ class TableView {
   constructor(source) {
     this.source = source
   }
-  *getRows(start, count) {
-    yield* this.source.nodes()
+  async *getRows(start, count) {
+    // yield* this.source.getNodes(start, count)
+    const nodes = this.source.getNodes(start, count)
+    console.log({ nodes })
+    for await (let node of nodes) {
+      yield node
+    }
   }
 }
 

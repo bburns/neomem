@@ -91,8 +91,8 @@ export class Ui {
     do {
       // view will fetch data in pages(?), return iterator over each page?
       let count = this.pageHeight
-      const rows = view.getRows(start, count) // get generator/iterator
-      for (let row of rows) {
+      const rows = await view.getRows(start, count) // get generator/iterator
+      for await (let row of rows) {
         cmd = await this.print(row) //. will break rows into lines and print each
         if (cmd === 'quit') break
       }

@@ -36,8 +36,10 @@ async function main() {
   let table = null
 
   await ui.print(welcome)
-  const ret = await commands.look({ location, ui })
-  await ui.print(ret.output)
+  // const ret = await commands.look({ location, ui })
+  // await ui.print(ret.output)
+  const ret = await commands.list({ location, ui })
+  await ui.printView(ret.view)
   await ui.print()
 
   const getPrompt = location =>

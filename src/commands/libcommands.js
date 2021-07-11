@@ -80,7 +80,7 @@ class Source {
     this.pointer = node
     this.cache = {}
   }
-  *nodes() {
+  async *getNodes(start, count) {
     if (this.meta.includeSelf) {
       yield this.node
     }
@@ -89,7 +89,12 @@ class Source {
     // and repeat.
     // yield 'pokpok'
     // yield 'lkmlkm'
-    this.node.get(this.meta.axis, 100)
+    console.log('axis', this.meta.axis)
+    const nodes = await this.node.get(this.meta.axis)
+    console.log({ nodes })
+    for (let node of nodes) {
+      yield node
+    }
   }
 }
 

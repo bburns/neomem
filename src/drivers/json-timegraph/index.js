@@ -102,10 +102,14 @@ class NodeJsonTimegraph {
 
   // get array of NodeJsonTimegraph objects
   //. assuming user wants the whole thing in an array, for now
-  getContents() {
+  //. yield nodes? ie make this a generator?
+  *getContents() {
     const edges = this.getEdges()
     const contents = edges.map(edge => this.datasource.index.nodeId[edge._to])
-    return contents
+    // return contents
+    for (let node of contents) {
+      yield node
+    }
   }
 
   getEdges() {
