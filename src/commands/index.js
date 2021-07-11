@@ -6,20 +6,20 @@ import * as libcommands from './libcommands.js'
 // import * as lib from '../lib.js'
 
 //. make a ui object, pass to each cmd. use to get disambiguation etc
-const print = console.log
+// const print = console.log
 
 //------------------------------------------------------------------------
 // back
 //------------------------------------------------------------------------
 
-async function back({ past }) {
+async function back({ past, ui }) {
   if (past.length > 1) {
     past.pop()
     const previous = past[past.length - 1]
-    await look({ location: previous.location })
+    await look({ location: previous.location, ui })
     return { location: previous }
   }
-  print(`No more history.`)
+  await ui.print(`No more history.`)
 }
 back.notes = `Go back to previous location`
 
@@ -27,9 +27,8 @@ back.notes = `Go back to previous location`
 // edit
 //------------------------------------------------------------------------
 
-async function edit({ location, words, past, table }) {
+async function edit({ location, words, past, table, ui }) {
   location = await libcommands.getDestination({ location, words, past, table })
-  // const { path } = location
   const node = await location.datasource.get(location.path)
 
   // node's datasource should know how to handle the edit cmd -
@@ -44,9 +43,9 @@ edit.notes = `Edit notes for this or another location`
 // go
 //------------------------------------------------------------------------
 
-async function go({ location, words, past, table }) {
+async function go({ location, words, past, table, ui }) {
   location = await libcommands.getDestination({ location, words, past, table })
-  const ret = await look({ location })
+  const ret = await look({ location, ui })
   const output = ret.output
   past.push(location)
   return { location, output }
@@ -86,11 +85,11 @@ info.notes = `Get debugging info`
 // look
 //------------------------------------------------------------------------
 
-async function look({ location, words = [], past = [], table = {} }) {
+async function look({ location, ui, words = [], past = [], table = {} }) {
   location = await libcommands.getDestination({ location, words, past, table })
   const node = await location.datasource.get(location.path)
   const name = await node.get('name')
-  print(chalk.bold(name))
+  await ui.print(chalk.bold(name))
   //. attach data to view, execute it
   //. maybe treetable returns a new View object, like driver.connect()?
   //. use metadata to determine what cols to include, sort, group, and order, etc.
@@ -115,11 +114,11 @@ look.alias = 'l'
 // list
 //------------------------------------------------------------------------
 
-async function list({ location, words = [], past = [], table = {} }) {
+async function list({ location, ui, words = [], past = [], table = {} }) {
   location = await libcommands.getDestination({ location, words, past, table })
   const node = await location.datasource.get(location.path)
   const name = await node.get('name')
-  print(chalk.bold(name))
+  await ui.print(chalk.bold(name))
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
@@ -148,11 +147,11 @@ list.notes = `List contents of this or another location`
 // read
 //------------------------------------------------------------------------
 
-async function read({ location, words = [], past = [], table = {} }) {
+async function read({ location, ui, words = [], past = [], table = {} }) {
   location = await libcommands.getDestination({ location, words, past, table })
   const node = await location.datasource.get(location.path)
   const name = await node.get('name')
-  print(chalk.bold(name))
+  await ui.print(chalk.bold(name))
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
@@ -174,10 +173,10 @@ read.notes = `Read contents of this or another location`
 // unknown
 //------------------------------------------------------------------------
 
-async function unknown({ words }) {
+async function unknown({ words, ui }) {
   // console.log({ words })
   if (words[0]) {
-    print('Huh?')
+    await ui.print('Huh?')
   }
 }
 // unknown.alias = 'undefined'
