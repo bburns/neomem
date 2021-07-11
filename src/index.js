@@ -19,9 +19,17 @@ Welcome to Neomem
 -----------------------------------------------------
 `
 
-const ui = new Ui()
-
 async function main() {
+  const readline = libreadline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    // prompt,
+  })
+  readline.on('line', handleLine)
+  readline.on('close', handleClose)
+
+  const ui = new Ui(readline)
+
   let datasource = drivers[filedriver].connect(filepath)
   // let datasource = drivers.connect(connectionString) //.
   let path = (await datasource.get('initialPath')) || ''
@@ -40,16 +48,9 @@ async function main() {
     )}\n> `
   const prompt = getPrompt(location)
   const past = [location] // array of previous locations
+  readline.setPrompt(prompt)
 
-  const readline = libreadline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt,
-  })
-  readline.on('line', handleLine)
-  readline.on('close', handleClose)
-
-  readline.prompt() // prints prompt - how incorporate in our ui.print?
+  readline.prompt() // print prompt, accept input, call handleLine
 
   // parse and execute command string
   async function handleLine(line) {
@@ -80,13 +81,13 @@ async function main() {
     console.log('Goodbye...')
     process.exit(0)
   }
+
+  async function printView(view) {
+    const rows = view.rows() // get generator/iterator
+    for (let row of rows) {
+      await ui.print(row)
+    }
+  }
 }
 
 main()
-
-async function printView(view) {
-  const rows = view.rows() // get generator/iterator
-  for (let row of rows) {
-    await ui.print(row)
-  }
-}
