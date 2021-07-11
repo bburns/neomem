@@ -72,3 +72,21 @@ export async function getRelated({ node, meta }) {
   }
   return objs
 }
+
+class Source {
+  constructor(node, meta) {
+    this.node = node
+    this.meta = meta
+  }
+}
+
+// a source is a data source that can be queried/iterated over etc
+export function getSource({ node, meta }) {
+  // function* foo() {
+  //   yield 1
+  //   yield 2
+  // }
+  // const source = foo()
+  const source = new Source(node, meta)
+  return source
+}

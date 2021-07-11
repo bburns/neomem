@@ -67,6 +67,12 @@ async function main() {
       if (ret.output) {
         print(ret.output)
       }
+      if (ret.view) {
+        // print(ret.view)
+        for (let row of ret.view.rows()) {
+          print(row)
+        }
+      }
     }
     print()
     const prompt = getPrompt(location)

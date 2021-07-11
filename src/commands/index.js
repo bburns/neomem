@@ -67,8 +67,8 @@ async function help() {
       aliases: aliasesReverse[key],
     }))
   const meta = { columns: 'command,description,aliases'.split(',') }
-  const rows = await views.table({ objs, meta })
-  return { output: rows }
+  // const rows = await views.table({ objs, meta })
+  // return { output: rows }
 }
 help.notes = `Get help`
 
@@ -127,14 +127,20 @@ async function list({ location, words = [], past = [], table = {} }) {
     includeSelf: false,
     axis: 'contents',
   }
-  const nodes = await libcommands.getRelated({ node, meta })
-  const rows = await views.table({ objs: nodes, meta })
-  //. wrap rows in a table structure with meta, axis, node
-  return { output: rows }
+  // const nodes = await libcommands.getRelated({ node, meta })
+  // const rows = await views.table({ objs: nodes, meta })
+  // //. wrap rows in a table structure with meta, axis, node
+  // return { output: rows }
   //. output of command could be an object with a print cmd that pulls data
   // from a bound datasource? then ui could do paging?
   // ui could also then reference rows by number from the output like 'go 4' etc.
   // return { table }
+
+  // get source object, to which we'll bind the table view
+  const source = libcommands.getSource({ node, meta })
+  // get table view object, which the ui will pull data from
+  const view = views.table({ source })
+  return { view }
 }
 list.notes = `List contents of this or another location`
 

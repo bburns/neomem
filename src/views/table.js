@@ -1,33 +1,50 @@
 // table view
 // used by console list command
 
-//. this is a table-console lib that converts raw table data to text for the console
-//. handle tree recursion and graph traversal
+//. this is a table-console lib that converts raw table data to text for the console.
+//. needs to handle tree recursion and graph traversal -
+// eg use source.meta.axis for traversal
 
-//. objs -> nodes? ie do we want to process a list/tree/graph of nodes here?
-// or expect plainer json objs? ie guess json - cmds could easily pipe json around.
-export async function table({ objs, meta }) {
-  let { columns } = meta
-  columns = ['n', ...columns]
-  const rows = [columns]
-  for (const [n, obj] of objs.entries()) {
-    // for (const obj of objs) {
-    //.
-    // const row = columns.map(column => obj[column])
-    const row = columns.map(column => {
-      if (column === 'n') {
-        return n
-      }
-      return typeof obj[column] === 'object' ? obj[column].name : obj[column]
-    })
-    rows.push(row)
+class TableView {
+  constructor(source) {
+    this.source = source
   }
-  // for (let [n,row] of rows.entries()) {
-  //   if (n === 0) {
-  //   }
-  // }
-  return rows
+  *rows() {
+    yield 1
+    yield 2
+  }
 }
+
+export function table({ source }) {
+  // return 'pok'
+  const view = new TableView()
+  return view
+}
+
+// //. objs -> nodes? ie do we want to process a list/tree/graph of nodes here?
+// // or expect plainer json objs? ie guess json - cmds could easily pipe json around.
+// export async function table({ objs, meta }) {
+//   let { columns } = meta
+//   columns = ['n', ...columns]
+//   const rows = [columns]
+//   for (const [n, obj] of objs.entries()) {
+//     // for (const obj of objs) {
+//     //.
+//     // const row = columns.map(column => obj[column])
+//     const row = columns.map(column => {
+//       if (column === 'n') {
+//         return n
+//       }
+//       return typeof obj[column] === 'object' ? obj[column].name : obj[column]
+//     })
+//     rows.push(row)
+//   }
+//   // for (let [n,row] of rows.entries()) {
+//   //   if (n === 0) {
+//   //   }
+//   // }
+//   return rows
+// }
 
 // export async function table({ node, meta, axis = null }) {
 //   const subnodes = [node]
