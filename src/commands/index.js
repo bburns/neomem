@@ -123,13 +123,12 @@ async function list({ location, words = [], past = [], table = {} }) {
   print(chalk.bold(name))
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
-  const meta = { columns: 'name,type,size,created'.split(',') }
-  const nodes = await libcommands.getRelated({
-    node,
-    meta,
+  const meta = {
+    columns: 'name,type,size,created'.split(','),
     includeSelf: false,
     axis: 'contents',
-  })
+  }
+  const nodes = await libcommands.getRelated({ node, meta })
   const rows = await views.table({ objs: nodes, meta })
   //. wrap rows in a table structure with meta, axis, node
   // return { output: rows }
@@ -154,13 +153,10 @@ async function read({ location, words = [], past = [], table = {} }) {
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
     columns: 'name,notes'.split(','),
-  }
-  const objs = await libcommands.getRelated({
-    node,
-    meta,
     includeSelf: false,
     axis: 'contents',
-  })
+  }
+  const objs = await libcommands.getRelated({ node, meta })
   //. return a View object with method to render as string etc?
   //. or a closure with fns to render data?
   //. or json object with { meta, nodes, edges, history }?

@@ -2,7 +2,7 @@
 // console interface to neomem
 
 // based on https://nodejs.org/api/readline.html#readline_example_tiny_cli
-// originally used https://nodejs.org/api/repl.html but nowork with text editor
+// originally tried https://nodejs.org/api/repl.html but nowork with console text editors
 
 import libreadline from 'readline' // node lib
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
@@ -13,8 +13,10 @@ const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it
 //. const connectionString = 'file://src/data/index.js'
 
-//. make a ui object
+//. make a ui object with other methods
 const print = console.log
+let pageWidth = 100
+let pageHeight = 20
 
 const welcome = `
 Welcome to Neomem

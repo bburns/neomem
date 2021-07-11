@@ -44,16 +44,11 @@ export async function getDestination({ location, words, past, table }) {
 // get related items
 //. need this to be a lazy fn so ui can pull data as needed, for pagination.
 //. make it a class/object with fetch fn? or pass in a callback to feed data to?
-export async function getRelated({
-  node,
-  meta,
-  includeSelf = true,
-  axis = null,
-}) {
+export async function getRelated({ node, meta }) {
   // get list of node objects
   const subnodes = [] //. make optional to include self
-  if (includeSelf) subnodes.push(node)
-  if (axis) {
+  if (meta.includeSelf) subnodes.push(node)
+  if (meta.axis) {
     // const keys = await node.get(axis) // eg get('contents') -> array of itemkeys
     // // const path = (await node.get('path')) || '.'
     // for (const key of keys) {
@@ -64,7 +59,7 @@ export async function getRelated({
     //   const subnode = await node.datasource.get(subpath)
     //   subnodes.push(subnode)
     // }
-    const nodes = await node.get(axis) // eg get('contents') -> array of nodes
+    const nodes = await node.get(meta.axis) // eg get('contents') -> array of nodes
     subnodes.push(...nodes)
   }
 
