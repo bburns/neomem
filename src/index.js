@@ -23,7 +23,6 @@ async function main() {
   const readline = libreadline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    // prompt,
   })
   readline.on('line', handleLine)
   readline.on('close', handleClose)
@@ -46,10 +45,10 @@ async function main() {
       // '[' + chalk.gray(location.datasource.type + '://') + location.path + ']'
       '[' + location.path + ']'
     )}\n> `
-  const prompt = getPrompt(location)
   const past = [location] // array of previous locations
-  readline.setPrompt(prompt)
 
+  const prompt = getPrompt(location)
+  readline.setPrompt(prompt)
   readline.prompt() // print prompt, accept input, call handleLine
 
   // parse and execute command string
@@ -68,7 +67,7 @@ async function main() {
         await ui.print(ret.output)
       }
       if (ret.view) {
-        printView(ret.view)
+        await printView(ret.view)
       }
     }
     await ui.print()

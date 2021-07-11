@@ -7,46 +7,55 @@ let pageHeight = 5
 export class Ui {
   constructor(readline) {
     this.readline = readline
-    this.nrow = 0
+    this.nline = 0
   }
 
   reset() {
-    this.nrow = 0
+    this.nline = 0
   }
 
+  // print is the ui fn that pulls data from the view and hence
+  // from the source and hence from the driver and the actual data.
+  // data can be a string, array, object - print will chop it up into rows,
+  // convert row to string, then chop the string into lines, and print one by one.
+  // if reach height of page, prints [more] and waits for keypress (buggy now).
+  //. keypress can be a command - p(rev), n(ext), f(irst), l(ast) - (or do like `less`)
   async print(data) {
-    let lines = []
+    let rows = []
     if (lib.isObject(data)) {
-      lines = Object.keys(data).map(key => {
+      rows = Object.keys(data).map(key => {
         const value = data[key]
         return `${key}: ${value}`
       })
     } else if (Array.isArray(data)) {
-      lines = data
+      rows = data
     } else {
-      lines = [data]
+      rows = [data]
     }
-    //. split data/str into lines, break at space before pageWidth
+    //. convert rows to strings, chop into lines - break at space before pageWidth,
+    // then print lines one by one
+    const lines = rows
     for (let line of lines) {
       console.log(line)
-      this.nrow++
-      if (this.nrow > pageHeight) {
+      this.nline++
+      if (this.nline > pageHeight) {
         process.stdin.write('[more...]')
-        await this.getKeypress()
-        // getChar()
-        // console.log()
-        this.readline.clearLine(process.stdout, -1) //nowork?
-        this.nrow = 0
+        const key = await this.getKeypress() //. needs to eat the key
+        // this.readline.clearLine(process.stdout, -1) //. nowork
+        this.nline = 0 // reset the counter
+        //. handle commands - p,n,f,l,q etc
+        if (key === 'q') break
       }
     }
   }
 
+  //. this doesn't quite work - it echos the character and doesn't erase the [more] - fix
   async getKeypress() {
     return new Promise(resolve => {
       var stdin = process.stdin
       stdin.setRawMode(true) // so get each keypress
-      // stdin.resume() // resume stdin in the parent process
-      // stdin.pause()
+      stdin.resume() // resume stdin in the parent process (??)
+      // stdin.pause() // doing this causes process to exit
       // stdin.setEncoding('utf8')
       // stdin.on('data', buffer => {
       //   // stdin.resume() // resume stdin in the parent process
@@ -54,12 +63,14 @@ export class Ui {
       //   // stdin.on('data', () => {})
       //   resolve(buffer.toString())
       // })
-      stdin.once('data', onData)
+      stdin.once('data', onData) // once is like on but removes listener afterwards
       function onData(buffer) {
+        //. need stdin to eat the character now somehow, as it ends up in the input line
         // console.log('Inside onData')
-        // stdin.removeListener('data', onData)
         stdin.setRawMode(false)
+        console.log()
         // stdin.resume() // resume stdin in the parent process
+        // stdin.pause() // causes process to exit
         resolve(buffer.toString())
       }
     })

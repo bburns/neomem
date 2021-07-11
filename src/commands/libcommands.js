@@ -78,21 +78,23 @@ class Source {
     this.node = node
     this.meta = meta
     this.pointer = node
+    this.cache = {}
   }
   *nodes() {
     if (this.meta.includeSelf) {
       yield this.node
     }
-    yield 'pokpok'
-    yield 'lkmlkm'
     //. fetch a block of data, add to cache, yield one by one.
     //. when reach end, try fetching more data using pagination info in header,
     // and repeat.
+    // yield 'pokpok'
+    // yield 'lkmlkm'
+    this.node.get(this.meta.axis, 100)
   }
 }
 
 // a source is a data source that can be queried/iterated over etc.
-//. store a cache of nodes, so user can switch views and use same data.
+//. also keep a cache of nodes, so user can switch views and use same data.
 export function getSource({ node, meta }) {
   const source = new Source(node, meta)
   return source
