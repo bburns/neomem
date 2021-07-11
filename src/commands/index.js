@@ -87,8 +87,6 @@ info.notes = `Get debugging info`
 //------------------------------------------------------------------------
 
 async function look({ location, words = [], past = [], table = {} }) {
-  // const notes = ((await node.get('notes')) || '').slice(0, 60) //.
-  // const printRow = (name, value) => print(name + ':', value)
   location = await libcommands.getDestination({ location, words, past, table })
   const node = await location.datasource.get(location.path)
   const name = await node.get('name')
@@ -100,6 +98,7 @@ async function look({ location, words = [], past = [], table = {} }) {
   const meta = {
     columns:
       'name,path,type,notes,source,contents,exits,created,modified'.split(','),
+    includeSelf: true,
   }
   const nodes = await libcommands.getRelated({ node, meta })
   // now 'pipe' the nodes json to the properties view.
@@ -131,11 +130,11 @@ async function list({ location, words = [], past = [], table = {} }) {
   const nodes = await libcommands.getRelated({ node, meta })
   const rows = await views.table({ objs: nodes, meta })
   //. wrap rows in a table structure with meta, axis, node
-  // return { output: rows }
+  return { output: rows }
   //. output of command could be an object with a print cmd that pulls data
   // from a bound datasource? then ui could do paging?
   // ui could also then reference rows by number from the output like 'go 4' etc.
-  return { table }
+  // return { table }
 }
 list.notes = `List contents of this or another location`
 
@@ -144,7 +143,6 @@ list.notes = `List contents of this or another location`
 //------------------------------------------------------------------------
 
 async function read({ location, words = [], past = [], table = {} }) {
-  // const notes = ((await node.get('notes')) || '').slice(0, 60) //.
   location = await libcommands.getDestination({ location, words, past, table })
   const node = await location.datasource.get(location.path)
   const name = await node.get('name')
