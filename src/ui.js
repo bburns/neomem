@@ -98,7 +98,8 @@ export class Ui {
         cmd = await this.print(row) //. will break rows into lines and print each
         if (cmd === 'quit') break
       }
-      start += count
+      cmd = 'quit'
+      // start += count
     } while (cmd !== 'quit')
   }
 }

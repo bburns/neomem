@@ -1,7 +1,7 @@
 // table view
 // used by console list command
 
-//. this is a table-console lib that converts raw table data to text for the console.
+// this is a table-console lib that converts raw table data to text for the console.
 //. handle tree recursion and graph traversal - eg use source.meta.axis for traversal.
 
 class TableView {
@@ -9,19 +9,17 @@ class TableView {
     this.source = source
   }
 
-  //. this needs to do projection for each node, or source does
+  // get rows of text
   async *getRows(start, count) {
-    // yield `name   type   created`
-    // yield `-------------------------------------`
     const { columns } = this.source.meta
-    const header = columns.join('    ')
+    const header = columns.join('  |  ')
     yield header
     const line = `-----------------------------------------------`
     yield line
     const objs = await this.source.getObjs(start, count) // get projections for each node
     for await (let obj of objs) {
       // convert obj to row string
-      const str = columns.map(column => obj[column]).join('    ')
+      const str = columns.map(column => obj[column]).join('  |  ')
       yield str
     }
   }
