@@ -8,6 +8,7 @@ class TableView {
   constructor(source) {
     this.source = source
   }
+
   //. this needs to do projection for each node, or source does
   async *getRows(start, count) {
     // const nodes = this.source.getNodes(start, count)

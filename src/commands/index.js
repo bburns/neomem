@@ -3,6 +3,7 @@
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { views } from '../views/index.js'
 import * as libcommands from './libcommands.js'
+import { getSource } from './source.js'
 // import * as lib from '../lib.js'
 
 //. make a ui object, pass to each cmd. use to get disambiguation etc
@@ -137,7 +138,7 @@ async function list({ location, ui, words = [], past = [], table = {} }) {
 
   // get a source object that wraps the node and further queries,
   // and bind that to a table view object. the ui will render the view.
-  const source = libcommands.getSource({ node, meta })
+  const source = getSource({ node, meta })
   const view = views.table({ source })
   return { view }
 }

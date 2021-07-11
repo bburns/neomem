@@ -132,10 +132,12 @@ class NodeJsonTimegraph {
   }
 
   // get specific properties of node, return as js obj
-  getProjection(meta) {
-    const obj = meta.columns.map(async column => {
-      return await this.get(column)
-    })
+  async getProjection(meta) {
+    const obj = {}
+    for (let column of meta.columns) {
+      const value = await this.get(column)
+      obj[column] = value
+    }
     return obj
   }
 

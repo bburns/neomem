@@ -87,14 +87,13 @@ export class Ui {
   //. this is in charge of fetching data by page/rownum,
   // and letting user jump around the data with kbd cmds.
   async printView(view) {
-    // let npage = 0
-    // let nrow = 0
     let start = 0
     let cmd = 'quit'
     do {
       // view will fetch data in pages(?), return iterator over each page?
       let count = this.pageHeight
       const rows = await view.getRows(start, count) // get generator/iterator
+      // console.log(rows)
       for await (let row of rows) {
         cmd = await this.print(row) //. will break rows into lines and print each
         if (cmd === 'quit') break
