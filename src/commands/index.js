@@ -136,9 +136,9 @@ async function list({ location, words = [], past = [], table = {} }) {
   // ui could also then reference rows by number from the output like 'go 4' etc.
   // return { table }
 
-  // get source object, to which we'll bind the table view
+  // get a source object that wraps the node and further queries,
+  // and bind that to a table view object. the ui will render the view.
   const source = libcommands.getSource({ node, meta })
-  // get table view object, which the ui will pull data from
   const view = views.table({ source })
   return { view }
 }

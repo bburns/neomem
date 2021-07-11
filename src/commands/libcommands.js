@@ -78,15 +78,15 @@ class Source {
     this.node = node
     this.meta = meta
   }
+  *nodes() {
+    yield 1
+    yield 2
+  }
 }
 
-// a source is a data source that can be queried/iterated over etc
+// a source is a data source that can be queried/iterated over etc.
+//. store a cache of nodes, so user can switch views and use same data.
 export function getSource({ node, meta }) {
-  // function* foo() {
-  //   yield 1
-  //   yield 2
-  // }
-  // const source = foo()
   const source = new Source(node, meta)
   return source
 }

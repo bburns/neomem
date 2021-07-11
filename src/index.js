@@ -68,10 +68,10 @@ async function main() {
         print(ret.output)
       }
       if (ret.view) {
-        // print(ret.view)
-        for (let row of ret.view.rows()) {
-          print(row)
-        }
+        // for (let row of ret.view.rows()) {
+        // print(row)
+        // }
+        printWithMore(ret.view)
       }
     }
     print()
@@ -87,3 +87,10 @@ async function main() {
 }
 
 main()
+
+function printWithMore(view) {
+  // print(view)
+  for (let row of view.rows()) {
+    print(row)
+  }
+}

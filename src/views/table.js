@@ -2,22 +2,19 @@
 // used by console list command
 
 //. this is a table-console lib that converts raw table data to text for the console.
-//. needs to handle tree recursion and graph traversal -
-// eg use source.meta.axis for traversal
+//. handle tree recursion and graph traversal - eg use source.meta.axis for traversal.
 
 class TableView {
   constructor(source) {
     this.source = source
   }
   *rows() {
-    yield 1
-    yield 2
+    yield* this.source.nodes()
   }
 }
 
 export function table({ source }) {
-  // return 'pok'
-  const view = new TableView()
+  const view = new TableView(source)
   return view
 }
 
