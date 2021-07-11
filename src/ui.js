@@ -90,14 +90,15 @@ export class Ui {
     let start = 0
     let cmd = 'quit'
     do {
-      // view will fetch data in pages(?), return iterator over each page?
       let count = this.pageHeight
+      // view fetches data in pages(?), returns iterator over each page?
       const rows = await view.getRows(start, count) // get generator/iterator
       // console.log(rows)
       for await (let row of rows) {
         cmd = await this.print(row) //. will break rows into lines and print each
         if (cmd === 'quit') break
       }
+      start += count
     } while (cmd !== 'quit')
   }
 }

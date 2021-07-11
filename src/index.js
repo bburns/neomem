@@ -39,7 +39,6 @@ async function main() {
   // const ret = await commands.look({ location, ui })
   // await ui.print(ret.output)
   const ret = await commands.list({ location, ui })
-  // console.log(ret.view)
   await ui.printView(ret.view)
   await ui.print()
 

@@ -31,12 +31,11 @@ class Source {
     }
   }
 
-  async *getRows(start, count) {
+  async *getObjs(start, count) {
     const nodes = await this.getNodes(start, count)
     for await (let node of nodes) {
-      // const row = project(node, meta)
-      const row = await node.getProjection(this.meta)
-      yield row
+      const obj = await node.getProjection(this.meta) // get js obj
+      yield obj
     }
   }
 }

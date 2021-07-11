@@ -11,10 +11,18 @@ class TableView {
 
   //. this needs to do projection for each node, or source does
   async *getRows(start, count) {
-    // const nodes = this.source.getNodes(start, count)
-    const rows = await this.source.getRows(start, count)
-    for await (let row of rows) {
-      yield row
+    // yield `name   type   created`
+    // yield `-------------------------------------`
+    const { columns } = this.source.meta
+    const header = columns.join('    ')
+    yield header
+    const line = `-----------------------------------------------`
+    yield line
+    const objs = await this.source.getObjs(start, count) // get projections for each node
+    for await (let obj of objs) {
+      // convert obj to row string
+      const str = columns.map(column => obj[column]).join('    ')
+      yield str
     }
   }
 }
