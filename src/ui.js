@@ -84,23 +84,28 @@ export class Ui {
     })
   }
 
-  //. this is in charge of fetching data by page/rownum,
+  // printView is in charge of fetching data by page/rownum
   // and letting user jump around the data with kbd cmds.
   async printView(view) {
     let start = 0
-    let cmd = 'quit'
-    do {
-      let count = this.pageHeight
-      // view fetches data in pages(?), returns iterator over each page?
+    let cmd = null
+    //. fix this loop - confusing
+    top: while (cmd !== 'quit') {
+      let count = this.pageHeight //. this could change if user resizes screen
+      // fetch data in rows of text - returns iterator over each page
       const rows = await view.getRows(start, count) // get generator/iterator
-      // console.log(rows)
       for await (let row of rows) {
         cmd = await this.print(row) //. will break rows into lines and print each
-        if (cmd === 'quit') break
+        if (cmd === 'quit') {
+          break top
+        } else if (cmd === 'first') {
+          start = 0
+          break
+        }
       }
-      cmd = 'quit'
       // start += count
-    } while (cmd !== 'quit')
+      cmd = 'quit'
+    }
   }
 }
 
