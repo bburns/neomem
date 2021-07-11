@@ -35,8 +35,10 @@ export class Ui {
     }
     //. convert rows to strings, chop strs into lines - break at space before pageWidth.
     const lines = rows //. just do this for now
+
     // print lines one by one, pausing when reach page height.
     // handle commands, including q for stopping output.
+    let cmd = 'next'
     for (let line of lines) {
       console.log(line)
       this.nline++
@@ -49,6 +51,7 @@ export class Ui {
         if (key === 'q') break
       }
     }
+    return cmd
   }
 
   //. this doesn't quite work - it echos the character and doesn't erase the [more] - fix
@@ -68,6 +71,7 @@ export class Ui {
       stdin.once('data', onData) // once is like on but removes listener afterwards
       function onData(buffer) {
         //. need stdin to eat the character now somehow, as it ends up in the input line
+        // getChar() // error - readsync unavailable
         // console.log('Inside onData')
         stdin.setRawMode(false)
         console.log()
@@ -77,25 +81,32 @@ export class Ui {
       }
     })
   }
-  //. this needs to be in charge of fetching data by page/rownum,
-  // ie let user jump around the data.
+
+  //. this is in charge of fetching data by block/page/rownum,
+  // and letting user jump around the data with kbd cmds.
   async printView(view) {
-    const rows = view.rows() // get generator/iterator //. pass page/rownum, count?
-    for (let row of rows) {
-      await print(row)
+    let npage = 0
+    let nrow = 0
+    while (true) {
+      //. pass page/rownum, count
+      const page = view.rows() // get generator/iterator
+      for (let row of page) {
+        const cmd = await this.print(row)
+        if (cmd === 'quit') break
+      }
     }
   }
 }
 
-// nowork - waits for hit enter
+// // nowork - waits for hit enter
 // function getChar() {
 //   let buffer = Buffer.alloc(1)
 //   fs.readSync(0, buffer, 0, 1, null)
 //   return buffer.toString('utf8')
 // }
 
-// nowork - returns immediately
-// function getChar() {
+// // nowork - returns immediately
+// function getChars() {
 //   var size = fs.fstatSync(process.stdin.fd).size
 //   var buffer = size > 0 ? fs.readSync(process.stdin.fd, size)[0] : ''
 //   return buffer.toString()
