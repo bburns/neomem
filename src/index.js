@@ -67,7 +67,7 @@ async function main() {
         await ui.print(ret.output)
       }
       if (ret.view) {
-        await printView(ret.view)
+        await ui.printView(ret.view)
       }
     }
     await ui.print()
@@ -79,13 +79,6 @@ async function main() {
   function handleClose() {
     console.log('Goodbye...')
     process.exit(0)
-  }
-
-  async function printView(view) {
-    const rows = view.rows() // get generator/iterator
-    for (let row of rows) {
-      await ui.print(row)
-    }
   }
 }
 

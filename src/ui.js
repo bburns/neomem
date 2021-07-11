@@ -20,7 +20,8 @@ export class Ui {
   // convert row to string, then chop the string into lines, and print one by one.
   // if reach height of page, prints [more] and waits for keypress (buggy now).
   //. keypress can be a command - p(rev), n(ext), f(irst), l(ast) - (or do like `less`)
-  async print(data) {
+  async print(data = '') {
+    // split data into rows
     let rows = []
     if (lib.isObject(data)) {
       rows = Object.keys(data).map(key => {
@@ -32,9 +33,10 @@ export class Ui {
     } else {
       rows = [data]
     }
-    //. convert rows to strings, chop into lines - break at space before pageWidth,
-    // then print lines one by one
-    const lines = rows
+    //. convert rows to strings, chop strs into lines - break at space before pageWidth.
+    const lines = rows //. just do this for now
+    // print lines one by one, pausing when reach page height.
+    // handle commands, including q for stopping output.
     for (let line of lines) {
       console.log(line)
       this.nline++
@@ -43,7 +45,7 @@ export class Ui {
         const key = await this.getKeypress() //. needs to eat the key
         // this.readline.clearLine(process.stdout, -1) //. nowork
         this.nline = 0 // reset the counter
-        //. handle commands - p,n,f,l,q etc
+        //. handle commands - p,n,f,l,q etc - how do? ie jump around data source?
         if (key === 'q') break
       }
     }
@@ -74,6 +76,14 @@ export class Ui {
         resolve(buffer.toString())
       }
     })
+  }
+  //. this needs to be in charge of fetching data by page/rownum,
+  // ie let user jump around the data.
+  async printView(view) {
+    const rows = view.rows() // get generator/iterator //. pass page/rownum, count?
+    for (let row of rows) {
+      await print(row)
+    }
   }
 }
 
