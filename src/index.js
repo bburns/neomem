@@ -13,15 +13,19 @@ const filepath = './src/data/index.js' //. pass via envar or param
 const filedriver = 'jsonTimegraph' //. ditto, until can automate it
 //. const connectionString = 'file://src/data/index.js'
 
-//. make a ui object with other methods
 let pageWidth = 100
-let pageHeight = 2
-
+let pageHeight = 4
 let nrow = 0
 async function print(data) {
-  const str = String(data)
-  //. split str into lines, break at space before pageWidth
-  const lines = [str]
+  let lines = []
+  if (Array.isArray(data)) {
+    lines = data
+  } else {
+    lines = [data]
+  }
+  // const str = String(data)
+  //. split data/str into lines, break at space before pageWidth
+  // const lines = [str]
   for (let line of lines) {
     console.log(line)
     nrow++
@@ -40,19 +44,10 @@ const ui = {
 async function getKeypress() {
   return new Promise(resolve => {
     var stdin = process.stdin
-    // without this, we would only get streams once enter is pressed
-    stdin.setRawMode(true)
-    // resume stdin in the parent process (node app won't quit all by itself
-    // unless an error or process.exit() happens)
-    stdin.resume()
-    // i don't want binary, do you?
+    stdin.setRawMode(true) // so get each keypress
+    stdin.resume() // resume stdin in the parent process
     stdin.setEncoding('utf8')
-    // on any data into stdin
-    stdin.on('data', function (key) {
-      resolve(key.toString())
-      // write the key to stdout all normal like
-      // process.stdout.write(key)
-    })
+    stdin.on('data', buffer => resolve(buffer.toString()))
   })
 }
 
