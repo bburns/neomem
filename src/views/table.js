@@ -8,7 +8,7 @@ class TableView {
   constructor(source) {
     this.source = source
   }
-  *rows() {
+  *getRows(start, count) {
     yield* this.source.nodes()
   }
 }

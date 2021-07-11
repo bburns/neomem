@@ -1,13 +1,12 @@
 import fs from 'fs'
 import * as lib from './lib.js'
 
-let pageWidth = 100
-let pageHeight = 5
-
 export class Ui {
   constructor(readline) {
     this.readline = readline
     this.nline = 0
+    this.pageHeight = 5
+    this.pageWidth = 100
   }
 
   reset() {
@@ -42,7 +41,7 @@ export class Ui {
     for (let line of lines) {
       console.log(line)
       this.nline++
-      if (this.nline > pageHeight) {
+      if (this.nline > this.pageHeight) {
         process.stdin.write('[more...]')
         const key = await this.getKeypress() //. needs to eat the key
         // this.readline.clearLine(process.stdout, -1) //. nowork
@@ -82,19 +81,22 @@ export class Ui {
     })
   }
 
-  //. this is in charge of fetching data by block/page/rownum,
+  //. this is in charge of fetching data by page/rownum,
   // and letting user jump around the data with kbd cmds.
   async printView(view) {
-    let npage = 0
-    let nrow = 0
-    while (true) {
-      //. pass page/rownum, count
-      const page = view.rows() // get generator/iterator
-      for (let row of page) {
-        const cmd = await this.print(row)
+    // let npage = 0
+    // let nrow = 0
+    let start = 0
+    let cmd = 'quit'
+    do {
+      // view will fetch data in pages(?), return iterator over each page?
+      let count = this.pageHeight
+      const rows = view.getRows(start, count) // get generator/iterator
+      for (let row of rows) {
+        cmd = await this.print(row) //. will break rows into lines and print each
         if (cmd === 'quit') break
       }
-    }
+    } while (cmd !== 'quit')
   }
 }
 
