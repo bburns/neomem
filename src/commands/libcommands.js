@@ -77,10 +77,17 @@ class Source {
   constructor(node, meta) {
     this.node = node
     this.meta = meta
+    this.pointer = node
   }
   *nodes() {
-    yield 1
-    yield 2
+    if (this.meta.includeSelf) {
+      yield this.node
+    }
+    yield 'pokpok'
+    yield 'lkmlkm'
+    //. fetch a block of data, add to cache, yield one by one.
+    //. when reach end, try fetching more data using pagination info in header,
+    // and repeat.
   }
 }
 

@@ -101,6 +101,7 @@ class NodeJsonTimegraph {
   }
 
   // get array of NodeJsonTimegraph objects
+  //. assuming user wants the whole thing in an array, for now
   getContents() {
     const edges = this.getEdges()
     const contents = edges.map(edge => this.datasource.index.nodeId[edge._to])

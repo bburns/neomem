@@ -3,7 +3,7 @@ import libpath from 'path'
 import liburl from 'url'
 import { NodeFilesys } from './node.js'
 
-// create __dirname since we're using esm modules
+// must create __dirname since we're using esm modules
 // see https://github.com/nodejs/help/issues/2907#issuecomment-757446568
 // @ts-ignore
 const __dirname = libpath.dirname(liburl.fileURLToPath(import.meta.url))

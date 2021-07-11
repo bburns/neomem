@@ -16,7 +16,7 @@ const filedriver = 'jsonTimegraph' //. ditto, until can automate it
 //. make a ui object with other methods
 const print = console.log
 let pageWidth = 100
-let pageHeight = 20
+let pageHeight = 2
 
 const welcome = `
 Welcome to Neomem
@@ -68,9 +68,6 @@ async function main() {
         print(ret.output)
       }
       if (ret.view) {
-        // for (let row of ret.view.rows()) {
-        // print(row)
-        // }
         printWithMore(ret.view)
       }
     }
@@ -89,8 +86,15 @@ async function main() {
 main()
 
 function printWithMore(view) {
-  // print(view)
-  for (let row of view.rows()) {
-    print(row)
+  const rows = view.rows() // generator/iterator
+  let npage = 0
+  while (true) {
+    let nrow = 1
+    for (let row of rows) {
+      print(row)
+      nrow++
+      if (nrow > pageHeight) break
+    }
+    break
   }
 }
