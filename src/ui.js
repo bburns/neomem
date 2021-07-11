@@ -47,7 +47,10 @@ export class Ui {
         // this.readline.clearLine(process.stdout, -1) //. nowork
         this.nline = 0 // reset the counter
         //. handle commands - p,n,f,l,q etc - how do? ie jump around data source?
-        if (key === 'q') break
+        if (key === 'q') {
+          cmd = 'quit'
+          break
+        }
       }
     }
     return cmd

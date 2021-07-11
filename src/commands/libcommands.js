@@ -80,6 +80,8 @@ class Source {
     this.pointer = node
     this.cache = {}
   }
+
+  //. need to project nodes into json objs according to metadata, yes?
   async *getNodes(start, count) {
     if (this.meta.includeSelf) {
       yield this.node
@@ -91,9 +93,17 @@ class Source {
     // yield 'lkmlkm'
     console.log('axis', this.meta.axis)
     const nodes = await this.node.get(this.meta.axis)
-    console.log({ nodes })
-    for (let node of nodes) {
+    for await (let node of nodes) {
       yield node
+    }
+  }
+
+  async *getRows(start, count) {
+    const nodes = await this.getNodes(start, count)
+    for await (let node of nodes) {
+      // const row = project(node, meta)
+      const row = node.getProjection(this.meta)
+      yield row
     }
   }
 }

@@ -131,6 +131,14 @@ class NodeJsonTimegraph {
     return libdrivers.sizeOf(this)
   }
 
+  // get specific properties of node, return as js obj
+  getProjection(meta) {
+    const obj = meta.columns.map(async column => {
+      return await this.get(column)
+    })
+    return obj
+  }
+
   // crud operations
 
   // some props are simple keyvalue items, some are relnships, etc

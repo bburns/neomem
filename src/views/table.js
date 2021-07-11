@@ -8,12 +8,12 @@ class TableView {
   constructor(source) {
     this.source = source
   }
+  //. this needs to do projection for each node, or source does
   async *getRows(start, count) {
-    // yield* this.source.getNodes(start, count)
-    const nodes = this.source.getNodes(start, count)
-    console.log({ nodes })
-    for await (let node of nodes) {
-      yield node
+    // const nodes = this.source.getNodes(start, count)
+    const rows = await this.source.getRows(start, count)
+    for await (let row of rows) {
+      yield row
     }
   }
 }
