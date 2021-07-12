@@ -4,6 +4,11 @@
 // this is a table-console lib that converts raw table data to text for the console.
 //. handle tree recursion and graph traversal - eg use source.meta.axis for traversal.
 
+export function table({ source }) {
+  const view = new TableView(source)
+  return view
+}
+
 class TableView {
   constructor(source) {
     this.source = source
@@ -24,11 +29,6 @@ class TableView {
       yield str
     }
   }
-}
-
-export function table({ source }) {
-  const view = new TableView(source)
-  return view
 }
 
 // //. objs -> nodes? ie do we want to process a list/tree/graph of nodes here?

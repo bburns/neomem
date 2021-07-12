@@ -1,6 +1,11 @@
 // properties view
 // used by console look and compare commands
 
+export function properties({ source }) {
+  const view = new PropertiesView(source)
+  return view
+}
+
 class PropertiesView {
   constructor(source) {
     this.source = source
@@ -9,58 +14,49 @@ class PropertiesView {
   // get rows of text
   //. not getLines?
   async *getRows(start, count) {
-    const { columns } = this.source.meta
     const header = ['property', 'value'].join('  |  ')
     yield header
     const line = `-----------------------------------------------`
     yield line
     const objs = await this.source.getObjs(start, count) // get projections for each node
-    console.log({ objs })
-    // for await (let obj of objs) {
-    //   // convert obj to row string
-    //   const str = columns.map(column => obj[column]).join('  |  ')
-    //   yield str
-    // }
+    const objs2 = []
+    for await (let obj of objs) {
+      objs2.push(obj)
+    }
+    const { columns } = this.source.meta
     for (const column of columns) {
       const values = []
-      for await (let obj of objs) {
-        // const values = objs.map(obj => {
+      for await (let obj of objs2) {
         const oc = obj[column]
-        // typeof obj[column] === 'object' ? obj[column].name : obj[column]
-        // const type = typeof obj[column]
         if (Array.isArray(oc)) {
-          // return an array? a string?
-          // return oc.map(o => o.name).join(', ')
-          // return oc.join(', ')
-          const value = oc.map(o => {
-            if (typeof o === 'object') {
-              return o.props.name
-            }
-            return o
-          })
-          // return value
+          //. return an array? a string?
+          const value = oc.map(o => (typeof o === 'object' ? o.props.name : o))
           values.push(value)
         } else if (typeof oc === 'object') {
-          // return oc.props.name
-          values.push(oc.props.name)
+          values.push(oc.props ? oc.props.name : '??')
         } else {
-          // return oc
           values.push(oc)
         }
       }
-      // const row = [column, ...values]
-      // const row = { property: column, value: values }
-      // rows.push(row)
-      // rows[column] = values
       const str = [column, ...values].join('  |  ')
       yield str
     }
-  }
-}
 
-export function properties({ source }) {
-  const view = new PropertiesView(source)
-  return view
+    // for await (let obj of objs) {
+    //   for (let column of columns) {
+    //     const oc = obj[column]
+    //     if (Array.isArray(oc)) {
+    //       //. return an array? a string?
+    //       const value = oc.map(o => (typeof o === 'object' ? o.props.name : o))
+    //       values.push(value)
+    //     } else if (typeof oc === 'object') {
+    //       values.push(oc.props.name)
+    //     } else {
+    //       values.push(oc)
+    //     }
+    //   }
+    // }
+  }
 }
 
 // // convert a list of node objects to a property table
