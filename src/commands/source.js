@@ -1,7 +1,7 @@
 // a source is a data source that can be queried/iterated over etc.
 
-//. also keep a cache of nodes, so user can switch views and use same data,
-// or just re-show same data.
+//. also keep a cache, so user can switch views and use same data,
+// or just re-show same data quickly.
 
 export function getSource({ node, meta }) {
   const source = new Source(node, meta)
@@ -12,11 +12,12 @@ class Source {
   constructor(node, meta) {
     this.node = node
     this.meta = meta
-    this.pointer = node
-    this.cache = {}
+    // this.pointer = node
+    // this.cache = {}
   }
 
-  // need to project nodes into json objs according to metadata -  see getObjs
+  // get nodes, starting from this.node and traversing by meta.axis.
+  //. handle recursion also.
   async *getNodes(start, count) {
     if (this.meta.includeSelf) {
       yield this.node

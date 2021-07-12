@@ -9,8 +9,9 @@ export class Ui {
   constructor(readline) {
     this.readline = readline //. might not need this
     this.nline = 0
-    this.pageHeight = 5 //.
-    this.pageWidth = 100
+    //. get from window size
+    this.pageHeight = 20 //.
+    this.pageWidth = 100 //.
   }
 
   resetPrint() {

@@ -2,12 +2,9 @@
 
 import chalk from 'chalk' // color text https://github.com/chalk/chalk
 import { views } from '../views/index.js'
+import { getSource } from './source.js' //. sources?
 import * as libcommands from './libcommands.js'
-import { getSource } from './source.js'
 // import * as lib from '../lib.js'
-
-//. make a ui object, pass to each cmd. use to get disambiguation etc
-// const print = console.log
 
 //------------------------------------------------------------------------
 // back
@@ -66,9 +63,17 @@ async function help() {
       description: commands[key].notes,
       aliases: aliasesReverse[key],
     }))
-  const meta = { columns: 'command,description,aliases'.split(',') }
-  // const rows = await views.table({ objs, meta })
-  // return { output: rows }
+  const meta = {
+    columns: 'command,description,aliases'.split(','),
+    includeSelf: false,
+    axis: 'children',
+  }
+  //. what if had diff types of data source? make a simple one for this stuff.
+  //. eg source = sources.plain({objs,meta}) - would provide the source api for the view.
+  const node = { get: axis => objs }
+  const source = getSource({ node, meta })
+  const view = await views.table({ source })
+  return { view }
 }
 help.notes = `Get help`
 
