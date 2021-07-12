@@ -24,9 +24,11 @@ class Source {
     //. fetch a block of data, add to cache, yield one by one.
     //. when reach end, try fetching more data using pagination info in header,
     // and repeat.
-    const nodes = await this.node.get(this.meta.axis)
-    for await (let node of nodes) {
-      yield node
+    if (this.meta.axis) {
+      const nodes = await this.node.get(this.meta.axis)
+      for await (let node of nodes) {
+        yield node
+      }
     }
   }
 

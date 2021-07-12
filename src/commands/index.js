@@ -91,22 +91,27 @@ async function look({ location, ui, words = [], past = [], table = {} }) {
   const node = await location.datasource.get(location.path)
   const name = await node.get('name')
   await ui.print(chalk.bold(name))
-  //. attach data to view, execute it
-  //. maybe treetable returns a new View object, like driver.connect()?
   //. use metadata to determine what cols to include, sort, group, and order, etc.
   //. this will have default cols, and store modifications with item, or type, or location etc.
   const meta = {
     columns:
       'name,path,type,notes,source,contents,exits,created,modified'.split(','),
     includeSelf: true,
+    axis: null, // yes?
   }
-  const nodes = await libcommands.getRelated({ node, meta })
-  // now 'pipe' the nodes json to the properties view.
-  // this is kind of like the gui, with the user selecting the properties view.
-  const rows = await views.properties({ objs: nodes, meta })
-  //. output of command could be an object with a print cmd that pulls data
-  // from a bound datasource? then ui could do paging?
-  return { output: rows }
+  // const nodes = await libcommands.getRelated({ node, meta })
+  // // now 'pipe' the nodes json to the properties view.
+  // // this is kind of like the gui, with the user selecting the properties view.
+  // const rows = await views.properties({ objs: nodes, meta })
+  // //. output of command could be an object with a print cmd that pulls data
+  // // from a bound datasource? then ui could do paging?
+  // return { output: rows }
+
+  // get a source object that wraps the node and further queries,
+  // and bind that to a properties view object. the ui will render the view.
+  const source = getSource({ node, meta })
+  const view = views.properties({ source })
+  return { view }
 }
 look.notes = `Look at this or another location`
 look.alias = 'l'

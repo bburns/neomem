@@ -10,6 +10,7 @@ class TableView {
   }
 
   // get rows of text
+  //. not getLines?
   async *getRows(start, count) {
     const { columns } = this.source.meta
     const header = columns.join('  |  ')

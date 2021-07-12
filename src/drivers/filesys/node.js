@@ -53,7 +53,7 @@ export class NodeFilesys {
 
   async getType() {
     const path = this.getPath()
-    const isFolder = await libfilesys.isDir(path)
+    const isFolder = await libfilesys.isDir(path) //. use fs.stat(path) ?
     if (isFolder) {
       return 'folder'
     } else {
@@ -86,6 +86,16 @@ export class NodeFilesys {
     const path = this.getPath()
     const stats = await fs.stat(path) //. store this in the node, with .dirty flag
     return stats.mtimeMs
+  }
+
+  // get specific properties of node, return as js obj
+  async getProjection(meta) {
+    const obj = {}
+    for (let column of meta.columns) {
+      const value = await this.get(column)
+      obj[column] = value
+    }
+    return obj
   }
 
   async get(spec) {
