@@ -70,6 +70,7 @@ async function help() {
   }
   //. what if had diff types of data source? make a simple one for this stuff.
   //. eg source = sources.plain({objs,meta}) - would provide the source api for the view.
+  //. or use the json driver with this?
   const node = { get: axis => objs }
   const source = getSource({ node, meta })
   const view = await views.table({ source })
@@ -104,14 +105,6 @@ async function look({ location, ui, words = [], past = [], table = {} }) {
     includeSelf: true,
     axis: null, // yes?
   }
-  // const nodes = await libcommands.getRelated({ node, meta })
-  // // now 'pipe' the nodes json to the properties view.
-  // // this is kind of like the gui, with the user selecting the properties view.
-  // const rows = await views.properties({ objs: nodes, meta })
-  // //. output of command could be an object with a print cmd that pulls data
-  // // from a bound datasource? then ui could do paging?
-  // return { output: rows }
-
   // get a source object that wraps the node and further queries,
   // and bind that to a properties view object. the ui will render the view.
   const source = getSource({ node, meta })
