@@ -127,15 +127,6 @@ async function list({ location, ui, words = [], past = [], table = {} }) {
     includeSelf: false,
     axis: 'contents',
   }
-  // const nodes = await libcommands.getRelated({ node, meta })
-  // const rows = await views.table({ objs: nodes, meta })
-  // //. wrap rows in a table structure with meta, axis, node
-  // return { output: rows }
-  //. output of command could be an object with a print cmd that pulls data
-  // from a bound datasource? then ui could do paging?
-  // ui could also then reference rows by number from the output like 'go 4' etc.
-  // return { table }
-
   // get a source object that wraps the node and further queries,
   // and bind that to a table view object. the ui will render the view.
   const source = getSource({ node, meta })

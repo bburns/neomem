@@ -3,9 +3,9 @@ import * as lib from './lib.js'
 
 export class Ui {
   constructor(readline) {
-    this.readline = readline
+    this.readline = readline //. might not need this
     this.nline = 0
-    this.pageHeight = 5
+    this.pageHeight = 5 //.
     this.pageWidth = 100
   }
 
@@ -32,6 +32,7 @@ export class Ui {
     } else {
       rows = [data]
     }
+
     //. convert rows to strings, chop strs into lines - break at space before pageWidth.
     const lines = rows //. just do this for now
 
@@ -46,7 +47,7 @@ export class Ui {
         const key = await this.getKeypress() //. needs to eat the key
         // this.readline.clearLine(process.stdout, -1) //. nowork
         this.nline = 0 // reset the counter
-        //. handle commands - p,n,f,l,q etc - how do? ie jump around data source?
+        //. handle commands - p,n,f,l,q etc
         if (key === 'q') {
           cmd = 'quit'
           break

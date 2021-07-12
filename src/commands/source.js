@@ -1,6 +1,8 @@
 // a source is a data source that can be queried/iterated over etc.
+
 //. also keep a cache of nodes, so user can switch views and use same data,
 // or just re-show same data.
+
 export function getSource({ node, meta }) {
   const source = new Source(node, meta)
   return source
@@ -14,8 +16,7 @@ class Source {
     this.cache = {}
   }
 
-  //. need to project nodes into json objs according to metadata, yes?
-  // see getRows for that
+  // need to project nodes into json objs according to metadata -  see getObjs
   async *getNodes(start, count) {
     if (this.meta.includeSelf) {
       yield this.node
@@ -29,7 +30,7 @@ class Source {
     }
   }
 
-  // get js objs, which are projections of nodes according to meta.columns
+  // get js objs, which are projections of nodes according to meta columns
   async *getObjs(start, count) {
     const nodes = await this.getNodes(start, count)
     for await (let node of nodes) {
