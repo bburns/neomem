@@ -37,8 +37,8 @@ async function main() {
   let datasource = drivers[filedriver].connect(filepath)
   let path = (await datasource.get('initialPath')) || ''
   let view = null
-  let location = { datasource, path, view } // each location
-  const past = [location] // array of previous locations
+  let location = { datasource, path, view } //. call this state?
+  const past = [location] // array of previous locations. call states?
 
   // print welcome and current location
   await ui.print(welcome)
