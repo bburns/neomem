@@ -9,7 +9,7 @@ export class Ui {
     this.pageWidth = 100
   }
 
-  reset() {
+  resetPrint() {
     this.nline = 0
   }
 
